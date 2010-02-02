@@ -1,0 +1,90 @@
+Query Isacrodi
+
+control =:None
+disease_image =: None
+disease =: None
+farmer =: None
+
+Start Isacrodi request
+
+farmer = call login()
+
+IF farmer THEN
+  WHILE control != None
+    WHILE CDR
+      add crop_descriptors
+      WHILE image
+       add image_descriptors
+      ENDWHILE
+      call verify_descriptors(crop_descriptors)
+      IF descriptors are correct
+        CDR = TRUE
+      ELSE
+        CDR = FALSE
+      END IF
+    ENDWHILE
+
+    start request
+
+    IF image THEN
+      disease_image =: call image_processing(image_stack, image_descriptors)
+    END IF
+    disease =: call CDR_classifier(disease_image, crop_descriptors)
+
+    IF disease != "healthy" THEN
+      create descriptor_array
+      call populate_repository(descriptor_array)
+    control:= call control(disease)
+ 
+ELSE
+  register()
+  call login()
+END IF
+
+
+
+
+----------------------------------- Functions -----------------------------
+
+function image_processing(image_stack, descriptors)
+  image_vector =: 0
+  disease =: None
+  FOR image in image_stack :
+    image_vector =: append.image_vector(call feature_extraction(image))
+  disease =: call image_classifier(image_vector, descriptors)
+  return disease
+
+
+function feature_extraction(image) :
+  extract_features
+  RETURN vector
+ 
+
+function image_classifier(image_vector, descriptors) :
+  perform classification
+  RETURN result
+
+
+function CDR_classifier(disease_image, crop_descriptors) :
+  perform classfication
+  RETURN result
+
+
+function control(disease) :
+   control =: None
+  control =: search_repository(disease)
+  RETURN control
+
+
+function populate_repository(descriptor_array) :
+  check_data_integrity
+  IF not in database
+    update database
+
+
+function register() :
+  create farmer
+  RETURN id
+
+function verify_descriptors(crop_descriptors) :
+  return (call_validate_information(crop_descriptors))
