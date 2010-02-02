@@ -1,0 +1,72 @@
+\documentclass[a4paper,fleqn]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[english]{babel}
+\usepackage{din_a4}
+\usepackage{graphicx}
+\usepackage{caption}
+
+\renewcommand{\captionfont}{\footnotesize\bfseries}
+
+\newcommand{\computercode}[1]{\texttt{#1}}
+\newcommand{\computermeta}[1]{\texttt{\textbf{\textit{#1}}}}
+
+\parindent0pt
+\parskip 1ex plus 0.3ex minus 0.2ex
+
+
+\begin{document}
+
+\title{GRNInfo Design Notes}
+\author{}
+\maketitle
+
+\includegraphics[width=10cm]{isacrodi_usecasediagram.eps}
+
+\includegraphics[width=10cm]{isacrodi_classdiagram.eps}
+
+\pagebreak
+
+\appendix
+
+
+
+\includegraphics[width=10cm]{isacrodi_scratch_classificationflow.eps}
+
+\section{Requirements}
+
+The system has to be able to recognise when it cannot classify the
+disorder underpinning a CDR.
+
+
+\section{Coding Standards}
+
+Suggestions:
+
+\begin{itemize}
+
+\item Two spaces per indentation level.
+
+\item Open braces on separate line.
+
+\item White space around binary operators.
+
+\item No white space between unary operators and operand.
+
+\item CamelCase identifiers, class names start with uppercase
+  character, method and variable names start with lowercase character.
+
+\item Full Javadoc documentation, minimally consisting of one sentence
+  in the main block and documentation of all of parameters and of the
+  return value.
+
+\end{itemize}
+
+\end{document}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
