@@ -22,7 +22,30 @@
 \author{}
 \maketitle
 
+\section{Design}
+
+\subsection{Use Cases}
+
 \includegraphics[width=10cm]{isacrodi_usecasediagram.eps}
+
+\begin{description}
+\item[Create CDR:] A user requests creation of a new CDR, and the
+  system sets up one for them (asking for a name of the CDR etc.)
+\item[Build CDR:] A user adds or amends further items of information
+  to the CDR.
+\item[request and obtain diagnosis:] The user requests diagnosis of
+  the case described by a CDR. The system computes a diagnosis and
+  reports that back to the user. The diagnosis is comprised of a list
+  of disorders that may affect the crop, and a list of recommendations
+  for treating the crop. The diagnosis may identify one (or more?)
+  descriptors that would be informative for improving precision of the
+  diagnosis (e.g.\ to distinguish diseases).
+\item[identify possible disorders:] The system computes probabilities
+  (or other scores) for each disease stored in the database. It
+  provides some indication which disorders are likely, and thus it is
+  a possible result that no likely disorders have been found.
+\end{description}
+
 
 \includegraphics[width=10cm]{isacrodi_classdiagram.eps}
 
