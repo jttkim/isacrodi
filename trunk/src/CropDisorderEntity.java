@@ -1,51 +1,61 @@
-package isacrodi
+package isacrodi.ejb.entity;
 
 @Entity
-@Table(name = "cropDisorder")
 
-public class CropDisorderEntity()
+public class CropDisorder()
 {
-	@Id
-	@Column(name = "name")
-	private String name;
-	@Column(name = "scientificName")
-	private String scientificName;
+  private Integer id;
+  private String name;
+  private String scientificName;
 
 
   CropDisorderEntity() 
-	{
-		super();
-	}
+  {
+    super();
+  }
 
 
   public String CropDisorderEntity(String name, String scientificName) 
-	{
-		this.name = name;
-		this scientificName = scientificName;
-	}
+  {
+    this.name = name;
+    this scientificName = scientificName;
+  }
 
 
-	public String getName() 
-	{
-		return name;
-	}
+  @Id
+  @GeneratedValue
+  public Integer getId()
+  {
+    return (this.id);
+  }
 
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+  public void setId(Integer id)
+  {
+    this.id = id;
+  }
 
 
-	public String getScientificName() 
-	{
-		return scientificName;
-	}
+  public String getName() 
+  {
+    return name;
+  }
 
 
-	public void setScientificName(String scientificName)
-	{
-		this.name = scientificName;
-	}
+  public void setName(String name)
+  {
+    this.name = name;
+  }
 
+
+  public String getScientificName() 
+  {
+    return scientificName;
+  }
+
+
+  public void setScientificName(String scientificName)
+  {
+    this.name = scientificName;
+  }
 }
