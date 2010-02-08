@@ -4,12 +4,15 @@ package isacrodi.ejb.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-
+import javax.persistence.*;
 
 @Entity
 public class Descriptor
 {
 	private Integer id;
+	@ManyToOne
+	@JoinColumn(name="id")
+	private CropDisorderRecord cdrDesc;
 	private String descriptorType;
 	private String name;
 	private String description;
@@ -38,6 +41,18 @@ public class Descriptor
   public void setId(Integer id)
   {
   	this.id = id;
+  }
+
+
+  public CropDisorderRecord getCdrDesc()
+  {
+	return cdrDesc;
+  }
+
+
+  public void setCdrDesc()
+  {
+	this.cdrDesc = cdrDesc;
   }
 
 
@@ -75,5 +90,6 @@ public class Descriptor
 	{
 		this.description = description;
 	}
+
 
 }
