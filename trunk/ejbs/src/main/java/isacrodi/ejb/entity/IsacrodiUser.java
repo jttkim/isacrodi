@@ -6,9 +6,9 @@ import javax.persistence.GeneratedValue;
 
 
 @Entity
-public class User
+public class IsacrodiUser
 {
-	private int id;
+	private Integer id;
 	private String name;
 	private String username;
 	private String password;
@@ -29,13 +29,13 @@ public class User
 
 
 	@Id @GeneratedValue	
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}
 
 
-	public void setId(int id)
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
