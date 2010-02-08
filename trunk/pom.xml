@@ -1,0 +1,11 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>isacrodi-proj</groupId>
+  <version>1.0</version>
+  <artifactId>isacrodi</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+    <module>ejbs</module>
+    <module>web</module>
+  </modules>
+</project>
