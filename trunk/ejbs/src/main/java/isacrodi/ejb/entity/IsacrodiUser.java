@@ -14,12 +14,12 @@ public class IsacrodiUser
 	private String password;
 
 
-	public User() {
+	public IsacrodiUser() {
   		super();
 	}
 
 
-	public User(String name, String username, String password)
+	public IsacrodiUser(String name, String username, String password)
 	{
 
 		this.name = name;
