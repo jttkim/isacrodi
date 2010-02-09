@@ -4,6 +4,8 @@ package isacrodi.ejb.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.*;
+import java.util.*;
 
 
 @Entity
@@ -12,6 +14,7 @@ public class Recommendation
 
 	private Integer id;
 	private String description;
+	private CropDisorderRecord cdr;
 
 
 	Recommendation()
@@ -29,6 +32,19 @@ public class Recommendation
 	public void setId(Integer id)
 	{
 		this.id = id;
+	}
+
+
+	@OneToOne
+	public CropDisorderRecord getCdr()
+	{
+		return cdr;
+	}
+
+
+	public void setCdr( CropDisorderRecord cdr)
+	{
+		this.cdr = cdr;
 	}
 
 

@@ -3,7 +3,8 @@ package isacrodi.ejb.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class Crop
@@ -11,6 +12,7 @@ public class Crop
 	private Integer id;	
 	private String name;
 	private String scientificName;
+	private Set<CropDisorderRecord> cdr;
 
 
 	Crop()
@@ -37,6 +39,19 @@ public class Crop
 	{
 
 		this.id = id;
+	}
+
+
+	@OneToMany(mappedBy="crop")
+	public Set<CropDisorderRecord> getCdr()
+	{
+		return cdr;
+	}
+
+
+	public void setCdr(Set<CropDisorderRecord> cdr)
+	{
+		this.cdr = cdr;
 	}
 
 

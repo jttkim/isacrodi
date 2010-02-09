@@ -3,7 +3,8 @@ package isacrodi.ejb.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class IsacrodiUser
@@ -12,6 +13,7 @@ public class IsacrodiUser
 	private String name;
 	private String username;
 	private String password;
+	private Set<CropDisorderRecord> cdr;
 
 
 	public IsacrodiUser() {
@@ -38,6 +40,18 @@ public class IsacrodiUser
 	public void setId(Integer id)
 	{
 		this.id = id;
+	}
+
+
+	@OneToMany(mappedBy="isacrodiuser")
+	public Set <CropDisorderRecord> getCdr()
+	{
+		return cdr;
+	}
+
+	public void setCdr(Set<CropDisorderRecord> cdr)
+	{
+		this.cdr = cdr;
 	}
 
 
