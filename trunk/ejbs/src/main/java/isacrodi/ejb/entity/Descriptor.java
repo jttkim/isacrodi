@@ -5,25 +5,25 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.*;
+import java.util.*;
 
 @Entity
-public class Descriptor
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="DesTy", discriminatorType=DiscriminatorType.STRING)
+@DiscriminatorValue("Descriptor")
+public class Descriptor 
 {
 	private Integer id;
-	@ManyToOne
-	@JoinColumn(name="id")
-	private CropDisorderRecord cdrDesc;
 	private String descriptorType;
 	private String name;
 	private String description;
+	private CropDisorderRecord cdr;
 
+  Descriptor() 
+  {
+	super();
+  }
 
-  Descriptor()
-	{
-		super();
-	}
-  
-	
   public Descriptor(String descriptorType, String name, String description)
 	{
 		this.descriptorType = descriptorType;
@@ -44,22 +44,23 @@ public class Descriptor
   }
 
 
-  public CropDisorderRecord getCdrDesc()
+  @ManyToOne
+  public CropDisorderRecord getCdr()
   {
-	return cdrDesc;
+	return cdr;
   }
 
 
-  public void setCdrDesc()
+  public void setCdr(CropDisorderRecord cdr)
   {
-	this.cdrDesc = cdrDesc;
+	this.cdr = cdr;
   }
 
 
   public String getDescriptorType() 
-	{
-		return descriptorType;
-	}
+  {
+	return descriptorType;
+  }
 
 	
 	public void setDescriptorType(String descriptorType)

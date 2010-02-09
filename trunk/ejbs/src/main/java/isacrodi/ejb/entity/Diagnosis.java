@@ -3,6 +3,8 @@ package isacrodi.ejb.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.*;
+import java.util.*;
 
 
 @Entity
@@ -10,6 +12,9 @@ public class Diagnosis
 {
 	private Integer id;
 	private String description;
+	private CropDisorderRecord cdr;
+
+
 
 	Diagnosis()
 	{
@@ -26,6 +31,19 @@ public class Diagnosis
 	public void setId(Integer id)
 	{
 		this.id = id;
+	}
+
+
+	@OneToOne
+	public CropDisorderRecord getCdr()
+	{
+		return cdr;
+	}
+
+
+	public void setCdr(CropDisorderRecord cdr)
+	{
+		this.cdr = cdr;
 	}
 
 

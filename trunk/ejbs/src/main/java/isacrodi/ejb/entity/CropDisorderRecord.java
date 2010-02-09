@@ -15,8 +15,9 @@ public class CropDisorderRecord
   private Integer id;
   private Integer recommendation;
   private Integer diagnosis;
-  @OneToMany(mappedBy="cdrDesc")
   private Set<Descriptor> descriptor;
+  private IsacrodiUser isacrodiuser;
+  private Crop crop;
 
 
   CropDisorderRecord()
@@ -44,7 +45,8 @@ public class CropDisorderRecord
     this.id = id;
   }
 
-
+  
+  @OneToMany(mappedBy="cdr")
   public Set<Descriptor> getDescriptor()
   {
   	return descriptor;
@@ -54,4 +56,30 @@ public class CropDisorderRecord
   {
 	this.descriptor = descriptor;
   }
+
+
+  @ManyToOne
+  public IsacrodiUser getisacrodiuser()
+  {
+	return isacrodiuser;
+  }
+
+
+  public void setisacrodiuser(IsacrodiUser isacrodiuser)
+  {
+	this.isacrodiuser = isacrodiuser;
+  }
+
+  @ManyToOne
+  public Crop getCrop()
+  {
+  	return crop;
+  }
+
+
+  public void setCrop(Crop crop)
+  {
+  	this.crop = crop;
+  }
+
 }
