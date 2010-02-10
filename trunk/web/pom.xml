@@ -5,11 +5,13 @@
   <packaging>war</packaging>
   <version>1.0</version>
   <name>isacrodi-web</name>
-  <dependencies>
+
+ <dependencies>
     <dependency>
       <groupId>isacrodi-proj</groupId>
       <artifactId>ejbs</artifactId>
       <version>1.0</version>
+      <scope>provided</scope>
    </dependency>
     <dependency>
         <groupId>javax.servlet</groupId>
@@ -17,8 +19,19 @@
         <version>2.4</version>
         <scope>provided</scope>
     </dependency> 
+    <dependency>
+        <groupId>struts</groupId>
+        <artifactId>struts</artifactId>
+        <version>1.2.9</version>
+	  <!--exclusions>
+	    <exclusion>
+	      <groupId>xml-apis</groupId>
+	      <artifactId>xml-apis</artifactId>
+	    </exclusion>
+	  </exclusions>-->
+    </dependency> 
   </dependencies>
   <build>
-    <finalName>isacrodiweb</finalName>
+    <finalName>isacrodi-web</finalName>
   </build>
 </project>

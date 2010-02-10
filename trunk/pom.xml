@@ -4,7 +4,9 @@
   <version>1.0</version>
   <artifactId>isacrodi</artifactId>
   <packaging>pom</packaging>
+  <name>isacrodi-root</name>
   <modules>
+    <module>ear</module>
     <module>ejbs</module>
     <module>web</module>
   </modules>
