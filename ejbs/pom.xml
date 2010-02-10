@@ -2,11 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>isacrodi-proj</groupId>
   <artifactId>ejbs</artifactId>
-  <packaging>jar</packaging>
+  <packaging>ejb</packaging>
   <version>1.0</version>
-  <name>src-binary</name>
+  <name>isacrodi-ejbs</name>
+
   <build>
-    <finalName>isacrodi</finalName>
+    <finalName>isacrodi-ejb</finalName>
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -15,7 +16,14 @@
                 <source>1.5</source>
                 <target>1.5</target>
             </configuration>
-         </plugin>         
+         </plugin>        
+         <plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-ejb-plugin</artifactId>
+	    <configuration>
+	      <ejbVersion>3.0</ejbVersion>
+	    </configuration>
+	 </plugin>
      </plugins>    
   </build> 
   <dependencies> 
@@ -23,7 +31,7 @@
       <groupId>javax.ejb</groupId>
       <artifactId>ejb</artifactId>
       <version>3.0</version>
-      <scope>provided</scope>
+      <!--scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
