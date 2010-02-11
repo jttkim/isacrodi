@@ -7,14 +7,14 @@ import javax.ejb.Local;
 @Local({Hello.class})
 public class HelloBean implements Hello 
 {
-	public HelloBean() 
-	{
- }
+  public HelloBean() 
+  {
+  }
 
-	public String sayHello(String name) 
-	{
-		return "Hello " + name + "!";
-	}
+  public String sayHello(String name) 
+  {
+    return "Hello " + name + "!";
+  }
 
 }
 

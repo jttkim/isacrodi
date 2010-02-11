@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
     version="1.0">
   <persistence-unit name="isadb">
-    <jta-data-source>java:/PostgresDS</jta-data-source>
+    <jta-data-source>java:/IsacrodiPostgresDS</jta-data-source>
     <properties>
       <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
     </properties>

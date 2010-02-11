@@ -1,13 +1,44 @@
-<%@ge contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="javax.naming.*" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <html>
 <body>
-  <html:form action="/hello" method="post">
-  Enter Name: <html:text property="name"/>
-  <br/>
-  <input type="submit" name="submit" value="Go"/>
-  </html:form>
+  <p><strong>hello message: <s:property value="name"/></strong></p>
+  <h2>root context</h2>
+  <ul>
+  <%
+  InitialContext context = new InitialContext();
+  NamingEnumeration<NameClassPair> e = context.list("/");
+  while (e.hasMore())
+  {
+    NameClassPair p = e.next();
+    out.println(String.format("<li>%s</li>", p.getName()));
+  }
+  %>
+  </ul>
+  <h2>isacrodi context</h2>
+  <ul>
+  <%
+  e = context.list("isacrodi");
+  while (e.hasMore())
+  {
+    NameClassPair p = e.next();
+    out.println(String.format("<li>%s</li>", p.getName()));
+  }
+  %>
+  </ul>
+  <h2>isacrodi/HelloBean context</h2>
+  <ul>
+  <%
+  e = context.list("isacrodi/HelloBean");
+  while (e.hasMore())
+  {
+    NameClassPair p = e.next();
+    out.println(String.format("<li>%s</li>", p.getName()));
+  }
+  %>
+  </ul>
 </body>
 </html>
 
