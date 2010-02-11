@@ -15,10 +15,12 @@
     </action>
 
     <action name="*" method="input" class="isacrodi.struts.HelloAction">
+      <result name="input">/jsp/index.jsp</result>
       <result>/jsp/index.jsp</result>
     </action>
 
     <action name="*" class="isacrodi.struts.HelloAction">
+      <result name="input">/jsp/index.jsp</result>
       <result>/jsp/index.jsp</result>
     </action>
 

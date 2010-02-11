@@ -51,6 +51,7 @@ public class HelloAction extends ActionSupport
 
   public String getEjbHello()
   {
+    this.LOG.info("getEjbHello called");
     if (this.name == null)
     {
       return (this.helloEjb.sayHello("anonymous coward"));
@@ -64,7 +65,7 @@ public class HelloAction extends ActionSupport
 
   public void validate()
   {
-    if (this.name.equalsIgnoreCase("hello") || this.name.equalsIgnoreCase("hola"))
+    if ((this.name != null) && (this.name.equalsIgnoreCase("hello") || this.name.equalsIgnoreCase("hola")))
     {
       this.LOG.info(String.format("got valid name: %s", this.name));
     }
