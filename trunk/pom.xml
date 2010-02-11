@@ -1,6 +1,7 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>isacrodi-proj</groupId>
+  <!-- FIXME: state version once and reference it throughout all poms -->
   <version>1.0</version>
   <artifactId>isacrodi</artifactId>
   <packaging>pom</packaging>
@@ -25,5 +26,15 @@
       </plugin>
     </plugins>
   </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>isacrodi-proj</groupId>
+	<artifactId>ejbs</artifactId>
+	<version>1.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 </project>
