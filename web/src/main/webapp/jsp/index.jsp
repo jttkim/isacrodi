@@ -4,7 +4,15 @@
 
 <html>
 <body>
-  <p><strong>hello message: <s:property value="name"/></strong></p>
+  <fieldset>
+  <legend>test form</legend>
+  <s:form action="formtest">
+    <s:textfield label="name" name="name" tooltip="valid names are 'hello' in English and Spanish"/>
+    <s:submit/>
+  </s:form>
+  </fieldset>
+  <p><strong>name: <s:property value="name"/></strong></p>
+  <p><strong>EJB hello message: <s:property value="ejbHello"/></strong></p>
   <h2>root context</h2>
   <ul>
   <%
