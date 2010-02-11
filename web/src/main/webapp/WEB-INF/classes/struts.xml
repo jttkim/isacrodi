@@ -8,20 +8,54 @@
 
   <package name="isacrodi" extends="struts-default">
 
-    <!-- blah -->
+    <interceptors>
+      <interceptor name="simpleLogin" class="isacrodi.struts.SimpleLoginInterceptor"/>
+      <interceptor-stack name="loginParamsPrepareParamsStack">
+        <interceptor-ref name="simpleLogin"/>
+        <interceptor-ref name="paramsPrepareParamsStack"/>
+      </interceptor-stack>
+    </interceptors>
+
+    <default-interceptor-ref name="loginParamsPrepareParamsStack"/>
+
+    <global-results>
+      <result name="login" type="redirectAction">loginform_input</result>
+      <result name="error">/WEB-INF/views/error.jsp</result>
+    </global-results>
+
+    <action name="loginform_input" method="input" class="isacrodi.struts.LoginAction">
+      <interceptor-ref name="paramsPrepareParamsStack"/>
+      <result name="input">/WEB-INF/views/loginform.jsp</result>
+      <result name="success" type="redirectAction">welcome</result>
+    </action>
+
+    <action name="loginform" class="isacrodi.struts.LoginAction">
+      <interceptor-ref name="paramsPrepareParamsStack"/>
+      <result name="input">/WEB-INF/views/loginform.jsp</result>
+      <result name="success" type="redirectAction">welcome</result>
+    </action>
+
+    <action name="logout" class="isacrodi.struts.LogoutAction">
+      <result name="success" type="redirectAction">loginform_input</result>
+    </action>
 
     <action name="hello" class="isacrodi.struts.HelloAction">
-      <result>/jsp/index.jsp</result>
+      <result>/WEB-INF/views/index.jsp</result>
+    </action>
+
+    <action name="welcome" class="isacrodi.struts.HelloAction">
+      <result name="input">/WEB-INF/views/index.jsp</result>
+      <result>/WEB-INF/views/index.jsp</result>
     </action>
 
     <action name="*" method="input" class="isacrodi.struts.HelloAction">
-      <result name="input">/jsp/index.jsp</result>
-      <result>/jsp/index.jsp</result>
+      <result name="input">/WEB-INF/views/index.jsp</result>
+      <result>/WEB-INF/views/index.jsp</result>
     </action>
 
     <action name="*" class="isacrodi.struts.HelloAction">
-      <result name="input">/jsp/index.jsp</result>
-      <result>/jsp/index.jsp</result>
+      <result name="input">/WEB-INF/views/index.jsp</result>
+      <result>/WEB-INF/views/index.jsp</result>
     </action>
 
   </package>

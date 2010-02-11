@@ -13,6 +13,8 @@
   </fieldset>
   <p><strong>name: <s:property value="name"/></strong></p>
   <p><strong>EJB hello message: <s:property value="ejbHello"/></strong></p>
+  <p>Welcome Isacrodi user <s:property value="isacrodiUser.firstname"/> <s:property value="isacrodiUser.lastname"/></p>
+  <p><s:property value="isacrodiUser"/></p>
   <h2>root context</h2>
   <ul>
   <%
