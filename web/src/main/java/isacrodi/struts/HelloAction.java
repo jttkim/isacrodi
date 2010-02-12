@@ -17,13 +17,13 @@ import org.apache.struts2.dispatcher.SessionMap;
 import isacrodi.ejb.session.*;
 
 
-public class HelloAction extends ActionSupport
+public class HelloAction extends IsacrodiActionSupport
 {
   String name;
   Hello helloEjb;
 
 
-  public HelloAction() throws NamingException 
+  public HelloAction() throws NamingException
   {
     Context ctx = new InitialContext();
     this.helloEjb = (Hello) ctx.lookup("isacrodi/HelloBean/local");
