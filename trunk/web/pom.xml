@@ -11,18 +11,17 @@
   <packaging>war</packaging>
   <name>isacrodi-web</name>
 
- <dependencies>
+  <dependencies>
     <dependency>
       <groupId>isacrodi-proj</groupId>
       <artifactId>ejbs</artifactId>
-      <!-- version>1.0</version -->
+      <type>ejb</type>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.4</version>
       <scope>provided</scope>
-   </dependency>
-     <dependency>
-       <groupId>javax.servlet</groupId>
-       <artifactId>servlet-api</artifactId>
-       <version>2.4</version>
-       <scope>provided</scope>
     </dependency> 
     <dependency>
       <groupId>org.apache.struts</groupId>
@@ -30,8 +29,10 @@
       <version>2.1.8</version>
     </dependency>
   </dependencies>
+
   <build>
     <finalName>isacrodi-web</finalName>
   </build>
+
 </project>
 

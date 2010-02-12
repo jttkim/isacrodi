@@ -1,24 +1,25 @@
 <project>  
   <modelVersion>4.0.0</modelVersion>
-  <groupId>isacrodi-proj</groupId>
+  <parent>
+    <groupId>isacrodi-proj</groupId>
+    <artifactId>isacrodi</artifactId>
+    <version>1.0</version>
+  </parent>
+
   <artifactId>ear</artifactId>
   <packaging>ear</packaging>
-  <version>1.0</version>
   <name>isacrodi-ear</name>
 
   <dependencies> 
     <dependency>
       <groupId>isacrodi-proj</groupId>
       <artifactId>web</artifactId>
-      <version>1.0</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>isacrodi-proj</groupId>
       <artifactId>ejbs</artifactId>
-      <version>1.0</version>
       <type>ejb</type>
-      <!--scope>provided</scope>-->
     </dependency>
   </dependencies>
   <build>

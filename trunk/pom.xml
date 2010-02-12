@@ -24,6 +24,11 @@
 	  <target>1.6</target>
 	</configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.6.1</version>
+      </plugin>
     </plugins>
   </build>
 
@@ -33,8 +38,16 @@
         <groupId>isacrodi-proj</groupId>
 	<artifactId>ejbs</artifactId>
 	<version>1.0</version>
+	<type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>isacrodi-proj</groupId>
+	<artifactId>web</artifactId>
+	<version>1.0</version>
+	<type>war</type>
       </dependency>
     </dependencies>
   </dependencyManagement>
 
 </project>
+
