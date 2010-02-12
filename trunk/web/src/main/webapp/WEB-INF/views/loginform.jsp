@@ -1,16 +1,17 @@
-<%@include file="components/htmlstart.html" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
+<html>
   <head>
     <title>Isacrodi Login</title>
     <link rel="stylesheet" type="text/css" href="<s:url value="/css/site.css"/>"/>
   </head>
   <body>
-    <!-- %@include file="/WEB-INF/views/components/navbar.jsp" % -->
+    <%@include file="/WEB-INF/views/components/navbar.jsp" %>
 
     <div class="content">
 
-    <h1>Login</h1>
+    <h2>Login</h2>
+    <h4>For already registered users</h4>
 
     <p><s:actionerror/></p>
     <s:form action="loginform">
@@ -19,6 +20,7 @@
       <s:submit/>
     </s:form>
 
+    <h4>Click on user signup to register</h4>
     <hr/>
 
     <p>If you require a password (e.g. because you forgot your password),

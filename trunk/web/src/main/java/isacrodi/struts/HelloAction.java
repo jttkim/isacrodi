@@ -13,7 +13,6 @@ import com.opensymphony.xwork2.ActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.dispatcher.SessionMap;
-
 import isacrodi.ejb.session.*;
 
 
