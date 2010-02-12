@@ -14,7 +14,7 @@ import java.util.*;
 
 
 @Entity
-public class IsacrodiUser
+public class IsacrodiUser implements Serializable
 {
   private Integer id;
   private int version;
@@ -25,8 +25,11 @@ public class IsacrodiUser
   private String email;
   private Set<CropDisorderRecord> cdr;
 
+  private static final long serialVersionUID = 1;
 
-  public IsacrodiUser() {
+
+  public IsacrodiUser()
+  {
     super();
   }
 
@@ -69,12 +72,12 @@ public class IsacrodiUser
 
 
   @OneToMany(mappedBy="isacrodiuser")
-  public Set <CropDisorderRecord> getCdr()
+  public Set<CropDisorderRecord> getCropDisorderRecordSet()
   {
     return cdr;
   }
 
-  public void setCdr(Set<CropDisorderRecord> cdr)
+  public void setCropDisorderRecordSet(Set<CropDisorderRecord> cdr)
   {
     this.cdr = cdr;
   }
