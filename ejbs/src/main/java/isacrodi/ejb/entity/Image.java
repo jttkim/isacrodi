@@ -1,42 +1,42 @@
 package isacrodi.ejb.entity;
 
-
+/* JTK: is this an obsolete class? */
 
 public class Image
 {
 
-	private Integer imageId;
-	private String name;
+  private Integer imageId;
+  private String name;
 
 
-	Image()
-	{
-		super();
-	}
+  Image()
+  {
+    super();
+  }
 
 
-	public Integer getImageId()
-	{
-		return imageId;
-	}
+  public Integer getImageId()
+  {
+    return imageId;
+  }
 
 
-	public void setImageId(Integer imageId)
-	{
-		this.imageId = imageId;
-	}
+  public void setImageId(Integer imageId)
+  {
+    this.imageId = imageId;
+  }
 
 
-	public String getName()
-	{
-		return name;
-	}
+  public String getName()
+  {
+    return name;
+  }
 
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+  public void setName(String name)
+  {
+    this.name = name;
+  }
 
 
 }

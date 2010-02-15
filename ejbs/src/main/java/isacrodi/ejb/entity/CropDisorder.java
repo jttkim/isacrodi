@@ -3,13 +3,17 @@ package isacrodi.ejb.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Version;
 
 @Entity
 public class CropDisorder
 {
   private Integer id;
+  private int version;
   private String name;
   private String scientificName;
+
+  private static final long serialVersionUID = 1;
 
 
   CropDisorder() 
@@ -18,6 +22,7 @@ public class CropDisorder
   }
 
 
+  // JTK should there really be an id parameter to the constructor?
   public CropDisorder(Integer id, String name, String scientificName) 
   {
     //this.id = id;
@@ -25,7 +30,9 @@ public class CropDisorder
     this.scientificName = scientificName;
   }
 
-  @Id @GeneratedValue
+
+  @Id
+  @GeneratedValue
   public Integer getId()
   {
     return (this.id);
@@ -35,6 +42,19 @@ public class CropDisorder
   public void setId(Integer id)
   {
     this.id = id;
+  }
+
+
+  @Version
+  public int getVersion()
+  {
+    return (this.version);
+  }
+
+
+  public void setVersion(int version)
+  {
+    this.version = version;
   }
 
 

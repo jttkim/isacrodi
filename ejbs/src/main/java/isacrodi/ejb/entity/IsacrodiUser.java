@@ -9,8 +9,10 @@ import java.security.NoSuchAlgorithmException;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.Version;
+import javax.persistence.OneToMany;
+import javax.persistence.Column;
+import java.util.Set;
 
 
 @Entity

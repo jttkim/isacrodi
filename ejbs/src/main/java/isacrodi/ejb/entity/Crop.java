@@ -3,79 +3,97 @@ package isacrodi.ejb.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.Version;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Entity
 public class Crop
 {
-	private Integer id;	
-	private String name;
-	private String scientificName;
-	private Set<CropDisorderRecord> cdr;
+  private Integer id;	
+  private int version;
+  private String name;
+  private String scientificName;
+  private Set<CropDisorderRecord> cropDisorderRecordSet;
+
+  private static final long serialVersionUID = 1;
 
 
-	Crop()
-	{
-		super();
-	}
+  public Crop()
+  {
+    super();
+  }
 
 
-	public Crop(String name, String scientificName)
-	{
-		this.name = name;
-		this.scientificName = scientificName;
-	}
-
-	
-	@Id @GeneratedValue
-	public Integer getId()
-	{
-		return id;
-	}
+  public Crop(String name, String scientificName)
+  {
+    this.name = name;
+    this.scientificName = scientificName;
+  }
 
 	
-	public void setId(Integer id)
-	{
+  @Id
+  @GeneratedValue
+  public Integer getId()
+  {
+    return id;
+  }
 
-		this.id = id;
-	}
+	
+  public void setId(Integer id)
+  {
 
-
-	@OneToMany(mappedBy="crop")
-	public Set<CropDisorderRecord> getCdr()
-	{
-		return cdr;
-	}
-
-
-	public void setCdr(Set<CropDisorderRecord> cdr)
-	{
-		this.cdr = cdr;
-	}
+    this.id = id;
+  }
 
 
-	public String getName()
-	{
-		return name;
-	}
+  @Version
+  public int getVersion()
+  {
+    return (this.version);
+  }
 
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+  public void setVersion(int version)
+  {
+    this.version = version;
+  }
 
 
-	public String getScientificName()
-	{
-		return scientificName;
-	}
+  @OneToMany(mappedBy="crop")
+  public Set<CropDisorderRecord> getCropDisorderRecordSet()
+  {
+    return (this.cropDisorderRecordSet);
+  }
 
 
-	public void setScientificName(String scientificName)
-	{
-		this.scientificName = scientificName;
-	}
+  public void setCropDisorderRecordSet(Set<CropDisorderRecord> cropDisorderRecordSet)
+  {
+    this.cropDisorderRecordSet = cropDisorderRecordSet;
+  }
+
+
+  public String getName()
+  {
+    return name;
+  }
+
+
+  public void setName(String name)
+  {
+    this.name = name;
+  }
+
+
+  public String getScientificName()
+  {
+    return scientificName;
+  }
+
+
+  public void setScientificName(String scientificName)
+  {
+    this.scientificName = scientificName;
+  }
 
 }
