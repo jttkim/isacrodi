@@ -4,60 +4,74 @@ package isacrodi.ejb.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.Version;
+import javax.persistence.OneToOne;
 
 
 @Entity
 public class Recommendation
 {
+  private Integer id;
+  private int version;
+  private String description;
+  private CropDisorderRecord cropDisorderRecord;
 
-	private Integer id;
-	private String description;
-	private CropDisorderRecord cdr;
-
-
-	Recommendation()
-	{
-		super();
-	}
-
-	@Id @GeneratedValue
-	public Integer getId()
-	{
-		return id;
-	}
+  private static final long serialVersionUID = 1;
 
 
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
+  Recommendation()
+  {
+    super();
+  }
+
+  @Id
+  @GeneratedValue
+  public Integer getId()
+  {
+    return id;
+  }
 
 
-	@OneToOne
-	public CropDisorderRecord getCdr()
-	{
-		return cdr;
-	}
+  public void setId(Integer id)
+  {
+    this.id = id;
+  }
 
 
-	public void setCdr( CropDisorderRecord cdr)
-	{
-		this.cdr = cdr;
-	}
+  @Version
+  public int getVersion()
+  {
+    return (this.version);
+  }
 
 
-	public String getDescription()
-	{
-		return description;
-	}
+  public void setVersion(int version)
+  {
+    this.version = version;
+  }
 
 
-	public void setDescription(String description)
-	{
-		this.description = description;
-	}
+  @OneToOne
+  public CropDisorderRecord getCropDisorderRecord()
+  {
+    return (this.cropDisorderRecord);
+  }
 
 
+  public void setCropDisorderRecord( CropDisorderRecord cropDisorderRecord)
+  {
+    this.cropDisorderRecord = cropDisorderRecord;
+  }
+
+
+  public String getDescription()
+  {
+    return (this.description);
+  }
+
+
+  public void setDescription(String description)
+  {
+    this.description = description;
+  }
 }
