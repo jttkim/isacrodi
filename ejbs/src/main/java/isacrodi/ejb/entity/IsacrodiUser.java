@@ -25,7 +25,7 @@ public class IsacrodiUser implements Serializable
   private String username;
   private String passwordHash;
   private String email;
-  private Set<CropDisorderRecord> cdr;
+  private Set<CropDisorderRecord> cropDisorderRecord;
 
   private static final long serialVersionUID = 1;
 
@@ -73,15 +73,16 @@ public class IsacrodiUser implements Serializable
   }
 
 
-  @OneToMany(mappedBy="isacrodiuser")
+  @OneToMany(mappedBy="isacrodiUser")
   public Set<CropDisorderRecord> getCropDisorderRecordSet()
   {
-    return cdr;
+    return cropDisorderRecord;
   }
 
-  public void setCropDisorderRecordSet(Set<CropDisorderRecord> cdr)
+
+  public void setCropDisorderRecordSet(Set<CropDisorderRecord> cropDisorderRecord)
   {
-    this.cdr = cdr;
+    this.cropDisorderRecord = cropDisorderRecord;
   }
 
 

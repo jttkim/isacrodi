@@ -6,14 +6,14 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.OneToOne;
+import java.io.Serializable;
 
 
 @Entity
-public class Recommendation
+public class Recommendation implements Serializable
 {
   private Integer id;
   private int version;
-  private String description;
   private CropDisorderRecord cropDisorderRecord;
 
   private static final long serialVersionUID = 1;
@@ -64,14 +64,4 @@ public class Recommendation
   }
 
 
-  public String getDescription()
-  {
-    return (this.description);
-  }
-
-
-  public void setDescription(String description)
-  {
-    this.description = description;
-  }
 }

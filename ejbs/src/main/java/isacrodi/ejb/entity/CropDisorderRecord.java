@@ -7,6 +7,8 @@ import javax.persistence.Version;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import java.util.Set;
+import java.io.Serializable;
+
 
 @Entity
 public class CropDisorderRecord
@@ -16,7 +18,7 @@ public class CropDisorderRecord
   private Integer recommendation;
   private Integer diagnosis;
   private Set<Descriptor> descriptorSet;
-  private IsacrodiUser isacrodiuser;
+  private IsacrodiUser isacrodiUser;
   private Crop crop;
 
   private static final long serialVersionUID = 1;
@@ -75,17 +77,16 @@ public class CropDisorderRecord
   }
 
 
-  // FIXME: fix case
   @ManyToOne
-  public IsacrodiUser getisacrodiuser()
+  public IsacrodiUser getIsacrodiUser()
   {
-    return (this.isacrodiuser);
+    return (this.isacrodiUser);
   }
 
 
-  public void setisacrodiuser(IsacrodiUser isacrodiuser)
+  public void setIsacrodiUser(IsacrodiUser isacrodiUser)
   {
-    this.isacrodiuser = isacrodiuser;
+    this.isacrodiUser = isacrodiUser;
   }
 
 

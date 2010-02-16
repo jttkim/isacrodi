@@ -3,20 +3,23 @@ package isacrodi.ejb.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import java.io.Serializable;
 
 
 @Entity
-public class Procedure implements Serializable
+public class ImageType implements Serializable
 {
   private Integer id;
   private int version;
+  private String typeName;
+  private ImageDescriptor imageDescriptor;
 
   private static final long serialVersionUID = 1;
 
 
-  Procedure()
+  ImageType()
   {
     super();
   }
@@ -33,6 +36,32 @@ public class Procedure implements Serializable
   public void setId(Integer id)
   {
     this.id = id;
+  }
+
+
+  @OneToOne(mappedBy="imageType")
+  public ImageDescriptor getImageDescriptor()
+  {
+    return imageDescriptor;
+  }
+
+
+  public void setImageDescriptor(ImageDescriptor imageDescriptor)
+  {
+    this.imageDescriptor = imageDescriptor;
+  }
+
+
+
+  public String getTypeName()
+  {
+    return typeName;
+  }
+
+
+  public void setImageType(String typeName)
+  {
+    this.typeName = typeName;
   }
 
 
