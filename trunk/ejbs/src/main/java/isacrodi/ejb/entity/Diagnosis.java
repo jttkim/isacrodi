@@ -5,14 +5,14 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.*;
 import java.util.*;
+import java.io.Serializable;
 
 
 @Entity
-public class Diagnosis
+public class Diagnosis implements Serializable
 {
   private Integer id;
   private int version;
-  private String description;
   private CropDisorderRecord cropDisorderRecord;
 
   private static final long serialVersionUID = 1;
@@ -62,15 +62,4 @@ public class Diagnosis
   }
 
 
-  // JTK: what's the purpos of this property?
-  public String getDescription()
-  {
-    return (this.description);
-  }
-
-
-  public void setDescription(String description)
-  {
-    this.description = description;
-  }
 }

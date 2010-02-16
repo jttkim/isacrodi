@@ -6,9 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.OneToMany;
 import java.util.Set;
+import java.io.Serializable;
+
 
 @Entity
-public class Crop
+public class Crop implements Serializable
 {
   private Integer id;	
   private int version;

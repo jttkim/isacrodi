@@ -4,9 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
+import java.io.Serializable;
 
 @Entity
-public class CropDisorder
+public class CropDisorder implements Serializable
 {
   private Integer id;
   private int version;
@@ -23,9 +24,8 @@ public class CropDisorder
 
 
   // JTK should there really be an id parameter to the constructor?
-  public CropDisorder(Integer id, String name, String scientificName) 
+  public CropDisorder(String name, String scientificName) 
   {
-    //this.id = id;
     this.name = name;
     this.scientificName = scientificName;
   }

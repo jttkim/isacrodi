@@ -11,32 +11,16 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-// JTK: is there any need to specify the column name and type?
-// @DiscriminatorColumn(name="DesTy", discriminatorType=DiscriminatorType.STRING)
-// @DiscriminatorValue("Descriptor")
-public class Descriptor 
+
+public class Descriptor  
 {
+  public enum CategoryType {NUMERIC, CATEGORICAL, IMAGE, SYMPTOM};
   private Integer id;
   private int version;
-  private String descriptorType;
-  private String name;
-  private String description;
   private CropDisorderRecord cropDisorderRecord;
 
   private static final long serialVersionUID = 1;
 
-
-  Descriptor() 
-  {
-    super();
-  }
-
-  public Descriptor(String descriptorType, String name, String description)
-  {
-    this.descriptorType = descriptorType;
-    this.name = name;
-    this.description = description;
-  }
 
   @Id
   @GeneratedValue
@@ -77,30 +61,4 @@ public class Descriptor
     this.cropDisorderRecord = cropDisorderRecord;
   }
 
-  // JTK: removed descriptorType property as it is redundant to class
-
-
-  public String getName() 
-  {
-    return (this.name);
-  }
-
-	
-  public void setName(String name)
-  {
-    this.name = name;
-  }
-
-
-  // JTK: what's the purpose of this property?
-  public String getDescription() 
-  {
-    return (this.description);
-  }
-
-	
-  public void setDescription(String description)
-  {
-    this.description = description;
-  }
 }
