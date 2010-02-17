@@ -1,11 +1,12 @@
 package isacrodi.ejb.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
-import java.io.Serializable;
 
 
 @Entity
@@ -39,6 +40,19 @@ public class ImageType implements Serializable
   }
 
 
+  @Version
+  public int getVersion()
+  {
+    return (this.version);
+  }
+
+
+  public void setVersion(int version)
+  {
+    this.version = version;
+  }
+
+
   @OneToOne(mappedBy="imageType")
   public ImageDescriptor getImageDescriptor()
   {
@@ -59,23 +73,8 @@ public class ImageType implements Serializable
   }
 
 
-  public void setImageType(String typeName)
+  public void setTypeName(String typeName)
   {
     this.typeName = typeName;
   }
-
-
-  @Version
-  public int getVersion()
-  {
-    return (this.version);
-  }
-
-
-  public void setVersion(int version)
-  {
-    this.version = version;
-  }
-
-
 }

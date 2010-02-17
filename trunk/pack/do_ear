@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd ejbjar
+jar cvf ../ear/isacrodi-ejb.jar *
+cd ../war
+jar cvf ../ear/isacrodi-web.war *
+cd ../ear
+jar cvf ../isacrodi.ear *
+
