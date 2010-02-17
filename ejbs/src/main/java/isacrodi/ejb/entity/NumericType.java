@@ -1,11 +1,12 @@
 package isacrodi.ejb.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
-import java.io.Serializable;
 
 
 @Entity
@@ -39,10 +40,23 @@ public class NumericType implements Serializable
   }
 
 
+  @Version
+  public int getVersion()
+  {
+    return (this.version);
+  }
+
+
+  public void setVersion(int version)
+  {
+    this.version = version;
+  }
+
+
   @OneToOne(mappedBy="numericType")
   public NumericDescriptor getNumericDescriptor()
   {
-    return numericDescriptor;
+    return this.numericDescriptor;
   }
 
 
@@ -58,23 +72,8 @@ public class NumericType implements Serializable
   }
 
 
-  public void setNumericType(String typeName)
+  public void setTypeName(String typeName)
   {
     this.typeName = typeName;
   }
-
-
-  @Version
-  public int getVersion()
-  {
-    return (this.version);
-  }
-
-
-  public void setVersion(int version)
-  {
-    this.version = version;
-  }
-
-
 }

@@ -1,5 +1,6 @@
 package isacrodi.ejb.entity;
 
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,8 +13,9 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 
-public class Descriptor  
+public abstract class Descriptor implements Serializable
 {
+  // JTK: isn't this redundantly recording class?
   public enum CategoryType {NUMERIC, CATEGORICAL, IMAGE, SYMPTOM};
   private Integer id;
   private int version;

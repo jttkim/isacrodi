@@ -1,0 +1,11 @@
+#!/bin/sh
+
+rm -rf ear war ejbjar
+mkdir ear war ejbjar
+cd ear
+jar xf ../../ear/target/isacrodi.ear
+cd ../war
+jar xf ../ear/isacrodi-web.war
+cd ../ejbjar
+jar xf ../ear/isacrodi-ejb.jar
+cd ..

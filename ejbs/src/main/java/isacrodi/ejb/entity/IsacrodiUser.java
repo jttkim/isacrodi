@@ -6,13 +6,14 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.OneToMany;
 import javax.persistence.Column;
-import java.util.Set;
 
 
 @Entity
@@ -25,7 +26,7 @@ public class IsacrodiUser implements Serializable
   private String username;
   private String passwordHash;
   private String email;
-  private Set<CropDisorderRecord> cropDisorderRecord;
+  private Set<CropDisorderRecord> cropDisorderRecordSet;
 
   private static final long serialVersionUID = 1;
 
@@ -47,7 +48,8 @@ public class IsacrodiUser implements Serializable
   }
 
 
-  @Id @GeneratedValue	
+  @Id
+  @GeneratedValue
   public Integer getId()
   {
     return id;
@@ -76,13 +78,12 @@ public class IsacrodiUser implements Serializable
   @OneToMany(mappedBy="isacrodiUser")
   public Set<CropDisorderRecord> getCropDisorderRecordSet()
   {
-    return cropDisorderRecord;
+    return (this.cropDisorderRecordSet);
   }
 
-
-  public void setCropDisorderRecordSet(Set<CropDisorderRecord> cropDisorderRecord)
+  public void setCropDisorderRecordSet(Set<CropDisorderRecord> cropDisorderRecordSet)
   {
-    this.cropDisorderRecord = cropDisorderRecord;
+    this.cropDisorderRecordSet = cropDisorderRecordSet;
   }
 
 
@@ -129,7 +130,7 @@ public class IsacrodiUser implements Serializable
   {
     return username;
   }
-	
+
 
   public void setUsername(String username)
   {
@@ -141,7 +142,7 @@ public class IsacrodiUser implements Serializable
   {
     return passwordHash;
   }
-	
+
 
   public void setPasswordHash(String passwordHash)
   {
@@ -202,4 +203,3 @@ public class IsacrodiUser implements Serializable
     }
   }
 }
-

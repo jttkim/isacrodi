@@ -81,7 +81,7 @@ disorder underpinning a CDR.
   signify entity instances that have not yet been persisted or are
   otherwise transient.
 
-\item Entities in the \computercode{isacrodi.ejb.entity} package.  
+\item Entities in the \computercode{isacrodi.ejb.entity} package.
 
 \item Properties mapping relationships are called after the class
   being referenced, with the first letter lowercased. Exceptions are
@@ -134,10 +134,33 @@ disorder underpinning a CDR.
 
 \end{itemize}
 
+
+\section{Issues}
+
+\begin{itemize}
+
+\item The struts plugin contains an \computercode{xwork-core} jar
+  which contains a \computercode{javassist} package. That clashes with
+  the \computercode{javassist} package included with JBoss. According
+  to Apache JIRA report
+  WW-3308\footnote{\computercode{https://issues.apache.org/jira/browse/WW-3308}}
+  this will be removed in struts 2.2.0.
+
+  Possible solutions:
+  \begin{itemize}
+  \item Wait for struts 2.2.0.
+  \item Install a local maven repository that provides struts 2.2.0.
+  \item Remove \computercode{javassist} from the current
+    \computercode{xwork-core} jar and pack that into the war (tested).
+  \end{itemize}
+
+\end{itemize}
+
+
 \end{document}
 
 
-%%% Local Variables: 
+%%% Local Variables:
 %%% mode: latex
 %%% TeX-master: t
-%%% End: 
+%%% End:
