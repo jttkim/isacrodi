@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 public class SymptomDescriptor extends Descriptor
 {
   
-  public final CategoryType categoryType = CategoryType.SYMPTOM;
-
   
   SymptomDescriptor()
   {

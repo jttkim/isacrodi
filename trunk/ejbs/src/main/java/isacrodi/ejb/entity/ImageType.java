@@ -5,8 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
+import java.util.Set;
 
 
 @Entity
@@ -15,7 +16,7 @@ public class ImageType implements Serializable
   private Integer id;
   private int version;
   private String typeName;
-  private ImageDescriptor imageDescriptor;
+  private Set<ImageDescriptor> imageDescriptor;
 
   private static final long serialVersionUID = 1;
 
@@ -53,14 +54,14 @@ public class ImageType implements Serializable
   }
 
 
-  @OneToOne(mappedBy="imageType")
-  public ImageDescriptor getImageDescriptor()
+  @OneToMany(mappedBy="imageType")
+  public Set<ImageDescriptor> getImageDescriptor()
   {
     return imageDescriptor;
   }
 
 
-  public void setImageDescriptor(ImageDescriptor imageDescriptor)
+  public void setImageDescriptor(Set<ImageDescriptor> imageDescriptor)
   {
     this.imageDescriptor = imageDescriptor;
   }

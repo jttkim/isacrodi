@@ -3,14 +3,14 @@ package isacrodi.ejb.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 
 @Entity
 public class ImageDescriptor extends Descriptor implements Serializable
 {
-  // JTK: redundant recording of class
-  public final CategoryType categoryType =  CategoryType.IMAGE;
+
   private ImageType imageType;
   private String mimeType;
   private byte[] imageData;
@@ -24,7 +24,7 @@ public class ImageDescriptor extends Descriptor implements Serializable
   }
 
   // JTK: seems to me this should be ManyToOne (see NumericType)
-  @OneToOne
+  @ManyToOne
   public ImageType getImageType()
   {
     return imageType;
@@ -43,7 +43,7 @@ public class ImageDescriptor extends Descriptor implements Serializable
   }
 
 
-  public void setMimetype()
+  public void setMimeType(String mimeType)
   {
     this.mimeType = mimeType;
   }
