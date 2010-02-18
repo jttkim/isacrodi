@@ -5,9 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
-
+import java.util.Set;
 
 @Entity
 public class NumericType implements Serializable
@@ -15,7 +15,7 @@ public class NumericType implements Serializable
   private Integer id;
   private int version;
   private String typeName;
-  private NumericDescriptor numericDescriptor;
+  private Set<NumericDescriptor> numericDescriptor;
 
   private static final long serialVersionUID = 1;
 
@@ -53,14 +53,14 @@ public class NumericType implements Serializable
   }
 
 
-  @OneToOne(mappedBy="numericType")
-  public NumericDescriptor getNumericDescriptor()
+  @OneToMany(mappedBy="numericType")
+  public Set<NumericDescriptor> getNumericDescriptor()
   {
     return this.numericDescriptor;
   }
 
 
-  public void setNumericDescriptor(NumericDescriptor numericDescriptor)
+  public void setNumericDescriptor(Set<NumericDescriptor> numericDescriptor)
   {
     this.numericDescriptor = numericDescriptor;
   }

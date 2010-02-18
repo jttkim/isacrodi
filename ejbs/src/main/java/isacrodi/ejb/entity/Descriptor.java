@@ -16,7 +16,6 @@ import javax.persistence.InheritanceType;
 public abstract class Descriptor implements Serializable
 {
   // JTK: isn't this redundantly recording class?
-  public enum CategoryType {NUMERIC, CATEGORICAL, IMAGE, SYMPTOM};
   private Integer id;
   private int version;
   private CropDisorderRecord cropDisorderRecord;
