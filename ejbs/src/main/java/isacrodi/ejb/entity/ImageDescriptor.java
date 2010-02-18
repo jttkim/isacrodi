@@ -12,6 +12,8 @@ public class ImageDescriptor extends Descriptor implements Serializable
   // JTK: redundant recording of class
   public final CategoryType categoryType =  CategoryType.IMAGE;
   private ImageType imageType;
+  private String mimeType;
+  private byte[] imageData;
 
   private static final long serialVersionUID = 1;
 
@@ -33,6 +35,33 @@ public class ImageDescriptor extends Descriptor implements Serializable
   {
     this.imageType = imageType;
   }
+
+
+  public String getMimeType()
+  {
+    return (this.mimeType);
+  }
+
+
+  public void setMimetype()
+  {
+    this.mimeType = mimeType;
+  }
+
+
+  public byte[] getImageData()
+  {
+    return (this.imageData);
+  }
+
+
+  public void setImageData(byte[] imageData)
+  {
+    this.imageData = imageData;
+  }
+
+
+  // method to get image as java.awt... object to encapsulate low-level octet stream and MIME type stuff...
 
 
   public void getFeatureVector()
