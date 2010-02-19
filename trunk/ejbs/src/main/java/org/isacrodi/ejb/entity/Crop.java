@@ -1,46 +1,50 @@
-package isacrodi.ejb.entity;
+package org.isacrodi.ejb.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
+import javax.persistence.OneToMany;
+import java.util.Set;
 import java.io.Serializable;
 
+
 @Entity
-public class CropDisorder implements Serializable
+public class Crop implements Serializable
 {
-  private Integer id;
+  private Integer id;	
   private int version;
   private String name;
   private String scientificName;
+  private Set<CropDisorderRecord> cropDisorderRecordSet;
 
   private static final long serialVersionUID = 1;
 
 
-  CropDisorder() 
+  public Crop()
   {
     super();
   }
 
 
-  // JTK should there really be an id parameter to the constructor?
-  public CropDisorder(String name, String scientificName) 
+  public Crop(String name, String scientificName)
   {
     this.name = name;
     this.scientificName = scientificName;
   }
 
-
+	
   @Id
   @GeneratedValue
   public Integer getId()
   {
-    return (this.id);
+    return id;
   }
 
-
+	
   public void setId(Integer id)
   {
+
     this.id = id;
   }
 
@@ -58,7 +62,20 @@ public class CropDisorder implements Serializable
   }
 
 
-  public String getName() 
+  @OneToMany(mappedBy="crop")
+  public Set<CropDisorderRecord> getCropDisorderRecordSet()
+  {
+    return (this.cropDisorderRecordSet);
+  }
+
+
+  public void setCropDisorderRecordSet(Set<CropDisorderRecord> cropDisorderRecordSet)
+  {
+    this.cropDisorderRecordSet = cropDisorderRecordSet;
+  }
+
+
+  public String getName()
   {
     return name;
   }
@@ -70,7 +87,7 @@ public class CropDisorder implements Serializable
   }
 
 
-  public String getScientificName() 
+  public String getScientificName()
   {
     return scientificName;
   }
@@ -78,6 +95,7 @@ public class CropDisorder implements Serializable
 
   public void setScientificName(String scientificName)
   {
-    this.name = scientificName;
+    this.scientificName = scientificName;
   }
+
 }

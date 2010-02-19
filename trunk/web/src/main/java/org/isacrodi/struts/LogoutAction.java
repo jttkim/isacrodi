@@ -1,4 +1,4 @@
-package isacrodi.struts;
+package org.isacrodi.struts;
 
 import javax.naming.NamingException;
 

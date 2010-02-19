@@ -1,4 +1,4 @@
-package isacrodi.ejb.entity;
+package org.isacrodi.ejb.entity;
 
 import java.io.Serializable;
 

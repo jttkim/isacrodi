@@ -1,4 +1,4 @@
-package isacrodi.ejb.entity;
+package org.isacrodi.ejb.entity;
 
 /* JTK: is this an obsolete class? */
 

@@ -1,4 +1,4 @@
-package isacrodi.ejb.entity;
+package org.isacrodi.ejb.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
