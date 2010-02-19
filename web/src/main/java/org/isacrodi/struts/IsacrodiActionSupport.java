@@ -1,4 +1,4 @@
-package isacrodi.struts;
+package org.isacrodi.struts;
 
 import java.util.Map;
 
@@ -13,8 +13,8 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.dispatcher.SessionMap;
 
-import isacrodi.ejb.session.*;
-import isacrodi.ejb.entity.*;
+import org.isacrodi.ejb.session.*;
+import org.isacrodi.ejb.entity.*;
 
 
 /**

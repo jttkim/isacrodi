@@ -1,4 +1,4 @@
-package isacrodi.struts;
+package org.isacrodi.struts;
 
 import java.util.Map;
 
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import isacrodi.ejb.session.*;
-import isacrodi.ejb.entity.*;
+import org.isacrodi.ejb.session.*;
+import org.isacrodi.ejb.entity.*;
 
 
 public class LoginAction extends IsacrodiActionSupport

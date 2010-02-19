@@ -1,4 +1,4 @@
-package isacrodi.ejb.entity;
+package org.isacrodi.ejb.entity;
 
 import java.io.Serializable;
 
@@ -9,19 +9,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import java.util.Set;
 
-
 @Entity
-public class ImageType implements Serializable
+public class NumericType implements Serializable
 {
   private Integer id;
   private int version;
   private String typeName;
-  private Set<ImageDescriptor> imageDescriptor;
+  private Set<NumericDescriptor> numericDescriptor;
 
   private static final long serialVersionUID = 1;
 
 
-  ImageType()
+  NumericType()
   {
     super();
   }
@@ -54,18 +53,17 @@ public class ImageType implements Serializable
   }
 
 
-  @OneToMany(mappedBy="imageType")
-  public Set<ImageDescriptor> getImageDescriptor()
+  @OneToMany(mappedBy="numericType")
+  public Set<NumericDescriptor> getNumericDescriptor()
   {
-    return imageDescriptor;
+    return this.numericDescriptor;
   }
 
 
-  public void setImageDescriptor(Set<ImageDescriptor> imageDescriptor)
+  public void setNumericDescriptor(Set<NumericDescriptor> numericDescriptor)
   {
-    this.imageDescriptor = imageDescriptor;
+    this.numericDescriptor = numericDescriptor;
   }
-
 
 
   public String getTypeName()

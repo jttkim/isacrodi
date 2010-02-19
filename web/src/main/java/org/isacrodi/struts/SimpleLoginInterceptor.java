@@ -1,4 +1,4 @@
-package isacrodi.struts;
+package org.isacrodi.struts;
 
 import java.util.Map;
 
@@ -9,8 +9,8 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.dispatcher.SessionMap;
 
-import isacrodi.ejb.session.*;
-import isacrodi.ejb.entity.*;
+import org.isacrodi.ejb.session.*;
+import org.isacrodi.ejb.entity.*;
 
 
 /**

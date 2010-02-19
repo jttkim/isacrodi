@@ -1,7 +1,7 @@
-package isacrodi.ejb.entity;
+package org.isacrodi.ejb.entity;
 
 import org.junit.*;
-import isacrodi.ejb.entity.*;
+import org.isacrodi.ejb.entity.*;
 
 
 /**

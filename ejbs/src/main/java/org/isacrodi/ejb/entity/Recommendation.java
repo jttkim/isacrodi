@@ -1,15 +1,16 @@
-package isacrodi.ejb.entity;
+package org.isacrodi.ejb.entity;
+
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.Version;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
 
 
 @Entity
-public class Diagnosis implements Serializable
+public class Recommendation implements Serializable
 {
   private Integer id;
   private int version;
@@ -18,15 +19,16 @@ public class Diagnosis implements Serializable
   private static final long serialVersionUID = 1;
 
 
-  Diagnosis()
+  Recommendation()
   {
     super();
   }
 
-  @Id @GeneratedValue
+  @Id
+  @GeneratedValue
   public Integer getId()
   {
-    return (this.id);
+    return id;
   }
 
 
@@ -56,7 +58,7 @@ public class Diagnosis implements Serializable
   }
 
 
-  public void setCropDisorderRecord(CropDisorderRecord cropDisorderRecord)
+  public void setCropDisorderRecord( CropDisorderRecord cropDisorderRecord)
   {
     this.cropDisorderRecord = cropDisorderRecord;
   }
