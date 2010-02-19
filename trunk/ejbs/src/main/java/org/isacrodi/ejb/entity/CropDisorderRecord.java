@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 
 @Entity
-public class CropDisorderRecord
+public class CropDisorderRecord implements Serializable
 {
   private Integer id;
   private int version;
@@ -101,4 +101,7 @@ public class CropDisorderRecord
   {
     this.crop = crop;
   }
+
+
+
 }

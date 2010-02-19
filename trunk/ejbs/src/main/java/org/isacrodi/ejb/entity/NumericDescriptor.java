@@ -20,9 +20,6 @@ public class NumericDescriptor extends Descriptor implements Serializable
   }
 
 
-  // JTK: according to the class diagram this should be a OneToMany
-  // relationship -- that doesn't make much sense, though, it seems to
-  // me it should be ManyToOne.
   @ManyToOne
   public NumericType getNumericType()
   {
