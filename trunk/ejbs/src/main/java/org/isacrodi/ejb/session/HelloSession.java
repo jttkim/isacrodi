@@ -1,4 +1,4 @@
-package isacrodi.ejb.session;
+package org.isacrodi.ejb.session;
 
 public interface HelloSession
 {
