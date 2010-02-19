@@ -15,7 +15,7 @@ public class Procedure implements Serializable
 {
   private Integer id;
   private int version;
-  private Set<Recommendation> recommendation;
+  private Set<Recommendation> recommendationSet;
 
   private static final long serialVersionUID = 1;
 
@@ -53,16 +53,16 @@ public class Procedure implements Serializable
   }
 
 
-  @ManyToMany(mappedBy="procedure")
-  public Set<Recommendation> getRecommendation()
+  @ManyToMany
+  public Set<Recommendation> getRecommendationSet()
   {
-    return recommendation;
+    return recommendationSet;
   }
 
 
-  public void setRecommendation(Set<Recommendation> recommendation)
+  public void setRecommendationSet(Set<Recommendation> recommendationSet)
   {
-    this.recommendation = recommendation;
+    this.recommendationSet = recommendationSet;
   }
 
 }
