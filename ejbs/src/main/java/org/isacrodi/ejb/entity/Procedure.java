@@ -4,14 +4,18 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
+import java.util.Set;
 
 
+// Entity implements Procedures
 @Entity
 public class Procedure implements Serializable
 {
   private Integer id;
   private int version;
+  private Set<Recommendation> recommendation;
 
   private static final long serialVersionUID = 1;
 
@@ -48,5 +52,17 @@ public class Procedure implements Serializable
     this.version = version;
   }
 
+
+  @ManyToMany(mappedBy="procedure")
+  public Set<Recommendation> getRecommendation()
+  {
+    return recommendation;
+  }
+
+
+  public void setRecommendation(Set<Recommendation> recommendation)
+  {
+    this.recommendation = recommendation;
+  }
 
 }

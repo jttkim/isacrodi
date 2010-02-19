@@ -1,31 +1,31 @@
 package org.isacrodi.ejb.entity;
 
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
-import javax.persistence.OneToOne;
-import javax.persistence.ManyToMany;
-import java.io.Serializable;
 import java.util.Set;
 
 
 @Entity
-public class Recommendation implements Serializable
+public class SymptomType implements Serializable
 {
   private Integer id;
   private int version;
-  private CropDisorderRecord cropDisorderRecord;
-  private Set<Procedure> procedure;
+  private String typeName;
+  private Set<SymptomDescriptor> symptomDescriptor;
 
   private static final long serialVersionUID = 1;
 
 
-  Recommendation()
+  SymptomType()
   {
     super();
   }
+ 
 
   @Id
   @GeneratedValue
@@ -54,29 +54,28 @@ public class Recommendation implements Serializable
   }
 
 
-  @OneToOne
-  public CropDisorderRecord getCropDisorderRecord()
+  @OneToMany(mappedBy="symptomType")
+  public Set<SymptomDescriptor> getSymptomDescriptor()
   {
-    return (this.cropDisorderRecord);
+    return symptomDescriptor;
   }
 
 
-  public void setCropDisorderRecord( CropDisorderRecord cropDisorderRecord)
+  public void setSymptomDescriptor(Set<SymptomDescriptor> symptomDescriptor)
   {
-    this.cropDisorderRecord = cropDisorderRecord;
+    this.symptomDescriptor = symptomDescriptor;
   }
 
- 
-   
-  public Set<Procedure> getProcedure()
+
+
+  public String getTypeName()
   {
-    return procedure;
+    return typeName;
   }
 
- 
-  public void setProcedure(Set<Procedure> procedure)
-  {
-    this.procedure = procedure;
-  }
 
+  public void setTypeName(String typeName)
+  {
+    this.typeName = typeName;
+  }
 }
