@@ -1,10 +1,10 @@
-package isacrodi.ejb.interfaces;
+package org.isacrodi.ejb.interfaces;
+
+import org.isacrodi.ejb.entity.*;
 
 
-// Feature extraction interface
 public interface DiagnosisProvider 
 {
-
-  String getDiagnose();
+  public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord);
 }
 
