@@ -1,4 +1,4 @@
-package isacrodi.ejb.session;
+package org.isacrodi.ejb.session;
 
 import javax.ejb.Stateless;
 import javax.ejb.Local;
