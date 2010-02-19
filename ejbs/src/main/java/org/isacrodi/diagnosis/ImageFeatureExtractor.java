@@ -1,4 +1,4 @@
-package org.isacrodi.ejb.interfaces;
+package org.isacrodi.diagnosis;
 
 import org.isacrodi.ejb.entity.*;
 

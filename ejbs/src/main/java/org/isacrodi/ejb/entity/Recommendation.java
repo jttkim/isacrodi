@@ -17,7 +17,7 @@ public class Recommendation implements Serializable
   private Integer id;
   private int version;
   private CropDisorderRecord cropDisorderRecord;
-  private Set<Procedure> procedure;
+  private Set<Procedure> procedureSet;
 
   private static final long serialVersionUID = 1;
 
@@ -67,16 +67,16 @@ public class Recommendation implements Serializable
   }
 
  
-   
-  public Set<Procedure> getProcedure()
+  @ManyToMany
+  public Set<Procedure> getProcedureSet()
   {
-    return procedure;
+    return procedureSet;
   }
 
  
-  public void setProcedure(Set<Procedure> procedure)
+  public void setProcedureSet(Set<Procedure> procedureSet)
   {
-    this.procedure = procedure;
+    this.procedureSet = procedureSet;
   }
 
 }
