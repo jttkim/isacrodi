@@ -14,9 +14,16 @@ public class NumericDescriptor extends Descriptor implements Serializable
   private static final long serialVersionUID = 1;
 
    
-  NumericDescriptor()
+  public NumericDescriptor()
   {
     super();
+  }
+
+
+  public NumericDescriptor(NumericType numericType)
+  {
+    this();
+    this.numericType = numericType;
   }
 
 

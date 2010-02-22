@@ -9,6 +9,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import java.util.Set;
 
+/**
+ * Specification of the physical quantity (physical unit) that is
+ * recorded by descriptors of this type.
+ */
 @Entity
 public class NumericType implements Serializable
 {
