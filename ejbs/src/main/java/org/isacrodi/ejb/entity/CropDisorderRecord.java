@@ -8,6 +8,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import java.util.Set;
 import java.io.Serializable;
+import org.isacrodi.diagnosis.*;
 
 
 @Entity
@@ -15,8 +16,8 @@ public class CropDisorderRecord
 {
   private Integer id;
   private int version;
-  private Integer recommendation;
-  private Integer diagnosis;
+  private Recommendation recommendation;
+  private Diagnosis diagnosis;
   private Set<Descriptor> descriptorSet;
   private IsacrodiUser isacrodiUser;
   private Crop crop;
@@ -27,13 +28,6 @@ public class CropDisorderRecord
   CropDisorderRecord()
   {
     super();
-  }
-
-
-  public CropDisorderRecord(Integer recommendation, Integer diagnosis)
-  {
-    this.recommendation = recommendation;
-    this.diagnosis = diagnosis;
   }
 
 
@@ -103,5 +97,26 @@ public class CropDisorderRecord
   }
 
 
+  public Diagnosis getDiagnosis()
+  {
+    return diagnosis;
+  }
 
+
+  public void setDiagnosis(Diagnosis diagnosis)
+  {
+    this.diagnosis = diagnosis;
+  }
+
+
+  public Recommendation getRecommendation()
+  {
+    return recommendation;
+  }
+
+
+  public void setRecommendation(Recommendation recommendation)
+  {
+    this.recommendation = recommendation;
+  }
 }
