@@ -7,5 +7,6 @@ public interface DiagnosisProvider
 {
 
   public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord);
+
 }
 
