@@ -26,7 +26,7 @@ public class DiagnosisTest
 
 
   @Test
-  public void testDiagnosisProvider()
+  public void testDiagnosisProvider() throws IOException
   {
     // FIXME: use better variable names
     Crop tomato = new Crop("Tomato", "Lycopersicon esculentum");
@@ -39,23 +39,14 @@ public class DiagnosisTest
     nd.setValue(27.0);
     cropDisorderRecord.setDescriptorSet(new java.util.HashSet<Descriptor>());
     cropDisorderRecord.addDescriptor(nd);
-
-    try 
-    {
-      FileInputStream f = new FileInputStream("uchuva.jpg");
-      byte b[] = new byte [f.available()];
-      ImageType it = new ImageType("leaf");
-      ImageDescriptor id = new ImageDescriptor();
-      id.setId(12);
-      id.setImageType(it);
-      id.setMimeType("image");
-      id.setImageData(b);   
-    }
-    catch(Exception e)
-    {
-      System.out.println(e);
-    }
-
+    FileInputStream f = new FileInputStream("src/test/java/org/isacrodi/diagnosis/uchuva.jpg");
+    byte b[] = new byte [f.available()];
+    ImageType it = new ImageType("leaf");
+    ImageDescriptor id = new ImageDescriptor();
+    id.setId(12);
+    id.setImageType(it);
+    id.setMimeType("image");
+    id.setImageData(b);   
     DiagnosisProvider dp = new DummyDiagnosisProvider();
     Diagnosis diagnosis = dp.diagnose(cropDisorderRecord);
     Assert.assertTrue(diagnosis != null);
