@@ -37,6 +37,7 @@ public class DiagnosisTest
     nd.setId(11);
     nd.setNumericType(nt);
     nd.setValue(27.0);
+    cropDisorderRecord.setDescriptorSet(new java.util.HashSet<Descriptor>());
     cropDisorderRecord.addDescriptor(nd);
 
     try 

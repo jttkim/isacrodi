@@ -66,7 +66,7 @@ public class CropDisorderRecord
   }
 
 
-  public void getDescriptorSet(Set<Descriptor> descriptorSet)
+  public void setDescriptorSet(Set<Descriptor> descriptorSet)
   {
     this.descriptorSet = descriptorSet;
   }
@@ -126,7 +126,4 @@ public class CropDisorderRecord
   {
     this.recommendation = recommendation;
   }
-
-
-
 }
