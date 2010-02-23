@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 public class CategoricalDescriptor extends Descriptor
 {
   
-  CategoricalDescriptor()
+  public CategoricalDescriptor()
   {
     super();
   }

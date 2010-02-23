@@ -21,11 +21,18 @@ public class ImageType implements Serializable
   private static final long serialVersionUID = 1;
 
 
-  ImageType()
+  public ImageType()
   {
     super();
   }
  
+
+  public ImageType(String typeName)
+  {
+    super();
+    this.typeName = typeName;
+  }
+
 
   @Id
   @GeneratedValue
