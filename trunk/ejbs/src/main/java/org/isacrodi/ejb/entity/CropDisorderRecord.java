@@ -18,7 +18,7 @@ public class CropDisorderRecord
   private int version;
   private Recommendation recommendation;
   private Diagnosis diagnosis;
-  private Set<Descriptor> descriptor;
+  private Set<Descriptor> descriptorSet;
   private IsacrodiUser isacrodiUser;
   private Crop crop;
    
@@ -60,21 +60,21 @@ public class CropDisorderRecord
 
 
   @OneToMany(mappedBy="cropDisorderRecord")
-  public Set<Descriptor> getDescriptor()
+  public Set<Descriptor> getDescriptorSet()
   {
-    return (this.descriptor);
+    return (this.descriptorSet);
   }
 
 
-  public void getDescriptor(Set<Descriptor> descriptor)
+  public void getDescriptorSet(Set<Descriptor> descriptorSet)
   {
-    this.descriptor = descriptor;
+    this.descriptorSet = descriptorSet;
   }
 
 
   public void addDescriptor(Descriptor descriptor)
   {
-    this.descriptor.add(descriptor);
+    this.descriptorSet.add(descriptor);
   }
 
 
