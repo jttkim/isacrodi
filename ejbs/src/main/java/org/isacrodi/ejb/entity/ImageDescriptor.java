@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 
+
 @Entity
 public class ImageDescriptor extends Descriptor implements Serializable
 {
@@ -18,12 +19,20 @@ public class ImageDescriptor extends Descriptor implements Serializable
   private static final long serialVersionUID = 1;
 
 
-  ImageDescriptor()
+  public ImageDescriptor()
   {
     super();
   }
 
-  // JTK: seems to me this should be ManyToOne (see NumericType)
+
+  public ImageDescriptor(String mimeType, byte[] imageData)
+  {
+    super();
+    this.mimeType = mimeType;
+    this.imageData = imageData;
+  }
+
+
   @ManyToOne
   public ImageType getImageType()
   {

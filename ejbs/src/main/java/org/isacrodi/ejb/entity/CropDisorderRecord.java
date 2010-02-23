@@ -18,14 +18,15 @@ public class CropDisorderRecord
   private int version;
   private Recommendation recommendation;
   private Diagnosis diagnosis;
-  private Set<Descriptor> descriptorSet;
+  private Set<Descriptor> descriptor;
   private IsacrodiUser isacrodiUser;
   private Crop crop;
+   
 
   private static final long serialVersionUID = 1;
 
 
-  CropDisorderRecord()
+  public CropDisorderRecord()
   {
     super();
   }
@@ -59,15 +60,21 @@ public class CropDisorderRecord
 
 
   @OneToMany(mappedBy="cropDisorderRecord")
-  public Set<Descriptor> getDescriptorSet()
+  public Set<Descriptor> getDescriptor()
   {
-    return (this.descriptorSet);
+    return (this.descriptor);
   }
 
 
-  public void setDescriptorSet(Set<Descriptor> descriptorSet)
+  public void getDescriptor(Set<Descriptor> descriptor)
   {
-    this.descriptorSet = descriptorSet;
+    this.descriptor = descriptor;
+  }
+
+
+  public void addDescriptor(Descriptor descriptor)
+  {
+    this.descriptor.add(descriptor);
   }
 
 
@@ -119,4 +126,7 @@ public class CropDisorderRecord
   {
     this.recommendation = recommendation;
   }
+
+
+
 }

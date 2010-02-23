@@ -22,7 +22,7 @@ public class Recommendation implements Serializable
   private static final long serialVersionUID = 1;
 
 
-  Recommendation()
+  public Recommendation()
   {
     super();
   }

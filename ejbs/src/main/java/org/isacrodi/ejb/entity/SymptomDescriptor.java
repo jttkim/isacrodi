@@ -16,7 +16,7 @@ public class SymptomDescriptor extends Descriptor implements Serializable
   private static final long serialVersionUID = 1;
 
 
-  SymptomDescriptor()
+  public SymptomDescriptor()
   {
     super();
   }

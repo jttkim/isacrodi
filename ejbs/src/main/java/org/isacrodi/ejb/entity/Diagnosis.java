@@ -18,10 +18,11 @@ public class Diagnosis implements Serializable
   private static final long serialVersionUID = 1;
 
 
-  Diagnosis()
+  public Diagnosis()
   {
     super();
   }
+
 
   @Id @GeneratedValue
   public Integer getId()

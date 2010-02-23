@@ -17,13 +17,12 @@ public class CropDisorder implements Serializable
   private static final long serialVersionUID = 1;
 
 
-  CropDisorder() 
+  public CropDisorder() 
   {
     super();
   }
 
 
-  // JTK should there really be an id parameter to the constructor?
   public CropDisorder(String name, String scientificName) 
   {
     this.name = name;
