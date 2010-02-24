@@ -10,7 +10,6 @@
     <module>ear</module>
     <module>ejbs</module>
     <module>web</module>
-    <module>diagnosis</module>
   </modules>
 
   <build>
@@ -40,11 +39,6 @@
 	<artifactId>web</artifactId>
 	<version>1.0</version>
 	<type>war</type>
-      </dependency>
-      <dependency>
-        <groupId>isacrodi-proj</groupId>
-	<artifactId>diagnosis</artifactId>
-	<version>1.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
