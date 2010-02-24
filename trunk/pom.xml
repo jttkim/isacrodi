@@ -6,11 +6,11 @@
   <artifactId>isacrodi</artifactId>
   <packaging>pom</packaging>
   <name>isacrodi-root</name>
-
   <modules>
     <module>ear</module>
     <module>ejbs</module>
     <module>web</module>
+    <module>diagnosis</module>
   </modules>
 
   <build>
@@ -24,11 +24,6 @@
 	  <target>1.6</target>
 	</configuration>
       </plugin>
-      <!-- plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.6.1</version>
-      </plugin -->
     </plugins>
   </build>
 
