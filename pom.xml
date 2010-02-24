@@ -10,7 +10,6 @@
     <module>ear</module>
     <module>ejbs</module>
     <module>web</module>
-    <module>diagnosis</module>
   </modules>
 
   <build>
