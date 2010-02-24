@@ -21,11 +21,6 @@
       <artifactId>ejbs</artifactId>
       <type>ejb</type>
     </dependency>
-    <dependency>
-      <groupId>isacrodi-proj</groupId>
-      <artifactId>diagnosis</artifactId>
-      <version>1.0</version>
-    </dependency>
   </dependencies>
   <build>
     <finalName>isacrodi</finalName>

@@ -1,0 +1,66 @@
+<project>  
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>isacrodi-proj</groupId>
+    <artifactId>isacrodi</artifactId>
+    <version>1.0</version>
+  </parent>
+  <artifactId>diagnosis</artifactId>
+  <packaging>ejb</packaging>
+  <name>isacrodi-diagnosis</name>
+
+  <build>
+    <finalName>isacrodi-ejb</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+        </plugin>        
+        <plugin>
+	  <groupId>org.apache.maven.plugins</groupId>
+	  <artifactId>maven-ejb-plugin</artifactId>
+	  <configuration>
+	    <ejbVersion>3.0</ejbVersion>
+	  </configuration>
+	</plugin>
+    </plugins>    
+  </build> 
+  <dependencies> 
+    <dependency>
+      <groupId>javax.ejb</groupId>
+      <artifactId>ejb</artifactId>
+      <version>3.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies> 
+</project>
+
