@@ -7,11 +7,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 
-
+/**
+  * Implements image descriptor from Digital Image
+ */
 @Entity
 public class ImageDescriptor extends Descriptor implements Serializable
 {
-
   private ImageType imageType;
   private String mimeType;
   private byte[] imageData;

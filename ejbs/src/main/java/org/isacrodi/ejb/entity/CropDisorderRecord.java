@@ -11,6 +11,10 @@ import java.io.Serializable;
 import org.isacrodi.diagnosis.*;
 
 
+/**
+  * Crop disorder record entity.Contains all a crop's current state.
+  */
+
 @Entity
 public class CropDisorderRecord
 {
