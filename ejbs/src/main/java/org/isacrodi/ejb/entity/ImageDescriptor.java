@@ -1,11 +1,15 @@
 package org.isacrodi.ejb.entity;
 
 import java.io.Serializable;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import java.awt.image.BufferedImage;
 
 /**
   * Implements image descriptor from Digital Image
@@ -66,12 +70,17 @@ public class ImageDescriptor extends Descriptor implements Serializable
   }
 
 
-  public BufferedImage bufferedImage()
+  public BufferedImage bufferedImage() throws IOException
   {
-    if (this.mimeType.equals("image/jpeg"))
+    boolean mimeSupported = false;
+    for (String supportedMimeType : ImageIO.getReaderMIMETypes())
     {
-      // JTK: to be implemented
-      return (null);
+      mimeSupported |= this.mimeType.equals(supportedMimeType);
+    }
+    if (mimeSupported)
+    {
+      ByteArrayInputStream b = new ByteArrayInputStream(this.imageData);
+      return(ImageIO.read(b));
     }
     else
     {

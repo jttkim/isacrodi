@@ -36,6 +36,7 @@ public class DiagnosisTest
     this.imageDescriptor = new ImageDescriptor();
     this.imageDescriptor.setId(12);
     this.imageDescriptor.setImageType(this.imageType);
+    this.imageDescriptor.setMimeType("image/jpeg");
     String jpegFileName = "src/test/java/org/isacrodi/diagnosis/uchuva.jpg";
     File jpegFile = new File(jpegFileName);
     long jpegLength = jpegFile.length();
@@ -55,7 +56,7 @@ public class DiagnosisTest
 
 
   @Test(expected = IllegalStateException.class)
-  public void testInvalidMimeType()
+  public void testInvalidMimeType() throws IOException
   {
     ImageDescriptor idBroken = new ImageDescriptor();
     idBroken.setId(13);
@@ -68,11 +69,12 @@ public class DiagnosisTest
   @Test
   public void testImageFeatureExtractor() throws IOException
   {
+    Assert.assertNotNull(this.imageDescriptor);
     Assert.assertNotNull(this.imageDescriptor.bufferedImage());
     ImageFeatureExtractor ife = new DummyImageFeatureExtractor();
     FeatureVector featureVector = ife.extract(this.imageDescriptor);
     // JTK: this should be a method, not a publicly accessible member
-    System.out.println("MEAN........... " + featureVector.mean);
+    System.out.println(featureVector.toString());
     Assert.assertNotNull(featureVector);
   }
 
