@@ -12,42 +12,35 @@ import java.util.*;
 
 
 /**
-  Image feature extractor.\It extracts features form an image buffered.
-  */
-
+ * Feature vector.
+ *
+ * Notice that the order of components is undefined, as feature
+ * vectors are implemented by maps -- i.e. remember to match elements
+ * by name, not by position.
+ */
 public class FeatureVector extends HashMap<String, Double>
 {
-  
-  public double mean;
-
-
   public FeatureVector()
   {  
     super();
   }
 
-  
-  public FeatureVector(BufferedImage bufferedImage)
+
+  /**
+   * Produces a Python dictionary style string of this feature vector.
+   *
+   * @return a dictionary style string
+   */
+  public String toString()
   {
-    super();
-    this.mean = calculateMean(bufferedImage);
-  }
-
-
-  public double calculateMean(BufferedImage bufferedImage)
-  {
-
-    double sum = 0.0;
-    Raster raster = bufferedImage.getRaster();
-
-    for(int i = 0; i < bufferedImage.getHeight(); ++i)
+    String s = "{";
+    String glue = "";
+    for (String k : this.keySet())
     {
-      for(int j = 0; j < bufferedImage.getWidth(); ++j)
-      {
-        sum = sum + raster.getSample(j,i, 0);
-      }
+      s += String.format("%s%s: %f", glue, k, this.get(k));
+      glue = ", ";
     }
-
-    return (sum / (bufferedImage.getWidth() * bufferedImage.getHeight()));
+    s += "}";
+    return (s);
   }
 }
