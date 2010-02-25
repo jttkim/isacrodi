@@ -66,15 +66,17 @@ public class ImageDescriptor extends Descriptor implements Serializable
   }
 
 
-  public void setBufferedImage(BufferedImage bufferedImage)
+  public BufferedImage bufferedImage()
   {
-    this.bufferedImage = bufferedImage;
-  }
-
-
-  public BufferedImage getBufferedImage()
-  {
-    return (this.bufferedImage);
+    if (this.mimeType.equals("image/jpeg"))
+    {
+      // JTK: to be implemented
+      return (null);
+    }
+    else
+    {
+      throw new IllegalStateException(String.format("cannot construct image for MIME type %s", this.mimeType));
+    }
   }
 
 

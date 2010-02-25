@@ -16,68 +16,73 @@ import org.isacrodi.ejb.entity.*;
 
 public class DiagnosisTest
 {
+  private NumericType numericType;
+  private NumericDescriptor numericDescriptor;
+  private ImageType imageType;
+  private ImageDescriptor imageDescriptor;
+  private Crop tomato;
+  private CropDisorderRecord cropDisorderRecord;
+
+
+  @Before
+  public void setUp() throws IOException
+  {
+    this.numericType = new NumericType("temperature");
+    this.numericDescriptor = new NumericDescriptor();
+    this.numericDescriptor.setId(11);
+    this.numericDescriptor.setNumericType(this.numericType);
+    this.numericDescriptor.setValue(27.0);
+    this.imageType = new ImageType("leaf");
+    this.imageDescriptor = new ImageDescriptor();
+    this.imageDescriptor.setId(12);
+    this.imageDescriptor.setImageType(this.imageType);
+    String jpegFileName = "src/test/java/org/isacrodi/diagnosis/uchuva.jpg";
+    File jpegFile = new File(jpegFileName);
+    long jpegLength = jpegFile.length();
+    byte[] jpegData = new byte[(int) jpegLength];
+    FileInputStream f = new FileInputStream(jpegFile);
+    if (f.read(jpegData) != (int) jpegLength)
+    {
+      throw new RuntimeException(String.format("failure to read image data from %s", jpegFileName));
+    }
+    this.imageDescriptor.setImageData(jpegData);
+    this.tomato = new Crop("Tomato", "Lycopersicon esculentum");
+    this.cropDisorderRecord = new CropDisorderRecord();
+    this.cropDisorderRecord.setCrop(this.tomato);
+    this.cropDisorderRecord.setDescriptorSet(new java.util.HashSet<Descriptor>());
+    this.cropDisorderRecord.addDescriptor(this.numericDescriptor);
+  }
+
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidMimeType()
+  {
+    ImageDescriptor idBroken = new ImageDescriptor();
+    idBroken.setId(13);
+    idBroken.setImageType(this.imageType);
+    idBroken.setMimeType("image/blah");
+    BufferedImage bi = idBroken.bufferedImage();
+  }
+
 
   @Test
-  public void testImageFeatureExtractor()
+  public void testImageFeatureExtractor() throws IOException
   {
-
-    try
-    {
-      String filename = "src/test/java/org/isacrodi/diagnosis/uchuva.jpg";
-      FileInputStream f = new FileInputStream(filename);
-      BufferedImage bufferImage = ImageIO.read(f);
-      byte b[] = new byte [f.available()];
-
-      ImageType it = new ImageType("leaf");
-      ImageDescriptor id = new ImageDescriptor();
-      id.setId(12);
-      id.setImageType(it);
-      id.setMimeType("image");
-      id.setImageData(b);   
-      id.setBufferedImage(bufferImage);   
-      ImageFeatureExtractor ife = new DummyImageFeatureExtractor();
-      FeatureVector featureVector = ife.extract(id);
-      System.out.println("MEAN........... "+featureVector.mean);
-      Assert.assertTrue(featureVector != null);
-    }
-    catch(IOException e)
-     {
-      System.err.println(e);
-    }
+    Assert.assertNotNull(this.imageDescriptor.bufferedImage());
+    ImageFeatureExtractor ife = new DummyImageFeatureExtractor();
+    FeatureVector featureVector = ife.extract(this.imageDescriptor);
+    // JTK: this should be a method, not a publicly accessible member
+    System.out.println("MEAN........... " + featureVector.mean);
+    Assert.assertNotNull(featureVector);
   }
 
 
   @Test
   public void testDiagnosisProvider() throws IOException
   {
-    // FIXME: use better variable names
-    Crop tomato = new Crop("Tomato", "Lycopersicon esculentum");
-    CropDisorderRecord cropDisorderRecord = new CropDisorderRecord();
-    cropDisorderRecord.setCrop(tomato);
-    NumericType nt = new NumericType("temperature");
-    NumericDescriptor nd = new NumericDescriptor();
-    nd.setId(11);
-    nd.setNumericType(nt);
-    nd.setValue(27.0);
-    cropDisorderRecord.setDescriptorSet(new java.util.HashSet<Descriptor>());
-    cropDisorderRecord.addDescriptor(nd);
-    try {
-      FileInputStream f = new FileInputStream("src/test/java/org/isacrodi/diagnosis/uchuva.jpg");
-      byte b[] = new byte [f.available()];
-      ImageType it = new ImageType("leaf");
-      ImageDescriptor id = new ImageDescriptor();
-      id.setId(12);
-      id.setImageType(it);
-      id.setMimeType("image");
-      id.setImageData(b);   
-    }
-    catch (IOException e)
-    {
-      System.err.println(e);
-    }
     DiagnosisProvider dp = new DummyDiagnosisProvider();
-    Diagnosis diagnosis = dp.diagnose(cropDisorderRecord);
-    cropDisorderRecord.setDiagnosis(diagnosis);
+    Diagnosis diagnosis = dp.diagnose(this.cropDisorderRecord);
+    // this.cropDisorderRecord.setDiagnosis(diagnosis);
     Assert.assertTrue(diagnosis != null);
   }
 }
