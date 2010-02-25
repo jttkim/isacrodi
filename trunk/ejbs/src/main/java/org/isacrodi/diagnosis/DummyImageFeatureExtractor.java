@@ -10,7 +10,7 @@ public class DummyImageFeatureExtractor implements ImageFeatureExtractor
 {
   public FeatureVector extract(ImageDescriptor imageDescriptor)
   {
-    return (new FeatureVector());   
+    return (new FeatureVector(imageDescriptor.getBufferedImage()));   
   }
 }
 

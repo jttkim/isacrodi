@@ -2,6 +2,7 @@ package org.isacrodi.diagnosis;
 
 import org.junit.*;
 import java.awt.image.*;
+import java.awt.Image;
 import java.io.*;
 import java.sql.*;
 import java.io.File;
@@ -19,21 +20,28 @@ public class DiagnosisTest
   @Test
   public void testImageFeatureExtractor()
   {
-    try {
-      FileInputStream f = new FileInputStream("src/test/java/org/isacrodi/diagnosis/uchuva.jpg");
+
+    try
+    {
+      String filename = "src/test/java/org/isacrodi/diagnosis/uchuva.jpg";
+      FileInputStream f = new FileInputStream(filename);
+      BufferedImage bufferImage = ImageIO.read(f);
       byte b[] = new byte [f.available()];
+
       ImageType it = new ImageType("leaf");
       ImageDescriptor id = new ImageDescriptor();
       id.setId(12);
       id.setImageType(it);
       id.setMimeType("image");
       id.setImageData(b);   
+      id.setBufferedImage(bufferImage);   
       ImageFeatureExtractor ife = new DummyImageFeatureExtractor();
       FeatureVector featureVector = ife.extract(id);
+      System.out.println("MEAN........... "+featureVector.mean);
       Assert.assertTrue(featureVector != null);
     }
     catch(IOException e)
-    {
+     {
       System.err.println(e);
     }
   }
