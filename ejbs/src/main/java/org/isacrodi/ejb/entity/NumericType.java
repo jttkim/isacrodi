@@ -20,6 +20,7 @@ public class NumericType implements Serializable
   private int version;
   private String typeName;
   private Set<NumericDescriptor> numericDescriptor;
+
   private static final long serialVersionUID = 1;
 
 
