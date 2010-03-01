@@ -18,6 +18,8 @@ public class DiagnosisTest
 {
   private NumericType numericType;
   private NumericDescriptor numericDescriptor;
+  private SymptomType symptomType;
+  private SymptomDescriptor symptomDescriptor;
   private ImageType imageType;
   private ImageDescriptor imageDescriptor;
   private Crop tomato;
@@ -27,11 +29,19 @@ public class DiagnosisTest
   @Before
   public void setUp() throws IOException
   {
+
     this.numericType = new NumericType("temperature");
     this.numericDescriptor = new NumericDescriptor();
     this.numericDescriptor.setId(11);
     this.numericDescriptor.setNumericType(this.numericType);
     this.numericDescriptor.setValue(27.0);
+
+    this.symptomType = new SymptomType("leaf_symptom");
+    this.symptomDescriptor = new SymptomDescriptor();
+    this.symptomDescriptor.setId(8);
+    this.symptomDescriptor.setSymptomType(this.symptomType);
+    this.symptomDescriptor.setValue("canker");
+
     this.imageType = new ImageType("leaf");
     this.imageDescriptor = new ImageDescriptor();
     this.imageDescriptor.setId(12);
@@ -47,11 +57,13 @@ public class DiagnosisTest
       throw new RuntimeException(String.format("failure to read image data from %s", jpegFileName));
     }
     this.imageDescriptor.setImageData(jpegData);
+
     this.tomato = new Crop("Tomato", "Lycopersicon esculentum");
     this.cropDisorderRecord = new CropDisorderRecord();
     this.cropDisorderRecord.setCrop(this.tomato);
     this.cropDisorderRecord.setDescriptorSet(new java.util.HashSet<Descriptor>());
     this.cropDisorderRecord.addDescriptor(this.numericDescriptor);
+    this.cropDisorderRecord.addDescriptor(this.symptomDescriptor);
   }
 
 
@@ -75,6 +87,16 @@ public class DiagnosisTest
     FeatureVector featureVector = ife.extract(this.imageDescriptor);
     // JTK: this should be a method, not a publicly accessible member
     System.out.println(featureVector.toString());
+    Assert.assertNotNull(featureVector);
+  }
+
+
+  @Test 
+  public void testCDRFeatureExtractor() throws IOException
+  {
+    Assert.assertNotNull(this.symptomDescriptor);
+    CDRFeatureExtractor cdrfe = new DummyCDRFeatureExtractor();
+    FeatureVector featureVector = cdrfe.extract(this.cropDisorderRecord);
     Assert.assertNotNull(featureVector);
   }
 

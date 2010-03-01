@@ -9,7 +9,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import java.util.Set;
 
-
+/**
+  *Set symptom type
+ */
 @Entity
 public class SymptomType implements Serializable
 {
@@ -26,6 +28,13 @@ public class SymptomType implements Serializable
     super();
   }
  
+
+  public SymptomType(String typeName)
+  {
+    super();
+    this.typeName = typeName;
+  }
+
 
   @Id
   @GeneratedValue

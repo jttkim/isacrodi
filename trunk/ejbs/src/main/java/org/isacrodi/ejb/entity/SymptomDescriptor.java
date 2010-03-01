@@ -7,11 +7,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 
+
+/**
+  * Set symptom descriptor
+  */
 @Entity
 public class SymptomDescriptor extends Descriptor implements Serializable
 {
 
   private SymptomType symptomType;
+  private String value;
 
   private static final long serialVersionUID = 1;
 
@@ -19,6 +24,14 @@ public class SymptomDescriptor extends Descriptor implements Serializable
   public SymptomDescriptor()
   {
     super();
+  }
+
+
+  public SymptomDescriptor(SymptomType symptomType, String value)
+  {
+    super();
+    this.symptomType = symptomType;
+    this.value = value;
   }
 
 
@@ -34,6 +47,15 @@ public class SymptomDescriptor extends Descriptor implements Serializable
     this.symptomType = symptomType;
   }
 
+  
+  public String getValue()
+  {
+    return value;
+  }
 
 
+  public void setValue(String value)
+  {
+    this.value = value;
+  }
 }
