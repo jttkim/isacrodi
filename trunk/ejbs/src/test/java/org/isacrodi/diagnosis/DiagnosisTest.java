@@ -40,7 +40,7 @@ public class DiagnosisTest
     this.symptomDescriptor = new SymptomDescriptor();
     this.symptomDescriptor.setId(8);
     this.symptomDescriptor.setSymptomType(this.symptomType);
-    this.symptomDescriptor.setValue("canker");
+    this.symptomDescriptor.setValue(1);
 
     this.imageType = new ImageType("leaf");
     this.imageDescriptor = new ImageDescriptor();
@@ -64,6 +64,7 @@ public class DiagnosisTest
     this.cropDisorderRecord.setDescriptorSet(new java.util.HashSet<Descriptor>());
     this.cropDisorderRecord.addDescriptor(this.numericDescriptor);
     this.cropDisorderRecord.addDescriptor(this.symptomDescriptor);
+    this.cropDisorderRecord.addDescriptor(this.imageDescriptor);
   }
 
 
