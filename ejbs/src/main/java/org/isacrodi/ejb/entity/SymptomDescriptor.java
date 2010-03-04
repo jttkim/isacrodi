@@ -16,7 +16,7 @@ public class SymptomDescriptor extends Descriptor implements Serializable
 {
 
   private SymptomType symptomType;
-  private String value;
+  private double value;
 
   private static final long serialVersionUID = 1;
 
@@ -27,7 +27,7 @@ public class SymptomDescriptor extends Descriptor implements Serializable
   }
 
 
-  public SymptomDescriptor(SymptomType symptomType, String value)
+  public SymptomDescriptor(SymptomType symptomType, double value)
   {
     super();
     this.symptomType = symptomType;
@@ -48,13 +48,13 @@ public class SymptomDescriptor extends Descriptor implements Serializable
   }
 
   
-  public String getValue()
+  public double getValue()
   {
     return value;
   }
 
 
-  public void setValue(String value)
+  public void setValue(double value)
   {
     this.value = value;
   }

@@ -22,14 +22,16 @@ public class DummyImageFeatureExtractor implements ImageFeatureExtractor
   public FeatureVector extract(ImageDescriptor imageDescriptor)
   {
     FeatureVector featureVector = new FeatureVector();
+    try
+    {
+    ImageProcessing ip = new ImageProcessing(imageDescriptor.bufferedImage());
+
     // JTK: exception handling mandated by interface...
 
     // root question: how should we deal with failures to compute
     // features?  Missing values? How should these be reported, and
     // tho whom?
-    try
-    {
-      featureVector.put("pixelMean", calculatePixelMean(imageDescriptor.bufferedImage()));
+      featureVector.put("pixelMean", ip.calculatePixelMean());
     }
     catch (IOException e)
     {
