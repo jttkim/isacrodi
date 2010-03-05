@@ -3,7 +3,7 @@ package org.isacrodi.diagnosis;
 import java.io.IOException;
 
 import org.isacrodi.ejb.entity.*;
-
+import java.lang.*;
 
 /**
  * Implements Image Feature Extractor Interface.
@@ -21,15 +21,9 @@ public class DummyCDRFeatureExtractor implements CDRFeatureExtractor
   {
 
     FeatureVector featureVector = new FeatureVector();
-    
-    for (Object o : cdr.getDescriptorSet())
-    {
-      if (o.getClass().getName() == "org.isacrodi.ejb.entity.NumericDescriptor")
-      {
-        NumericDescriptor nd = (NumericDescriptor)o;
-        featureVector.put(nd.getNumericType().getTypeName(), nd.getValue());
-      }
-    } 
+    NumericDescriptor nd = cdr.getNumericDescriptorSet();
+    featureVector.put(nd.getNumericType().getTypeName(), nd.getValue());
+
     return featureVector;
   }
 }

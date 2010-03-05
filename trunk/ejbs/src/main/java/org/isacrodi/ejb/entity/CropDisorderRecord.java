@@ -130,4 +130,36 @@ public class CropDisorderRecord
   {
     this.recommendation = recommendation;
   }
+
+
+  public ImageDescriptor getImageDescriptorSet()
+  {
+     ImageDescriptor ides = new ImageDescriptor();
+
+     for (Object o : getDescriptorSet())
+     {
+       if (o.getClass().isInstance(new ImageDescriptor()))
+       {
+         ides = (ImageDescriptor)o;
+       }
+     }
+     return ides;
+    //Set<ImageDescriptor> imageDescriptorSet = cropDisorderRecord.getImageDescriptorSet();
+  }
+
+
+  public NumericDescriptor getNumericDescriptorSet()
+  {
+     NumericDescriptor ndes = new NumericDescriptor();
+
+     for (Object o : getDescriptorSet())
+     {
+       if (o.getClass().isInstance(new NumericDescriptor()))
+       {
+         ndes = (NumericDescriptor)o;
+       }
+     }
+     return ndes;
+  }
+
 }

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.*;
+import javax.persistence.ManyToMany;
 import java.util.*;
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ public class Diagnosis implements Serializable
   private Integer id;
   private int version;
   private CropDisorderRecord cropDisorderRecord;
+  private Set<CropDisorder> cropDisorderSet;
 
   private static final long serialVersionUID = 1;
 
@@ -63,4 +65,21 @@ public class Diagnosis implements Serializable
   }
 
 
+  @ManyToMany(mappedBy="diagnosis")
+  public Set<CropDisorder> getCropDisorderSet()
+  {
+    return (this.cropDisorderSet);
+  }
+
+
+  public void setCropDisorderSet(Set<CropDisorder> cropDisorder)
+  {
+    this.cropDisorderSet = cropDisorder;
+  }
+
+
+  public void addCropDisorder(CropDisorder cropDisorder)
+  {
+    this.cropDisorderSet.add(cropDisorder);
+  }
 }

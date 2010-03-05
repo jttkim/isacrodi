@@ -24,11 +24,13 @@ public class DiagnosisTest
   private ImageDescriptor imageDescriptor;
   private Crop tomato;
   private CropDisorderRecord cropDisorderRecord;
+  private CropDisorder cropDisorder;
 
 
   @Before
   public void setUp() throws IOException
   {
+
 
     this.numericType = new NumericType("temperature");
     this.numericDescriptor = new NumericDescriptor();
@@ -59,6 +61,7 @@ public class DiagnosisTest
     this.imageDescriptor.setImageData(jpegData);
 
     this.tomato = new Crop("Tomato", "Lycopersicon esculentum");
+    this.tomato.setId(1);
     this.cropDisorderRecord = new CropDisorderRecord();
     this.cropDisorderRecord.setCrop(this.tomato);
     this.cropDisorderRecord.setDescriptorSet(new java.util.HashSet<Descriptor>());
