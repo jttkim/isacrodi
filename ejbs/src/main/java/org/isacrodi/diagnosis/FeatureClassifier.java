@@ -13,25 +13,27 @@ import org.isacrodi.ejb.entity.*;
 public class FeatureClassifier 
 {
 
-  private FeatureVector featureVector;
-
   public FeatureClassifier()
   {
     super();
   }
 
   
-  public FeatureClassifier(FeatureVector featureVector)
+  public int DummyClassifier(FeatureVector featureVector)
   {
-    this();
-    this.featureVector = featureVector;
-  }
+    
+    int disease = 0;
 
- 
-  public String DummyClassifier()
-  {
-    String veredict = "None";
-    return veredict;
+    if(featureVector.get("crop") == 1.0) {
+      if(featureVector.get("temperature") > 20) 
+         disease = 1;
+      else 
+         disease = 2;
+    }
+    else 
+      disease = 3;
+
+    return disease;
   }
 
 }

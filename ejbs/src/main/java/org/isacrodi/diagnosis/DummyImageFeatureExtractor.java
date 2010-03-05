@@ -13,11 +13,11 @@ import org.isacrodi.ejb.entity.*;
  */
 public class DummyImageFeatureExtractor implements ImageFeatureExtractor
 {
+
   public DummyImageFeatureExtractor()
   {
     super();
   }
-
 
   public FeatureVector extract(ImageDescriptor imageDescriptor)
   {
