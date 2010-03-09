@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.util.Set;
 
 
-// Entity implements Procedures
+/*
+ * Class Procedure
+ */
 @Entity
 public class Procedure implements Serializable
 {
@@ -53,7 +55,7 @@ public class Procedure implements Serializable
   }
 
 
-  @ManyToMany
+  @ManyToMany(mappedBy="procedureSet")
   public Set<Recommendation> getRecommendationSet()
   {
     return recommendationSet;

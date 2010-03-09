@@ -32,7 +32,7 @@ public class NumericType implements Serializable
 
   public NumericType(String typeName)
   {
-    super();
+    this();
     this.typeName = typeName;
   }
  
