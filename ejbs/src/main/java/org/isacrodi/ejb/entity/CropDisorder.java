@@ -8,10 +8,10 @@ import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.util.Set;
 
-@Entity
+@Entity(name="CropDisorderId")
 public class CropDisorder implements Serializable
 {
-  private Integer id;
+  private Integer cropDisorderId;
   private int version;
   private String name;
   private String scientificName;
@@ -34,15 +34,15 @@ public class CropDisorder implements Serializable
 
   @Id
   @GeneratedValue
-  public Integer getId()
+  public Integer getCropDisorderId()
   {
-    return (this.id);
+    return (this.cropDisorderId);
   }
 
 
-  public void setId(Integer id)
+  public void setCropDisorderId(Integer cropDisorderId)
   {
-    this.id = id;
+    this.cropDisorderId = cropDisorderId;
   }
 
 
@@ -82,7 +82,8 @@ public class CropDisorder implements Serializable
     this.name = scientificName;
   }
 
-  @ManyToMany(mappedBy="cropDisorderSet")  
+
+  @ManyToMany(mappedBy="cropDisorderSet") 
   public Set<Diagnosis> getDiagnosis() 
   {
     return diagnosis;

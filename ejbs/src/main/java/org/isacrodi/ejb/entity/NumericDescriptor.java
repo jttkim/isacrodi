@@ -10,7 +10,7 @@ import javax.persistence.Version;
 public class NumericDescriptor extends Descriptor implements Serializable
 {
   private NumericType numericType;
-  private double value;
+  private double numericValue;
 
   private static final long serialVersionUID = 1;
 
@@ -25,7 +25,7 @@ public class NumericDescriptor extends Descriptor implements Serializable
   {
     this();
     this.numericType = numericType;
-    this.value = value;
+    this.numericValue = numericValue;
   }
 
 
@@ -42,15 +42,15 @@ public class NumericDescriptor extends Descriptor implements Serializable
   }
 
 
-  public double getValue()
+  public double getNumericValue()
   {
-    return value;
+    return numericValue;
   }
 
 
-  public void setValue(double value)
+  public void setNumericValue(double numericValue)
   {
-    this.value = value;
+    this.numericValue = numericValue;
   }
 
 }

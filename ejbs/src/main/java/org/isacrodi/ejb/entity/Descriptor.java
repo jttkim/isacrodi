@@ -11,8 +11,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-
 public abstract class Descriptor implements Serializable
 {
   // JTK: isn't this redundantly recording class?

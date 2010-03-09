@@ -21,10 +21,25 @@ public class DummyCDRFeatureExtractor implements CDRFeatureExtractor
   {
 
     FeatureVector featureVector = new FeatureVector();
-    NumericDescriptor nd = cdr.getNumericDescriptorSet();
-    featureVector.put(nd.getNumericType().getTypeName(), nd.getValue());
+    NumericDescriptor nd = getNumericDescriptorSet(cdr);
+    featureVector.put(nd.getNumericType().getTypeName(), nd.getNumericValue());
 
     return featureVector;
+  }
+
+
+  public NumericDescriptor getNumericDescriptorSet(CropDisorderRecord cropDisorderRecord)
+  {
+     NumericDescriptor ndes = new NumericDescriptor();
+
+     for (Object o : cropDisorderRecord.getDescriptorSet())
+     {
+       if (o.getClass().isInstance(new NumericDescriptor()))
+       {
+         ndes = (NumericDescriptor)o;
+       }
+     }
+     return ndes;
   }
 }
 

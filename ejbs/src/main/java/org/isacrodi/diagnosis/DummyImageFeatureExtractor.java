@@ -42,20 +42,5 @@ public class DummyImageFeatureExtractor implements ImageFeatureExtractor
   }
 
 
-  // JTK: transplanted from FeatureVector
-  private double calculatePixelMean(BufferedImage bufferedImage)
-  {
-    double sum = 0.0;
-    Raster raster = bufferedImage.getRaster();
-
-    for(int i = 0; i < bufferedImage.getHeight(); ++i)
-    {
-      for(int j = 0; j < bufferedImage.getWidth(); ++j)
-      {
-        sum = sum + raster.getSample(j, i, 0);
-      }
-    }
-    return (sum / (bufferedImage.getWidth() * bufferedImage.getHeight()));
-  }
 }
 

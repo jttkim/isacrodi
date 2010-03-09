@@ -54,14 +54,14 @@ public class Recommendation implements Serializable
   }
 
 
-  @OneToOne
+  @OneToOne(mappedBy="recommendation")
   public CropDisorderRecord getCropDisorderRecord()
   {
     return (this.cropDisorderRecord);
   }
 
 
-  public void setCropDisorderRecord( CropDisorderRecord cropDisorderRecord)
+  public void setCropDisorderRecord(CropDisorderRecord cropDisorderRecord)
   {
     this.cropDisorderRecord = cropDisorderRecord;
   }
@@ -70,13 +70,19 @@ public class Recommendation implements Serializable
   @ManyToMany
   public Set<Procedure> getProcedureSet()
   {
-    return procedureSet;
+    return this.procedureSet;
   }
 
  
   public void setProcedureSet(Set<Procedure> procedureSet)
   {
     this.procedureSet = procedureSet;
+  }
+
+
+  public void addProcedure(Procedure procedure)
+  { 
+    this.procedureSet.add(procedure);
   }
 
 }

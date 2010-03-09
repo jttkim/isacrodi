@@ -9,10 +9,11 @@ import java.util.*;
 import java.io.Serializable;
 
 
-@Entity
+@Entity(name="DiagnosisId")
+@IdClass(DisorderScore.class)
 public class Diagnosis implements Serializable
 {
-  private Integer id;
+  private Integer diagnosisId;
   private int version;
   private CropDisorderRecord cropDisorderRecord;
   private Set<CropDisorder> cropDisorderSet;
@@ -27,15 +28,15 @@ public class Diagnosis implements Serializable
 
 
   @Id @GeneratedValue
-  public Integer getId()
+  public Integer getDiagnosisId()
   {
-    return (this.id);
+    return (this.diagnosisId);
   }
 
 
-  public void setId(Integer id)
+  public void setDiagnosisId(Integer diagnosisId)
   {
-    this.id = id;
+    this.diagnosisId = diagnosisId;
   }
 
 
@@ -52,7 +53,7 @@ public class Diagnosis implements Serializable
   }
 
 
-  @OneToOne
+  @OneToOne(mappedBy="diagnosis")
   public CropDisorderRecord getCropDisorderRecord()
   {
     return (this.cropDisorderRecord);
@@ -64,17 +65,17 @@ public class Diagnosis implements Serializable
     this.cropDisorderRecord = cropDisorderRecord;
   }
 
-
-  @ManyToMany(mappedBy="diagnosis")
+  @ManyToMany
+  @JoinTable(name="DiagnosisId_CropDisorderId")
   public Set<CropDisorder> getCropDisorderSet()
   {
     return (this.cropDisorderSet);
   }
 
 
-  public void setCropDisorderSet(Set<CropDisorder> cropDisorder)
+  public void setCropDisorderSet(Set<CropDisorder> cropDisorderSet)
   {
-    this.cropDisorderSet = cropDisorder;
+    this.cropDisorderSet = cropDisorderSet;
   }
 
 

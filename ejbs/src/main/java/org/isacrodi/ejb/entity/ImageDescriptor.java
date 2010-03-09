@@ -33,7 +33,7 @@ public class ImageDescriptor extends Descriptor implements Serializable
 
   public ImageDescriptor(String mimeType, byte[] imageData)
   {
-    super();
+    this();
     this.mimeType = mimeType;
     this.imageData = imageData;
   }

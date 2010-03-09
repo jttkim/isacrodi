@@ -36,13 +36,13 @@ public class DiagnosisTest
     this.numericDescriptor = new NumericDescriptor();
     this.numericDescriptor.setId(11);
     this.numericDescriptor.setNumericType(this.numericType);
-    this.numericDescriptor.setValue(27.0);
+    this.numericDescriptor.setNumericValue(27.0);
 
     this.symptomType = new SymptomType("leaf_symptom");
     this.symptomDescriptor = new SymptomDescriptor();
     this.symptomDescriptor.setId(8);
     this.symptomDescriptor.setSymptomType(this.symptomType);
-    this.symptomDescriptor.setValue(1);
+    this.symptomDescriptor.setSymptomValue(1);
 
     this.imageType = new ImageType("leaf");
     this.imageDescriptor = new ImageDescriptor();
