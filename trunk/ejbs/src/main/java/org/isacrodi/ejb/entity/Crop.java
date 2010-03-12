@@ -2,8 +2,10 @@ package org.isacrodi.ejb.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.*;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.Set;
 import java.io.Serializable;
@@ -16,6 +18,7 @@ public class Crop implements Serializable
   private int version;
   private String name;
   private String scientificName;
+  private Set<CropDisorder> cropDisorderSet;
   private Set<CropDisorderRecord> cropDisorderRecordSet;
 
   private static final long serialVersionUID = 1;
@@ -29,6 +32,7 @@ public class Crop implements Serializable
 
   public Crop(String name, String scientificName)
   {
+    this();
     this.name = name;
     this.scientificName = scientificName;
   }
@@ -38,7 +42,7 @@ public class Crop implements Serializable
   @GeneratedValue
   public Integer getId()
   {
-    return id;
+    return this.id;
   }
 
 	
@@ -77,7 +81,7 @@ public class Crop implements Serializable
 
   public String getName()
   {
-    return name;
+    return this.name;
   }
 
 
@@ -98,4 +102,27 @@ public class Crop implements Serializable
     this.scientificName = scientificName;
   }
 
+  @ManyToMany
+  public Set<CropDisorder> getCropDisorderSet()
+  {
+    return cropDisorderSet;
+  }
+
+
+  public void setCropDisorderSet(Set<CropDisorder> cropDisorderSet)
+  {
+    this.cropDisorderSet = cropDisorderSet;
+  }
+
+
+  public void addCropDisorder(CropDisorder cropDisorder)
+  {
+    this.cropDisorderSet.add(cropDisorder);
+  }
+
+
+  public String toString()
+  {
+    return String.format("%s %s %s", getId(), getName(), getScientificName());
+  }
 }
