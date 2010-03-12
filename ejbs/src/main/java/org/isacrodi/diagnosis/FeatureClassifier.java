@@ -19,7 +19,7 @@ public class FeatureClassifier
   }
 
   
-  public int DummyClassifier(FeatureVector featureVector)
+  public DisorderScore DummyClassifier(FeatureVector featureVector, Diagnosis diagnosis)
   {
     
     int disease = 0;
@@ -32,8 +32,7 @@ public class FeatureClassifier
     }
     else 
       disease = 3;
-
-    return disease;
+    return(new DisorderScore());
   }
 
 }

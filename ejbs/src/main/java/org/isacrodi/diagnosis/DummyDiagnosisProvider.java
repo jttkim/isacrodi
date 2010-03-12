@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public class DummyDiagnosisProvider implements DiagnosisProvider
 {
-
+  
   public DummyDiagnosisProvider()
   {
     super();
@@ -17,14 +17,20 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
 
   public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
   {
-    int diagId = 0;
+    DisorderScore ds;
+    Diagnosis diagnosis;
 
-    CropDisorder cropDisorder;
-    Diagnosis diagnosis = new Diagnosis();
-
-    cropDisorder = new CropDisorder("anthracnose", "Colletotrichum coccodes");
-    cropDisorder.setCropDisorderId(1);
-
+    diagnosis = new Diagnosis();
+    diagnosis.setId(1);
+    ds = new DisorderScore();
+   
+    //for(Diagnosis d : cropDisorderRecord.getDiagnosis())
+    System.out.println("Diagnosis Int:  "+ cropDisorderRecord.getDiagnosis()+"\n");
+   
+    //Set<DisorderScorePK> dsPKa = new Set<DisorderScorePK>();  
+    //DisorderScorePK dsPK = new DisorderScorePK();
+    //dsPK.setDiagnosis(diagnosis);
+    
     CDRFeatureExtractor c = new DummyCDRFeatureExtractor();
     FeatureVector dfv = c.extract(cropDisorderRecord);
 
@@ -42,14 +48,9 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     featureVector.put("crop", (double)cropDisorderRecord.getCrop().getId());
 
     FeatureClassifier cl = new FeatureClassifier();
-    diagId= cl.DummyClassifier(featureVector);
+    ds = cl.DummyClassifier(featureVector, diagnosis);
 
-    diagnosis.setCropDisorderSet(new java.util.HashSet<CropDisorder>());
-
-    diagnosis.addCropDisorder(cropDisorder);
-
-    // Append Crop Disorder
-    return (new Diagnosis());   
+    return (diagnosis);   
   }
 
 

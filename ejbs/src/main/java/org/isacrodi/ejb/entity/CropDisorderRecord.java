@@ -134,4 +134,9 @@ public class CropDisorderRecord
     this.recommendation = recommendation;
   }
 
+
+  public String toString()
+  {
+    return String.format("%s %s %s", getId(), getVersion(), getCrop().getName());
+  }
 }
