@@ -93,8 +93,8 @@ public class DiagnosisTest
     cdAub1.addCrop(this.aubergine);
     CropDisorder cdAub2 = new CropDisorder("Verticillium Wilt", "Verticillium sp");
     cdAub2.setId(22);
-    cdAub1.setCropSet(new java.util.HashSet<Crop>());
-    cdAub1.addCrop(this.aubergine);
+    cdAub2.setCropSet(new java.util.HashSet<Crop>());
+    cdAub2.addCrop(this.aubergine);
     this.aubergine.setCropDisorderSet(new java.util.HashSet<CropDisorder>());
     this.aubergine.addCropDisorder(cdAub1);
     this.aubergine.addCropDisorder(cdAub2);
@@ -157,29 +157,31 @@ public class DiagnosisTest
   {
     DiagnosisProvider dp = new DummyDiagnosisProvider();
     Diagnosis diagnosis = new Diagnosis();
-    diagnosis.setCropDisorderSet(new java.util.HashSet<CropDisorder>());
+    this.cropDisorderRecord.setDiagnosis(diagnosis);
+    diagnosis.setId(1);
+    diagnosis.setCropDisorderRecord(this.cropDisorderRecord);
+   
+    diagnosis.setDisorderScoreSet(new java.util.HashSet<DisorderScore>());
     for(Crop c : this.cropList)
     {
       for(CropDisorder cd : c.getCropDisorderSet()) 
       {
-        diagnosis.addCropDisorder(cd); 
-	DisorderScorePK dspk = new DisorderScorePK();
-	dspk.setDiagnosis(diagnosis);
-	dspk.setCropDisorder(cd);
-        DisorderScore disorderScore = new DisorderScore(1.0);
-        disorderScore.setDisorderScorePK(dspk);
+        DisorderScore ds = new DisorderScore();
+        ds.setDiagnosis(diagnosis);
+	ds.setCropDisorder(cd);
+        diagnosis.addDisorderScore(ds); 
       }
     }
 
-
-    this.cropDisorderRecord.setDiagnosis(diagnosis);
-
-    //Diagnosis diagnosis = dp.diagnose(this.cropDisorderRecord);
     diagnosis = dp.diagnose(this.cropDisorderRecord);
-
-
-    System.out.println("Diagnosis EXT  " + diagnosis.toString());
-    // this.cropDisorderRecord.setDiagnosis(diagnosis);
-    Assert.assertTrue(diagnosis != null);
+    for (DisorderScore o : cropDisorderRecord.getDiagnosis().getDisorderScoreSet())
+    {
+      for (Crop c : o.getCropDisorder().getCropSet())
+        System.out.print("CROP:  " + c.getName() + " ");
+        System.out.print("Disease: " + o.getCropDisorder().getName() + " ");
+        System.out.println("Score: " + o.getScore());
+    }
+    
+  Assert.assertTrue(diagnosis != null);
   }
 }

@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.*;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.*;
 import java.io.Serializable;
 
@@ -15,7 +16,8 @@ public class Diagnosis implements Serializable
   private Integer Id;
   private int version;
   private CropDisorderRecord cropDisorderRecord;
-  private Set<CropDisorder> cropDisorderSet;
+  private Set<DisorderScore> disorderScoreSet;
+
 
   private static final long serialVersionUID = 1;
 
@@ -65,28 +67,28 @@ public class Diagnosis implements Serializable
     this.cropDisorderRecord = cropDisorderRecord;
   }
 
-  @ManyToMany
-  @JoinColumn(insertable=false, updatable=false)
-  public Set<CropDisorder> getCropDisorderSet()
+
+  @OneToMany(mappedBy="diagnosis")
+  public Set<DisorderScore> getDisorderScoreSet()
   {
-    return (this.cropDisorderSet);
+    return this.disorderScoreSet;
   }
 
 
-  public void setCropDisorderSet(Set<CropDisorder> cropDisorderSet)
+  public void setDisorderScoreSet(Set<DisorderScore> disorderScoreSet)
   {
-    this.cropDisorderSet = cropDisorderSet;
+    this.disorderScoreSet = disorderScoreSet;
   }
 
 
-  public void addCropDisorder(CropDisorder cropDisorder)
+  public void addDisorderScore(DisorderScore disorderScore)
   {
-    this.cropDisorderSet.add(cropDisorder);
+    this.disorderScoreSet.add(disorderScore);
   }
 
- 
-  public String toString()
-  {
-    return String.format("%s %s %s %s", getId(), getVersion(), getCropDisorderRecord(), getCropDisorderSet());
-  }
+
+  //public String toString()
+  //{
+  //  return String.format("%s %s %s %s", getId(), getVersion(), getCropDisorderRecord(), getDisorderScoreSet());
+  //}
 }

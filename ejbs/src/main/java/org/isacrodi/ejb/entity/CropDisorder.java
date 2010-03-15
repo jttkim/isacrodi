@@ -18,8 +18,8 @@ public class CropDisorder implements Serializable
   private int version;
   private String name;
   private String scientificName;
-  private Set<Diagnosis> diagnosisSet;
   private Set<Crop> cropSet;
+  private Set<DisorderScore> disorderScoreSet;
 
 
   private static final long serialVersionUID = 1;
@@ -90,25 +90,6 @@ public class CropDisorder implements Serializable
   }
 
 
-  @ManyToMany(mappedBy="cropDisorderSet") 
-  public Set<Diagnosis> getDiagnosisSet() 
-  {
-    return (this.diagnosisSet);
-  }
-
-
-  public void setDiagnosisSet(Set<Diagnosis> diagnosisSet)
-  {
-    this.diagnosisSet = diagnosisSet;
-  }
-
-  
-  public void addDiagnosis(Diagnosis diagnosis)
-  {
-    this.diagnosisSet.add(diagnosis);
-  }
-
-
   @ManyToMany
   public Set<Crop> getCropSet()
   {
@@ -127,6 +108,26 @@ public class CropDisorder implements Serializable
     this.cropSet.add(crop);
   }
 
+  
+  @OneToMany(mappedBy="cropDisorder")
+  public Set<DisorderScore> getDisorderScoreSet()
+  {
+    return this.disorderScoreSet;
+  }
+
+
+  public void setDisorderScoreSet(Set<DisorderScore> disorderScoreSet)
+  {
+    this.disorderScoreSet = this.disorderScoreSet;
+  }
+
+
+  public void addDisorderScore(DisorderScore disorderScore)
+  {
+    this.disorderScoreSet.add(disorderScore);
+  }
+
+  
   public String toString()
   {
     return String.format("%s %s %s %s %s", getId(), getVersion(), getName(), getScientificName(), getCropSet());
