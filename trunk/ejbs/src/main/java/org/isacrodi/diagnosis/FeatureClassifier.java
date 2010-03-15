@@ -3,6 +3,7 @@ package org.isacrodi.diagnosis;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
+import java.util.Set;
 
 import org.isacrodi.ejb.entity.*;
 
@@ -19,20 +20,23 @@ public class FeatureClassifier
   }
 
   
-  public DisorderScore DummyClassifier(FeatureVector featureVector, Diagnosis diagnosis)
+  public void DummyClassifier(FeatureVector featureVector, Set<DisorderScore> disorderScoreSet)
   {
     
-    int disease = 0;
-
-    if(featureVector.get("crop") == 1.0) {
-      if(featureVector.get("temperature") > 20) 
-         disease = 1;
-      else 
-         disease = 2;
+    for(DisorderScore d : disorderScoreSet)
+    {
+      for(Crop o : d.getCropDisorder().getCropSet()) 
+      {
+        if(((double)featureVector.get("crop") == o.getId()) & featureVector.get("crop") == 10) 
+	{
+	  d.setScore((double)1/3);
+	}
+        else if(((double)featureVector.get("crop") == o.getId()) & featureVector.get("crop") == 20) 
+	  d.setScore((double)1/2);
+	else
+	  d.setScore((double)1/5);
+     }
     }
-    else 
-      disease = 3;
-    return(new DisorderScore());
   }
 
 }

@@ -17,20 +17,7 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
 
   public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
   {
-    DisorderScore ds;
-    Diagnosis diagnosis;
-
-    diagnosis = new Diagnosis();
-    diagnosis.setId(1);
-    ds = new DisorderScore();
    
-    //for(Diagnosis d : cropDisorderRecord.getDiagnosis())
-    System.out.println("Diagnosis Int:  "+ cropDisorderRecord.getDiagnosis()+"\n");
-   
-    //Set<DisorderScorePK> dsPKa = new Set<DisorderScorePK>();  
-    //DisorderScorePK dsPK = new DisorderScorePK();
-    //dsPK.setDiagnosis(diagnosis);
-    
     CDRFeatureExtractor c = new DummyCDRFeatureExtractor();
     FeatureVector dfv = c.extract(cropDisorderRecord);
 
@@ -48,9 +35,9 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     featureVector.put("crop", (double)cropDisorderRecord.getCrop().getId());
 
     FeatureClassifier cl = new FeatureClassifier();
-    ds = cl.DummyClassifier(featureVector, diagnosis);
+    cl.DummyClassifier(featureVector, cropDisorderRecord.getDiagnosis().getDisorderScoreSet());
 
-    return (diagnosis);   
+    return (cropDisorderRecord.getDiagnosis());   
   }
 
 
