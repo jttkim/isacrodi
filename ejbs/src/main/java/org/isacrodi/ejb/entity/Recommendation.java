@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.OneToOne;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ public class Recommendation implements Serializable
   private Integer id;
   private int version;
   private CropDisorderRecord cropDisorderRecord;
-  private Set<Procedure> procedureSet;
+  private Set<ProcedureScore> procedureScoreSet;
 
   private static final long serialVersionUID = 1;
 
@@ -67,22 +67,22 @@ public class Recommendation implements Serializable
   }
 
  
-  @ManyToMany
-  public Set<Procedure> getProcedureSet()
+  @OneToMany(mappedBy="recommendation")
+  public Set<ProcedureScore> getProcedureScoreSet()
   {
-    return this.procedureSet;
+    return this.procedureScoreSet;
   }
 
  
-  public void setProcedureSet(Set<Procedure> procedureSet)
+  public void setProcedureScoreSet(Set<ProcedureScore> procedureScoreSet)
   {
-    this.procedureSet = procedureSet;
+    this.procedureScoreSet = procedureScoreSet;
   }
 
 
-  public void addProcedure(Procedure procedure)
+  public void addProcedureScore(ProcedureScore procedureScore)
   { 
-    this.procedureSet.add(procedure);
+    this.procedureScoreSet.add(procedureScore);
   }
 
 }

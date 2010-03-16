@@ -22,7 +22,6 @@ public class FeatureClassifier
   
   public void DummyClassifier(FeatureVector featureVector, Set<DisorderScore> disorderScoreSet)
   {
-    
     for(DisorderScore d : disorderScoreSet)
     {
       for(Crop o : d.getCropDisorder().getCropSet()) 
@@ -38,6 +37,9 @@ public class FeatureClassifier
      }
     }
   }
+
+  
+
 
 }
 

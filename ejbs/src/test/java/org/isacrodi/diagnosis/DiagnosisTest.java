@@ -28,6 +28,10 @@ public class DiagnosisTest
   private CropDisorderRecord cropDisorderRecord;
   private CropDisorder cropDisorder;
   private Set<Crop> cropList;
+  private Set<CropDisorder> cropDisorderList;
+  private Set<Procedure> procedureList;
+  private Recommendation recommendation;
+  private Diagnosis diagnosis;
 
 
   @Before
@@ -62,7 +66,19 @@ public class DiagnosisTest
       throw new RuntimeException(String.format("failure to read image data from %s", jpegFileName));
     }
     this.imageDescriptor.setImageData(jpegData);
-    
+   
+    //Create procedures
+    Procedure proc1 = new Procedure("Water the plant");
+    proc1.setId(1);
+    Procedure proc2 = new Procedure("Prune the plant");
+    proc2.setId(2);
+    Procedure proc3 = new Procedure("Apply soapy water to leaves");
+    proc3.setId(3);
+    Procedure proc4 = new Procedure("Burn crop down");
+    proc4.setId(4);
+    Procedure proc5 = new Procedure("Apply eco-duff");
+    proc5.setId(5);
+
     // Add first crop 
     this.tomato = new Crop("Tomato", "Lycopersicon esculentum");
     this.tomato.setId(10);
@@ -71,14 +87,26 @@ public class DiagnosisTest
     cdTom1.setId(1);
     cdTom1.setCropSet(new java.util.HashSet<Crop>());
     cdTom1.addCrop(this.tomato);
+    cdTom1.setProcedureSet(new java.util.HashSet<Procedure>());
+    cdTom1.addProcedure(proc1);
+    cdTom1.addProcedure(proc2);
+
     CropDisorder cdTom2 = new CropDisorder("anthracmouth", "Colletotrichum mouth");
     cdTom2.setId(2);
     cdTom2.setCropSet(new java.util.HashSet<Crop>());
     cdTom2.addCrop(this.tomato);
+    cdTom2.setProcedureSet(new java.util.HashSet<Procedure>());
+    cdTom2.addProcedure(proc1);
+
     CropDisorder cdTom3 = new CropDisorder("anthraclips", "Colletotrichum lips");
     cdTom3.setId(3);
     cdTom3.setCropSet(new java.util.HashSet<Crop>());
     cdTom3.addCrop(this.tomato);
+    cdTom3.setProcedureSet(new java.util.HashSet<Procedure>());
+    cdTom3.addProcedure(proc1);
+    cdTom3.addProcedure(proc2);
+    cdTom3.addProcedure(proc5);
+
     this.tomato.setCropDisorderSet(new java.util.HashSet<CropDisorder>());
     this.tomato.addCropDisorder(cdTom1);
     this.tomato.addCropDisorder(cdTom2);
@@ -91,10 +119,17 @@ public class DiagnosisTest
     cdAub1.setId(11);
     cdAub1.setCropSet(new java.util.HashSet<Crop>());
     cdAub1.addCrop(this.aubergine);
+    cdAub1.setProcedureSet(new java.util.HashSet<Procedure>());
+    cdAub1.addProcedure(proc4);
+
     CropDisorder cdAub2 = new CropDisorder("Verticillium Wilt", "Verticillium sp");
     cdAub2.setId(22);
     cdAub2.setCropSet(new java.util.HashSet<Crop>());
     cdAub2.addCrop(this.aubergine);
+    cdAub2.setProcedureSet(new java.util.HashSet<Procedure>());
+    cdAub2.addProcedure(proc1);
+    cdAub2.addProcedure(proc5);
+
     this.aubergine.setCropDisorderSet(new java.util.HashSet<CropDisorder>());
     this.aubergine.addCropDisorder(cdAub1);
     this.aubergine.addCropDisorder(cdAub2);
@@ -103,16 +138,16 @@ public class DiagnosisTest
     this.cropList = new HashSet<Crop>();
     this.cropList.add(this.tomato);
     this.cropList.add(this.aubergine);
-    Set<CropDisorder> d = new HashSet<CropDisorder>();
-    d.add(cdTom1);
-    d.add(cdTom2);
-    d.add(cdTom3);
-    d.add(cdAub1);
-    d.add(cdAub2);
-
+    this.cropDisorderList = new HashSet<CropDisorder>();
+    cropDisorderList.add(cdTom1);
+    cropDisorderList.add(cdTom2);
+    cropDisorderList.add(cdTom3);
+    cropDisorderList.add(cdAub1);
+    cropDisorderList.add(cdAub2);
+  
     // Create CDR
     this.cropDisorderRecord = new CropDisorderRecord();
-    this.cropDisorderRecord.setCrop(this.tomato);
+    this.cropDisorderRecord.setCrop(this.aubergine);
     this.cropDisorderRecord.setDescriptorSet(new java.util.HashSet<Descriptor>());
     this.cropDisorderRecord.addDescriptor(this.numericDescriptor);
     this.cropDisorderRecord.addDescriptor(this.symptomDescriptor);
@@ -156,12 +191,12 @@ public class DiagnosisTest
   public void testDiagnosisProvider() throws IOException
   {
     DiagnosisProvider dp = new DummyDiagnosisProvider();
-    Diagnosis diagnosis = new Diagnosis();
+    this.diagnosis = new Diagnosis();
     this.cropDisorderRecord.setDiagnosis(diagnosis);
-    diagnosis.setId(1);
-    diagnosis.setCropDisorderRecord(this.cropDisorderRecord);
+    this.diagnosis.setId(1);
+    this.diagnosis.setCropDisorderRecord(this.cropDisorderRecord);
    
-    diagnosis.setDisorderScoreSet(new java.util.HashSet<DisorderScore>());
+    this.diagnosis.setDisorderScoreSet(new java.util.HashSet<DisorderScore>());
     for(Crop c : this.cropList)
     {
       for(CropDisorder cd : c.getCropDisorderSet()) 
@@ -169,19 +204,32 @@ public class DiagnosisTest
         DisorderScore ds = new DisorderScore();
         ds.setDiagnosis(diagnosis);
 	ds.setCropDisorder(cd);
-        diagnosis.addDisorderScore(ds); 
+        this.diagnosis.addDisorderScore(ds); 
       }
     }
 
-    diagnosis = dp.diagnose(this.cropDisorderRecord);
-    for (DisorderScore o : cropDisorderRecord.getDiagnosis().getDisorderScoreSet())
+    this.diagnosis = dp.diagnose(this.cropDisorderRecord);
+    for (DisorderScore o : this.cropDisorderRecord.getDiagnosis().getDisorderScoreSet())
     {
       for (Crop c : o.getCropDisorder().getCropSet())
         System.out.print("CROP:  " + c.getName() + " ");
         System.out.print("Disease: " + o.getCropDisorder().getName() + " ");
+        System.out.print("Procedure: " + o.getCropDisorder().getProcedureSet() + " ");
         System.out.println("Score: " + o.getScore());
     }
     
-  Assert.assertTrue(diagnosis != null);
+  Assert.assertTrue(this.diagnosis != null);
   }
+
+
+  @Test
+  public void testRecommendationProvider() throws IOException
+  {
+    RecommendationProvider rp = new DummyRecommendationProvider();
+    this.recommendation = new Recommendation(); 
+    this.cropDisorderRecord.setRecommendation(this.recommendation);
+    this.recommendation.setId(1);
+    this.recommendation.setCropDisorderRecord(this.cropDisorderRecord);
+    
+  }  
 }
