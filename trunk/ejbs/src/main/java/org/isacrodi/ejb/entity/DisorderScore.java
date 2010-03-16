@@ -38,7 +38,7 @@ public class DisorderScore implements Serializable
   }
 
 
-  @ManyToOne  
+  @ManyToOne 
   public CropDisorder getCropDisorder()
   {
     return this.cropDisorder;
@@ -53,7 +53,7 @@ public class DisorderScore implements Serializable
 
   public double getScore()
   {
-    return score;
+    return this.score;
   }
 
 

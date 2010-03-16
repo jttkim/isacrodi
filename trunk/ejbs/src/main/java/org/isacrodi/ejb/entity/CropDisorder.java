@@ -20,6 +20,7 @@ public class CropDisorder implements Serializable
   private String scientificName;
   private Set<Crop> cropSet;
   private Set<DisorderScore> disorderScoreSet;
+  private Set<Procedure> procedureSet;
 
 
   private static final long serialVersionUID = 1;
@@ -93,7 +94,7 @@ public class CropDisorder implements Serializable
   @ManyToMany
   public Set<Crop> getCropSet()
   {
-    return (this.cropSet);
+    return this.cropSet;
   }
 
 
@@ -127,10 +128,28 @@ public class CropDisorder implements Serializable
     this.disorderScoreSet.add(disorderScore);
   }
 
+  @ManyToMany
+  public Set<Procedure> getProcedureSet()
+  {
+    return this.procedureSet;
+  }
+
+
+  public void setProcedureSet(Set<Procedure> procedureSet)
+  {
+    this.procedureSet = procedureSet;
+  }
+
   
+  public void addProcedure(Procedure procedure)
+  {
+    this.procedureSet.add(procedure);
+  }
+
+
   public String toString()
   {
-    return String.format("%s %s %s %s %s", getId(), getVersion(), getName(), getScientificName(), getCropSet());
+    return String.format("%s %s %s %s", getId(), getVersion(), getName(), getScientificName());
   }
 
 }

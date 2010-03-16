@@ -105,7 +105,7 @@ public class Crop implements Serializable
   @ManyToMany
   public Set<CropDisorder> getCropDisorderSet()
   {
-    return cropDisorderSet;
+    return this.cropDisorderSet;
   }
 
 
@@ -121,8 +121,8 @@ public class Crop implements Serializable
   }
 
 
-  //public String toString()
-  //{
-  //  return String.format("%s %s %s", getId(), getName(), getScientificName());
- // }
+  public String toString()
+  {
+    return String.format("%s %s %s", getId(), getName(), getScientificName());
+  }
 }

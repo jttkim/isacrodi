@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
+import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.util.Set;
@@ -17,7 +18,10 @@ public class Procedure implements Serializable
 {
   private Integer id;
   private int version;
-  private Set<Recommendation> recommendationSet;
+  private String description;
+  private Set<ProcedureScore> procedureScoreSet;
+  private Set<CropDisorder> cropDisorderSet;
+
 
   private static final long serialVersionUID = 1;
 
@@ -27,6 +31,13 @@ public class Procedure implements Serializable
     super();
   }
  
+
+  public Procedure(String description)
+  {
+    this();
+    this.description = description;
+  }
+
 
   @Id
   @GeneratedValue
@@ -55,16 +66,47 @@ public class Procedure implements Serializable
   }
 
 
-  @ManyToMany(mappedBy="procedureSet")
-  public Set<Recommendation> getRecommendationSet()
+  public String getDescription()
   {
-    return recommendationSet;
+    return this.description;
+  }
+
+  
+  public void setDescription(String description)
+  {
+    this.description = description;
   }
 
 
-  public void setRecommendationSet(Set<Recommendation> recommendationSet)
+  @OneToMany(mappedBy="procedure")
+  public Set<ProcedureScore> getProcedureScoreSet()
   {
-    this.recommendationSet = recommendationSet;
+    return procedureScoreSet;
+  }
+
+
+  public void setProcedureScoreSet(Set<ProcedureScore> procedureScoreSet)
+  {
+    this.procedureScoreSet = procedureScoreSet;
+  }
+
+
+  @ManyToMany
+  public Set<CropDisorder> getCropDisorderSet()
+  {
+    return this.cropDisorderSet;
+  }
+
+
+  public void setCropDisorderSet(Set<CropDisorder> cropDisoderSet)
+  {
+    this.cropDisorderSet = cropDisorderSet;
+  }
+
+
+  public String toString()
+  {
+    return String.format("%s %s %s", getId(), getVersion(), getDescription());
   }
 
 }
