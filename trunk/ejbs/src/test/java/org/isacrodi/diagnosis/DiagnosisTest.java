@@ -218,18 +218,20 @@ public class DiagnosisTest
         System.out.println("Score: " + o.getScore());
     }
     
-  Assert.assertTrue(this.diagnosis != null);
-  }
+    
+    // Test recommendation
 
-
-  @Test
-  public void testRecommendationProvider() throws IOException
-  {
     RecommendationProvider rp = new DummyRecommendationProvider();
     this.recommendation = new Recommendation(); 
     this.cropDisorderRecord.setRecommendation(this.recommendation);
     this.recommendation.setId(1);
-    this.recommendation.setCropDisorderRecord(this.cropDisorderRecord);
-    
-  }  
+
+    for(DisorderScore cd : this.diagnosis.getDisorderScoreSet())
+    {
+      for(Procedure pr : cd.getCropDisorder().getProcedureSet())
+        System.out.println("DISORDER SCORE: " + pr);
+    }
+
+    Assert.assertTrue(this.diagnosis != null);
+  }
 }
