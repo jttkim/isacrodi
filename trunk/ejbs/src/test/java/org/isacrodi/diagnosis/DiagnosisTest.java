@@ -223,13 +223,10 @@ public class DiagnosisTest
 
     RecommendationProvider rp = new DummyRecommendationProvider();
     this.recommendation = new Recommendation(); 
-    this.cropDisorderRecord.setRecommendation(this.recommendation);
-    this.recommendation.setId(1);
-
-    for(DisorderScore cd : this.diagnosis.getDisorderScoreSet())
-    {
-      for(Procedure pr : cd.getCropDisorder().getProcedureSet())
-        System.out.println("DISORDER SCORE: " + pr);
+    this.recommendation = rp.recommend(this.diagnosis);
+    
+    for(ProcedureScore ps : this.recommendation.getProcedureScoreSet()){
+        System.out.println("Procedure" + ps.getProcedure() + ", " + ps.getScore());
     }
 
     Assert.assertTrue(this.diagnosis != null);
