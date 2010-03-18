@@ -18,8 +18,26 @@ public class DummyRecommendationProvider implements RecommendationProvider
   public Recommendation recommend(Diagnosis diagnosis)
   {
    
-    return (new Recommendation());   
+    Recommendation recommendation = new Recommendation(); 
+    //this.cropDisorderRecord.setRecommendation(this.recommendation);
+    recommendation.setId(1);
+
+    recommendation.setProcedureScoreSet(new java.util.HashSet<ProcedureScore>());
+    for(DisorderScore cd : diagnosis.getDisorderScoreSet())
+    {
+      for(Procedure p : cd.getCropDisorder().getProcedureSet())
+      {
+	ProcedureScore ps = new ProcedureScore();
+	ps.setRecommendation(recommendation);
+	ps.setProcedure(p);
+	ps.setScore(0.2);
+	recommendation.addProcedureScore(ps);
+      }
+    }
+   
+    return (recommendation);   
   }
 
+  
 }
 
