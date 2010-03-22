@@ -25,11 +25,11 @@ public class DiagnosisTest
   private ImageDescriptor imageDescriptor;
   private Crop tomato;
   private Crop aubergine;
+  private CropDisorderRecord emptyCDR;
   private CropDisorderRecord cropDisorderRecord;
-  private CropDisorder cropDisorder;
-  private Set<Crop> cropList;
-  private Set<CropDisorder> cropDisorderList;
-  private Set<Procedure> procedureList;
+  private Set<Crop> cropSet;
+  private Set<CropDisorder> cropDisorderSet;
+  private Set<Procedure> procedureSet;
   private Recommendation recommendation;
   private Diagnosis diagnosis;
 
@@ -135,18 +135,23 @@ public class DiagnosisTest
     this.aubergine.addCropDisorder(cdAub2);
 
     // Create crop set
-    this.cropList = new HashSet<Crop>();
-    this.cropList.add(this.tomato);
-    this.cropList.add(this.aubergine);
-    this.cropDisorderList = new HashSet<CropDisorder>();
-    cropDisorderList.add(cdTom1);
-    cropDisorderList.add(cdTom2);
-    cropDisorderList.add(cdTom3);
-    cropDisorderList.add(cdAub1);
-    cropDisorderList.add(cdAub2);
+    this.cropSet = new HashSet<Crop>();
+    this.cropSet.add(this.tomato);
+    this.cropSet.add(this.aubergine);
+    this.cropDisorderSet = new HashSet<CropDisorder>();
+    cropDisorderSet.add(cdTom1);
+    cropDisorderSet.add(cdTom2);
+    cropDisorderSet.add(cdTom3);
+    cropDisorderSet.add(cdAub1);
+    cropDisorderSet.add(cdAub2);
+
+    // create empty CDR
+    this.emptyCDR = new CropDisorderRecord();
+    this.emptyCDR.setId(new Integer(1));
   
     // Create CDR
     this.cropDisorderRecord = new CropDisorderRecord();
+    this.emptyCDR.setId(new Integer(2));
     this.cropDisorderRecord.setCrop(this.aubergine);
     this.cropDisorderRecord.setDescriptorSet(new java.util.HashSet<Descriptor>());
     this.cropDisorderRecord.addDescriptor(this.numericDescriptor);
@@ -156,7 +161,7 @@ public class DiagnosisTest
 
 
   @Test(expected = IllegalStateException.class)
-  public void testInvalidMimeType() throws IOException
+    public void testInvalidMimeType() throws IOException
   {
     ImageDescriptor idBroken = new ImageDescriptor();
     idBroken.setId(13);
@@ -187,35 +192,84 @@ public class DiagnosisTest
   }
 
 
+  /**
+   * Test that all disorders get the same score when diagnosing an
+   * empty CDR.
+   */
   @Test
-  public void testDiagnosisProvider() throws IOException
+  public void testEmptyDiagnosisProvider() throws IOException
   {
-    DiagnosisProvider dp = new DummyDiagnosisProvider();
+    Assert.assertTrue("no disorders", this.cropDisorderSet.size() > 0);
+    DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
+    dp.setKnownDisorderSet(this.cropDisorderSet);
+    Diagnosis d = dp.diagnose(this.emptyCDR);
+    Assert.assertEquals(this.cropDisorderSet.size(), d.getDisorderScoreSet().size());
+    double s = d.getDisorderScoreSet().iterator().next().getScore();
+    for (DisorderScore ds : d.getDisorderScoreSet())
+    {
+      Assert.assertEquals(s, ds.getScore());
+    }
+  }
+
+
+  /**
+   * Test that only disorders that can affect the crop specified in
+   * the CDR get a score greater than 0.
+   */
+  @Test
+  public void testDiagnosisProviderByCrop()
+  {
+    Assert.assertTrue("no disorders", this.cropDisorderSet.size() > 0);
+    DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
+    dp.setKnownDisorderSet(this.cropDisorderSet);
+    Diagnosis d = dp.diagnose(this.cropDisorderRecord);
+    for (DisorderScore ds : d.getDisorderScoreSet())
+    {
+      if (ds.getCropDisorder().getCropSet().contains(this.cropDisorderRecord.getCrop()))
+      {
+	Assert.assertTrue(ds.getScore() > 0.0);
+      }
+      else
+      {
+	Assert.assertEquals(0.0, ds.getScore());
+      }
+    }
+  }
+
+
+  @Test
+  public void testDiagnosisStuff() throws IOException
+  {
+    DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
+    dp.setKnownDisorderSet(this.cropDisorderSet);
     this.diagnosis = new Diagnosis();
-    this.cropDisorderRecord.setDiagnosis(diagnosis);
     this.diagnosis.setId(1);
     this.diagnosis.setCropDisorderRecord(this.cropDisorderRecord);
-   
     this.diagnosis.setDisorderScoreSet(new java.util.HashSet<DisorderScore>());
-    for(Crop c : this.cropList)
+    this.cropDisorderRecord.setDiagnosis(this.diagnosis);
+   
+    for(Crop c : this.cropSet)
     {
       for(CropDisorder cd : c.getCropDisorderSet()) 
       {
         DisorderScore ds = new DisorderScore();
-        ds.setDiagnosis(diagnosis);
+        ds.setDiagnosis(this.diagnosis);
 	ds.setCropDisorder(cd);
         this.diagnosis.addDisorderScore(ds); 
       }
     }
 
-    this.diagnosis = dp.diagnose(this.cropDisorderRecord);
-    for (DisorderScore o : this.cropDisorderRecord.getDiagnosis().getDisorderScoreSet())
+    // instance variable diagnosis obsolescent...
+    Diagnosis diagnosis = dp.diagnose(this.cropDisorderRecord);
+    for (DisorderScore o : diagnosis.getDisorderScoreSet())
     {
       for (Crop c : o.getCropDisorder().getCropSet())
+      {
         System.out.print("CROP:  " + c.getName() + " ");
         System.out.print("Disease: " + o.getCropDisorder().getName() + " ");
         System.out.print("Procedure: " + o.getCropDisorder().getProcedureSet() + " ");
         System.out.println("Score: " + o.getScore());
+      }
     }
     
     
@@ -225,10 +279,10 @@ public class DiagnosisTest
     this.recommendation = new Recommendation(); 
     this.recommendation = rp.recommend(this.diagnosis);
     
-    for(ProcedureScore ps : this.recommendation.getProcedureScoreSet()){
-        System.out.println("Procedure" + ps.getProcedure() + ", " + ps.getScore());
+    for(ProcedureScore ps : this.recommendation.getProcedureScoreSet())
+    {
+      System.out.println("Procedure" + ps.getProcedure() + ", " + ps.getScore());
     }
-
     Assert.assertTrue(this.diagnosis != null);
   }
 }
