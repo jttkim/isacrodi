@@ -26,6 +26,7 @@
 	  <artifactId>maven-ejb-plugin</artifactId>
 	  <configuration>
 	    <ejbVersion>3.0</ejbVersion>
+	    <generateClient>true</generateClient>
 	  </configuration>
 	</plugin>
     </plugins>    

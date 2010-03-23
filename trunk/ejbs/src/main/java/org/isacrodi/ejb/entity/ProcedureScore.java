@@ -1,14 +1,19 @@
 package org.isacrodi.ejb.entity;
 
-import java.util.*;
+import java.util.Set;
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Version;
 import javax.persistence.ManyToOne;
 
 
-@Embeddable
+@Entity
 public class ProcedureScore implements Serializable
 {
+  private Integer id;
+  private int version;
   private Recommendation recommendation;
   private Procedure procedure;
   private double score;
@@ -25,7 +30,35 @@ public class ProcedureScore implements Serializable
     this.score = score;
   }
 
-  @ManyToOne  
+
+  @Id
+  @GeneratedValue
+  public Integer getId()
+  {
+    return id;
+  }
+
+
+  public void setId(Integer id)
+  {
+    this.id = id;
+  }
+
+
+  @Version
+  public int getVersion()
+  {
+    return (this.version);
+  }
+
+
+  public void setVersion(int version)
+  {
+    this.version = version;
+  }
+
+
+  @ManyToOne
   public Recommendation getRecommendation()
   {
     return this.recommendation;
@@ -38,7 +71,7 @@ public class ProcedureScore implements Serializable
   }
 
 
-  @ManyToOne  
+  @ManyToOne
   public Procedure getProcedure()
   {
     return this.procedure;
@@ -69,22 +102,22 @@ public class ProcedureScore implements Serializable
   }
 
 
-  public boolean equals(Object obj) 
+  public boolean equals(Object obj)
   {
-    if (obj == this) 
+    if (obj == this)
       return true;
-		
-    if (!(obj instanceof Procedure)) 
+
+    if (!(obj instanceof Procedure))
       return false;
-		
+
     ProcedureScore ps = (ProcedureScore)obj;
 
-    if (this.recommendation != ps.recommendation) 
+    if (this.recommendation != ps.recommendation)
       return false;
-		
-    if (this.procedure != ps.procedure) 
+
+    if (this.procedure != ps.procedure)
       return false;
-		
+
     return true;
   }
 }
