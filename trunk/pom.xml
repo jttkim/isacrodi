@@ -13,6 +13,12 @@
     <module>import</module>
   </modules>
 
+  <properties>
+    <!-- jbosshome>${user.home}/hacking/java/jboss/jboss-current</jbosshome -->
+    <jbosshome>${env.JBOSS_HOME}</jbosshome>
+    <projectroot>${project.basedir}</projectroot>
+  </properties>
+
   <build>
     <plugins>
       <plugin>

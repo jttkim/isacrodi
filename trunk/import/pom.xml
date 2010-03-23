@@ -17,12 +17,48 @@
       <artifactId>ejbs</artifactId>
       <type>ejb</type>
     </dependency>
+    <!-- jtk: system dependencies don't seem to make it to the classpath...?? -->
+    <dependency>
+      <groupId>jboss-stuff</groupId>
+      <artifactId>jbosssx-client</artifactId>
+      <version>5.1</version>
+      <scope>system</scope>
+      <systemPath>/local/home/jtk/hacking/java/jboss/jboss-current/client/jbosssx-client.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>jboss-stuff</groupId>
+      <artifactId>jboss-security-spi</artifactId>
+      <version>5.1</version>
+      <scope>system</scope>
+      <systemPath>/local/home/jtk/hacking/java/jboss/jboss-current/client/jboss-security-spi.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>jboss-stuff</groupId>
+      <artifactId>jnpserver</artifactId>
+      <version>5.1</version>
+      <scope>system</scope>
+      <systemPath>/local/home/jtk/hacking/java/jboss/jboss-current/common/lib/jnpserver.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>jboss-stuff</groupId>
+      <artifactId>jbossall-client</artifactId>
+      <version>5.1</version>
+      <scope>system</scope>
+      <systemPath>/local/home/jtk/hacking/java/jboss/jboss-current/client/jbossall-client.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>jboss-stuff</groupId>
+      <artifactId>jboss-logging-spi.jar</artifactId>
+      <version>5.1</version>
+      <scope>system</scope>
+      <systemPath>/local/home/jtk/hacking/java/jboss/jboss-current/client/jboss-logging-spi.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>
     <finalName>isacrodi-import</finalName>
     <plugins>
-      <plugin>
+      <!-- plugin>
         <groupId>org.apache.maven.plugins</groupId>
 	<artifactId>maven-shade-plugin</artifactId>
         <executions>
@@ -30,12 +66,30 @@
 	    <goals>
 	      <goal>shade</goal>
 	    </goals>
-	    <!-- configuration>
-	      <artifactSet>
-	      </artifactSet>
-	    </configuration -->
+	    <configuration>
+	      <transformers>
+	        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+		  <mainClass>org.isacrodi.Import</mainClass>
+	        </transformer>
+	      </transformers>
+	    </configuration>
 	  </execution>
         </executions>
+      </plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-jar-plugin</artifactId>
+	<configuration>
+	  <archive>
+	    <manifestEntries>
+	      <Class-Path>${project.parent.basedir}/ejbs/target/isacrodi-ejb.jar ${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
+	      <Main-Class>org.isacrodi.Import</Main-Class>
+	    </manifestEntries>
+	    <!-- manifest>
+              <addClasspath>true</addClasspath>
+	    </manifest -->
+	  </archive>
+	</configuration>
       </plugin>
     </plugins>
   </build>
