@@ -23,10 +23,6 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
   public void setKnownDisorderSet(Set<CropDisorder> cropDisorderSet)
   {
     this.cropDisorderSet = cropDisorderSet;
-    for (CropDisorder cdo : this.cropDisorderSet)
-    {
-      System.err.println(cdo);
-    }
   }
 
 
@@ -35,15 +31,36 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     Diagnosis d = new Diagnosis();
     d.setCropDisorderRecord(cropDisorderRecord);
     d.setDisorderScoreSet(new HashSet<DisorderScore>());
+
     for (CropDisorder disorder : this.cropDisorderSet)
     {
       DisorderScore ds = new DisorderScore();
-      ds.setScore(1.0 / this.cropDisorderSet.size());
+      if(cropDisorderRecord.getCrop() == null)
+        ds.setScore(1.0 / this.cropDisorderSet.size());
+      else if (disorder.getCropSet().contains(cropDisorderRecord.getCrop()))
+        ds.setScore(1.0 / CountCrop(cropDisorderRecord.getCrop()));
+      else
+	ds.setScore(0.0); 
       ds.setDiagnosis(d);
       ds.setCropDisorder(disorder);
       d.addDisorderScore(ds);
     }
     return (d);
+  }
+
+
+  public int CountCrop(Crop crop)
+  {
+
+    int counter = 0;
+
+    for(CropDisorder cdi : this.cropDisorderSet)
+    {
+      if(cdi.getCropSet().contains(crop))
+        counter++;
+    }
+
+    return counter;
   }
 
 

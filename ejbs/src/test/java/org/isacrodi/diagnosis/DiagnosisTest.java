@@ -219,9 +219,6 @@ public class DiagnosisTest
   @Test
   public void testDiagnosisProviderByCrop()
   {
-    // FIXME skipping this test...
-    System.err.println("skipping testDiagnosisProviderByCrop");
-    /*
     Assert.assertTrue("no disorders", this.cropDisorderSet.size() > 0);
     DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
     dp.setKnownDisorderSet(this.cropDisorderSet);
@@ -237,7 +234,6 @@ public class DiagnosisTest
 	Assert.assertEquals(0.0, ds.getScore());
       }
     }
-    */
   }
 
 
