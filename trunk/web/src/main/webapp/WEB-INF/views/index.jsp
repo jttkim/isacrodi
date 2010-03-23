@@ -5,14 +5,13 @@
 <html>
 <body>
   <fieldset>
-  <legend>test form</legend>
+  <legend>dummy form (no function)</legend>
   <s:form action="formtest">
     <s:textfield label="name" name="name" tooltip="valid names are 'hello' in English and Spanish"/>
     <s:submit/>
   </s:form>
   </fieldset>
   <p><strong>name: <s:property value="name"/></strong></p>
-  <p><strong>EJB hello message: <s:property value="ejbHello"/></strong></p>
   <p>Welcome Isacrodi user
   <s:property value="%{isacrodiUser.firstname}"/>
   <s:property value="%{isacrodiUser.lastname}"/>,
@@ -42,16 +41,6 @@
   }
   %>
   </ul>
-  <h2>isacrodi/HelloBean context</h2>
-  <ul>
-  <%
-  e = context.list("isacrodi/HelloBean");
-  while (e.hasMore())
-  {
-    NameClassPair p = e.next();
-    out.println(String.format("<li>%s</li>", p.getName()));
-  }
-  %>
-  </ul>
 </body>
 </html>
+

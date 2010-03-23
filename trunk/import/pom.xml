@@ -24,19 +24,18 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-jar-plugin</artifactId>
-	<configuration>
-	  <archive>
-	    <manifest>
-	      <addClasspath>true</addClasspath>
-	      <classpathPrefix>lib/</classpathPrefix>
-	      <!-- classpathLayoutType>repository</classpathLayoutType -->
-	      <classpathMavenRepositoryLayout>true</classpathMavenRepositoryLayout>
-
-	      <mainClass>org.isacrodi.Import</mainClass>
-	    </manifest>
-	  </archive>
-	</configuration>
+	<artifactId>maven-shade-plugin</artifactId>
+        <executions>
+	  <execution>
+	    <goals>
+	      <goal>shade</goal>
+	    </goals>
+	    <!-- configuration>
+	      <artifactSet>
+	      </artifactSet>
+	    </configuration -->
+	  </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
