@@ -1,14 +1,19 @@
 package org.isacrodi.ejb.entity;
 
-import java.util.*;
+import java.util.Set;
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Version;
 import javax.persistence.ManyToOne;
 
 
-@Embeddable
+@Entity
 public class DisorderScore implements Serializable
 {
+  private Integer id;
+  private int version;
   private Diagnosis diagnosis;
   private CropDisorder cropDisorder;
   private double score;
@@ -25,7 +30,34 @@ public class DisorderScore implements Serializable
     this.score = score;
   }
 
-  @ManyToOne  
+  @Id
+  @GeneratedValue
+  public Integer getId()
+  {
+    return id;
+  }
+
+
+  public void setId(Integer id)
+  {
+    this.id = id;
+  }
+
+
+  @Version
+  public int getVersion()
+  {
+    return (this.version);
+  }
+
+
+  public void setVersion(int version)
+  {
+    this.version = version;
+  }
+
+
+  @ManyToOne
   public Diagnosis getDiagnosis()
   {
     return this.diagnosis;
@@ -38,7 +70,7 @@ public class DisorderScore implements Serializable
   }
 
 
-  @ManyToOne 
+  @ManyToOne
   public CropDisorder getCropDisorder()
   {
     return this.cropDisorder;
@@ -69,22 +101,22 @@ public class DisorderScore implements Serializable
   }
 
 
-  public boolean equals(Object obj) 
+  public boolean equals(Object obj)
   {
-    if (obj == this) 
+    if (obj == this)
       return true;
-		
-    if (!(obj instanceof CropDisorder)) 
+
+    if (!(obj instanceof CropDisorder))
       return false;
-		
+
     DisorderScore ds = (DisorderScore)obj;
 
-    if (this.diagnosis != ds.diagnosis) 
+    if (this.diagnosis != ds.diagnosis)
       return false;
-		
-    if (this.cropDisorder != ds.cropDisorder) 
+
+    if (this.cropDisorder != ds.cropDisorder)
       return false;
-		
+
     return true;
   }
 }
