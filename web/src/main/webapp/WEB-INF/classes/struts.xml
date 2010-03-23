@@ -39,21 +39,12 @@
       <result name="success" type="redirectAction">loginform_input</result>
     </action>
 
-    <action name="hello" class="org.isacrodi.struts.HelloAction">
-      <result>/WEB-INF/views/index.jsp</result>
-    </action>
-
-    <action name="welcome" class="org.isacrodi.struts.HelloAction">
+    <action name="*" method="input" class="org.isacrodi.struts.WelcomeAction">
       <result name="input">/WEB-INF/views/index.jsp</result>
       <result>/WEB-INF/views/index.jsp</result>
     </action>
 
-    <action name="*" method="input" class="org.isacrodi.struts.HelloAction">
-      <result name="input">/WEB-INF/views/index.jsp</result>
-      <result>/WEB-INF/views/index.jsp</result>
-    </action>
-
-    <action name="*" class="org.isacrodi.struts.HelloAction">
+    <action name="*" class="org.isacrodi.struts.WelcomeAction">
       <result name="input">/WEB-INF/views/index.jsp</result>
       <result>/WEB-INF/views/index.jsp</result>
     </action>
@@ -61,3 +52,4 @@
   </package>
 
 </struts>
+
