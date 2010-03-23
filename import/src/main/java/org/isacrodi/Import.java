@@ -13,7 +13,10 @@ public class Import
   {
     IsacrodiUser jtk = new IsacrodiUser("Kim", "Jan", "jtk", IsacrodiUser.hash("blah"), "j.kim@uea.ac.uk");
     InitialContext context = new InitialContext();
-    UserHandler userHandler = (UserHandler) context.lookup("isacrodi/UserHandlerBean/remote");
+    Object o = context.lookup("isacrodi/UserHandlerBean/remote");
+    System.out.println(o);
+    System.out.println(o.getClass());
+    UserHandler userHandler = (UserHandler) o;
     userHandler.insertUser(jtk);
   }
 }
