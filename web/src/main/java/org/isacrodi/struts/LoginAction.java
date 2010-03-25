@@ -15,7 +15,7 @@ import org.isacrodi.ejb.entity.*;
 
 public class LoginAction extends IsacrodiActionSupport
 {
-  private String email;
+  private String username;
   private String password;
   private IsacrodiUser authenticatedUser;
 
@@ -28,16 +28,16 @@ public class LoginAction extends IsacrodiActionSupport
   }
 
 
-  public void setEmail(String email)
+  public void setUsername(String username)
   {
-    // this.LOG.info(String.format("LoginAction.setEmail(%s)", email));
-    this.email = email;
+    // this.LOG.info(String.format("LoginAction.setUsername(%s)", username));
+    this.username = username;
   }
 
 
-  public String getEmail()
+  public String getUsername()
   {
-    return (this.email);
+    return (this.username);
   }
 
 
@@ -70,7 +70,7 @@ public class LoginAction extends IsacrodiActionSupport
       this.logoutUser();
       return (ERROR);
     }
-    this.LOG.info(String.format("LoginAction.execute: logging in user %s, version %s", this.authenticatedUser.getEmail(), this.authenticatedUser.getVersion()));
+    this.LOG.info(String.format("LoginAction.execute: logging in user %s, version %s", this.authenticatedUser.getUsername(), this.authenticatedUser.getVersion()));
     this.loginUser(this.authenticatedUser);
     return (SUCCESS);
   }
@@ -80,9 +80,9 @@ public class LoginAction extends IsacrodiActionSupport
   {
     // this.LOG.info("LoginAction: validate starts");
     this.authenticatedUser = null;
-    if ((this.email == null) || (this.email.length() == 0))
+    if ((this.username == null) || (this.username.length() == 0))
     {
-      this.addFieldError("email", "No user ID given");
+      this.addFieldError("username", "No user ID given");
     }
     if ((this.password == null) || (this.password.length() == 0))
     {
@@ -92,22 +92,14 @@ public class LoginAction extends IsacrodiActionSupport
     {
       return;
     }
-    IsacrodiUser user = new IsacrodiUser("World", "Hello", "helloworld", IsacrodiUser.hash("secret"), this.email); //this.queryPerformer.findIsacrodiUser(this.email);
-    if (user == null)
+    IsacrodiUser user = this.userHandler.authenticate(this.username, this.password);
+    if (user != null)
     {
-      this.LOG.info(String.format("no user %s", this.email));
+      this.authenticatedUser = user;
     }
     else
     {
-      // this.LOG.info(String.format("found user %s, version %d", user.getEmail(), user.getVersion()));
-      if (user.checkPassword(this.password))
-      {
-	this.authenticatedUser = user;
-      }
-      else
-      {
-	this.addActionError("User ID and password do not match");
-      }
+      this.addActionError("User ID and password do not match");
     }
   }
 }

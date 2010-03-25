@@ -23,35 +23,35 @@
       <artifactId>jbosssx-client</artifactId>
       <version>5.1</version>
       <scope>system</scope>
-      <systemPath>/local/home/jtk/hacking/java/jboss/jboss-current/client/jbosssx-client.jar</systemPath>
+      <systemPath>${jbosshome}/client/jbosssx-client.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>jboss-stuff</groupId>
       <artifactId>jboss-security-spi</artifactId>
       <version>5.1</version>
       <scope>system</scope>
-      <systemPath>/local/home/jtk/hacking/java/jboss/jboss-current/client/jboss-security-spi.jar</systemPath>
+      <systemPath>${jbosshome}/client/jboss-security-spi.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>jboss-stuff</groupId>
       <artifactId>jnpserver</artifactId>
       <version>5.1</version>
       <scope>system</scope>
-      <systemPath>/local/home/jtk/hacking/java/jboss/jboss-current/common/lib/jnpserver.jar</systemPath>
+      <systemPath>${jbosshome}/common/lib/jnpserver.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>jboss-stuff</groupId>
       <artifactId>jbossall-client</artifactId>
       <version>5.1</version>
       <scope>system</scope>
-      <systemPath>/local/home/jtk/hacking/java/jboss/jboss-current/client/jbossall-client.jar</systemPath>
+      <systemPath>${jbosshome}/client/jbossall-client.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>jboss-stuff</groupId>
       <artifactId>jboss-logging-spi.jar</artifactId>
       <version>5.1</version>
       <scope>system</scope>
-      <systemPath>/local/home/jtk/hacking/java/jboss/jboss-current/client/jboss-logging-spi.jar</systemPath>
+      <systemPath>${jbosshome}/client/jboss-logging-spi.jar</systemPath>
     </dependency>
   </dependencies>
 
