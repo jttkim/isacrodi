@@ -15,7 +15,7 @@
 
     <p><s:actionerror/></p>
     <s:form action="loginform">
-      <s:textfield label="Email address" name="email" value="%{email}"/>
+      <s:textfield label="Username" name="username" value="%{username}"/>
       <s:password label="Password" name="password"/>
       <s:submit/>
     </s:form>

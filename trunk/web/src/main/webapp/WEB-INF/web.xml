@@ -16,9 +16,8 @@
   </filter-mapping>
 
   <welcome-file-list>
-    <welcome-file>welcome.action</welcome-file>
+    <welcome-file>welcome</welcome-file>
   </welcome-file-list>
-
 
 </web-app>
 

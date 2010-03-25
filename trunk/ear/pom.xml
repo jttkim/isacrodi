@@ -22,7 +22,25 @@
       <type>ejb</type>
     </dependency>
   </dependencies>
+
   <build>
+    <plugins>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-ear-plugin</artifactId>
+	<version>2.4.1</version>
+	<configuration>
+	  <modules>
+	    <webModule>
+	      <groupId>isacrodi-proj</groupId>
+	      <artifactId>web</artifactId>
+	      <contextRoot>/isacrodi</contextRoot>
+	    </webModule>
+	  </modules>
+	</configuration>
+      </plugin>
+    </plugins>
     <finalName>isacrodi</finalName>
   </build>
+
 </project>

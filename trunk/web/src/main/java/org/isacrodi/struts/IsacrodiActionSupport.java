@@ -34,16 +34,16 @@ public abstract class IsacrodiActionSupport extends ActionSupport implements Ses
   protected Map<String, Object> sessionMap;
   protected HttpServletRequest servletRequest;
   protected IsacrodiUser isacrodiUser;
+  protected UserHandler userHandler;
 
 
   public IsacrodiActionSupport() throws NamingException
   {
     InitialContext context = new InitialContext();
-    // obtain session beans, example:
-    // this.queryPerformer = (QueryPerformer) context.lookup("isacrodi/QueryPerformerBean/remote");
+    this.userHandler = (UserHandler) context.lookup("isacrodi/UserHandlerBean/remote");
   }
 
-  //@Override
+  @Override
   public void setSession(Map<String, Object> sessionMap)
   {
     this.sessionMap = sessionMap;
