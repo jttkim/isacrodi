@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.Vector;
 import java.util.HashSet;
-
+import java.io.*;
+import java.io.ByteArrayOutputStream;
 
 /**
  * Implements Diagnosis Provider Interface
@@ -41,6 +42,17 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     Diagnosis d = new Diagnosis();
     d.setCropDisorderRecord(cropDisorderRecord);
     d.setDisorderScoreSet(new HashSet<DisorderScore>());
+    double [] a = new double[2];
+
+    // For testing purposes
+    double [] sample = new double[7];
+    sample[0] = 1;
+    sample[1] = 10;
+    sample[2] = 11;
+    sample[3] = 12;
+    sample[4] = 13;
+    sample[5] = 14;
+    sample[6] = 15;
 
     for (CropDisorder disorder : this.cropDisorderSet)
     {
@@ -58,7 +70,10 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     
     createClassifierSettings();
     loadFeatureVector();
-    model = svm.svm_train(prob,param);
+    model = svm.svm_train(prob, param);
+
+    svm_predict p = new svm_predict();
+    a = p.predict(model, sample, 1);
 
     return (d);
   }
@@ -135,7 +150,7 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
   }
 
 
-  private void createClassifierSettings()
+  public void createClassifierSettings()
   {
     param = new svm_parameter();
     param.svm_type = svm_parameter.C_SVC;
@@ -149,19 +164,23 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     param.eps = 1e-3;
     param.p = 0.1;
     param.shrinking = 1;
-    param.probability = 0;
+    param.probability = 1;
     param.nr_weight = 0;
     param.weight_label = new int[0];
     param.weight = new double[0];
 
+
   }
 
-  private void loadFeatureVector()
+  public void loadFeatureVector()
   {
 
     Vector<Double> vy = new Vector<Double>();
     Vector<svm_node[]> vx = new Vector<svm_node[]>();
     int max_index = 0;
+
+    // For testing purposes only
+
     double [] a = new double[6];
     a[0] = 1;
     a[1] = 1;
@@ -170,17 +189,16 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     a[4] = 0;
     a[5] = 0;
 
-    for(int i=0; i<5; i++)
+    for(int i=0; i<6; i++)
     {
       vy.addElement(a[i]);
-      System.out.println(vy);
       int m = 6;
-      svm_node[] x = new svm_node[6];
-      for(int j=0;j<m;j++)
+      svm_node[] x = new svm_node[m];
+      for(int j = 0; j < m; j++)
       {
         x[j] = new svm_node();
-        x[j].index = i+1;
-        x[j].value = 10;
+        x[j].index = j+1;
+        x[j].value = 10+j;
       }
       if(m>0) max_index = Math.max(max_index, x[m-1].index);
       vx.addElement(x);
@@ -189,16 +207,17 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     prob = new svm_problem();
     prob.l = vy.size();
     prob.x = new svm_node[prob.l][];
-    for(int i=0;i<prob.l;i++)
+
+    for(int i = 0; i < prob.l; i++)
       prob.x[i] = vx.elementAt(i);
     prob.y = new double[prob.l];
-    for(int i=0;i<prob.l;i++)
+    for(int i = 0; i < prob.l; i++)
       prob.y[i] = vy.elementAt(i);
     if(param.gamma == 0 && max_index > 0)
       param.gamma = 1.0/max_index;
 
     if(param.kernel_type == svm_parameter.PRECOMPUTED)
-      for(int i=0;i<prob.l;i++)
+      for(int i = 0; i < prob.l; i++)
       {
         if (prob.x[i][0].index != 0)
         {
