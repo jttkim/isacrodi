@@ -1,7 +1,6 @@
 package org.isacrodi.diagnosis;
 
 import org.isacrodi.ejb.entity.*;
-import org.isacrodi.diagnosis.libsvm.*;
 import java.io.IOException;
 import java.util.Set;
 import java.util.Vector;

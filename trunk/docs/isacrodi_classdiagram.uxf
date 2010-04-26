@@ -30,7 +30,7 @@ Diagnosis
 --
 - mostInformativeDescriptor []
 </panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>380</x><y>149</y><w>120</w><h>211</h></coordinates><panel_attributes>m1=0..1
-m2=1</panel_attributes><additional_attributes>100;191;20;20</additional_attributes></element><element><type>com.umlet.element.base.Note</type><coordinates><x>540</x><y>300</y><w>90</w><h>50</h></coordinates><panel_attributes>diagnosis gets
+m2=1</panel_attributes><additional_attributes>100;191;20;20</additional_attributes></element><element><type>com.umlet.element.base.Note</type><coordinates><x>550</x><y>290</y><w>90</w><h>50</h></coordinates><panel_attributes>diagnosis gets
 discarded when
 CDR changes</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>580</x><y>140</y><w>140</w><h>50</h></coordinates><panel_attributes>&lt;&lt;Entity&gt;&gt;
 Recommendation</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>449</x><y>130</y><w>151</w><h>50</h></coordinates><panel_attributes>m2=1
@@ -39,7 +39,7 @@ gets discarded
 when CDR
 changes</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>760</x><y>280</y><w>120</w><h>40</h></coordinates><panel_attributes>&lt;&lt;Entity&gt;&gt;
 Procedure</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>720</x><y>239</y><w>100</w><h>61</h></coordinates><panel_attributes>m1=1
-m2=*</panel_attributes><additional_attributes>80;41;20;20</additional_attributes></element><element><type>com.umlet.element.base.Note</type><coordinates><x>850</x><y>180</y><w>150</w><h>70</h></coordinates><panel_attributes>procedures in
+m2=*</panel_attributes><additional_attributes>80;41;20;20</additional_attributes></element><element><type>com.umlet.element.base.Note</type><coordinates><x>860</x><y>200</y><w>130</w><h>60</h></coordinates><panel_attributes>procedures in
 recommendation
 should be ranked</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>280</x><y>540</y><w>140</w><h>70</h></coordinates><panel_attributes>&lt;&lt;Entity&gt;&gt;
 /Descriptor/
@@ -47,7 +47,7 @@ should be ranked</panel_attributes><additional_attributes/></element><element><t
 Crop
 </panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>360</x><y>150</y><w>40</w><h>410</h></coordinates><panel_attributes>m1=*
 m2=1</panel_attributes><additional_attributes>20;390;20;20</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>160</x><y>150</y><w>180</w><h>160</h></coordinates><panel_attributes>m1=*
-m2=1</panel_attributes><additional_attributes>20;140;160;20</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>300</x><y>690</y><w>110</w><h>40</h></coordinates><panel_attributes>NumericDescriptor</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>330</x><y>590</y><w>40</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>20;20;20;100</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>140</x><y>670</y><w>150</w><h>80</h></coordinates><panel_attributes>&lt;&lt;Entity&gt;&gt;
+m2=1</panel_attributes><additional_attributes>20;140;160;20</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>300</x><y>690</y><w>120</w><h>40</h></coordinates><panel_attributes>NumericDescriptor</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>330</x><y>590</y><w>40</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>20;20;20;100</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>140</x><y>670</y><w>150</w><h>80</h></coordinates><panel_attributes>&lt;&lt;Entity&gt;&gt;
 ImageDescriptor
 --
 - imageData
@@ -55,14 +55,14 @@ ImageDescriptor
 + BufferedImage()</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>210</x><y>590</y><w>110</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>90;20;20;80</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>10</x><y>590</y><w>120</w><h>60</h></coordinates><panel_attributes>&lt;&lt;Entity&gt;&gt;
 ImageType
 --
-- typeName : String</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>360</x><y>640</y><w>110</w><h>40</h></coordinates><panel_attributes>SymptomDescriptor</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>380</x><y>590</y><w>40</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>20;20;20;50</additional_attributes></element><element><type>com.umlet.element.base.Note</type><coordinates><x>90</x><y>540</y><w>120</w><h>60</h></coordinates><panel_attributes>annotations to
+- typeName : String</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>360</x><y>640</y><w>120</w><h>40</h></coordinates><panel_attributes>SymptomDescriptor</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>380</x><y>590</y><w>40</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>20;20;20;50</additional_attributes></element><element><type>com.umlet.element.base.Note</type><coordinates><x>90</x><y>530</y><w>120</w><h>70</h></coordinates><panel_attributes>annotations to
 indicate what is shown
 on image (leaf, plant,
 field etc)</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>110</x><y>600</y><w>80</w><h>90</h></coordinates><panel_attributes>m2=1
-m1=*</panel_attributes><additional_attributes>60;70;20;20</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>300</x><y>780</y><w>110</w><h>40</h></coordinates><panel_attributes>NumericType
+m1=*</panel_attributes><additional_attributes>60;70;20;20</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>300</x><y>780</y><w>140</w><h>40</h></coordinates><panel_attributes>NumericType
 --
 - typeName : String</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>330</x><y>710</y><w>40</w><h>90</h></coordinates><panel_attributes>m2=1
-m1=*</panel_attributes><additional_attributes>20;20;20;70</additional_attributes></element><element><type>com.umlet.element.base.Note</type><coordinates><x>470</x><y>740</y><w>130</w><h>70</h></coordinates><panel_attributes>temperature, pH etc.
+m1=*</panel_attributes><additional_attributes>20;20;20;70</additional_attributes></element><element><type>com.umlet.element.base.Note</type><coordinates><x>470</x><y>740</y><w>130</w><h>80</h></coordinates><panel_attributes>temperature, pH etc.
 
 Only one descriptor of
 any given type per
@@ -72,18 +72,18 @@ DiagnosisProvider
 --
  
 --
-+ diagnose(cdr : CropDisorderRecord) : Diagnosis</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>670</x><y>500</y><w>190</w><h>80</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
++ diagnose(cdr : CropDisorderRecord) : Diagnosis</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>670</x><y>500</y><w>230</w><h>80</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
 /FeatureExtractor/
 --
  
 --
-+ extract(o : Object) : FeatureVector</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>640</x><y>610</y><w>170</w><h>80</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
++ extract(o : Object) : FeatureVector</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>640</x><y>610</y><w>170</w><h>90</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
 ImageFeatureExtractor
 --
  
 --
 + extract(i : ImageDescriptor)
-    : FeatureVector</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>820</x><y>610</y><w>180</w><h>80</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+    : FeatureVector</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>820</x><y>610</y><w>190</w><h>90</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
 CDRFeatureExtractor
 --
  
