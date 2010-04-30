@@ -2,7 +2,7 @@ package org.isacrodi.diagnosis;
 
 import java.io.*;
 import java.util.*;
-import org.isacrodi.diagnosis.libsvm.*;
+import libsvm.*;
 
 
 class svm_predict 
