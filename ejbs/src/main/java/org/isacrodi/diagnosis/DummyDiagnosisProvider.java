@@ -7,6 +7,7 @@ import java.util.Vector;
 import java.util.HashSet;
 import java.io.*;
 import java.io.ByteArrayOutputStream;
+import libsvm.*;
 
 /**
  * Implements Diagnosis Provider Interface
