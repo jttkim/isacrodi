@@ -22,7 +22,9 @@ public class DummyCDRFeatureExtractor implements CDRFeatureExtractor
 
     FeatureVector featureVector = new FeatureVector();
     NumericDescriptor nd = getNumericDescriptorSet(cdr);
+    SymptomDescriptor sd = getSymptomDescriptorSet(cdr);
     featureVector.put(nd.getNumericType().getTypeName(), nd.getNumericValue());
+    featureVector.put(sd.getSymptomType().getTypeName(), sd.getSymptomValue());
 
     return featureVector;
   }
@@ -40,6 +42,21 @@ public class DummyCDRFeatureExtractor implements CDRFeatureExtractor
        }
      }
      return ndes;
+  }
+
+
+  public SymptomDescriptor getSymptomDescriptorSet(CropDisorderRecord cropDisorderRecord)
+  {
+     SymptomDescriptor sdes = new SymptomDescriptor();
+
+     for (Object o : cropDisorderRecord.getDescriptorSet())
+     {
+       if (o.getClass().isInstance(new SymptomDescriptor()))
+       {
+         sdes = (SymptomDescriptor)o;
+       }
+     }
+     return sdes;
   }
 }
 

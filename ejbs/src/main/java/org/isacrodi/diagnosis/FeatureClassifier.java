@@ -22,6 +22,13 @@ public class FeatureClassifier
   
   public void DummyClassifier(FeatureVector featureVector, Set<DisorderScore> disorderScoreSet)
   {
+    System.out.println("featureVector....." + featureVector);
+
+  }
+
+
+  public void DummyOld(FeatureVector featureVector, Set<DisorderScore> disorderScoreSet)
+  {
     for(DisorderScore d : disorderScoreSet)
     {
       for(Crop o : d.getCropDisorder().getCropSet()) 
