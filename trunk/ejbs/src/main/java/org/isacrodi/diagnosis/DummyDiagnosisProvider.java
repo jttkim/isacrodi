@@ -42,8 +42,9 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     Diagnosis d = new Diagnosis();
     d.setCropDisorderRecord(cropDisorderRecord);
     d.setDisorderScoreSet(new HashSet<DisorderScore>());
-    double [] a = new double[2];
 
+
+    diagnoseOld(cropDisorderRecord);
     // For testing purposes
     double [] sample = new double[7];
     sample[0] = 1;
@@ -68,12 +69,12 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
       d.addDisorderScore(ds);
     }
     
-    createClassifierSettings();
-    loadFeatureVector();
-    model = svm.svm_train(prob, param);
+    //createClassifierSettings();
+    //loadFeatureVector();
+    //model = svm.svm_train(prob, param);
 
-    svm_predict p = new svm_predict();
-    a = p.predict(model, sample, 1);
+    //svm_predict p = new svm_predict();
+    //a = p.predict(model, sample, 1);
 
     return (d);
   }
@@ -94,7 +95,8 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
   }
 
 
-  public Diagnosis diagnoseOld(CropDisorderRecord cropDisorderRecord)
+  //public Diagnosis diagnoseOld(CropDisorderRecord cropDisorderRecord)
+  public void diagnoseOld(CropDisorderRecord cropDisorderRecord)
   {
    
     CDRFeatureExtractor c = new DummyCDRFeatureExtractor();
@@ -108,15 +110,15 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
 
     for (String k : dfv.keySet())
       featureVector.put(k, dfv.get(k));
-    for (String k : ifv.keySet())
-      featureVector.put(k, ifv.get(k));
+    //for (String k : ifv.keySet())
+    //  featureVector.put(k, ifv.get(k));
    
     featureVector.put("crop", (double)cropDisorderRecord.getCrop().getId());
 
     FeatureClassifier cl = new FeatureClassifier();
     cl.DummyClassifier(featureVector, cropDisorderRecord.getDiagnosis().getDisorderScoreSet());
 
-    return (cropDisorderRecord.getDiagnosis());   
+    //return (cropDisorderRecord.getDiagnosis());   
   }
 
 
@@ -135,7 +137,8 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
   }
 
 
-  public NumericDescriptor getNumericDescriptorSet(CropDisorderRecord cropDisorderRecord)
+  //public NumericDescriptor getNumericDescriptorSet(CropDisorderRecord cropDisorderRecord)
+  public double getNumericDescriptorSet(CropDisorderRecord cropDisorderRecord)
   {
      NumericDescriptor ndes = new NumericDescriptor();
 
@@ -146,7 +149,7 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
          ndes = (NumericDescriptor)o;
        }
      }
-     return ndes;
+     return ndes.getNumericValue();
   }
 
 
@@ -171,7 +174,10 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
 
 
   }
+/**
+Create dummy training data
 
+*/
   public void loadFeatureVector()
   {
 

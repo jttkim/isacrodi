@@ -38,14 +38,13 @@ public class DiagnosisTest
   public void setUp() throws IOException
   {
 
-
     this.numericType = new NumericType("temperature");
     this.numericDescriptor = new NumericDescriptor();
     this.numericDescriptor.setId(11);
     this.numericDescriptor.setNumericType(this.numericType);
     this.numericDescriptor.setNumericValue(27.0);
 
-    this.symptomType = new SymptomType("leaf_symptom");
+    this.symptomType = new SymptomType("visual_symptom");
     this.symptomDescriptor = new SymptomDescriptor();
     this.symptomDescriptor.setId(8);
     this.symptomDescriptor.setSymptomType(this.symptomType);
