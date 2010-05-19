@@ -13,7 +13,7 @@ class svm_predict
     super();
   }
   
-  public double [] predict(svm_model model, double [] sample, int predict_probability)
+  public double [] predict(svm_model model, FeatureVector featureVector, int predict_probability)
   {
 
     int correct = 0;
@@ -39,16 +39,15 @@ class svm_predict
          prob_estimates = new double[nr_class];
        }
     }
-     
-    double target = sample[0];
-    svm_node[] x = new svm_node[sample.length-1];
-    for(int i = 0; i < sample.length-1; i++)
+    
+    double target = 2;
+    svm_node[] x = new svm_node[featureVector.size()];
+    for(int i = 0; i < featureVector.size(); i++)
     {
       x[i] = new svm_node();
       x[i].index = i+1;
-      x[i].value = sample[i+1];
+      x[i].value = featureVector.get(Integer.toString(i+1));
     }
-
 
     double v;
 
@@ -57,9 +56,10 @@ class svm_predict
       v = svm.svm_predict_probability(model, x, prob_estimates);
       for(int j = 0; j < nr_class; j++)
       {
-        System.out.println("CLASS PREDICTED: " + v + "%" + prob_estimates[j]);
-	resultClass[0] = v;
-	resultClass[1] = prob_estimates[j];
+        System.out.println("CLASS PREDICTED: " + prob_estimates[j]);
+        //System.out.println("CLASS PREDICTED: " + v + "%" + prob_estimates[j]);
+	//resultClass[0] = v;
+	//resultClass[1] = prob_estimates[j];
 	
       }
     }
@@ -89,7 +89,8 @@ class svm_predict
     }
     else
       System.out.print("Accuracy = "+(double)correct/total*100+ "% ("+correct+"/"+total+") (classification)\n");
-  return resultClass;
+  //return resultClass;
+  return prob_estimates;
   }
 
 }

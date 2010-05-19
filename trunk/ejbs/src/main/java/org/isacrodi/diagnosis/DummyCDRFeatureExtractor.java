@@ -23,8 +23,10 @@ public class DummyCDRFeatureExtractor implements CDRFeatureExtractor
     FeatureVector featureVector = new FeatureVector();
     NumericDescriptor nd = getNumericDescriptorSet(cdr);
     SymptomDescriptor sd = getSymptomDescriptorSet(cdr);
-    featureVector.put(nd.getNumericType().getTypeName(), nd.getNumericValue());
-    featureVector.put(sd.getSymptomType().getTypeName(), sd.getSymptomValue());
+    //featureVector.put(nd.getNumericType().getTypeName(), nd.getNumericValue());
+    featureVector.put("3", nd.getNumericValue());
+    //featureVector.put(sd.getSymptomType().getTypeName(), sd.getSymptomValue());
+    featureVector.put("1", sd.getSymptomValue());
 
     return featureVector;
   }
