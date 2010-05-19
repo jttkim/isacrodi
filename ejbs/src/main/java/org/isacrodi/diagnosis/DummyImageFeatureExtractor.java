@@ -19,12 +19,15 @@ public class DummyImageFeatureExtractor implements ImageFeatureExtractor
     super();
   }
 
-  public FeatureVector extract(ImageDescriptor imageDescriptor)
+
+  public FeatureVector extract(CropDisorderRecord cropDisorderRecord)
   {
+
     FeatureVector featureVector = new FeatureVector();
+    ImageDescriptor ides = getImageDescriptorSet(cropDisorderRecord);
     try
     {
-    ImageProcessing ip = new ImageProcessing(imageDescriptor.bufferedImage());
+    ImageProcessing ip = new ImageProcessing(ides.bufferedImage());
 
     // JTK: exception handling mandated by interface...
 
@@ -42,5 +45,18 @@ public class DummyImageFeatureExtractor implements ImageFeatureExtractor
   }
 
 
+  public ImageDescriptor getImageDescriptorSet(CropDisorderRecord cropDisorderRecord)
+  {
+     ImageDescriptor ides = new ImageDescriptor();
+
+     for (Object o : cropDisorderRecord.getDescriptorSet())
+     {
+       if (o.getClass().isInstance(new ImageDescriptor()))
+       {
+         ides = (ImageDescriptor)o;
+       }
+     }
+     return ides;
+  }
 }
 

@@ -3,7 +3,7 @@ package org.isacrodi.diagnosis;
 import org.isacrodi.ejb.entity.*;
 
 
-interface ImageFeatureExtractor extends FeatureExtractor<ImageDescriptor>
+interface ImageFeatureExtractor extends FeatureExtractor<CropDisorderRecord>
 {
-  FeatureVector extract(ImageDescriptor descriptor);
+  FeatureVector extract(CropDisorderRecord cropDisorderRecord);
 }

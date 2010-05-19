@@ -96,7 +96,7 @@ public class DiagnosisTest
     cdTom2.addCrop(this.tomato);
     cdTom2.setProcedureSet(new java.util.HashSet<Procedure>());
     cdTom2.addProcedure(proc1);
-
+    
     CropDisorder cdTom3 = new CropDisorder("anthraclips", "Colletotrichum lips");
     cdTom3.setId(3);
     cdTom3.setCropSet(new java.util.HashSet<Crop>());
@@ -176,7 +176,7 @@ public class DiagnosisTest
     Assert.assertNotNull(this.imageDescriptor);
     Assert.assertNotNull(this.imageDescriptor.bufferedImage());
     ImageFeatureExtractor ife = new DummyImageFeatureExtractor();
-    FeatureVector featureVector = ife.extract(this.imageDescriptor);
+    FeatureVector featureVector = ife.extract(this.cropDisorderRecord);
     Assert.assertNotNull(featureVector);
   }
 
