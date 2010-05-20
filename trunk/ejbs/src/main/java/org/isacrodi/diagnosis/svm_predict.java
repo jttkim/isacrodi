@@ -13,7 +13,7 @@ class svm_predict
     super();
   }
   
-  public double [] predict(svm_model model, FeatureVector featureVector, int predict_probability)
+  public double[][] predict(svm_model model, FeatureVector featureVector, int predict_probability)
   {
 
     int correct = 0;
@@ -25,6 +25,9 @@ class svm_predict
     int svm_type = svm.svm_get_svm_type(model);
     int nr_class = svm.svm_get_nr_class(model);
     double[] prob_estimates = null;
+    double [][] score = new double[nr_class][2]; 
+    int[] labels = new int[nr_class];
+
 
     if(predict_probability == 1)
     {
@@ -34,13 +37,12 @@ class svm_predict
        }
        else
        {
-         int[] labels = new int[nr_class];
          svm.svm_get_labels(model,labels);
          prob_estimates = new double[nr_class];
        }
     }
-    
-    double target = 2;
+   
+    double target = 1;
     svm_node[] x = new svm_node[featureVector.size()];
     for(int i = 0; i < featureVector.size(); i++)
     {
@@ -56,10 +58,8 @@ class svm_predict
       v = svm.svm_predict_probability(model, x, prob_estimates);
       for(int j = 0; j < nr_class; j++)
       {
-        System.out.println("CLASS PREDICTED: " + prob_estimates[j]);
-        //System.out.println("CLASS PREDICTED: " + v + "%" + prob_estimates[j]);
-	//resultClass[0] = v;
-	//resultClass[1] = prob_estimates[j];
+	resultClass[0] = v;
+	resultClass[1] = prob_estimates[j];
 	
       }
     }
@@ -78,19 +78,12 @@ class svm_predict
     sumvy += v*target;
     ++total;
      
-
-    if(svm_type == svm_parameter.EPSILON_SVR || svm_type == svm_parameter.NU_SVR)
-    {
-      System.out.print("Mean squared error = "+error/total+" (regression)\n");
-      System.out.print("Squared correlation coefficient = "+
-      ((total*sumvy-sumv*sumy)*(total*sumvy-sumv*sumy))/
-                              ((total*sumvv-sumv*sumv)*(total*sumyy-sumy*sumy))+
-                              " (regression)\n");
+    for(int i=0; i < prob_estimates.length; i++) {
+      score[i][0] = labels[i];
+      score[i][1] = prob_estimates[i];
     }
-    else
-      System.out.print("Accuracy = "+(double)correct/total*100+ "% ("+correct+"/"+total+") (classification)\n");
-  //return resultClass;
-  return prob_estimates;
+   
+  return score;
   }
 
 }

@@ -82,6 +82,7 @@ public class DiagnosisTest
     this.tomato = new Crop("Tomato", "Lycopersicon esculentum");
     this.tomato.setId(10);
 
+    // Add crop disorder
     CropDisorder cdTom1 = new CropDisorder("anthracnose", "Colletotrichum coccodes");
     cdTom1.setId(1);
     cdTom1.setCropSet(new java.util.HashSet<Crop>());
@@ -114,15 +115,17 @@ public class DiagnosisTest
     // Add second crop
     this.aubergine = new Crop("Aubergine", "Solanum melongena");
     this.aubergine.setId(20);
+
+    // Add crop disorder
     CropDisorder cdAub1 = new CropDisorder("Bacterial wilt", "Ralstonia (Pseudomonas) solanacearum");
-    cdAub1.setId(11);
+    cdAub1.setId(4);
     cdAub1.setCropSet(new java.util.HashSet<Crop>());
     cdAub1.addCrop(this.aubergine);
     cdAub1.setProcedureSet(new java.util.HashSet<Procedure>());
     cdAub1.addProcedure(proc4);
 
     CropDisorder cdAub2 = new CropDisorder("Verticillium Wilt", "Verticillium sp");
-    cdAub2.setId(22);
+    cdAub2.setId(5);
     cdAub2.setCropSet(new java.util.HashSet<Crop>());
     cdAub2.addCrop(this.aubergine);
     cdAub2.setProcedureSet(new java.util.HashSet<Procedure>());
@@ -191,6 +194,39 @@ public class DiagnosisTest
   }
 
 
+  @Test
+  public void testDiagnosisStuff() throws IOException
+  {
+    DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
+    dp.setKnownDisorderSet(this.cropDisorderSet);
+    this.diagnosis = new Diagnosis();
+    this.diagnosis.setId(1);
+    this.diagnosis.setCropDisorderRecord(this.cropDisorderRecord);
+    this.diagnosis.setDisorderScoreSet(new java.util.HashSet<DisorderScore>());
+    this.cropDisorderRecord.setDiagnosis(this.diagnosis);
+
+    for(Crop c : this.cropSet)
+    {
+      for(CropDisorder cd : c.getCropDisorderSet())
+      {
+        DisorderScore ds = new DisorderScore();
+        ds.setDiagnosis(this.diagnosis);
+	ds.setCropDisorder(cd);
+        this.diagnosis.addDisorderScore(ds);
+      }
+    }
+
+    // instance variable diagnosis obsolescent...
+    Diagnosis diagnosis = dp.diagnose(this.cropDisorderRecord);
+    // Test recommendation
+
+    RecommendationProvider rp = new DummyRecommendationProvider();
+    this.recommendation = new Recommendation();
+    this.recommendation = rp.recommend(this.diagnosis);
+
+    Assert.assertTrue(this.diagnosis != null);
+  }
+
   /**
    * Test that all disorders get the same score when diagnosing an
    * empty CDR.
@@ -236,52 +272,4 @@ public class DiagnosisTest
   }
 
 
-  @Test
-  public void testDiagnosisStuff() throws IOException
-  {
-    DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
-    dp.setKnownDisorderSet(this.cropDisorderSet);
-    this.diagnosis = new Diagnosis();
-    this.diagnosis.setId(1);
-    this.diagnosis.setCropDisorderRecord(this.cropDisorderRecord);
-    this.diagnosis.setDisorderScoreSet(new java.util.HashSet<DisorderScore>());
-    this.cropDisorderRecord.setDiagnosis(this.diagnosis);
-
-    for(Crop c : this.cropSet)
-    {
-      for(CropDisorder cd : c.getCropDisorderSet())
-      {
-        DisorderScore ds = new DisorderScore();
-        ds.setDiagnosis(this.diagnosis);
-	ds.setCropDisorder(cd);
-        this.diagnosis.addDisorderScore(ds);
-      }
-    }
-
-    // instance variable diagnosis obsolescent...
-    Diagnosis diagnosis = dp.diagnose(this.cropDisorderRecord);
-    for (DisorderScore o : diagnosis.getDisorderScoreSet())
-    {
-      for (Crop c : o.getCropDisorder().getCropSet())
-      {
-        System.out.print("CROP:  " + c.getName() + " ");
-        System.out.print("Disease: " + o.getCropDisorder().getName() + " ");
-        System.out.print("Procedure: " + o.getCropDisorder().getProcedureSet() + " ");
-        System.out.println("Score: " + o.getScore());
-      }
-    }
-
-
-    // Test recommendation
-
-    RecommendationProvider rp = new DummyRecommendationProvider();
-    this.recommendation = new Recommendation();
-    this.recommendation = rp.recommend(this.diagnosis);
-
-    for(ProcedureScore ps : this.recommendation.getProcedureScoreSet())
-    {
-      System.out.println("Procedure" + ps.getProcedure() + ", " + ps.getScore());
-    }
-    Assert.assertTrue(this.diagnosis != null);
-  }
 }

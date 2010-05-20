@@ -28,16 +28,16 @@ public class FeatureClassifier
   private int cross_validation;
   private int nr_fold;
 
+
   public FeatureClassifier()
   {
     super();
   }
 
   
-  public double []  DummyClassifier(FeatureVector featureVector, Set<DisorderScore> disorderScoreSet)
+  public double [][] DummyClassifier(FeatureVector featureVector, Set<DisorderScore> disorderScoreSet)
   {
-   double [] score = null;
-   double [] label = null;
+   double [][] score = null;
 
    model_filename = "src/test/java/org/isacrodi/diagnosis/isacrodi_model";
 
@@ -46,41 +46,25 @@ public class FeatureClassifier
      svm_model model = svm.svm_load_model(model_filename);
      int nr_class = svm.svm_get_nr_class(model);
      int[] labels = new int[nr_class];
-     svm.svm_get_labels(model,labels);
+     svm.svm_get_labels(model, labels);
      createClassifierSettings();
      loadFeatureVector();
      svm_predict p = new svm_predict();
      score = p.predict(model, featureVector, 1);
+
    }
    catch(IOException e) 
    { 
      System.out.println("Unable to create "+model_filename+": "+e.getMessage());
    }
-    
+
     return score;
 
   }
 
-
-  public void DummyOld(FeatureVector featureVector, Set<DisorderScore> disorderScoreSet)
-  {
-    for(DisorderScore d : disorderScoreSet)
-    {
-      for(Crop o : d.getCropDisorder().getCropSet()) 
-      {
-        if(((double)featureVector.get("crop") == o.getId()) & featureVector.get("crop") == 10) 
-	{
-	  d.setScore((double)1/3);
-	}
-        else if(((double)featureVector.get("crop") == o.getId()) & featureVector.get("crop") == 20) 
-	  d.setScore((double)1/2);
-	else
-	  d.setScore((double)1/5);
-     }
-    }
-  }
-
-
+/*
+ * Create classifier settings
+*/
   public void createClassifierSettings()
   {
     param = new svm_parameter();
