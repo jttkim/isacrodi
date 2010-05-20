@@ -34,6 +34,7 @@ public class DummyCDRFeatureExtractor implements CDRFeatureExtractor
 
   public NumericDescriptor getNumericDescriptorSet(CropDisorderRecord cropDisorderRecord)
   {
+
      NumericDescriptor ndes = new NumericDescriptor();
 
      for (Object o : cropDisorderRecord.getDescriptorSet())
@@ -43,6 +44,7 @@ public class DummyCDRFeatureExtractor implements CDRFeatureExtractor
          ndes = (NumericDescriptor)o;
        }
      }
+
      return ndes;
   }
 

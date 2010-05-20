@@ -31,6 +31,59 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
 
   public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
   {
+    
+    Diagnosis d = new Diagnosis();
+    d.setCropDisorderRecord(cropDisorderRecord);
+    d.setDisorderScoreSet(new HashSet<DisorderScore>());
+
+    double [][] score = null; 
+    CDRFeatureExtractor c = new DummyCDRFeatureExtractor();
+    FeatureVector dfv = c.extract(cropDisorderRecord);
+    ImageFeatureExtractor ie = new DummyImageFeatureExtractor();
+    FeatureVector ifv = ie.extract(cropDisorderRecord);
+    
+    FeatureVector featureVector = new FeatureVector();
+    featureVector.put("2", (double)cropDisorderRecord.getCrop().getId());
+
+    for (String k : dfv.keySet())
+      featureVector.put(k, dfv.get(k));
+    //for (String k : ifv.keySet())
+    //  featureVector.put(k, ifv.get(k));
+   
+    FeatureClassifier cl = new FeatureClassifier();
+    score = cl.DummyClassifier(featureVector, cropDisorderRecord.getDiagnosis().getDisorderScoreSet());
+
+    for (CropDisorder disorder : this.cropDisorderSet)
+    {
+      DisorderScore ds1 = new DisorderScore();
+      ds1.setScore(score[search_index(score, disorder.getId())][1]);
+      ds1.setDiagnosis(d);
+      ds1.setCropDisorder(disorder);
+      d.addDisorderScore(ds1);
+    }
+
+    return d;   
+  }
+
+
+  public int search_index(double [][] score, int key)
+  {
+    int i;  
+
+    for(i=0; i < score.length; i++)
+    {
+      if (score[i][0] == key)
+        break;
+    }
+    return i;
+  }
+
+
+
+/// Old Stuff
+
+  public Diagnosis diagnoseOld(CropDisorderRecord cropDisorderRecord)
+  {
     Diagnosis d = new Diagnosis();
     d.setCropDisorderRecord(cropDisorderRecord);
     d.setDisorderScoreSet(new HashSet<DisorderScore>());
@@ -70,34 +123,6 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     return counter;
   }
 
-
-  public Diagnosis diagnoseOld(CropDisorderRecord cropDisorderRecord)
-  //public void diagnoseOld(CropDisorderRecord cropDisorderRecord)
-  {
-    double a = 0.0; 
-    CDRFeatureExtractor c = new DummyCDRFeatureExtractor();
-    FeatureVector dfv = c.extract(cropDisorderRecord);
-
-    ImageFeatureExtractor ie = new DummyImageFeatureExtractor();
-    FeatureVector ifv = ie.extract(cropDisorderRecord);
-    
-    FeatureVector featureVector = new FeatureVector();
-    featureVector.put("2", (double)cropDisorderRecord.getCrop().getId());
-
-    for (String k : dfv.keySet())
-      featureVector.put(k, dfv.get(k));
-    //for (String k : ifv.keySet())
-    //  featureVector.put(k, ifv.get(k));
-   
-    FeatureClassifier cl = new FeatureClassifier();
-    DisorderScore ds = new DisorderScore();
-    //ds.setScore(cl.DummyClassifier(featureVector, cropDisorderRecord.getDiagnosis().getDisorderScoreSet()));
- 
-    a = cl.DummyClassifier(featureVector, cropDisorderRecord.getDiagnosis().getDisorderScoreSet());
-    ds.setScore(a);
-
-    return (cropDisorderRecord.getDiagnosis());   
-  }
 
 }
 
