@@ -53,6 +53,12 @@
       <scope>system</scope>
       <systemPath>${jbosshome}/client/jboss-logging-spi.jar</systemPath>
     </dependency>
+    <dependency>
+      <groupId>miscutils</groupId>
+      <artifactId>json</artifactId>
+      <version>2010-05-25</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>

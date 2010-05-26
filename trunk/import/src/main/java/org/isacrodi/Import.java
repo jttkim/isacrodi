@@ -77,6 +77,10 @@ public class Import
 
   public static void main(String[] args) throws NamingException, IOException
   {
+    if (args.length == 0)
+    {
+      System.err.println("usage: import <file> [<file>]*");
+    }
     for (String arg : args)
     {
       importFile(arg);
