@@ -1,0 +1,12 @@
+isacrodi-numerictypes-0.1
+
+numerictype
+{
+  typename: altitude
+}
+
+numerictype
+{
+  typename: temperature
+}
+

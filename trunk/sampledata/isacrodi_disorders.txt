@@ -1,0 +1,21 @@
+isacrodi-disorders-0.1
+disorder
+{
+  name: potato blackleg rot
+  scientificName: Erwinia carotovora var. atroseptica
+  cropSet: Solanum tuberosum
+}
+
+disorder
+{
+  name: potato soft rot
+  scientificName: Erwinia carotovora var. carotovora
+  cropSet: Solanum tuberosum
+}
+
+disorder
+{
+  name: southern bacterial wilt
+  scientificName: Ralstonia solanacearum
+  cropSet: Solanum tuberosum, Solanum melanogena, Lycopersicon esculentum,
+}

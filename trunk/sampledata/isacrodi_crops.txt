@@ -1,0 +1,19 @@
+isacrodi-crop-0.1
+
+crop
+{
+  name: potato
+  scientificName: Solanum tuberosum
+}
+
+crop
+{
+  name: eggplant
+  scientificName: Solanum melanogena
+}
+
+crop
+{
+  name: tomato
+  scientificName: Lycopersicon esculentum
+}

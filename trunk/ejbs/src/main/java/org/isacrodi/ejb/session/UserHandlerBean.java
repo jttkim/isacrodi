@@ -40,6 +40,7 @@ public class UserHandlerBean implements UserHandler
     }
     else
     {
+      // relying on unique constraint on username
       return (null);
     }
   }

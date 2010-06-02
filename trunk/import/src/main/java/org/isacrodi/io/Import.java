@@ -58,9 +58,13 @@ public class Import
       ImportToken nameToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "name");
       ImportToken scientificNameToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "scientificName");
       s.nextToken(ImportToken.TokenType.SYMBOL, "}");
-      System.err.println("name: " + nameToken);
-      System.err.println("scientific name: " + scientificNameToken);
-      Crop crop = new Crop(nameToken.getValue(), scientificNameToken.getValue());
+      String scientificName = scientificNameToken.getValue();
+      if (access.findCrop(scientificName) != null)
+      {
+	System.err.println(String.format("crop \"%s\" already exists", scientificName));
+	return;
+      }
+      Crop crop = new Crop(nameToken.getValue(), scientificName);
       access.insert(crop);
     }
   }
@@ -79,16 +83,20 @@ public class Import
       s.nextToken(ImportToken.TokenType.SYMBOL, "{");
       ImportToken nameToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "name");
       ImportToken scientificNameToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "scientificName");
+      String scientificName = scientificNameToken.getValue();
       ImportToken cropSet = s.nextToken(ImportToken.TokenType.NAMEVALUE, "cropSet");
       s.nextToken(ImportToken.TokenType.SYMBOL, "}");
-      System.err.println(nameToken.getValue());
-      CropDisorder cropDisorder = new CropDisorder(nameToken.getValue(), scientificNameToken.getValue());
-      System.err.println(cropDisorder.toString());
+      if (access.findCropDisorder(scientificName) != null)
+      {
+	System.err.println(String.format("crop disorder \"%s\" already exists", scientificName));
+	return;
+      }
       String[] csSplit = cropSet.getValue().split(",");
       for (int i = 0; i < csSplit.length; i++)
       {
 	csSplit[i] = csSplit[i].trim();
       }
+      CropDisorder cropDisorder = new CropDisorder(nameToken.getValue(), scientificName);
       access.insert(cropDisorder, csSplit);
     }
   }
@@ -105,10 +113,17 @@ public class Import
 	throw new IllegalStateException("no numerictype token");
       }
       s.nextToken(ImportToken.TokenType.SYMBOL, "{");
-      ImportToken typenameToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "typename");
+      String typename = s.nextToken(ImportToken.TokenType.NAMEVALUE, "typename").getValue();
       s.nextToken(ImportToken.TokenType.SYMBOL, "}");
-      NumericType numericType = new NumericType(typenameToken.getValue());
-      access.insert(numericType);
+      if (access.findNumericType(typename) != null)
+      {
+	System.err.println(String.format("numeric type \"%s\" already exists", typename));
+      }
+      else
+      {
+	NumericType numericType = new NumericType(typename);
+	access.insert(numericType);
+      }
     }
   }
 
