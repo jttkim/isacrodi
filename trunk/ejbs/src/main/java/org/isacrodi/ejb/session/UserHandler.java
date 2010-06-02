@@ -11,6 +11,14 @@ public interface UserHandler
   void insertUser(IsacrodiUser isacrodiUser);
 
   /**
+   * Find a user by username.
+   *
+   * @param username the username
+   * @return the user, or {@code null} if no user with that username exists
+   */
+  IsacrodiUser findUser(String username);
+
+  /**
    * Authenticate a user.
    *
    * @param username the username

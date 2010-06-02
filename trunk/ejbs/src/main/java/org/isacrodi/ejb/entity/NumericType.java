@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Specification of the physical quantity (physical unit) that is
@@ -27,15 +28,17 @@ public class NumericType implements Serializable
   public NumericType()
   {
     super();
+    this.numericDescriptor = new HashSet<NumericDescriptor>();
   }
- 
+
 
   public NumericType(String typeName)
   {
     this();
     this.typeName = typeName;
   }
- 
+
+
   @Id
   @GeneratedValue
   public Integer getId()
@@ -86,6 +89,4 @@ public class NumericType implements Serializable
   {
     this.typeName = typeName;
   }
-
-
 }

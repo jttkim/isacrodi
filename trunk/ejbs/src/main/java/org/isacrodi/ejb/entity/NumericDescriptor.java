@@ -14,14 +14,14 @@ public class NumericDescriptor extends Descriptor implements Serializable
 
   private static final long serialVersionUID = 1;
 
-   
+
   public NumericDescriptor()
   {
     super();
   }
 
 
-  public NumericDescriptor(NumericType numericType, double value)
+  public NumericDescriptor(NumericType numericType, double numericValue)
   {
     this();
     this.numericType = numericType;
@@ -53,4 +53,9 @@ public class NumericDescriptor extends Descriptor implements Serializable
     this.numericValue = numericValue;
   }
 
+
+  public String toString()
+  {
+    return (String.format("NumericDescriptor(%s, %g)", this.numericType.getTypeName(), this.numericValue));
+  }
 }

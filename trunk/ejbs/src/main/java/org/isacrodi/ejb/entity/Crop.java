@@ -2,7 +2,7 @@ package org.isacrodi.ejb.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.*;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.ManyToMany;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Entity
 public class Crop implements Serializable
 {
-  private Integer id;	
+  private Integer id;
   private int version;
   private String name;
   private String scientificName;
@@ -37,7 +37,7 @@ public class Crop implements Serializable
     this.scientificName = scientificName;
   }
 
-	
+
   @Id
   @GeneratedValue
   public Integer getId()
@@ -45,7 +45,7 @@ public class Crop implements Serializable
     return this.id;
   }
 
-	
+
   public void setId(Integer id)
   {
 
@@ -90,7 +90,7 @@ public class Crop implements Serializable
     this.name = name;
   }
 
-
+  @Column(unique = true, nullable = false)
   public String getScientificName()
   {
     return scientificName;

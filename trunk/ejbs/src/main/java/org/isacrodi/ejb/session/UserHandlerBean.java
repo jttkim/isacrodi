@@ -25,6 +25,26 @@ public class UserHandlerBean implements UserHandler
   }
 
 
+  public IsacrodiUser findUser(String username)
+  {
+    if (username == null)
+    {
+      throw new IllegalArgumentException("username must not be null");
+    }
+    Query query = this.entityManager.createQuery("SELECT u FROM IsacrodiUser u WHERE username = :username");
+    query.setParameter("username", username);
+    List<IsacrodiUser> userList = Util.genericTypecast(query.getResultList());
+    if (userList.size() == 1)
+    {
+      return(userList.get(0));
+    }
+    else
+    {
+      return (null);
+    }
+  }
+
+
   public void insertUser(IsacrodiUser isacrodiUser)
   {
     // FIXME: should check whether user already exists
@@ -34,17 +54,14 @@ public class UserHandlerBean implements UserHandler
 
   public IsacrodiUser authenticate(String username, String password)
   {
-    Query query = this.entityManager.createQuery("SELECT u FROM IsacrodiUser u WHERE username = :username");
-    query.setParameter("username", username);
-    List<IsacrodiUser> userList = Util.genericTypecast(query.getResultList());
-    if (userList.size() == 1)
+    IsacrodiUser user = this.findUser(username);
+    if ((user != null) && user.checkPassword(password))
     {
-      IsacrodiUser user = userList.get(0);
-      if (user.checkPassword(password))
-      {
-	return (user);
-      }
+      return (user);
     }
-    return (null);
+    else
+    {
+      return (null);
+    }
   }
 }
