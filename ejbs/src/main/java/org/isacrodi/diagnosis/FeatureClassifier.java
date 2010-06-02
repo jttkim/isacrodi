@@ -35,7 +35,7 @@ public class FeatureClassifier
   }
 
   
-  public double [][] DummyClassifier(FeatureVector featureVector, Set<DisorderScore> disorderScoreSet)
+  public double [][] dummyClassifier(FeatureVector featureVector)
   {
    double [][] score = null;
 
@@ -48,7 +48,7 @@ public class FeatureClassifier
      int[] labels = new int[nr_class];
      svm.svm_get_labels(model, labels);
      createClassifierSettings();
-     loadFeatureVector();
+     // loadFeatureVector();
      svm_predict p = new svm_predict();
      score = p.predict(model, featureVector, 1);
 
