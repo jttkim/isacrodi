@@ -65,6 +65,45 @@ disorder underpinning a CDR.
 \section{Coding Standards}
 
 
+\subsection{General Java}
+
+\subsubsection{Code Organisation}
+
+\begin{itemize}
+
+\item Methods order should be consistent with the partial ordering
+  implied by ther caller / callee relationship, i.e.\ a method should
+  be declared after the declaration of all the methods it
+  calls. Exceptions to this are permitted only where necessary to use
+  indirect recursion.
+
+\end{itemize}
+
+
+\subsubsection{Code Format}
+
+\begin{itemize}
+
+\item Two spaces per indentation level.
+
+\item Open braces on separate line.
+
+\item White space around binary operators.
+
+\item No white space between unary operators and operand.
+
+\item CamelCase identifiers, class names start with uppercase
+  character, method and variable names start with lowercase character.
+
+\item Instance variables are always prefixed with \computercode{this}
+  (i.e.\ no use of implicit instance variables).
+
+\item Full Javadoc documentation, minimally consisting of one sentence
+  in the main block and documentation of all of parameters and of the
+  return value.
+
+\end{itemize}
+
 
 \subsection{EJB Standards}
 
@@ -88,16 +127,12 @@ disorder underpinning a CDR.
   made only where there are multiple relationships between the same
   two entities.
 
-\item Constructors are set out in a cascaded way, such that each
-  constructor invocation leads to an explicit superclass constructor
-  invocation.
-
 \item All entities are serializable, so that they can be passed out to the
   web tier as model instances.
 
 \item All entities provide a version column (for optimistic locking).
 
-\item Properties mapping one-to-many relationships are called
+\item Properties mapping to-many relationships are called
   \computercode{\computermeta{propertyname}Set}.
 
 \item No specification of table or column names via annotation (the
@@ -107,30 +142,14 @@ disorder underpinning a CDR.
 \item Column annotation on accessors and mutators, not on instance
   variables.
 
-\end{itemize}
+\item Constructors are set out in a cascaded way, such that each
+  constructor invocation leads to an explicit superclass constructor
+  invocation.
 
-
-\subsection{Code Format}
-
-\begin{itemize}
-
-\item Two spaces per indentation level.
-
-\item Open braces on separate line.
-
-\item White space around binary operators.
-
-\item No white space between unary operators and operand.
-
-\item CamelCase identifiers, class names start with uppercase
-  character, method and variable names start with lowercase character.
-
-\item Instance variables are always prefixed with \computercode{this}
-  (i.e.\ no use of implicit instance variables).
-
-\item Full Javadoc documentation, minimally consisting of one sentence
-  in the main block and documentation of all of parameters and of the
-  return value.
+\item All sets mapping to-many relationships are initialised in the
+  default constructor using \computercode{HashSet}s. This ensures that
+  a usable set is always available, even when constructing instances
+  outside of an EJB container, and thus facilitates testing.
 
 \end{itemize}
 

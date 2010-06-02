@@ -136,6 +136,34 @@ public class CropDisorderRecord implements Serializable
   }
 
 
+  public Set<NumericDescriptor> findNumericDescriptorSet()
+  {
+    HashSet<NumericDescriptor> numericDescriptorSet = new HashSet<NumericDescriptor>();
+    for (Descriptor d : this.descriptorSet)
+    {
+      if (d instanceof NumericDescriptor)
+      {
+	numericDescriptorSet.add((NumericDescriptor) d);
+      }
+    }
+    return (numericDescriptorSet);
+  }
+
+
+  public Set<ImageDescriptor> findImageDescriptorSet()
+  {
+    HashSet<ImageDescriptor> imageDescriptorSet = new HashSet<ImageDescriptor>();
+    for (Descriptor d : this.descriptorSet)
+    {
+      if (d instanceof ImageDescriptor)
+      {
+	imageDescriptorSet.add((ImageDescriptor) d);
+      }
+    }
+    return (imageDescriptorSet);
+  }
+
+
   public String toString()
   {
     return String.format("%s %s %s", getId(), getVersion(), getCrop().getName());

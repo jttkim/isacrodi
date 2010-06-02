@@ -43,7 +43,12 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     FeatureVector ifv = ie.extract(cropDisorderRecord);
     
     FeatureVector featureVector = new FeatureVector();
-    featureVector.put("2", (double)cropDisorderRecord.getCrop().getId());
+    Crop crop = cropDisorderRecord.getCrop();
+    if (crop != null)
+    {
+      // jtk: is this really intended, to put the crop ID as a Double into the vector???
+      featureVector.put("2", (double) crop.getId());
+    }
 
     for (String k : dfv.keySet())
       featureVector.put(k, dfv.get(k));
@@ -51,8 +56,7 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     //  featureVector.put(k, ifv.get(k));
    
     FeatureClassifier cl = new FeatureClassifier();
-    score = cl.DummyClassifier(featureVector, cropDisorderRecord.getDiagnosis().getDisorderScoreSet());
-
+    score = cl.dummyClassifier(featureVector);
     for (CropDisorder disorder : this.cropDisorderSet)
     {
       DisorderScore ds1 = new DisorderScore();

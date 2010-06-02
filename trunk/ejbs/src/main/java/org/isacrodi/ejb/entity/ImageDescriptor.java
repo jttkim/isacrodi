@@ -12,15 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
-  * Implements image descriptor from Digital Image
- */
+  * Implements image descriptor from Digital Image.
+  */	
 @Entity
 public class ImageDescriptor extends Descriptor implements Serializable
 {
   private ImageType imageType;
   private String mimeType;
   private byte[] imageData;
-  private BufferedImage bufferedImage;
 
   private static final long serialVersionUID = 1;
 
@@ -28,6 +27,7 @@ public class ImageDescriptor extends Descriptor implements Serializable
   public ImageDescriptor()
   {
     super();
+    this.mimeType = "unkown";
   }
 
 
