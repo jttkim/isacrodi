@@ -6,9 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.*;
+import javax.persistence.Column;
+
 import java.io.Serializable;
+
 import java.util.Set;
+import java.util.HashSet;
 
 
 @Entity
@@ -26,13 +29,16 @@ public class CropDisorder implements Serializable
   private static final long serialVersionUID = 1;
 
 
-  public CropDisorder() 
+  public CropDisorder()
   {
     super();
+    this.cropSet = new HashSet<Crop>();
+    this.disorderScoreSet = new HashSet<DisorderScore>();
+    this.procedureSet = new HashSet<Procedure>();
   }
 
 
-  public CropDisorder(String name, String scientificName) 
+  public CropDisorder(String name, String scientificName)
   {
     this();
     this.name = name;
@@ -67,7 +73,7 @@ public class CropDisorder implements Serializable
   }
 
 
-  public String getName() 
+  public String getName()
   {
     return (this.name);
   }
@@ -79,7 +85,8 @@ public class CropDisorder implements Serializable
   }
 
 
-  public String getScientificName() 
+  @Column(unique = true, nullable = false)
+  public String getScientificName()
   {
     return (this.scientificName);
   }
@@ -87,7 +94,7 @@ public class CropDisorder implements Serializable
 
   public void setScientificName(String scientificName)
   {
-    this.name = scientificName;
+    this.scientificName = scientificName;
   }
 
 
@@ -109,7 +116,7 @@ public class CropDisorder implements Serializable
     this.cropSet.add(crop);
   }
 
-  
+
   @OneToMany(mappedBy="cropDisorder")
   public Set<DisorderScore> getDisorderScoreSet()
   {
@@ -140,7 +147,7 @@ public class CropDisorder implements Serializable
     this.procedureSet = procedureSet;
   }
 
-  
+
   public void addProcedure(Procedure procedure)
   {
     this.procedureSet.add(procedure);
@@ -151,5 +158,4 @@ public class CropDisorder implements Serializable
   {
     return String.format("%s %s %s %s", getId(), getVersion(), getName(), getScientificName());
   }
-
 }

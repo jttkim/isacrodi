@@ -1,4 +1,4 @@
-package org.isacrodi;
+package org.isacrodi.io;
 
 import java.io.IOException;
 

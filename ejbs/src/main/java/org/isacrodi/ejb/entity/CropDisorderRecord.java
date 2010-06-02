@@ -8,6 +8,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
 import java.util.Set;
+import java.util.HashSet;
 import java.io.Serializable;
 import org.isacrodi.diagnosis.*;
 
@@ -17,7 +18,7 @@ import org.isacrodi.diagnosis.*;
   */
 
 @Entity
-public class CropDisorderRecord
+public class CropDisorderRecord implements Serializable
 {
   private Integer id;
   private int version;
@@ -26,7 +27,6 @@ public class CropDisorderRecord
   private Set<Descriptor> descriptorSet;
   private IsacrodiUser isacrodiUser;
   private Crop crop;
-   
 
   private static final long serialVersionUID = 1;
 
@@ -34,6 +34,7 @@ public class CropDisorderRecord
   public CropDisorderRecord()
   {
     super();
+    this.descriptorSet = new HashSet<Descriptor>();
   }
 
 
@@ -45,12 +46,12 @@ public class CropDisorderRecord
   }
 
 
-  public void setId(Integer id) 
+  public void setId(Integer id)
   {
     this.id = id;
   }
 
-  
+
   @Version
   public int getVersion()
   {
@@ -108,7 +109,7 @@ public class CropDisorderRecord
     this.crop = crop;
   }
 
-   
+
   @OneToOne
   public Diagnosis getDiagnosis()
   {
