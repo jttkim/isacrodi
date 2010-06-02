@@ -20,6 +20,20 @@
     <!-- jtk: system dependencies don't seem to make it to the classpath...?? -->
     <dependency>
       <groupId>jboss-stuff</groupId>
+      <artifactId>jnpserver</artifactId>
+      <version>5.1</version>
+      <scope>system</scope>
+      <systemPath>${jbosshome}/common/lib/jnpserver.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>jboss-stuff</groupId>
+      <artifactId>jnpserver</artifactId>
+      <version>5.1</version>
+      <scope>system</scope>
+      <systemPath>${jbosshome}/common/lib/hibernate-core.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>jboss-stuff</groupId>
       <artifactId>jbosssx-client</artifactId>
       <version>5.1</version>
       <scope>system</scope>
@@ -31,13 +45,6 @@
       <version>5.1</version>
       <scope>system</scope>
       <systemPath>${jbosshome}/client/jboss-security-spi.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>jboss-stuff</groupId>
-      <artifactId>jnpserver</artifactId>
-      <version>5.1</version>
-      <scope>system</scope>
-      <systemPath>${jbosshome}/common/lib/jnpserver.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>jboss-stuff</groupId>
@@ -75,7 +82,7 @@
 	    <configuration>
 	      <transformers>
 	        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-		  <mainClass>org.isacrodi.Import</mainClass>
+		  <mainClass>org.isacrodi.io.Import</mainClass>
 	        </transformer>
 	      </transformers>
 	    </configuration>
@@ -88,8 +95,8 @@
 	<configuration>
 	  <archive>
 	    <manifestEntries>
-	      <Class-Path>${project.parent.basedir}/ejbs/target/isacrodi-ejb.jar ${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
-	      <Main-Class>org.isacrodi.Import</Main-Class>
+	      <Class-Path>${project.parent.basedir}/ejbs/target/isacrodi-ejb.jar ${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/common/lib/hibernate-core.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
+	      <Main-Class>org.isacrodi.io.Import</Main-Class>
 	    </manifestEntries>
 	    <!-- manifest>
               <addClasspath>true</addClasspath>

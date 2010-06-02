@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
+import javax.persistence.Column;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -79,6 +80,7 @@ public class NumericType implements Serializable
   }
 
 
+  @Column(unique = true, nullable = false)
   public String getTypeName()
   {
     return typeName;
