@@ -50,7 +50,7 @@ public class FeatureClassifier
      createClassifierSettings();
      // loadFeatureVector();
      svm_predict p = new svm_predict();
-     score = p.predict(model, featureVector, 1);
+     score = p.predict(model, featureVector);
 
    }
    catch(IOException e) 
