@@ -29,7 +29,7 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
   }
 
 
-  public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
+  public Diagnosis diagnoseOld(CropDisorderRecord cropDisorderRecord)
   {
     
     Diagnosis d = new Diagnosis();
@@ -47,14 +47,16 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     if (crop != null)
     {
       // jtk: is this really intended, to put the crop ID as a Double into the vector???
-      featureVector.put("2", (double) crop.getId());
+      featureVector.put("crop", (double) crop.getId());
     }
 
     for (String k : dfv.keySet())
       featureVector.put(k, dfv.get(k));
-    //for (String k : ifv.keySet())
-    //  featureVector.put(k, ifv.get(k));
-   
+    for (String k : featureVector.keySet())
+      //featureVector.put(k, ifv.get(k));
+      System.out.println("feature: " + k); 
+
+
     FeatureClassifier cl = new FeatureClassifier();
     score = cl.dummyClassifier(featureVector);
     for (CropDisorder disorder : this.cropDisorderSet)
@@ -86,14 +88,14 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
 
 /// Old Stuff
 
-  public Diagnosis diagnoseOld(CropDisorderRecord cropDisorderRecord)
+  public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
   {
     Diagnosis d = new Diagnosis();
     d.setCropDisorderRecord(cropDisorderRecord);
     d.setDisorderScoreSet(new HashSet<DisorderScore>());
 
 
-    diagnoseOld(cropDisorderRecord);
+    //diagnoseOld(cropDisorderRecord);
 
     for (CropDisorder disorder : this.cropDisorderSet)
     {
@@ -127,6 +129,38 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
     return counter;
   }
 
+
+
+  public NumericDescriptor getNumericDescriptorSet(CropDisorderRecord cropDisorderRecord)
+  {
+
+     NumericDescriptor ndes = new NumericDescriptor();
+
+     for (Object o : cropDisorderRecord.getDescriptorSet())
+     {
+       if (o.getClass().isInstance(new NumericDescriptor()))
+       {
+         ndes = (NumericDescriptor)o;
+       }
+     }
+
+     return ndes;
+  }
+
+
+  public SymptomDescriptor getSymptomDescriptorSet(CropDisorderRecord cropDisorderRecord)
+  {
+     SymptomDescriptor sdes = new SymptomDescriptor();
+
+     for (Object o : cropDisorderRecord.getDescriptorSet())
+     {
+       if (o.getClass().isInstance(new SymptomDescriptor()))
+       {
+         sdes = (SymptomDescriptor)o;
+       }
+     }
+     return sdes;
+  }
 
 }
 
