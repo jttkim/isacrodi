@@ -11,12 +11,12 @@ import java.util.HashSet;
 import java.io.*;
 import java.io.ByteArrayOutputStream;
 import libsvm.*;
-
+import java.io.Serializable;
 
 /**
   * Feature classifier
   */
-public class FeatureClassifier 
+public class FeatureClassifier implements Serializable
 {
 
   private svm_parameter param; 
@@ -35,32 +35,55 @@ public class FeatureClassifier
   }
 
   
-  public double [][] dummyClassifier(FeatureVector featureVector)
+  public double [][] dummyClassifier(FeatureVector featureVector) 
   {
    double [][] score = null;
+   svm_node[] x = new svm_node[featureVector.size()];
 
    model_filename = "src/test/java/org/isacrodi/diagnosis/isacrodi_model";
 
    try
-   { 
+   {
      svm_model model = svm.svm_load_model(model_filename);
      int nr_class = svm.svm_get_nr_class(model);
      int[] labels = new int[nr_class];
      svm.svm_get_labels(model, labels);
      createClassifierSettings();
-     // loadFeatureVector();
+     x = mapFeature(featureVector);
      svm_predict p = new svm_predict();
-     score = p.predict(model, featureVector);
+     score = p.predict(model, x);
 
    }
    catch(IOException e) 
    { 
      System.out.println("Unable to create "+model_filename+": "+e.getMessage());
    }
-
     return score;
 
   }
+
+  
+  public svm_node[] mapFeature(FeatureVector featureVector)
+  {
+
+     MainClass mc = new MainClass();
+     mc.populateSet();
+     mc.readSet();
+
+     int i = 0;
+
+
+    svm_node[] x = new svm_node[featureVector.size()];
+    for (String k : featureVector.keySet())
+    {
+      x[i] = new svm_node();
+      x[i].index = mc.findFeatureLabel(k);
+      x[i].value = featureVector.get(k);
+      i++;
+    }
+    return x;
+  }
+
 
 /*
  * Create classifier settings
