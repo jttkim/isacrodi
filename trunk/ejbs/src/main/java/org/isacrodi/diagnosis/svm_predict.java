@@ -13,7 +13,7 @@ class svm_predict
     super();
   }
   
-  public double[][] predict(svm_model model, FeatureVector featureVector)
+  public double[][] predict(svm_model model, svm_node[] x)
   {
 
     double error = 0;
@@ -28,6 +28,7 @@ class svm_predict
     svm.svm_get_labels(model,labels);
     prob_estimates = new double[nr_class];
    
+    /*
     svm_node[] x = new svm_node[featureVector.size()];
     for(int i = 0; i < featureVector.size(); i++)
     {
@@ -35,7 +36,7 @@ class svm_predict
       x[i].index = i+1;
       x[i].value = featureVector.get(Integer.toString(i+1));
     }
-
+    */
     double v;
 
     v = svm.svm_predict_probability(model, x, prob_estimates);

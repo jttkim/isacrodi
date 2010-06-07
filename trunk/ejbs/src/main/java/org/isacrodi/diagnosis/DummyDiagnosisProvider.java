@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.io.*;
 import java.io.ByteArrayOutputStream;
 import libsvm.*;
+import java.io.Serializable;
+
 
 /**
  * Implements Diagnosis Provider Interface
@@ -29,7 +31,7 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
   }
 
 
-  public Diagnosis diagnoseOld(CropDisorderRecord cropDisorderRecord)
+  public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
   {
     
     Diagnosis d = new Diagnosis();
@@ -52,9 +54,9 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
 
     for (String k : dfv.keySet())
       featureVector.put(k, dfv.get(k));
-    for (String k : featureVector.keySet())
+    //for (String k : featureVector.keySet())
       //featureVector.put(k, ifv.get(k));
-      System.out.println("feature: " + k); 
+      //System.out.println("feature: " + k); 
 
 
     FeatureClassifier cl = new FeatureClassifier();
@@ -88,14 +90,12 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
 
 /// Old Stuff
 
-  public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
+  public Diagnosis diagnoseOld(CropDisorderRecord cropDisorderRecord)
   {
     Diagnosis d = new Diagnosis();
     d.setCropDisorderRecord(cropDisorderRecord);
     d.setDisorderScoreSet(new HashSet<DisorderScore>());
 
-
-    //diagnoseOld(cropDisorderRecord);
 
     for (CropDisorder disorder : this.cropDisorderSet)
     {
