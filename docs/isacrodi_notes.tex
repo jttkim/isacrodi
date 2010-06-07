@@ -6,6 +6,8 @@
 \usepackage{din_a4}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{dsfont}
+
 
 \renewcommand{\captionfont}{\footnotesize\bfseries}
 
@@ -61,6 +63,79 @@
 
 The system has to be able to recognise when it cannot classify the
 disorder underpinning a CDR.
+
+
+\section{Implementation Notes}
+
+\subsection{Converting Feature Vectors to Formats Required by
+  Classifiers}
+
+Isacrodi aims to provide a generic feature vector concept in which
+components of multiple (polymorphic) type (categorial, ordinal and
+numeric) can be used, and components can be missing, or perhaps take
+on a ``not available'' value, denoted by NA henceforth.\footnote{This
+  is not fully implemented at this stage, but that should not cause
+  introduction of any unnecessarily tight coupling to classifiers.}
+However, classifiers such as Support Vector Machines typically require
+samples to be presented as vectors (arrays of \computercode{double} or
+similar data structures), or as sparse vectors (effectively
+$\mathds{N}_{\ge 0} \rightarrow \mathds{R}$ maps). This necessitates
+some form of mapping from Isacrodi level feature vectors to the vector
+format required by the classifier. The following is an outline
+specification of this mapping:
+\begin{itemize}
+\item The mapping is constructed based on the training data, before
+  the classifier is actually trained. The same mapping is then used to
+  map the Isacrodi level feature vectors to classifier level vectors
+  during training and during subsequent classification operations (aka
+  ``predictions'').
+\item The category of each component is expressly stated to the
+  constructor of the mapper. (Note: The mapper might be able to infer
+  types from the dynamic type of components, but this requires that
+  for each Isacrodi level component, there is at least one sample with
+  a non-\computercode{null} (i.e.\ non-NA) value in the training set,
+  and also results in a plethora of illegal states (where the type of
+  a component is not the same in all samples) that the constructor
+  would have to check for. It therefore makes sense to require that
+  the user (the expert who trains the classifier) states the expected
+  type for each component.)
+\item For mapping to plain vectors (of constant dimension):
+  \begin{itemize}
+  \item Each Isacrodi level numeric component is mapped to two
+    classifier level components, the actual value and the presence
+    indicator.  present. A NA value is mapped to the mean of all
+    non-NA values in the training set as the actual value, and $0.0$
+    as the presence indicator. A non-NA value is mapped to the value
+    provided as the actual value and $1.0$ as the presence indicator.
+  \item For each Isacrodi level categorial component, the set of
+    states is taken from the training set. For each state, one
+    component is designated in the classifier level vector, and
+    additionally a presence indicator is designated. For a NA value,
+    all components are mapped to $0.0$. For a non-NA, value, the
+    component corresponding to the state and the presence indicator
+    are $1.0$, and all other components are $0.0$.
+  \item (For ordinal values, the order needs to be specified. This
+    could be done externally or by implementing the
+    \computercode{Comparable} interface for the types. As we do not
+    have a design for ordinal components, specification of the mapping
+    technique is deferred until this design is drawn up.)
+  \end{itemize}
+\item To be confirmed: For mapping to sparse vectors, the presence
+  indicator may be omitted. Other mapping takes place as specified for
+  plain vectors above.
+\item A central responsibility of the mapper is to designate indexes
+  for the classifier level components upon construction and to ensure
+  that all mapping takes place using the same indexes.
+\item The mapper provides two strategies for dealing with components
+  or states (in the case of categorial components) that are unknown:
+  \begin{itemize}
+  \item Strict: An exception is thrown upon encountering an unknown
+    component or state.
+  \item Lenient: Unknown components, or known categorial components
+    containing unknown states, are ignored.
+  \end{itemize}
+\end{itemize}
+
 
 \section{Coding Standards}
 
