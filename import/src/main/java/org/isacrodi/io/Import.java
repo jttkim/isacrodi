@@ -1,4 +1,4 @@
-package org.isacrodi.io;
+package org.isacrodi.import;
 
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -14,6 +14,7 @@ import javax.naming.*;
 
 import org.isacrodi.ejb.entity.*;
 import org.isacrodi.ejb.session.*;
+import org.isacrodi.util.io.*;
 
 
 public class Import
@@ -46,18 +47,18 @@ public class Import
 
   private static void importCropFile(BufferedReader in, Access access) throws IOException, NamingException
   {
-    ImportToken cropToken = new ImportToken(ImportToken.TokenType.BLOCKIDENTIFIER, "crop");
-    ImportScanner s = new ImportScanner(in);
-    for (ImportToken t = s.nextToken(); t != null; t = s.nextToken())
+    Token cropToken = new Token(Token.TokenType.BLOCKIDENTIFIER, "crop");
+    SimpleScanner s = new SimpleScanner(in);
+    for (Token t = s.nextToken(); t != null; t = s.nextToken())
     {
       if (!cropToken.equals(t))
       {
 	throw new IllegalStateException("no crop token");
       }
-      s.nextToken(ImportToken.TokenType.SYMBOL, "{");
-      ImportToken nameToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "name");
-      ImportToken scientificNameToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "scientificName");
-      s.nextToken(ImportToken.TokenType.SYMBOL, "}");
+      s.nextToken(Token.TokenType.SYMBOL, "{");
+      Token nameToken = s.nextToken(Token.TokenType.NAMEVALUE, "name");
+      Token scientificNameToken = s.nextToken(Token.TokenType.NAMEVALUE, "scientificName");
+      s.nextToken(Token.TokenType.SYMBOL, "}");
       String scientificName = scientificNameToken.getValue();
       if (access.findCrop(scientificName) != null)
       {
@@ -72,20 +73,20 @@ public class Import
 
   private static void importDisorderFile(BufferedReader in, Access access) throws IOException, NamingException
   {
-    ImportToken disorderToken = new ImportToken(ImportToken.TokenType.BLOCKIDENTIFIER, "disorder");
-    ImportScanner s = new ImportScanner(in);
-    for (ImportToken t = s.nextToken(); t != null; t = s.nextToken())
+    Token disorderToken = new Token(Token.TokenType.BLOCKIDENTIFIER, "disorder");
+    SimpleScanner s = new SimpleScanner(in);
+    for (Token t = s.nextToken(); t != null; t = s.nextToken())
     {
       if (!disorderToken.equals(t))
       {
 	throw new IllegalStateException("no disorder token");
       }
-      s.nextToken(ImportToken.TokenType.SYMBOL, "{");
-      ImportToken nameToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "name");
-      ImportToken scientificNameToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "scientificName");
+      s.nextToken(Token.TokenType.SYMBOL, "{");
+      Token nameToken = s.nextToken(Token.TokenType.NAMEVALUE, "name");
+      Token scientificNameToken = s.nextToken(Token.TokenType.NAMEVALUE, "scientificName");
       String scientificName = scientificNameToken.getValue();
-      ImportToken cropSet = s.nextToken(ImportToken.TokenType.NAMEVALUE, "cropSet");
-      s.nextToken(ImportToken.TokenType.SYMBOL, "}");
+      Token cropSet = s.nextToken(Token.TokenType.NAMEVALUE, "cropSet");
+      s.nextToken(Token.TokenType.SYMBOL, "}");
       if (access.findCropDisorder(scientificName) != null)
       {
 	System.err.println(String.format("crop disorder \"%s\" already exists", scientificName));
@@ -104,17 +105,17 @@ public class Import
 
   private static void importNumericTypeFile(BufferedReader in, Access access) throws IOException, NamingException
   {
-    ImportToken numericTypeToken = new ImportToken(ImportToken.TokenType.BLOCKIDENTIFIER, "numerictype");
-    ImportScanner s = new ImportScanner(in);
-    for (ImportToken t = s.nextToken(); t != null; t = s.nextToken())
+    Token numericTypeToken = new Token(Token.TokenType.BLOCKIDENTIFIER, "numerictype");
+    SimpleScanner s = new SimpleScanner(in);
+    for (Token t = s.nextToken(); t != null; t = s.nextToken())
     {
       if (!numericTypeToken.equals(t))
       {
 	throw new IllegalStateException("no numerictype token");
       }
-      s.nextToken(ImportToken.TokenType.SYMBOL, "{");
-      String typename = s.nextToken(ImportToken.TokenType.NAMEVALUE, "typename").getValue();
-      s.nextToken(ImportToken.TokenType.SYMBOL, "}");
+      s.nextToken(Token.TokenType.SYMBOL, "{");
+      String typename = s.nextToken(Token.TokenType.NAMEVALUE, "typename").getValue();
+      s.nextToken(Token.TokenType.SYMBOL, "}");
       if (access.findNumericType(typename) != null)
       {
 	System.err.println(String.format("numeric type \"%s\" already exists", typename));
@@ -128,24 +129,24 @@ public class Import
   }
 
 
-  private static void importCropDisorderBlock(ImportScanner s, Access access) throws IOException
+  private static void importCropDisorderBlock(SimpleScanner s, Access access) throws IOException
   {
-    ImportToken endBlockToken = new ImportToken(ImportToken.TokenType.SYMBOL, "}");
-    s.nextToken(ImportToken.TokenType.SYMBOL, "{");
-    ImportToken userToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "user");
+    Token endBlockToken = new Token(Token.TokenType.SYMBOL, "}");
+    s.nextToken(Token.TokenType.SYMBOL, "{");
+    Token userToken = s.nextToken(Token.TokenType.NAMEVALUE, "user");
     String username = userToken.getValue();
-    ImportToken cropToken = s.nextToken(ImportToken.TokenType.NAMEVALUE, "crop");
+    Token cropToken = s.nextToken(Token.TokenType.NAMEVALUE, "crop");
     String cropScientificName = cropToken.getValue();
     CropDisorderRecord cdr = new CropDisorderRecord();
-    s.nextToken(ImportToken.TokenType.BLOCKIDENTIFIER, "numericDescriptors");
-    s.nextToken(ImportToken.TokenType.SYMBOL, "{");
-    for (ImportToken t = s.nextToken(); !endBlockToken.equals(t); t = s.nextToken())
+    s.nextToken(Token.TokenType.BLOCKIDENTIFIER, "numericDescriptors");
+    s.nextToken(Token.TokenType.SYMBOL, "{");
+    for (Token t = s.nextToken(); !endBlockToken.equals(t); t = s.nextToken())
     {
       if (t == null)
       {
 	throw new IllegalStateException("unexpected EOF");
       }
-      if (t.getTokenType() != ImportToken.TokenType.NAMEVALUE)
+      if (t.getTokenType() != Token.TokenType.NAMEVALUE)
       {
 	throw new IllegalStateException("unexpected token type: " + t);
       }
@@ -157,17 +158,17 @@ public class Import
       cdr.addDescriptor(d);
       d.setCropDisorderRecord(cdr);
     }
-    s.nextToken(ImportToken.TokenType.SYMBOL, "}");
+    s.nextToken(Token.TokenType.SYMBOL, "}");
     access.insert(cdr, username, cropScientificName);
   }
 
 
   private static void importCropDisorderRecordFile(BufferedReader in, Access access) throws IOException, NamingException
   {
-    ImportToken cdrToken = new ImportToken(ImportToken.TokenType.BLOCKIDENTIFIER, "cdr");
-    ImportScanner s = new ImportScanner(in);
+    Token cdrToken = new Token(Token.TokenType.BLOCKIDENTIFIER, "cdr");
+    SimpleScanner s = new SimpleScanner(in);
     // t will be null at EOF, so can't just expect a cdr token
-    for (ImportToken t = s.nextToken(); t != null; t = s.nextToken())
+    for (Token t = s.nextToken(); t != null; t = s.nextToken())
     {
       if (!cdrToken.equals(t))
       {
