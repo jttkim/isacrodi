@@ -1,0 +1,28 @@
+<project>  
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>isacrodi-proj</groupId>
+    <artifactId>isacrodi</artifactId>
+    <version>1.0</version>
+  </parent>
+
+  <artifactId>util</artifactId>
+  <packaging>jar</packaging>
+  <name>isacrodi-util</name>
+
+  <!-- Note: the util module must not depend on any other module, as all
+  other modules may depend on the util module -->
+
+  <build>
+    <finalName>isacrodi-util</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-jar-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+
