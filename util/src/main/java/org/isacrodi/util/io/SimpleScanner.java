@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
  * Each line contains a token. (Hence, curly braces must be on
  * separate lines.)
  */
-public class ImportScanner
+public class SimpleScanner
 {
   private Pattern nameValuePattern;
   private Pattern blockIdentifierPattern;
@@ -22,7 +22,7 @@ public class ImportScanner
   private int lineNumber;
 
 
-  public ImportScanner(BufferedReader in)
+  public SimpleScanner(BufferedReader in)
   {
     this.in = in;
     this.lineNumber = 0;
@@ -32,7 +32,7 @@ public class ImportScanner
   }
 
 
-  public ImportToken nextToken() throws IOException
+  public Token nextToken() throws IOException
   {
     String s = this.in.readLine();
     this.lineNumber++;
@@ -48,25 +48,25 @@ public class ImportScanner
     Matcher m = this.nameValuePattern.matcher(s);
     if (m.find())
     {
-      return (new ImportToken(ImportToken.TokenType.NAMEVALUE, m.group(1), m.group(2)));
+      return (new Token(Token.TokenType.NAMEVALUE, m.group(1), m.group(2)));
     }
     m =this.blockIdentifierPattern.matcher(s);
     if (m.find())
     {
-      return (new ImportToken(ImportToken.TokenType.BLOCKIDENTIFIER, m.group(1)));
+      return (new Token(Token.TokenType.BLOCKIDENTIFIER, m.group(1)));
     }
     m = this.singleSymbolPattern.matcher(s);
     if (m.find())
     {
-      return (new ImportToken(ImportToken.TokenType.SYMBOL, m.group(1)));
+      return (new Token(Token.TokenType.SYMBOL, m.group(1)));
     }
     throw new IllegalStateException(String.format("line %d: unparsable content"));
   }
 
 
-  public ImportToken nextToken(ImportToken.TokenType expectedTokenType) throws IOException
+  public Token nextToken(Token.TokenType expectedTokenType) throws IOException
   {
-    ImportToken t = this.nextToken();
+    Token t = this.nextToken();
     if (t.getTokenType() != expectedTokenType)
     {
       throw new IllegalStateException(String.format("line: %d: illegal token", this.lineNumber));
@@ -75,9 +75,9 @@ public class ImportScanner
   }
 
 
-  public ImportToken nextToken(ImportToken.TokenType expectedTokenType, String expectedName) throws IOException
+  public Token nextToken(Token.TokenType expectedTokenType, String expectedName) throws IOException
   {
-    ImportToken t = this.nextToken(expectedTokenType);
+    Token t = this.nextToken(expectedTokenType);
     if (!t.getName().equals(expectedName))
     {
       throw new IllegalStateException(String.format("line %d: expected name %s but found %s", expectedName, t.getName()));

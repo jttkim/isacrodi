@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Immutable class for representing tokens.
  */
-public class ImportToken
+public class Token
 {
   public enum TokenType
   {
@@ -20,7 +20,7 @@ public class ImportToken
   private String value;
 
 
-  public ImportToken(TokenType tokenType, String name, String value)
+  public Token(TokenType tokenType, String name, String value)
   {
     this.tokenType = tokenType;
     this.name = name;
@@ -28,7 +28,7 @@ public class ImportToken
   }
 
 
-  public ImportToken(TokenType tokenType, String name)
+  public Token(TokenType tokenType, String name)
   {
     this(tokenType, name, null);
   }
@@ -55,11 +55,11 @@ public class ImportToken
 
   public boolean equals(Object other)
   {
-    if ((other == null) || !(other instanceof ImportToken))
+    if ((other == null) || !(other instanceof Token))
     {
       return (false);
     }
-    ImportToken otherToken = (ImportToken) other;
+    Token otherToken = (Token) other;
     if (this.tokenType != otherToken.tokenType)
     {
       return (false);
