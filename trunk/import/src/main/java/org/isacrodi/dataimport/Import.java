@@ -1,4 +1,4 @@
-package org.isacrodi.import;
+package org.isacrodi.dataimport;
 
 import java.io.FileReader;
 import java.io.BufferedReader;

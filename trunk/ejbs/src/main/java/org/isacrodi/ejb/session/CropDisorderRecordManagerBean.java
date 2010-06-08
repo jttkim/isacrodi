@@ -4,13 +4,15 @@ import java.io.Serializable;
 
 import java.util.List;
 
-import org.isacrodi.ejb.entity.*;
-
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import org.isacrodi.ejb.entity.*;
+
+import static org.isacrodi.util.Util.genericTypecast;
 
 
 @Stateless
@@ -32,7 +34,7 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
   public List<CropDisorderRecord> findCropDisorderRecordList()
   {
     Query query = this.entityManager.createQuery("SELECT r FROM CropDisorderRecord r ORDER BY r.id");
-    List<CropDisorderRecord> cdrList = Util.genericTypecast(query.getResultList());
+    List<CropDisorderRecord> cdrList = genericTypecast(query.getResultList());
     for (CropDisorderRecord cdr : cdrList)
     {
       fetchLists(cdr);

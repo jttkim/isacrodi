@@ -1,8 +1,8 @@
-package org.isacrodi.ejb.session;
+package org.isacrodi.util;
 
 
 /**
- * Utilities, intended for internal workings of the EJB layer.
+ * Utilities for use throughout the Isacrodi system.
  */
 public class Util
 {

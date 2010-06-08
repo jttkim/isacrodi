@@ -7,6 +7,7 @@
   <packaging>pom</packaging>
   <name>isacrodi-root</name>
   <modules>
+    <module>util</module>
     <module>ear</module>
     <module>ejbs</module>
     <module>web</module>
@@ -35,6 +36,12 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>isacrodi-proj</groupId>
+	<artifactId>util</artifactId>
+	<version>1.0</version>
+	<type>jar</type>
+      </dependency>
       <dependency>
         <groupId>isacrodi-proj</groupId>
 	<artifactId>ejbs</artifactId>

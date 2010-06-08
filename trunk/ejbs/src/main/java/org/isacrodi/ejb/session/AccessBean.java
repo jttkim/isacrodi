@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.isacrodi.ejb.entity.*;
+import static org.isacrodi.util.Util.genericTypecast;
 
 
 @Stateless
@@ -79,7 +80,7 @@ public class AccessBean implements Access
   {
     Query query = this.entityManager.createQuery("SELECT c FROM Crop c WHERE scientificName = :s");
     query.setParameter("s", scientificName);
-    List<Crop> cropList = Util.genericTypecast(query.getResultList());
+    List<Crop> cropList = genericTypecast(query.getResultList());
     if (cropList.size() == 1)
     {
       return (cropList.get(0));
@@ -95,7 +96,7 @@ public class AccessBean implements Access
   {
     Query query = this.entityManager.createQuery("SELECT c FROM CropDisorder c WHERE scientificName = :s");
     query.setParameter("s", scientificName);
-    List<CropDisorder> cropDisorderList = Util.genericTypecast(query.getResultList());
+    List<CropDisorder> cropDisorderList = genericTypecast(query.getResultList());
     if (cropDisorderList.size() == 1)
     {
       return (cropDisorderList.get(0));
@@ -111,7 +112,7 @@ public class AccessBean implements Access
   {
     Query query = this.entityManager.createQuery("SELECT n FROM NumericType n WHERE typename = :s");
     query.setParameter("s", typename);
-    List<NumericType> numericTypeList = Util.genericTypecast(query.getResultList());
+    List<NumericType> numericTypeList = genericTypecast(query.getResultList());
     if (numericTypeList.size() == 1)
     {
       return (numericTypeList.get(0));

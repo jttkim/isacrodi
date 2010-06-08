@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.isacrodi.ejb.entity.*;
+import static org.isacrodi.util.Util.genericTypecast;
 
 
 @Stateless
@@ -33,7 +34,7 @@ public class UserHandlerBean implements UserHandler
     }
     Query query = this.entityManager.createQuery("SELECT u FROM IsacrodiUser u WHERE username = :username");
     query.setParameter("username", username);
-    List<IsacrodiUser> userList = Util.genericTypecast(query.getResultList());
+    List<IsacrodiUser> userList = genericTypecast(query.getResultList());
     if (userList.size() == 1)
     {
       return(userList.get(0));
