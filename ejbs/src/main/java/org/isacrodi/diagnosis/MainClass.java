@@ -68,7 +68,6 @@ public class MainClass implements Serializable
         if (obj instanceof FeatureMapper) 
         {
 	   this.featureMapper.add((FeatureMapper)obj); 
-           System.out.println("helloWorld" + ((FeatureMapper)obj).toString());
         }
       }
 
@@ -76,7 +75,6 @@ public class MainClass implements Serializable
     }
     catch (EOFException ex) 
     {
-       System.out.println("End of file reached.");
     }
     catch (FileNotFoundException ex) 
     {
