@@ -19,7 +19,7 @@ all : $(PSFILES) $(PDFFILES)
 	ps2pdf14 -sPAPERSIZE=a4 $< $@
 
 %.eps : %.uxf
-	umlet -action=convert -format=eps -filename=$*.uxf
+	./umlet.sh -action=convert -format=eps -filename=$*.uxf
 
 clean :
 	rm -f *.dvi *.bbl *.blg *.log *.aux *~ $(PSFILES) $(PDFFILES) $(UMLET_EPSFIGS)
