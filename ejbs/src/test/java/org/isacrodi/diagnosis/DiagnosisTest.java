@@ -281,12 +281,8 @@ public class DiagnosisTest
     
   }
 
+  /*
 
-  /**
-   * Test Implementer diagnosis provider
-   *
-   * @author avc
-   */
   @Test
   public void testImplemenerDiagnosis() throws IOException
   {
@@ -319,4 +315,5 @@ public class DiagnosisTest
 
     Assert.assertTrue(this.diagnosis != null);
   }
+  */
 }
