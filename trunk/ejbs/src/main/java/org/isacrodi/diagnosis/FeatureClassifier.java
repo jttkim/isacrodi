@@ -55,14 +55,14 @@ public class FeatureClassifier implements Serializable
   public svm_node[] mapFeature(FeatureVector featureVector)
   {
 
-    Mapper mp = new Mapper();
-    try {
-      mp.importFile("/home/bkx08wju/Stuff/isacrodi/trunk/sampledata/isacrodi_feature_mapper.txt");
-    }
-    catch (IOException ex) 
-    {
-      ex.printStackTrace();
-    }
+    //Mapper mp = new Mapper();
+    //try {
+    //  mp.importFile("/home/bkx08wju/Stuff/isacrodi/trunk/sampledata/isacrodi_feature_mapper.txt");
+   // }
+    //catch (IOException ex) 
+    //{
+    //  ex.printStackTrace();
+    //}
 
     //MainClass mc = new MainClass();
     //mc.populateSet();
