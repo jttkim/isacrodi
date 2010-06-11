@@ -55,9 +55,18 @@ public class FeatureClassifier implements Serializable
   public svm_node[] mapFeature(FeatureVector featureVector)
   {
 
-    MainClass mc = new MainClass();
-    mc.populateSet();
-    mc.readSet();
+    Mapper mp = new Mapper();
+    try {
+      mp.importFile("/home/bkx08wju/Stuff/isacrodi/trunk/sampledata/isacrodi_feature_mapper.txt");
+    }
+    catch (IOException ex) 
+    {
+      ex.printStackTrace();
+    }
+
+    //MainClass mc = new MainClass();
+    //mc.populateSet();
+    //mc.readSet();
 
     int i = 0;
 
@@ -65,8 +74,10 @@ public class FeatureClassifier implements Serializable
     for (String k : featureVector.keySet())
     {
       fv[i] = new svm_node();
-      fv[i].index = mc.findFeatureLabel(k);
-      fv[i].value = featureVector.get(k);
+      //fv[i].index = mc.findFeatureLabel(k);
+      fv[i].index = 1;
+      //fv[i].value = featureVector.get(k);
+      fv[i].value = 2.00;
       i++;
     }
     return fv;

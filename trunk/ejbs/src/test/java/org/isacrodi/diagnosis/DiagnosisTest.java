@@ -280,4 +280,43 @@ public class DiagnosisTest
     }
     
   }
+
+
+  /**
+   * Test Implementer diagnosis provider
+   *
+   * @author avc
+   */
+  @Test
+  public void testImplemenerDiagnosis() throws IOException
+  {
+    ImplementerDiagnosisProvider dp = new ImplementerDiagnosisProvider();
+    dp.setKnownDisorderSet(this.cropDisorderSet);
+    this.diagnosis = new Diagnosis();
+    this.diagnosis.setId(1);
+    this.diagnosis.setCropDisorderRecord(this.cropDisorderRecord);
+    this.diagnosis.setDisorderScoreSet(new java.util.HashSet<DisorderScore>());
+    this.cropDisorderRecord.setDiagnosis(this.diagnosis);
+
+    for(Crop c : this.cropSet)
+    {
+      for(CropDisorder cd : c.getCropDisorderSet())
+      {
+        DisorderScore ds = new DisorderScore();
+        ds.setDiagnosis(this.diagnosis);
+	ds.setCropDisorder(cd);
+        this.diagnosis.addDisorderScore(ds);
+      }
+    }
+
+    // instance variable diagnosis obsolescent...
+    Diagnosis diagnosis = dp.diagnose(this.cropDisorderRecord);
+    // Test recommendation
+
+    //RecommendationProvider rp = new DummyRecommendationProvider();
+    //this.recommendation = new Recommendation();
+    //this.recommendation = rp.recommend(this.diagnosis);
+
+    Assert.assertTrue(this.diagnosis != null);
+  }
 }
