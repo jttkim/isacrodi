@@ -21,7 +21,7 @@ public class NumericType implements Serializable
   private Integer id;
   private int version;
   private String typeName;
-  private Set<NumericDescriptor> numericDescriptor;
+  private Set<NumericDescriptor> numericDescriptorSet;
 
   private static final long serialVersionUID = 1;
 
@@ -29,7 +29,7 @@ public class NumericType implements Serializable
   public NumericType()
   {
     super();
-    this.numericDescriptor = new HashSet<NumericDescriptor>();
+    this.numericDescriptorSet = new HashSet<NumericDescriptor>();
   }
 
 
@@ -68,15 +68,15 @@ public class NumericType implements Serializable
 
 
   @OneToMany(mappedBy="numericType")
-  public Set<NumericDescriptor> getNumericDescriptor()
+  public Set<NumericDescriptor> getNumericDescriptorSet()
   {
-    return this.numericDescriptor;
+    return this.numericDescriptorSet;
   }
 
 
-  public void setNumericDescriptor(Set<NumericDescriptor> numericDescriptor)
+  public void setNumericDescriptorSet(Set<NumericDescriptor> numericDescriptorSet)
   {
-    this.numericDescriptor = numericDescriptor;
+    this.numericDescriptorSet = numericDescriptorSet;
   }
 
 

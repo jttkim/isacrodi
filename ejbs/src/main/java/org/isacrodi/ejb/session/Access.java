@@ -1,5 +1,7 @@
 package org.isacrodi.ejb.session;
 
+import java.util.List;
+
 import org.isacrodi.ejb.entity.*;
 
 
@@ -17,8 +19,12 @@ public interface Access
   void insert(Crop crop);
   void insert(CropDisorder cropDisorder, String[] cropScientificNameSet);
   void insert(NumericType numericType);
+  void insert(ImageType imageType);
   void insert(CropDisorderRecord cropDisorderRecord, String username, String cropScientificName);
+  Object findEntity(Class<?> entityClass, Integer id);
+  List<?> findEntityList(Class<?> entityClass);
   Crop findCrop(String scientificName);
   CropDisorder findCropDisorder(String scientificName);
   NumericType findNumericType(String name);
+  ImageType findImageType(String name);
 }

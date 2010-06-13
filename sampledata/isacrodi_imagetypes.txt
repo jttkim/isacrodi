@@ -1,0 +1,47 @@
+isacrodi-imagetypes-0.1
+
+imagetype
+{
+  typename: field
+}
+
+imagetype
+{
+  typename: plant
+}
+
+imagetype
+{
+  typename: plant part
+}
+
+imagetype
+{
+  typename: leaf
+}
+
+imagetype
+{
+  typename: root
+}
+
+imagetype
+{
+  typename: tuber
+}
+
+imagetype
+{
+  typename: stem
+}
+
+imagetype
+{
+  typename: flower
+}
+
+imagetype
+{
+  typename: fruit
+}
+

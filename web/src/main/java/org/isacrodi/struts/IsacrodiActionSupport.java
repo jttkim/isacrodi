@@ -35,12 +35,14 @@ public abstract class IsacrodiActionSupport extends ActionSupport implements Ses
   protected HttpServletRequest servletRequest;
   protected IsacrodiUser isacrodiUser;
   protected UserHandler userHandler;
+  protected Access access;
 
 
   public IsacrodiActionSupport() throws NamingException
   {
     InitialContext context = new InitialContext();
     this.userHandler = (UserHandler) context.lookup("isacrodi/UserHandlerBean/remote");
+    this.access = (Access) context.lookup("isacrodi/AccessBean/remote");
   }
 
   @Override

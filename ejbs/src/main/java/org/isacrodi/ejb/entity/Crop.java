@@ -7,7 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
 import java.util.Set;
+import java.util.HashSet;
+
 import java.io.Serializable;
 
 
@@ -27,6 +30,8 @@ public class Crop implements Serializable
   public Crop()
   {
     super();
+    this.cropDisorderSet = new HashSet<CropDisorder>();
+    this.cropDisorderRecordSet = new HashSet<CropDisorderRecord>();
   }
 
 
