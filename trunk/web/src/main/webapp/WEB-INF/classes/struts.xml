@@ -39,6 +39,11 @@
       <result name="success" type="redirectAction">loginform_input</result>
     </action>
 
+    <action name="crud" class="org.isacrodi.struts.CrudAction">
+      <interceptor-ref name="paramsPrepareParamsStack"/>
+      <result name="success">/WEB-INF/views/crud.jsp</result>
+    </action>
+
     <action name="*" method="input" class="org.isacrodi.struts.WelcomeAction">
       <result name="input">/WEB-INF/views/index.jsp</result>
       <result>/WEB-INF/views/index.jsp</result>
@@ -52,4 +57,3 @@
   </package>
 
 </struts>
-

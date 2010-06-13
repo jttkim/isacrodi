@@ -129,6 +129,32 @@ public class Import
   }
 
 
+  private static void importImageTypeFile(BufferedReader in, Access access) throws IOException, NamingException
+  {
+    Token imageTypeToken = new Token(Token.TokenType.BLOCKIDENTIFIER, "imagetype");
+    SimpleScanner s = new SimpleScanner(in);
+    for (Token t = s.nextToken(); t != null; t = s.nextToken())
+    {
+      if (!imageTypeToken.equals(t))
+      {
+	throw new IllegalStateException("no imagetype token");
+      }
+      s.nextToken(Token.TokenType.SYMBOL, "{");
+      String typename = s.nextToken(Token.TokenType.NAMEVALUE, "typename").getValue();
+      s.nextToken(Token.TokenType.SYMBOL, "}");
+      if (access.findImageType(typename) != null)
+      {
+	System.err.println(String.format("image type \"%s\" already exists", typename));
+      }
+      else
+      {
+	ImageType imageType = new ImageType(typename);
+	access.insert(imageType);
+      }
+    }
+  }
+
+
   private static void importCropDisorderBlock(SimpleScanner s, Access access) throws IOException
   {
     Token endBlockToken = new Token(Token.TokenType.SYMBOL, "}");
@@ -214,6 +240,10 @@ public class Import
     else if (magic.equals("isacrodi-numerictypes-0.1"))
     {
       importNumericTypeFile(in, access);
+    }
+    else if (magic.equals("isacrodi-imagetypes-0.1"))
+    {
+      importImageTypeFile(in, access);
     }
     else if (magic.equals("isacrodi-cdrs-0.1"))
     {

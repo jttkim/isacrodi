@@ -1,6 +1,10 @@
 package org.isacrodi.ejb.session;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.ejb.Remote;
@@ -22,6 +26,54 @@ public class AccessBean implements Access
 
   @EJB
   private UserHandler userHandler;
+
+
+  private static boolean isSetAccessor(Method method)
+  {
+    String methodName = method.getName();
+    if (!methodName.matches("get[A-Z].*Set"))
+    {
+      return (false);
+    }
+    Class<?>[] parameterTypes = method.getParameterTypes();
+    if (parameterTypes.length != 0)
+    {
+      return (false);
+    }
+    else
+    {
+      return (true);
+    }
+  }
+
+
+  private void fetchSets(Object entity)
+  {
+    Class<?> entityClass = entity.getClass();
+    for (Method method : entityClass.getMethods())
+    {
+      if (isSetAccessor(method))
+      {
+	try
+	{
+	  Object setObject = method.invoke(entity);
+	  Set<?> set = genericTypecast(setObject);
+	  for (Object o : set)
+	  {
+	    o.toString();
+	  }
+	}
+	catch (IllegalAccessException e)
+	{
+	  System.err.println(String.format("AccessBean.fetchSets: caught %s\n", e.toString()));
+	}
+	catch (InvocationTargetException e)
+	{
+	  System.err.println(String.format("AccessBean.fetchSets: caught %s\n", e.toString()));
+	}
+      }
+    }
+  }
 
 
   public AccessBean()
@@ -59,6 +111,13 @@ public class AccessBean implements Access
   }
 
 
+  public void insert(ImageType imageType)
+  {
+    // FIXME: should check for duplicates
+    this.entityManager.persist(imageType);
+  }
+
+
   public void insert(CropDisorderRecord cropDisorderRecord, String username, String cropScientificName)
   {
     // FIXME: need to fix up related entities...
@@ -73,6 +132,31 @@ public class AccessBean implements Access
     {
       this.entityManager.persist(d);
     }
+  }
+
+
+  public Object findEntity(Class<?> entityClass, Integer id)
+  {
+    Object entity = this.entityManager.find(entityClass, id);
+    if (entity != null)
+    {
+      fetchSets(entity);
+    }
+    return (entity);
+  }
+
+
+  public List<?> findEntityList(Class<?> entityClass)
+  {
+    // FIXME: hack!!!!! string assembly of query!!!
+    // using a class' simple name provides some amount of sanity hopefully, but this is not good
+    Query query = this.entityManager.createQuery(String.format("SELECT e FROM %s e", entityClass.getSimpleName()));
+    List<?> entityList = genericTypecast(query.getResultList());
+    for (Object entity : entityList)
+    {
+      fetchSets(entity);
+    }
+    return (entityList);
   }
 
 
@@ -116,6 +200,22 @@ public class AccessBean implements Access
     if (numericTypeList.size() == 1)
     {
       return (numericTypeList.get(0));
+    }
+    else
+    {
+      return (null);
+    }
+  }
+
+
+  public ImageType findImageType(String typename)
+  {
+    Query query = this.entityManager.createQuery("SELECT n FROM ImageType n WHERE typename = :s");
+    query.setParameter("s", typename);
+    List<ImageType> imageTypeList = genericTypecast(query.getResultList());
+    if (imageTypeList.size() == 1)
+    {
+      return (imageTypeList.get(0));
     }
     else
     {

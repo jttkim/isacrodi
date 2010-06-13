@@ -1,0 +1,55 @@
+div.navbar {
+  width: 10em;
+  background: palegreen;
+  /* position: absolute; */
+  float: left;
+}
+
+div.adminstuff
+{
+  background: gold;
+  color: green;
+}
+
+
+div.content
+{
+  margin-left: 11em;
+}
+
+div.messages
+{
+  background: #d0d0ff;
+}
+
+/* links to resources outside the grninfo system */
+a.outlink:link
+{
+  color: rgb(128, 128, 128);
+  font-style: italic;
+}
+
+a.outlink:visited
+{
+  color: rgb(64, 64, 64);
+  font-style: italic;
+}
+
+.errorMessage
+{
+  color: red;
+  font-weight: bolder;
+}
+
+.errormessage
+{
+  color: red;
+  font-weight: bolder;
+}
+
+.infomessage
+{
+  color: green;
+  font-style: italic;
+}
+

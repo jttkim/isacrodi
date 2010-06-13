@@ -82,7 +82,7 @@
 	    <configuration>
 	      <transformers>
 	        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-		  <mainClass>org.isacrodi.io.Import</mainClass>
+		  <mainClass>org.isacrodi.dataimport.Import</mainClass>
 	        </transformer>
 	      </transformers>
 	    </configuration>
@@ -95,8 +95,8 @@
 	<configuration>
 	  <archive>
 	    <manifestEntries>
-	      <Class-Path>${project.parent.basedir}/ejbs/target/isacrodi-ejb.jar ${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/common/lib/hibernate-core.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
-	      <Main-Class>org.isacrodi.io.Import</Main-Class>
+	      <Class-Path>${project.parent.basedir}/util/target/isacrodi-util.jar ${project.parent.basedir}/ejbs/target/isacrodi-ejb.jar ${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/common/lib/hibernate-core.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
+	      <Main-Class>org.isacrodi.dataimport.Import</Main-Class>
 	    </manifestEntries>
 	    <!-- manifest>
               <addClasspath>true</addClasspath>

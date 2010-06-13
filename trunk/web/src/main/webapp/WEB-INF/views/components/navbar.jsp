@@ -1,5 +1,5 @@
 <div class="navbar">
-user: ${isacrodiUser.firstname} ${isacrodiUser.lastname}
+<p>user: ${isacrodiUser.firstname} ${isacrodiUser.lastname}</p>
 <ul>
 <li><a href="<%= response.encodeURL("home") %>">home</a></li>
 <li><a href="<%= response.encodeURL("newuserform_input") %>">User signup</a></li>
@@ -11,8 +11,12 @@ user: ${isacrodiUser.firstname} ${isacrodiUser.lastname}
   {
 %>
 <div class="adminstuff">
+<p>CRUD</p>
 <ul>
 </ul>
+<li><a href="crud?entityClassName=Crop">Crops</a></li>
+<li><a href="crud?entityClassName=CropDisorder">Disorders</a></li>
+<li><a href="crud?entityClassName=CropDisorderRecord">CDRs</a></li>
 </div>
 <%
   }
