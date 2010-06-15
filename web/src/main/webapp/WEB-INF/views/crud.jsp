@@ -15,7 +15,7 @@
 
 <h1>CRUD</h1>
 
-<s:property escape="false" value="entityHtml"/>
+<s:property escape="false" value="%{entityHtml}"/>
 
 </div>
 

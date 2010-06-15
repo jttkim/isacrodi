@@ -8,7 +8,7 @@
 
 <body>
 
-<%-- @include file="/WEB-INF/views/components/navbar.jsp" --%>
+<%@include file="/WEB-INF/views/components/navbar.jsp" %>
 
 
 <div class="content">

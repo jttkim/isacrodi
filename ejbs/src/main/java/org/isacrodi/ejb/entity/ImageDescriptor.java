@@ -109,10 +109,12 @@ public class ImageDescriptor extends Descriptor implements Serializable
   // method to get image as java.awt... object to encapsulate low-level octet stream and MIME type stuff...
 
 
+  /* JTK: bad name as this is not an accessor (bad return type as well)
   public void getFeatureVector()
   {
     //to implement
   }
+  */
 
 
   public void readImageData(String fileName) throws IOException

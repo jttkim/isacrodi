@@ -53,3 +53,20 @@ a.outlink:visited
   font-style: italic;
 }
 
+.todonote
+{
+  font-size: small;
+  font-family: sans-serif;
+  font-style: italic;
+  font-color: grey;
+}
+
+table
+{
+  vertical-align: baseline;
+}
+
+td
+{
+  vertical-align: baseline;
+}
