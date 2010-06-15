@@ -39,14 +39,15 @@
       <result name="success" type="redirectAction">loginform_input</result>
     </action>
 
+    <action name="showcropdisorderrecord" class="org.isacrodi.struts.ShowCropDisorderRecordAction">
+      <result>/WEB-INF/views/showcropdisorderrecord.jsp</result>
+    </action>
+
     <action name="showinlineimage" class="org.isacrodi.struts.ShowInlineImageAction">
       <result name="success" type="stream"></result>
     </action>
 
-    <!-- FIXME: experimental stuff, bypassing login check for quicker
-    dev turnaround -->
     <action name="crud" class="org.isacrodi.struts.CrudAction">
-      <interceptor-ref name="paramsPrepareParamsStack"/>
       <result name="success">/WEB-INF/views/crud.jsp</result>
     </action>
 
