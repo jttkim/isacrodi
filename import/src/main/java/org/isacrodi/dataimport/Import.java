@@ -1,5 +1,6 @@
 package org.isacrodi.dataimport;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -181,8 +182,31 @@ public class Import
       System.err.println(String.format("value: \"%s\", double: %f", t.getValue(), v));
       NumericDescriptor d = new NumericDescriptor(numericType, v);
       System.err.println(d);
+      // FIXME: addDescriptor etc. should establish bidirectional association themselves
       cdr.addDescriptor(d);
       d.setCropDisorderRecord(cdr);
+    }
+    // s.nextToken(Token.TokenType.SYMBOL, "}");
+    s.nextToken(Token.TokenType.BLOCKIDENTIFIER, "imageDescriptors");
+    s.nextToken(Token.TokenType.SYMBOL, "{");
+    for (Token t = s.nextToken(); !endBlockToken.equals(t); t = s.nextToken())
+    {
+      if (t == null)
+      {
+	throw new IllegalStateException("unexpected EOF");
+      }
+      if (t.getTokenType() != Token.TokenType.BLOCKIDENTIFIER)
+      {
+	throw new IllegalStateException("unknown token type: " + t);
+      }
+      ImageType imageType = access.findImageType(t.getName());
+      s.nextToken(Token.TokenType.SYMBOL, "{");
+      Token mimeToken = s.nextToken(Token.TokenType.NAMEVALUE, "mimeType");
+      Token fileToken = s.nextToken(Token.TokenType.NAMEVALUE, "file");
+      ImageDescriptor d = new ImageDescriptor(imageType, mimeToken.getValue(), fileToken.getValue());
+      cdr.addDescriptor(d);
+      d.setCropDisorderRecord(cdr);
+      s.nextToken(Token.TokenType.SYMBOL, "}");
     }
     s.nextToken(Token.TokenType.SYMBOL, "}");
     access.insert(cdr, username, cropScientificName);

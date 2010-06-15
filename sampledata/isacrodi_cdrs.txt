@@ -8,6 +8,14 @@ cdr
     temperature: 25.6
     altitude: 2345.6
   }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/png
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
 }
 
 cdr
@@ -18,5 +26,13 @@ cdr
   {
     temperature: 22.1
     altitude: 22.3
+  }
+  imageDescriptors
+  {
+    fruit
+    {
+      mimeType: image/jpeg
+      file: fig_g_tomato_anthracnose_fruit.jpg
+    }
   }
 }
