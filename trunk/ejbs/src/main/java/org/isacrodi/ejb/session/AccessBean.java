@@ -135,9 +135,9 @@ public class AccessBean implements Access
   }
 
 
-  public Object findEntity(Class<?> entityClass, Integer id)
+  public <EntityClass> EntityClass findEntity(Class<EntityClass> entityClass, Integer id)
   {
-    Object entity = this.entityManager.find(entityClass, id);
+    EntityClass entity = this.entityManager.find(entityClass, id);
     if (entity != null)
     {
       fetchSets(entity);
