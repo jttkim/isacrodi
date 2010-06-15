@@ -1,5 +1,7 @@
 package org.isacrodi.ejb.entity;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.Serializable;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -13,7 +15,7 @@ import javax.persistence.OneToOne;
 
 /**
   * Implements image descriptor from Digital Image.
-  */	
+  */
 @Entity
 public class ImageDescriptor extends Descriptor implements Serializable
 {
@@ -36,6 +38,16 @@ public class ImageDescriptor extends Descriptor implements Serializable
     this();
     this.mimeType = mimeType;
     this.imageData = imageData;
+  }
+
+
+  public ImageDescriptor(ImageType imageType, String mimeType, String imageFileName) throws IOException
+  {
+    this();
+    // FIXME: should make sure that relationships are recorded bidirectionally
+    this.imageType = imageType;
+    this.mimeType = mimeType;
+    this.readImageData(imageFileName);
   }
 
 
@@ -100,5 +112,16 @@ public class ImageDescriptor extends Descriptor implements Serializable
   public void getFeatureVector()
   {
     //to implement
+  }
+
+
+  public void readImageData(String fileName) throws IOException
+  {
+    File f = new File(fileName);
+    long fileLength = f.length();
+    FileInputStream fis = new FileInputStream(f);
+    this.imageData = new byte[(int) fileLength];
+    fis.read(this.imageData);
+    fis.close();
   }
 }
