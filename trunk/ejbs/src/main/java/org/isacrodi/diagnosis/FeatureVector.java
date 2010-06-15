@@ -6,8 +6,6 @@ import java.awt.Image;
 import java.io.*;
 import java.sql.*;
 import java.io.File;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.util.*;
 
 
@@ -18,11 +16,17 @@ import java.util.*;
  * vectors are implemented by maps -- i.e. remember to match elements
  * by name, not by position.
  */
-public class FeatureVector extends HashMap<String, Double>
+public class FeatureVector extends HashMap<String, AbstractFeature>
 {
+
   public FeatureVector()
   {  
     super();
+  }
+
+  public void putFeature(AbstractFeature f)
+  {
+    this.put(f.getName(), f);
   }
 
 
