@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.Set;
+import libsvm.*;
 
 
 import org.isacrodi.ejb.entity.*;
@@ -44,11 +45,12 @@ public class DiagnosisTest
     this.numericDescriptor.setNumericType(this.numericType);
     this.numericDescriptor.setNumericValue(27.0);
 
-    this.symptomType = new SymptomType("visual_symptom");
+    this.symptomType = new SymptomType("traces");
     this.symptomDescriptor = new SymptomDescriptor();
     this.symptomDescriptor.setId(8);
     this.symptomDescriptor.setSymptomType(this.symptomType);
-    this.symptomDescriptor.setSymptomValue(1);
+    //FIXME: Changed double for String to test classifier, I think it should be left like that -- avc.
+    this.symptomDescriptor.setSymptomValue("circular");
 
     this.imageType = new ImageType("leaf");
     this.imageDescriptor = new ImageDescriptor();
@@ -281,12 +283,11 @@ public class DiagnosisTest
     
   }
 
-  /*
 
   @Test
-  public void testImplemenerDiagnosis() throws IOException
+  public void testSVMDiagnosis() throws IOException
   {
-    ImplementerDiagnosisProvider dp = new ImplementerDiagnosisProvider();
+    SVMDiagnosisProvider dp = new SVMDiagnosisProvider();
     dp.setKnownDisorderSet(this.cropDisorderSet);
     this.diagnosis = new Diagnosis();
     this.diagnosis.setId(1);
@@ -315,5 +316,32 @@ public class DiagnosisTest
 
     Assert.assertTrue(this.diagnosis != null);
   }
-  */
+
+
+
+  /**
+   * Test Feature Mapper
+   *
+   * @author avc
+   */
+  @Test
+  public void testFeatureMapper()
+  {
+    FeatureVector featureVector = new FeatureVector();
+    FeatureVectorMapper fvm = new FeatureVectorMapper();
+
+    try 
+    {
+      fvm.importFile("/home/bkx08wju/Stuff/isacrodi/trunk/sampledata/isacrodi_feature_mapper.txt");
+    }
+    catch (IOException ex) 
+    {
+      ex.printStackTrace();
+    }
+
+    svm_node[] fv = null;
+    fv = fvm.map(featureVector);
+
+  }
+
 }
