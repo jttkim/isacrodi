@@ -15,14 +15,14 @@ import java.util.Collection;
 /**
  * Implements Diagnosis Provider Interface
  */
-public class ImplementerDiagnosisProvider implements DiagnosisProvider
+public class SVMDiagnosisProvider implements DiagnosisProvider
 {
   private Set<CropDisorder> cropDisorderSet;
   private CDRFeatureExtractor fe;
   private FeatureVectorMapper fvm;
 
 
-  public ImplementerDiagnosisProvider()
+  public SVMDiagnosisProvider()
   {
     super();
   }

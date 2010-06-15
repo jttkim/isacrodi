@@ -14,9 +14,11 @@ import javax.persistence.OneToOne;
 @Entity
 public class SymptomDescriptor extends Descriptor implements Serializable
 {
+  //FIXME: Change double for String to test classifier
 
   private SymptomType symptomType;
-  private double symptomValue;
+  //private double symptomValue;
+  private String symptomValue;
 
   private static final long serialVersionUID = 1;
 
@@ -27,7 +29,7 @@ public class SymptomDescriptor extends Descriptor implements Serializable
   }
 
 
-  public SymptomDescriptor(SymptomType symptomType, double symptomValue)
+  public SymptomDescriptor(SymptomType symptomType, String symptomValue)
   {
     this();
     this.symptomType = symptomType;
@@ -38,7 +40,7 @@ public class SymptomDescriptor extends Descriptor implements Serializable
   @ManyToOne
   public SymptomType getSymptomType()
   {
-    return symptomType;
+    return this.symptomType;
   }
 
 
@@ -48,14 +50,21 @@ public class SymptomDescriptor extends Descriptor implements Serializable
   }
 
   
-  public double getSymptomValue()
+  public String getSymptomValue()
   {
     return symptomValue;
   }
 
 
-  public void setSymptomValue(double symptomValue)
+  public void setSymptomValue(String symptomValue)
   {
     this.symptomValue = symptomValue;
   }
+
+
+  public String toString()
+  {
+    return String.format("%s %s", this.symptomType, this.symptomValue);
+  }
+
 }
