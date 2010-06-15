@@ -49,7 +49,9 @@ public class DummyImageFeatureExtractor implements ImageFeatureExtractor
     // root question: how should we deal with failures to compute
     // features?  Missing values? How should these be reported, and
     // tho whom?
-      featureVector.put("pixelMean", ip.calculatePixelMean());
+      NumericFeature nf = new NumericFeature("pixelMean", 12.5);
+      featureVector.put("pixelMean", nf);
+      //featureVector.put("pixelMean", ip.calculatePixelMean());
     }
     catch (IOException e)
     {
