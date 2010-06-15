@@ -21,7 +21,7 @@ public interface Access
   void insert(NumericType numericType);
   void insert(ImageType imageType);
   void insert(CropDisorderRecord cropDisorderRecord, String username, String cropScientificName);
-  Object findEntity(Class<?> entityClass, Integer id);
+  <EntityClass> EntityClass findEntity(Class<EntityClass> entityClass, Integer id);
   List<?> findEntityList(Class<?> entityClass);
   Crop findCrop(String scientificName);
   CropDisorder findCropDisorder(String scientificName);

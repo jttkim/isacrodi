@@ -18,6 +18,7 @@ import org.isacrodi.ejb.session.*;
 import org.isacrodi.util.io.*;
 
 
+// FIXME: exceptions thrown by this class are a haphazard mess, util should provide exceptions for scanning and parsing
 public class Import
 {
   private static final String[] headerUser = {"lastname", "firstname", "username", "password", "email"};
@@ -178,10 +179,14 @@ public class Import
 	throw new IllegalStateException("unexpected token type: " + t);
       }
       NumericType numericType = access.findNumericType(t.getName());
+      if (numericType == null)
+      {
+	throw new IOException(String.format("no such numeric type: %s", t.toString()));
+      }
       double v = Double.parseDouble(t.getValue());
-      System.err.println(String.format("value: \"%s\", double: %f", t.getValue(), v));
+      // System.err.println(String.format("value: \"%s\", double: %f", t.getValue(), v));
       NumericDescriptor d = new NumericDescriptor(numericType, v);
-      System.err.println(d);
+      // System.err.println(d);
       // FIXME: addDescriptor etc. should establish bidirectional association themselves
       cdr.addDescriptor(d);
       d.setCropDisorderRecord(cdr);
@@ -200,6 +205,10 @@ public class Import
 	throw new IllegalStateException("unknown token type: " + t);
       }
       ImageType imageType = access.findImageType(t.getName());
+      if (imageType == null)
+      {
+	throw new IOException(String.format("no such image type: %s", t.toString()));
+      }
       s.nextToken(Token.TokenType.SYMBOL, "{");
       Token mimeToken = s.nextToken(Token.TokenType.NAMEVALUE, "mimeType");
       Token fileToken = s.nextToken(Token.TokenType.NAMEVALUE, "file");

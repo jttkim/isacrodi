@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 
+// FIXME: consider keeping track of line number from which token originates
 /**
  * Immutable class for representing tokens.
  */
@@ -101,7 +102,7 @@ public class Token
       s = String.format("symbol %s", this.name);
       break;
     case BLOCKIDENTIFIER:
-      s = String.format("blockidentifier", this.name);
+      s = String.format("blockidentifier %s", this.name);
       break;
     case NAMEVALUE:
       s = String.format("namevalue (%s: %s)", this.name, this.value);
