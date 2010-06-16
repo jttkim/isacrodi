@@ -2,7 +2,25 @@ package org.isacrodi.util;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Type;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.InvocationTargetException;
+
+import java.util.Collection;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Column;
+import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 
 /**
@@ -60,6 +78,18 @@ public class Util
 
 
   /**
+   * Extract the name of a property from an accessor or mutator method.
+   *
+   * @param method the accessor or mutator method
+   * @return the name of the property
+   */
+  public static String extractPropertyName(Method method)
+  {
+    return (extractPropertyName(method.getName()));
+  }
+
+
+  /**
    * Compute the accessor name corresponding to a property.
    *
    * <p>This method prefixes the property name with {@code get} and
@@ -95,7 +125,8 @@ public class Util
    * Determine whether a method is an accessor method.
    *
    * <p>Currently checks are (1) whether the method's name starts with
-   * {@code get} and (2) whether the method takes no parameters.</p>
+   * {@code get} or {@code is} and (2) whether the method takes no
+   * parameters.</p>
    *
    * @param method the method to be checked
    * @return {@code true} if the method is considered to be an accessor method.
@@ -108,7 +139,35 @@ public class Util
       return (false);
     }
     Class parameterTypes[] = method.getParameterTypes();
-    if (parameterTypes.length > 0)
+    if (parameterTypes.length != 0)
+    {
+      return (false);
+    }
+    else
+    {
+      return (true);
+    }
+  }
+
+
+  /**
+   * Determine whether a method is a mutator method.
+   *
+   * <p>Currently checks are (1) whether the method's name starts with
+   * {@code set} and (2) whether the method takes exactly one parameter.</p>
+   *
+   * @param method the method to be checked
+   * @return {@code true} if the method is considered to be an mutator method.
+   */
+  public static boolean isMutator(Method method)
+  {
+    String methodName = method.getName();
+    if (!methodName.startsWith("set"))
+    {
+      return (false);
+    }
+    Class parameterTypes[] = method.getParameterTypes();
+    if (parameterTypes.length != 1)
     {
       return (false);
     }
@@ -129,7 +188,7 @@ public class Util
    */
   public static boolean isEntityClass(Class<?> aClass)
   {
-    return (aClass.getAnnotation(javax.persistence.Entity.class) != null);
+    return (aClass.getAnnotation(Entity.class) != null);
   }
 
 
@@ -142,6 +201,179 @@ public class Util
   public static boolean isEntityInstance(Object obj)
   {
     return (isEntityClass(obj.getClass()));
+  }
+
+
+  /**
+   * Find the accessor method for a given property.
+   *
+   * <p>Accessors found by this method take no parameter. The method
+   * returns the first accessor it finds.</p>
+   *
+   * @param entityClass the entity class within which the accessor is searched
+   * @param propertyName the name of the property
+   * @return the accessor method, or {@code null} if no mutator was found
+   */
+  public static Method findAccessor(Class<?> entityClass, String propertyName)
+  {
+    for (Method method : entityClass.getMethods())
+    {
+      if (isAccessor(method))
+      {
+	if (propertyName.equals(extractPropertyName(method)))
+	{
+	  return (method);
+	}
+      }
+    }
+    return (null);
+  }
+
+
+  /**
+   * Find the mutator method for a given property.
+   *
+   * <p>Mutators found by this method take exactly one parameter. The
+   * method returns the first mutator it finds.</p>
+   *
+   * @param entityClass the entity class within which the mutator is searched
+   * @param propertyName the name of the property
+   * @return the mutator method, or {@code null} if no mutator was found
+   */
+  public static Method findMutator(Class<?> entityClass, String propertyName)
+  {
+    for (Method method : entityClass.getMethods())
+    {
+      if (isMutator(method))
+      {
+	if (propertyName.equals(extractPropertyName(method)))
+	{
+	  return (method);
+	}
+      }
+    }
+    return (null);
+  }
+
+
+  /**
+   * Find all properties of an entity class.
+   *
+   * <p>Properties found by this method are both accessible and
+   * mutatable.</p>
+   *
+   * @param entityClass the entity class
+   * @return a set containing the names of the properties
+   */
+  public static Set<String> findPropertyNameSet(Class<?> entityClass)
+  {
+    HashSet<String> propertyNameSet = new HashSet<String>();
+    for (Method method : entityClass.getMethods())
+    {
+      if (isAccessor(method))
+      {
+	String propertyName = extractPropertyName(method.getName());
+	if (findMutator(entityClass, propertyName) != null)
+	{
+	  propertyNameSet.add(propertyName);
+	}
+      }
+    }
+    return (propertyNameSet);
+  }
+
+
+  /**
+   * Compute a map of property names to classes that the entity has
+   * associations with.
+   *
+   * @param entityClass the entity for which associations are to be found.
+   * @return a map with property names as keys and classes as values.
+   */
+  public static Map<String, Class<?>> findAssociationPropertyMap(Class<?> entityClass)
+  {
+    HashMap<String, Class<?>> associationPropertyMap = new HashMap<String, Class<?>>();
+    for (String propertyName : findPropertyNameSet(entityClass))
+    {
+      Method accessor = findAccessor(entityClass, propertyName);
+      Method mutator = findMutator(entityClass, propertyName);
+      if ((accessor.getAnnotation(OneToOne.class) != null) || (accessor.getAnnotation(ManyToOne.class) == null) || (mutator.getAnnotation(OneToOne.class) == null) || (mutator.getAnnotation(ManyToOne.class) == null))
+      {
+	associationPropertyMap.put(propertyName, accessor.getReturnType());
+      }
+      else if ((accessor.getAnnotation(OneToMany.class) != null) || (accessor.getAnnotation(ManyToMany.class) == null) || (mutator.getAnnotation(OneToMany.class) == null) || (mutator.getAnnotation(ManyToMany.class) == null))
+      {
+	Type rawToManyType = accessor.getGenericReturnType();
+	if (!(rawToManyType instanceof ParameterizedType))
+	{
+	  throw new IllegalArgumentException(String.format("illegal type for to-many association: %s", rawToManyType.toString()));
+	}
+	ParameterizedType toManyType = (ParameterizedType) rawToManyType;
+	Type[] actualTypeList = toManyType.getActualTypeArguments();
+	if (actualTypeList.length != 1)
+	{
+	  throw new IllegalArgumentException("cannot deal with collections that do not have exactly one type parameter");
+	}
+	Type associatedType = actualTypeList[0];
+	if (!(associatedType instanceof Class<?>))
+	{
+	  throw new IllegalArgumentException("cannot deal with association types that are not classes.");
+	}
+	Class<?> associatedClass = genericTypecast(associatedType);
+	associationPropertyMap.put(propertyName, associatedClass);
+      }
+    }
+    return (associationPropertyMap);
+  }
+
+
+  /**
+   * Compute a map of property names to classes that the entity has
+   * associations with.
+   *
+   * @param entity the entity for which associations are to be found.
+   * @return a map with property names as keys and classes as values.
+   */
+  public static Map<String, Class<?>> findAssociationPropertyMap(Object entity)
+  {
+    Class<?> entityClass = entity.getClass();
+    return findAssociationPropertyMap(entityClass);
+  }
+
+
+  /**
+   * Find properties of an entity class that are constrained to be
+   * unique by a {@code @Column} annotation or that have an {@code @Id}
+   * annotation.
+   *
+   * @param entityClass the entity class
+   * @return a list of names of the entity class' unique properties
+   */
+  public static ArrayList<String> findUniquePropertyNameList(Class<?> entityClass)
+  {
+    ArrayList<String> uniquePropertyNameList = new ArrayList<String>();
+    for (String propertyName : findPropertyNameSet(entityClass))
+    {
+      Method accessor = findAccessor(entityClass, propertyName);
+      Method mutator = findMutator(entityClass, propertyName);
+      if ((accessor.getAnnotation(Id.class) != null) || (mutator.getAnnotation(Id.class) != null))
+      {
+	uniquePropertyNameList.add(propertyName);
+      }
+      else
+      {
+	Column columnAnnotation = accessor.getAnnotation(Column.class);
+	if (columnAnnotation == null)
+	{
+	  columnAnnotation = mutator.getAnnotation(Column.class);
+	}
+	if (columnAnnotation != null && columnAnnotation.unique())
+	{
+	  uniquePropertyNameList.add(propertyName);
+	}
+      }
+    }
+    return (uniquePropertyNameList);
   }
 
 

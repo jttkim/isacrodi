@@ -13,7 +13,7 @@
 
 <div class="content">
 
-<h1>CRUD</h1>
+<h1>CRUD: <code><s:property value="%{entityClassName}"/></code>, <s:property value="%{entityId}"/></h1>
 
 <s:property escape="false" value="%{entityHtml}"/>
 

@@ -81,6 +81,7 @@ public class CropDisorderRecord implements Serializable
   public void addDescriptor(Descriptor descriptor)
   {
     this.descriptorSet.add(descriptor);
+    descriptor.setCropDisorderRecord(this);
   }
 
 
@@ -120,6 +121,13 @@ public class CropDisorderRecord implements Serializable
   public void setDiagnosis(Diagnosis diagnosis)
   {
     this.diagnosis = diagnosis;
+  }
+
+
+  public void linkDiagnosis(Diagnosis diagnosis)
+  {
+    this.setDiagnosis(diagnosis);
+    diagnosis.setCropDisorderRecord(this);
   }
 
 
