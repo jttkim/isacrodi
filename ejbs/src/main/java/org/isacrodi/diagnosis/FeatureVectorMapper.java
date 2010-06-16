@@ -117,6 +117,37 @@ public class FeatureVectorMapper
   }
 
 
+  public int searchMaximumIndex()
+  {
+    int index = 0;
+
+    CategoricalFeatureVectorMapperComponent cfvmc = new CategoricalFeatureVectorMapperComponent();
+    NumericFeatureVectorMapperComponent nfvmc = new NumericFeatureVectorMapperComponent();
+
+    for(FeatureVectorMapperComponent o : this.fvmc)
+    {
+        if(o.getClass().isInstance(new CategoricalFeatureVectorMapperComponent()))
+	{
+	  cfvmc = (CategoricalFeatureVectorMapperComponent)o;
+	  if (cfvmc.getIndex() > index)
+	    index = cfvmc.getIndex();
+	}
+
+        else if(o.getClass().isInstance(new NumericFeatureVectorMapperComponent()))
+	{
+	  nfvmc = (NumericFeatureVectorMapperComponent)o;
+	  if (nfvmc.getIndex() > index)
+	    index = cfvmc.getIndex();
+	}
+	else 
+          throw new IllegalStateException("%s unexpected class ");
+    }
+
+    return index;
+    
+  }
+
+
   public int searchCategoricalFeature(String key)
   {
 
@@ -131,7 +162,7 @@ public class FeatureVectorMapper
         if(o.getClass().isInstance(new CategoricalFeatureVectorMapperComponent()))
 	{
 	  cfvmc = (CategoricalFeatureVectorMapperComponent)o;
-	  index = cfvmc.getValue();
+	  index = cfvmc.getIndex();
 	  break;
 	}
       }
@@ -166,12 +197,18 @@ public class FeatureVectorMapper
 
   public svm_node[] map(FeatureVector featureVector)
   {
-     
+    //FIXME: Unfinished method. It doesn't deal with the problem of empty feature mapper files
+    
+    int index = searchMaximumIndex();
+    if (index <= 0)
+      index = 8;
+
     String filename = "/home/bkx08wju/Stuff/isacrodi/trunk/sampledata/isacrodi_feature_mapper.txt";
-    svm_node[] fv = new svm_node[12];
+    svm_node[] fv = new svm_node[index];
     int [] numericindex = null;
     int i = 0;
 
+   
     try
     {
       importFile(filename);

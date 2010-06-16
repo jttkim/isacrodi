@@ -12,7 +12,7 @@ public class CategoricalFeatureVectorMapperComponent extends FeatureVectorMapper
 {
 
   private String catname;
-  private int value;
+  private int index;
 
 
   public CategoricalFeatureVectorMapperComponent()
@@ -21,11 +21,11 @@ public class CategoricalFeatureVectorMapperComponent extends FeatureVectorMapper
   }
 
 
-  public CategoricalFeatureVectorMapperComponent(String name, String catname, int value)
+  public CategoricalFeatureVectorMapperComponent(String name, String catname, int index)
   {
     super(name);
     this.catname = catname;
-    this.value = value;
+    this.index = index;
   }
 
 
@@ -35,15 +35,15 @@ public class CategoricalFeatureVectorMapperComponent extends FeatureVectorMapper
   }
 
 
-  public int getValue()
+  public int getIndex()
   {
-    return this.value;
+    return this.index;
   }
 
 
   public String toString()
   {
-    return String.format("%s %d", this.catname, this.value);
+    return String.format("%s %d", this.catname, this.index);
   }
 
 
