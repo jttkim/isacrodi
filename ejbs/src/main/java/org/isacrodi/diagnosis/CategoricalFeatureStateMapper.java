@@ -7,30 +7,30 @@ import org.isacrodi.ejb.session.*;
 /**
  * Categorical Feature Vector Mapper Component
  */
-public class CategoricalFeatureVectorMapperComponent
+public class CategoricalFeatureStateMapper
 {
 
-  private String catname;
+  private String stateName;
   private int index;
 
 
-  public CategoricalFeatureVectorMapperComponent()
+  public CategoricalFeatureStateMapper()
   {
     super();
   }
 
 
-  public CategoricalFeatureVectorMapperComponent(String catname, int index)
+  public CategoricalFeatureStateMapper(String stateName, int index)
   {
     this();
-    this.catname = catname;
+    this.stateName = stateName;
     this.index = index;
   }
 
 
-  public String getCatName()
+  public String getStateName()
   {
-    return this.catname;
+    return this.stateName;
   }
 
 
@@ -42,7 +42,7 @@ public class CategoricalFeatureVectorMapperComponent
 
   public String toString()
   {
-    return String.format("%s %d", this.catname, this.index);
+    return String.format("state %s, index %d", this.stateName, this.index);
   }
 }
 
