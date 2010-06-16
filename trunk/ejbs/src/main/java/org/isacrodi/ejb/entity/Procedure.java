@@ -7,6 +7,7 @@ import javax.persistence.Version;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -19,8 +20,8 @@ public class Procedure implements Serializable
   private Integer id;
   private int version;
   private String description;
-  private Set<ProcedureScore> procedureScoreSet;
   private Set<CropDisorder> cropDisorderSet;
+  private Set<ProcedureScore> procedureScoreSet;
 
 
   private static final long serialVersionUID = 1;
@@ -29,8 +30,10 @@ public class Procedure implements Serializable
   public Procedure()
   {
     super();
+    this.cropDisorderSet = new HashSet<CropDisorder>();
+    this.procedureScoreSet = new HashSet<ProcedureScore>();
   }
- 
+
 
   public Procedure(String description)
   {
@@ -71,7 +74,7 @@ public class Procedure implements Serializable
     return this.description;
   }
 
-  
+
   public void setDescription(String description)
   {
     this.description = description;

@@ -91,6 +91,8 @@ public class AccessBean implements Access
 
   public void insert(CropDisorder cropDisorder, String[] cropScientificNameSet)
   {
+    // FIXME: no check for duplication
+    this.entityManager.persist(cropDisorder);
     for (String cropScientificName : cropScientificNameSet)
     {
       Query query = this.entityManager.createQuery("SELECT c FROM Crop c WHERE scientificName = :s");
@@ -99,8 +101,6 @@ public class AccessBean implements Access
       Crop crop = (Crop) query.getSingleResult();
       cropDisorder.addCrop(crop);
     }
-    // FIXME: no check for duplication
-    this.entityManager.persist(cropDisorder);
   }
 
 

@@ -123,6 +123,7 @@ public class Crop implements Serializable
   public void addCropDisorder(CropDisorder cropDisorder)
   {
     this.cropDisorderSet.add(cropDisorder);
+    cropDisorder.getCropSet().add(this);
   }
 
 

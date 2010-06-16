@@ -19,6 +19,11 @@
 
 <p class="todonote">This should be a link to the crop.</p>
 
+<p class="todonote">link below not yet functional</p>
+
+<s:url var="diagnosisurl" action="requestdiagnosis"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url>
+<p><s:a href="%{diagnosisurl}">request diagnosis for this record</s:a></p>
+
 <p>Affected crop: <s:property value="%{crop.name}"/>.</p>
 
 <p class="todonote">CDRs should have some description here, and perhaps a name.</p>

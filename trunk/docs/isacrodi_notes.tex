@@ -226,6 +226,19 @@ specification of this mapping:
   a usable set is always available, even when constructing instances
   outside of an EJB container, and thus facilitates testing.
 
+\item For each to-many relationship, entities should implement an
+  \computercode{add\computermeta{Property}} method that adds a
+  relationship. Where the mapping is bidirectional, it is the
+  responsibility of this ``adder'' method to set up both directions.
+
+  For one-to-one relationships, both participating entity classes
+  should implement a \computercode{link\computermeta{Property}} method
+  that sets up both directions.
+
+  Notice that bidirectional linking must not be implemented by any
+  ``setter'' method, as these are defined bean interfaces that are
+  used by the container.
+
 \end{itemize}
 
 

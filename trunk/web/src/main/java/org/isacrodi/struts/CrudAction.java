@@ -24,6 +24,7 @@ import static org.isacrodi.util.Util.getProperty;
 import static org.isacrodi.util.Util.setProperty;
 import static org.isacrodi.util.Util.isEntityClass;
 import static org.isacrodi.util.Util.isEntityInstance;
+import static org.isacrodi.util.Util.findUniquePropertyNameList;
 
 
 public class CrudAction extends IsacrodiActionSupport
@@ -39,7 +40,8 @@ public class CrudAction extends IsacrodiActionSupport
   }
 
 
-  public static String listAccessibleProperties(Object entity) throws IllegalAccessException, InvocationTargetException
+  // obsolete
+  private static String listAccessibleProperties(Object entity) throws IllegalAccessException, InvocationTargetException
   {
     if (entity == null)
     {
@@ -118,12 +120,25 @@ public class CrudAction extends IsacrodiActionSupport
   }
 
 
+  public static String entityLinkText(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  {
+    String s = "";
+    String glue = "";
+    for (String propertyName : findUniquePropertyNameList(entity.getClass()))
+    {
+      s += String.format("%s%s: %s", glue, propertyName, getProperty(entity, propertyName).toString());
+      glue = ", ";
+    }
+    return (s);
+  }
+
+
   public static String entityHtmlLink(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
     // FIXME: just assuming that id is the id property, should really look for persistence annotation @Id
     // FIXME: hard-coded assumption that action name is "crud"
     Object id = getProperty(entity, "id");
-    String s = String.format("<a href=\"crud?entityClassName=%s&entityId=%s\">%s, id = %s</a>", htmlEscape(entity.getClass().getSimpleName()), htmlEscape(id.toString()), htmlEscape(entity.getClass().getSimpleName()), htmlEscape(id.toString()));
+    String s = String.format("<a href=\"crud?entityClassName=%s&entityId=%s\">%s</a>", htmlEscape(entity.getClass().getSimpleName()), htmlEscape(id.toString()), htmlEscape(entityLinkText(entity)));
     return (s);
   }
 
@@ -143,7 +158,7 @@ public class CrudAction extends IsacrodiActionSupport
   public static String entityHtmlTable(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
     String s = "<table>\n";
-    Method[] methodList = entity.getClass().getDeclaredMethods();
+    Method[] methodList = entity.getClass().getMethods();
     for (Method method : methodList)
     {
       if (isAccessor(method))
@@ -175,12 +190,11 @@ public class CrudAction extends IsacrodiActionSupport
 	    s += htmlEscape(property.toString());
 	  }
 	}
-	s += "</td>";
+	s += "</td></tr>\n";
       }
     }
     s += "</table>\n";
     return (s);
-
   }
 
 
@@ -240,6 +254,7 @@ public class CrudAction extends IsacrodiActionSupport
 
   public String getEntityId()
   {
+    this.LOG.info("returning entity id " + this.entityId);
     return (this.entityId);
   }
 

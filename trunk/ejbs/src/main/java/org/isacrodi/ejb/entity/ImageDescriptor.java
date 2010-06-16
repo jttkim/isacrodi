@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
   * Implements image descriptor from Digital Image.

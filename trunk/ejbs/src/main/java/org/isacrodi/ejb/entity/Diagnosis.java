@@ -2,11 +2,14 @@ package org.isacrodi.ejb.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Version;
 import javax.persistence.GeneratedValue;
-import javax.persistence.*;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
-import java.util.*;
+import javax.persistence.OneToOne;
+import java.util.Set;
+import java.util.HashSet;
 import java.io.Serializable;
 
 
@@ -25,10 +28,11 @@ public class Diagnosis implements Serializable
   public Diagnosis()
   {
     super();
+    this.disorderScoreSet = new HashSet<DisorderScore>();
   }
 
 
-  @Id 
+  @Id
   @GeneratedValue
   public Integer getId()
   {
@@ -68,6 +72,13 @@ public class Diagnosis implements Serializable
   }
 
 
+  public void linkCropDisorderRecord(CropDisorderRecord cropDisorderRecord)
+  {
+    this.setCropDisorderRecord(cropDisorderRecord);
+    cropDisorderRecord.setDiagnosis(this);
+  }
+
+
   @OneToMany(mappedBy="diagnosis")
   public Set<DisorderScore> getDisorderScoreSet()
   {
@@ -84,6 +95,7 @@ public class Diagnosis implements Serializable
   public void addDisorderScore(DisorderScore disorderScore)
   {
     this.disorderScoreSet.add(disorderScore);
+    disorderScore.setDiagnosis(this);
   }
 
 

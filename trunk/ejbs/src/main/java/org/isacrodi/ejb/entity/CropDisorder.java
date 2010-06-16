@@ -114,6 +114,7 @@ public class CropDisorder implements Serializable
   public void addCrop(Crop crop)
   {
     this.cropSet.add(crop);
+    crop.getCropDisorderSet().add(this);
   }
 
 
@@ -133,6 +134,7 @@ public class CropDisorder implements Serializable
   public void addDisorderScore(DisorderScore disorderScore)
   {
     this.disorderScoreSet.add(disorderScore);
+    disorderScore.setCropDisorder(this);
   }
 
   @ManyToMany
@@ -151,6 +153,7 @@ public class CropDisorder implements Serializable
   public void addProcedure(Procedure procedure)
   {
     this.procedureSet.add(procedure);
+    procedure.getCropDisorderSet().add(this);
   }
 
 

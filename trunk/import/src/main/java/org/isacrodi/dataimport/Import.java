@@ -187,9 +187,7 @@ public class Import
       // System.err.println(String.format("value: \"%s\", double: %f", t.getValue(), v));
       NumericDescriptor d = new NumericDescriptor(numericType, v);
       // System.err.println(d);
-      // FIXME: addDescriptor etc. should establish bidirectional association themselves
       cdr.addDescriptor(d);
-      d.setCropDisorderRecord(cdr);
     }
     // s.nextToken(Token.TokenType.SYMBOL, "}");
     s.nextToken(Token.TokenType.BLOCKIDENTIFIER, "imageDescriptors");
@@ -214,7 +212,6 @@ public class Import
       Token fileToken = s.nextToken(Token.TokenType.NAMEVALUE, "file");
       ImageDescriptor d = new ImageDescriptor(imageType, mimeToken.getValue(), fileToken.getValue());
       cdr.addDescriptor(d);
-      d.setCropDisorderRecord(cdr);
       s.nextToken(Token.TokenType.SYMBOL, "}");
     }
     s.nextToken(Token.TokenType.SYMBOL, "}");

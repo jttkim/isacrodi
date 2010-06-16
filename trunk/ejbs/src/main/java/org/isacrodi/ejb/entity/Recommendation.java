@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Set;
+import java.util.HashSet;
 
 
 @Entity
@@ -25,6 +26,7 @@ public class Recommendation implements Serializable
   public Recommendation()
   {
     super();
+    this.procedureScoreSet = new HashSet<ProcedureScore>();
   }
 
   @Id
@@ -66,14 +68,21 @@ public class Recommendation implements Serializable
     this.cropDisorderRecord = cropDisorderRecord;
   }
 
- 
+
+  public void linkCropDisorderRecord(CropDisorderRecord cropDisorderRecord)
+  {
+    this.setCropDisorderRecord(cropDisorderRecord);
+    cropDisorderRecord.setRecommendation(this);
+  }
+
+
   @OneToMany(mappedBy="recommendation")
   public Set<ProcedureScore> getProcedureScoreSet()
   {
     return this.procedureScoreSet;
   }
 
- 
+
   public void setProcedureScoreSet(Set<ProcedureScore> procedureScoreSet)
   {
     this.procedureScoreSet = procedureScoreSet;
@@ -81,8 +90,8 @@ public class Recommendation implements Serializable
 
 
   public void addProcedureScore(ProcedureScore procedureScore)
-  { 
+  {
     this.procedureScoreSet.add(procedureScore);
+    procedureScore.setRecommendation(this);
   }
-
 }
