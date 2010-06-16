@@ -8,7 +8,7 @@ import org.isacrodi.ejb.session.*;
 ** Categorical Feature Vector Mapper Component
 */
 
-public class CategoricalFeatureVectorMapperComponent extends FeatureVectorMapperComponent
+public class CategoricalFeatureVectorMapperComponent extends CategoricalColFeatureVectorMapperComponent
 {
 
   private String catname;
@@ -21,9 +21,9 @@ public class CategoricalFeatureVectorMapperComponent extends FeatureVectorMapper
   }
 
 
-  public CategoricalFeatureVectorMapperComponent(String name, String catname, int index)
+  public CategoricalFeatureVectorMapperComponent(String catname, int index)
   {
-    super(name);
+    this();
     this.catname = catname;
     this.index = index;
   }
@@ -45,9 +45,6 @@ public class CategoricalFeatureVectorMapperComponent extends FeatureVectorMapper
   {
     return String.format("%s %d", this.catname, this.index);
   }
-
-
-
 }
 
 

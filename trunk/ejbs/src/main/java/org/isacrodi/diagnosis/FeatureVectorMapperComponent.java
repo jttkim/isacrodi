@@ -11,7 +11,7 @@ class FeatureVectorMapperComponent
 {
 
   private String name;
-
+  private int indexpresence;
 
   public FeatureVectorMapperComponent()
   {
@@ -19,10 +19,11 @@ class FeatureVectorMapperComponent
   }
 
 
-  public FeatureVectorMapperComponent(String name)
+  public FeatureVectorMapperComponent(String name, int indexpresence)
   {
     this();
     this.name = name;
+    this.indexpresence = indexpresence;
   }
 
 
@@ -38,9 +39,15 @@ class FeatureVectorMapperComponent
   }
 
 
+  public int getIndexPresence()
+  {
+    return this.indexpresence;
+  }
+
+
   public String toString()
   {
-    return String.format("%s", this.name);
+    return String.format("%s %d", this.name, this.indexpresence);
   }
 
 }
