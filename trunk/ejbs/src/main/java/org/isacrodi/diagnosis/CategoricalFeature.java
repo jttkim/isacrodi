@@ -12,13 +12,13 @@ import java.util.*;
 
 
 /**
- * Categorical Feature vector.
+ * Categorical Feature.
  *
  */
 public class CategoricalFeature extends AbstractFeature
 {
   
-  private String value;
+  private String state;
 
   public CategoricalFeature()
   {
@@ -26,28 +26,28 @@ public class CategoricalFeature extends AbstractFeature
   }
 
 
-  public CategoricalFeature(String name, String value)
+  public CategoricalFeature(String name, String state)
   {
     super(name);
-    this.value = value;
+    this.state = state;
   }
 
 
-  public String getValue()
+  public String getState()
   {
-    return this.value;
+    return this.state;
   }
 
 
-  public void setValue(String value)
+  public void setState(String state)
   {
-    this.value = value;
+    this.state = state;
   }
 
 
   public String toString()
   {
-    return String.format("%s",this.value);
+    return String.format("%s", this.state);
   }
 
 }

@@ -7,20 +7,20 @@ import org.isacrodi.ejb.session.*;
 /**
  * Categorical Feature Vector Mapper Component
  */
-public class CategoricalFeatureStateMapper
+public class CategoricalStateMapper
 {
 
   private String stateName;
   private int index;
 
 
-  public CategoricalFeatureStateMapper()
+  public CategoricalStateMapper()
   {
     super();
   }
 
 
-  public CategoricalFeatureStateMapper(String stateName, int index)
+  public CategoricalStateMapper(String stateName, int index)
   {
     this();
     this.stateName = stateName;

@@ -5,59 +5,94 @@ import org.isacrodi.ejb.session.*;
 import java.util.Set;
 import java.util.HashSet;
 
+import libsvm.svm_node;
 
 /**
- * Categorical Collection Feature Vector Mapper Component
+ * Mapper for a categorical component.
  */
 
-public class CategoricalColFeatureVectorMapperComponent extends FeatureVectorMapperComponent
+public class CategoricalComponentMapper extends AbstractComponentMapper
 {
+  private hashMap<String, Integer> stateIndexMap;
 
-  private Set<CategoricalFeatureVectorMapperComponent> stateMapperSet;
 
-
-  public CategoricalColFeatureVectorMapperComponent()
+  public CategoricalComponentMapper()
   {
     super();
-    this.stateMapperSet = new HashSet<CategoricalFeatureVectorMapperComponent>();
+    this.stateIndexMap = new HashMap<String, Integer>();
   }
 
 
-  public CategoricalColFeatureVectorMapperComponent(String name, int indexpresence)
+  public CategoricalComponentMapper(String name, int indexpresence)
   {
     super(name, indexpresence);
+    this.stateIndexMap = new HashMap<String, Integer>();
   }
 
 
-  public void setCategoricalFeatureVectorMapperComponentSet(Set<CategoricalFeatureVectorMapperComponent> stateMapperSet)
+  public void addState(String stateName, int index)
   {
-    this.stateMapperSet = stateMapperSet;
+    if (this.stateIndexMap.containsKey(stateName))
+    {
+      throw new IllegalArgumentException(String.format("state \"%s\" already mapped", stateName));
+    }
+    this.stateIndexMap.put(stateName, index);
   }
 
 
-  public Set<CategoricalFeatureVectorMapperComponent> getCategoricalFeatureVectorMapperComponentSet()
+  public int getNumberOfStates()
   {
-    return this.stateMapperSet;
-  }
-
-
-  public void addCategoryElement(CategoricalFeatureVectorMapperComponent cfvm)
-  {
-    this.stateMapperSet.add(cfvm);
-  }
-
-
-  public int getArraySize()
-  {
-    return stateMapperSet.size();
+    return this.stateIndexMap.size();
   }
 
 
   public String toString()
   {
-    return String.format("Nothing to return");
+    String s = String.format("CategoricalComponentMapper(indexPresence = %d", this.indexPresence);
+    for (String stateName : stateIndexMap.keySet())
+    {
+      s += String.format(", %s -> %d", stateName, this.stateIndexMap.get(stateName).intValue());
+    }
+    return (s + ")");
   }
 
+
+  public svm_node map(AbstractFeature feature, svm_node[] node)
+  {
+    if (feature == null)
+    {
+      for (String stateName : this.stateIndexMap.keySet())
+      {
+	int index = this.stateIndexMap.get(stateName).intValue();
+	node[index].index = index;
+	node[index].value = 0.0;
+      }
+      node[this.indexPresence].index = this.indexPresence;
+      node[this.indexPresence].value = 0.0;
+    }
+    else
+    {
+      if (!(feature instanceof CategoricalFeature))
+      {
+	throw new IllegalArgumentException(String.format("feature %s is not categorical", feature.getName()));
+      }
+      CategoricalFeature categoricalFeature = (CategoricalFeature) feature;
+      for (String stateName : this.stateIndexMap.keySet())
+      {
+	int index = this.stateIndexMap.get(stateName).intValue();
+	node[index].index = index;
+	if (stateName.equals(categoricalFeature.getState()))
+	{
+	  node[index].value = 1.0;
+	}
+	else
+	{
+	  node[index].value = 0.0;
+	}
+      }
+      node[this.indexPresence].index = this.indexPresence;
+      node[this.indexPresence].value = 1.0;
+    }
+    return (node);
+  }
 }
-
-
