@@ -23,11 +23,11 @@ public class NumericComponentMapper extends AbstractComponentMapper
   }
 
 
-  public NumericComponentMapper(String name, int index, int indexPresence, double valuemissing)
+  public NumericComponentMapper(String name, int index, int indexPresence, double valueMissing)
   {
     super(name, indexPresence);
     this.index = index;
-    this.valuemissing = valuemissing;
+    this.valueMissing = valueMissing;
   }
 
 
@@ -39,17 +39,30 @@ public class NumericComponentMapper extends AbstractComponentMapper
 
   public double getValueMissing()
   {
-    return this.valuemissing;
+    return this.valueMissing;
   }
 
 
   public String toString()
   {
-    return String.format("%d %f", this.index, this.valuemissing);
+    return String.format("%d %f", this.index, this.valueMissing);
   }
 
 
-  svm_node map(AbstractFeature feature, svm_node node)
+  public int getMaxIndex()
+  {
+    if (this.index > this.indexPresence)
+    {
+      return (this.index);
+    }
+    else
+    {
+      return (this.indexPresence);
+    }
+  }
+
+
+  public svm_node[] map(AbstractFeature feature, svm_node[] node)
   {
     if (feature == null)
     {

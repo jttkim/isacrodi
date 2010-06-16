@@ -11,7 +11,7 @@ import javax.naming.*;
 import org.isacrodi.ejb.entity.*;
 import org.isacrodi.ejb.session.*;
 import org.isacrodi.util.io.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.ArrayList;
 import libsvm.*;
 
@@ -23,20 +23,26 @@ import libsvm.*;
 
 public class FeatureVectorMapper
 {
-  private Collection<AbstractComponentMapper> fvmc;
+  private List<AbstractComponentMapper> componentMapperList;
 
 
   public FeatureVectorMapper()
   {
     super();
-    this.fvmc = new ArrayList<AbstractComponentMapper>();
+    this.componentMapperList = new ArrayList<AbstractComponentMapper>();
   }
 
   
-  public FeatureVectorMapper(Collection <AbstractComponentMapper> fvmc)
+  public FeatureVectorMapper(List<AbstractComponentMapper> componentMapperList)
   {
     this();
-    this.fvmc = fvmc;
+    this.componentMapperList = componentMapperList;
+  }
+
+
+  public void addComponentMapper(AbstractComponentMapper componentMapper)
+  {
+    this.componentMapperList.add(componentMapper);
   }
 
 
@@ -45,8 +51,8 @@ public class FeatureVectorMapper
     Token indexToken = s.nextToken(Token.TokenType.NAMEVALUE, "index");
     Token index_presenceToken = s.nextToken(Token.TokenType.NAMEVALUE, "indexpresence");
     Token value_missingToken = s.nextToken(Token.TokenType.NAMEVALUE, "valuemissing");
-    NumericAbstractComponentMapper nfvmc = new NumericAbstractComponentMapper(featurename, Integer.parseInt(indexToken.getValue()), Integer.parseInt(index_presenceToken.getValue()), Double.parseDouble(value_missingToken.getValue()));
-    this.fvmc.add(nfvmc);
+    NumericComponentMapper numericComponentMapper = new NumericComponentMapper(featurename, Integer.parseInt(indexToken.getValue()), Integer.parseInt(index_presenceToken.getValue()), Double.parseDouble(value_missingToken.getValue()));
+    this.componentMapperList.add(numericComponentMapper);
   }
 
 
@@ -56,8 +62,7 @@ public class FeatureVectorMapper
     Token endBlockToken = new Token(Token.TokenType.SYMBOL, "}");
     Token index_presenceToken = s.nextToken(Token.TokenType.NAMEVALUE, "indexpresence");
     s.nextToken(Token.TokenType.SYMBOL, "{");
-    CategoricalColAbstractComponentMapper ccfvmc = new CategoricalColAbstractComponentMapper(featurename, Integer.parseInt(index_presenceToken.getValue()));
-    ccfvmc.setCategoricalAbstractComponentMapperSet(new java.util.HashSet<CategoricalAbstractComponentMapper>());
+    CategoricalComponentMapper categoricalComponentMapper = new CategoricalComponentMapper(featurename, Integer.parseInt(index_presenceToken.getValue()));
     for (Token t = s.nextToken(); !endBlockToken.equals(t); t = s.nextToken())
     {
       if (t == null)
@@ -68,12 +73,9 @@ public class FeatureVectorMapper
       {
 	throw new IllegalStateException("unexpected token type: " + t);
       }
-
-      //CategoricalAbstractComponentMapper cfvmc = new CategoricalAbstractComponentMapper(featurename,Integer.parseInt(index_presenceToken.getValue()), t.getName(), Integer.parseInt(t.getValue()));
-      CategoricalAbstractComponentMapper cfvmc = new CategoricalAbstractComponentMapper(t.getName(), Integer.parseInt(t.getValue()));
-      ccfvmc.addCategoryElement(cfvmc);
+      categoricalComponentMapper.addState(t.getName(), Integer.parseInt(t.getValue()));
     }
-    this.fvmc.add(ccfvmc);
+    this.componentMapperList.add(categoricalComponentMapper);
   }
 
 
@@ -84,12 +86,17 @@ public class FeatureVectorMapper
     Token typeToken = s.nextToken(Token.TokenType.NAMEVALUE, "type");
     String type = typeToken.getValue();
     if (type.equals("numeric"))
+    {
       importNumericFeatureBlock(featurename, s);
+    }
     else if (type.equals("categorical")) 
+    {
       importCategoricalFeatureBlock(featurename, s);
+    }
     else 
+    {
       throw new IllegalStateException("unexpected token type: ");
-
+    }
     s.nextToken(Token.TokenType.SYMBOL, "}");
   }
 
@@ -123,6 +130,7 @@ public class FeatureVectorMapper
     if (magic.equals("isacrodi-featuremapper-0.1"))
     {
       importFeatureMapperFile(in);
+      // FIXME: should check for completeness (compact index set from 0 to max) after parsing is finished
     }
     else
     {
@@ -131,223 +139,57 @@ public class FeatureVectorMapper
   }
 
 
-  public int searchMaximumIndex()
-  {
-    int index = 0;
-
-    CategoricalAbstractComponentMapper cfvmc = new CategoricalAbstractComponentMapper();
-    NumericAbstractComponentMapper nfvmc = new NumericAbstractComponentMapper();
-     
-    for(AbstractComponentMapper o : this.fvmc)
-    {
-      if (o.getIndexPresence() >= index)
-        index = o.getIndexPresence();
-    }
-
-    return index;
-  }
-
-
-  public int searchCategoricalFeature(String key)
-  {
-    int index = 0;
-    for(AbstractComponentMapper o : this.fvmc)
-    {
-      if(o.getName().equals(key))
-      {
-        if(o instanceof CategoricalColAbstractComponentMapper)
-	{
-	  CategoricalColAbstractComponentMapper cfvmc = (CategoricalColAbstractComponentMapper) o;
-	  index = cfvmc.getIndex();
-	  break;
-	}
-      }
-    }
-    return index;
-  }
-
-
-  public int [] searchNumericFeature(String key)
-  {
-
-    int [] numericindex = new int[2];
-
-    NumericAbstractComponentMapper nfvmc = new NumericAbstractComponentMapper();
-
-    for(AbstractComponentMapper o : this.fvmc)
-    {
-      if(o.getName().equals(key))
-      {
-        if(o.getClass().isInstance(new NumericAbstractComponentMapper()))
-	{
-	  nfvmc = (NumericAbstractComponentMapper)o;
-	  numericindex[0] = nfvmc.getIndex();
-	  //numericindex[1] = nfvmc.getIndexPresence();
-	  break;
-	}
-      }
-    }
-    return numericindex;
-  }
-
-
-  public double getValue(FeatureVector featureVector, String key)
-  {
-    double value = 0.0;
-
-    NumericFeature nf = new NumericFeature();
-
-    for (String k : featureVector.keySet())
-    {
-      if (featureVector.get(k).getClass().isInstance(new NumericFeature()))
-      {
-        nf = (NumericFeature)featureVector.get(k);
-        value = nf.getValue();
-	break;
-      }
-    }
-
-    return value;
-  }
-
-
-  public String searchFeatureVector(FeatureVector featureVector, String key)
-  {
-    String value = "absent";
-
-    for (String k : featureVector.keySet())
-    {
-      if (featureVector.get(k).equals(key))
-      {
-        value = "present";
-	break;
-      }
-    }
-
-    return value;
-  }
-
-
-  public String searchFeatureVectorElement(FeatureVector featureVector, String key)
-  {
-    String value = "";
-    CategoricalFeature cf = new CategoricalFeature();
-
-    for (String k : featureVector.keySet())
-    {
-      if (featureVector.get(k).equals(key))
-      {
-        cf = (CategoricalFeature)featureVector.get(k);
-	value = cf.getValue();
-	break;
-      }
-    }
-    return value;
-  }
-
-
   public double calculateAverage()
   {
+    // FIXME: ?????
     double value = 12.4;
     return(value);
   }
 
 
+  public int getMappedVectorDimension()
+  {
+    // FIXME: check for nonredundant and contiguous indexes is really important, this method depends on it.
+    int d = 0;
+    for (AbstractComponentMapper c : this.componentMapperList)
+    {
+      int n = c.getMaxIndex();
+      if (n > d)
+      {
+	d = n;
+      }
+    }
+    return (d);
+  }
+
+
   public svm_node[] map(FeatureVector featureVector)
   {
-    //FIXME: Unfinished method. It doesn't deal with the problem of empty feature mapper files. It's too long
-    
-    int index = searchMaximumIndex();
-    if(index <= 0)
-      index = 8;
-    // FIXME: ????
-    String filename = "/local/home/jtk/devel/isacrodi/trunk/sampledata/isacrodi_feature_mapper.txt";
-    svm_node[] fv = new svm_node[index + 1];
-    int [] numericindex = null;
-    int i = 0;
-
-    NumericAbstractComponentMapper nfvmc = new NumericAbstractComponentMapper();
-    CategoricalColAbstractComponentMapper ccfvmc = new CategoricalColAbstractComponentMapper();
-      
-    try
+    svm_node[] node = new svm_node[this.getMappedVectorDimension()];
+    for (AbstractComponentMapper c : this.componentMapperList)
     {
-      importFile(filename);
-      for(AbstractComponentMapper o : this.fvmc)
-      {
-        if(o.getClass().isInstance(new NumericAbstractComponentMapper()))
-	{
-          fv[i] = new svm_node();
-	  nfvmc = (NumericAbstractComponentMapper)o;
-          fv[i].index = nfvmc.getIndex();
-          fv[i+1] = new svm_node();
-          fv[i+1].index = o.getIndexPresence();
-
-	  if (searchFeatureVector(featureVector, o.getName()).equals("present"))
-	  {
-            fv[i].value = getValue(featureVector, o.getName());
-            fv[i+1].value = 1.0;
-	  }
-          else
-	  {
-            fv[i].value = calculateAverage();
-            fv[i+1].value = 0.0;
-	  }
-	  i = i+2;
-        }
-	else
-	{
-	  ccfvmc = (CategoricalColAbstractComponentMapper)o;
-          fv[i + ccfvmc.getArraySize() ] = new svm_node();
-	  fv[i + ccfvmc.getArraySize()].index = ccfvmc.getIndexPresence();
-	  if (searchFeatureVector(featureVector, o.getName()).equals("present"))
-	    fv[i + ccfvmc.getArraySize()].value = 1.0;
-	  else
-	    fv[i + ccfvmc.getArraySize()].value = 0.0;
-
-          for(CategoricalAbstractComponentMapper c : ccfvmc.getCategoricalAbstractComponentMapperSet())
-	  {
-            fv[i] = new svm_node();
-	    fv[i].index = c.getIndex();
-	    if(searchFeatureVectorElement(featureVector, o.getName()).equals(c.getCatName()))
-	      fv[i].value = 1.0;
-	    else 
-	      fv[i].value = 0.0;
-	    i++;
-          }
-	}  // end categorical
-      }
+      AbstractFeature f = featureVector.get(c.getFeatureName());
+      node = c.map(f, node);
     }
-
-
-    catch (IOException ex) 
-    {
-      ex.printStackTrace();
-    }
-
-  return fv;
+    return (node);
   }
 
 
-  /* structure of the map method 
-  public svm_node map(FeatureVector featureVector)
-  {
-    svm_node n = new svm_node(this.getSize());
-    for (AbstractComponentMapper c : this.fvmc)
-    {
-      AbstractFeature f = featureVector.get(c.getName());
-      if (f != null)
-      {
-	c.map(f, n);
-      }
-    }
-  }
-  */
-
-  public static void main(String[] args)
+  public static void main(String[] args) throws Exception
   {
     FeatureVectorMapper fvm = new FeatureVectorMapper();
-    fvm.importFile(args[0]);
-    fvm.map(new FeatureVector());
+    fvm.addComponentMapper(new NumericComponentMapper("temperature", 0, 1, 23.4));
+    fvm.addComponentMapper(new NumericComponentMapper("altitude", 2, 3, 471.1));
+    CategoricalComponentMapper m = new CategoricalComponentMapper("leafcondition", 5);
+    m.addState("normal", 6);
+    m.addState("crinkled", 7);
+    m.addState("rotten", 8);
+    m.addState("yellowish", 9);
+    // fvm.importFile(args[0]);
+    svm_node[] node = fvm.map(new FeatureVector());
+    for (svm_node n : node)
+    {
+      System.out.println(String.format("%d: %f", n.index, n.value));
+    }
   }
-
 }
