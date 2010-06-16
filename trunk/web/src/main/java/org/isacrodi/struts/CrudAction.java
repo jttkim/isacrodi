@@ -31,8 +31,10 @@ public class CrudAction extends IsacrodiActionSupport
 {
   private String entityClassName;
   private String entityId;
-  private static String packageName = "org.isacrodi.ejb.entity";
-
+  private String crudOp;
+  private static final String packageName = "org.isacrodi.ejb.entity";
+  private static final String[] hiddenPropertyNameList = {"class", "version"};
+  private static final String[] readOnlyPropertyNameList = {"id"};
 
   public CrudAction() throws NamingException
   {
@@ -192,13 +194,49 @@ public class CrudAction extends IsacrodiActionSupport
       }
     }
     s += "</table>\n";
+    s += "<hr/>\n";
+    s += "[";
+    Object id = getProperty(entity, "id");
+    s += String.format("<a href=\"crud?entityClassName=%s&entityId=%s&crudOp=edit\">edit</a>", entity.getClass().getSimpleName(), id.toString());
+    s += "|";
+    s += String.format("<a href=\"crud?entityClassName=%s\">list all <code>%s</code></a>", entity.getClass().getSimpleName(), entity.getClass().getSimpleName());
+    s += "]\n";
     return (s);
+  }
+
+
+  public static boolean isHidden(String propertyName)
+  {
+    for (String h : hiddenPropertyNameList)
+    {
+      if (h.equals(propertyName))
+      {
+	return (true);
+      }
+    }
+    return (false);
+  }
+
+
+  public static boolean isReadOnly(String propertyName)
+  {
+    for (String r : readOnlyPropertyNameList)
+    {
+      if (r.equals(propertyName))
+      {
+	return (true);
+      }
+    }
+    return (false);
   }
 
 
   public static String entityHtmlForm(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
+    Object id = getProperty(entity, "id");
     String s = "<form method=\"post\" action=\"crud\">\n";
+    s += String.format("<input type=\"hidden\" name=\"entityClassName\" value=\"%s\"/>", entity.getClass().getSimpleName());
+    s += String.format("<input type=\"hidden\" name=\"entityId\" value=\"%s\"/>", id.toString());
     s += "<table>\n";
     Method[] methodList = entity.getClass().getMethods();
     for (Method method : methodList)
@@ -206,34 +244,50 @@ public class CrudAction extends IsacrodiActionSupport
       if (isAccessor(method))
       {
 	String propertyName = extractPropertyName(method.getName());
-	Object property = method.invoke(entity);
-	s += "<tr>";
-	s += String.format("<td>%s</td>", htmlEscape(propertyName));
-	s += "<td>";
-	if (property instanceof Collection<?>)
+	if (!isHidden(propertyName))
 	{
-	  Collection<?> collection = (Collection<?>) property;
-	  s += entityHtmlLinkList(collection);
-	}
-	else if (isEntityInstance(property))
-	{
-	  s += entityHtmlLink(property);
-	}
-	else
-	{
-	  String propertyValue = "";
-	  if (property != null)
+	  Object property = method.invoke(entity);
+	  s += "<tr>";
+	  s += String.format("<td>%s</td>", htmlEscape(propertyName));
+	  s += "<td>";
+	  if ((property != null) && property instanceof Collection<?>)
 	  {
-	    propertyValue = property.toString();
-	    s += String.format("<input name=\"%s\" value=\"%s\"/>", propertyName, propertyValue);
+	    Collection<?> collection = (Collection<?>) property;
+	    s += entityHtmlLinkList(collection);
 	  }
+	  else if ((property != null) && isEntityInstance(property))
+	  {
+	    s += entityHtmlLink(property);
+	  }
+	  else
+	  {
+	    String propertyValue = "";
+	    if (property != null)
+	    {
+	      propertyValue = property.toString();
+	    }
+	    if (isReadOnly(propertyName))
+	    {
+	      s += htmlEscape(propertyValue);
+	    }
+	    else
+	    {
+	      s += String.format("<input name=\"%s\" value=\"%s\"/>", propertyName, propertyValue);
+	    }
+	  }
+	  s += "</td></tr>\n";
 	}
-	s += "</td></tr>\n";
       }
     }
     s += "<tr><td><input type=\"submit\"/></td><td></td></tr>\n";
     s += "</table>\n";
     s += "</form>\n";
+    s += "<hr/>\n";
+    s += "[";
+    s += String.format("<a href=\"crud?entityClassName=%s&entityId=%s\">show</a>", entity.getClass().getSimpleName(), id.toString());
+    s += "|";
+    s += String.format("<a href=\"crud?entityClassName=%s\">list all <code>%s</code></a>", entity.getClass().getSimpleName(), entity.getClass().getSimpleName());
+    s += "]\n";
     return (s);
   }
 
@@ -255,6 +309,13 @@ public class CrudAction extends IsacrodiActionSupport
     Object entity = this.retrieveEntity();
     if (entity != null)
     {
+      if (this.crudOp != null)
+      {
+	if  (this.crudOp.equals("edit"))
+	{
+	  return (entityHtmlForm(entity));
+	}
+      }
       return (entityHtmlTable(entity));
     }
     else if (this.entityClassName != null)
@@ -289,6 +350,18 @@ public class CrudAction extends IsacrodiActionSupport
   public void setEntityId(String entityId)
   {
     this.entityId = entityId;
+  }
+
+
+  public String getCrudOp()
+  {
+    return (this.crudOp);
+  }
+
+
+  public void setCrudOp(String crudOp)
+  {
+    this.crudOp = crudOp;
   }
 
 
