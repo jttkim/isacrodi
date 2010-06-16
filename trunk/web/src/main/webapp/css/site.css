@@ -70,3 +70,8 @@ td
 {
   vertical-align: baseline;
 }
+
+.scientificname
+{
+  font-style: italic;
+}

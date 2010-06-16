@@ -4,11 +4,10 @@ import org.isacrodi.ejb.entity.*;
 import org.isacrodi.ejb.session.*;
 
 
-/*
-** Categorical Feature Vector Mapper Component
-*/
-
-public class CategoricalFeatureVectorMapperComponent extends CategoricalColFeatureVectorMapperComponent
+/**
+ * Categorical Feature Vector Mapper Component
+ */
+public class CategoricalFeatureVectorMapperComponent
 {
 
   private String catname;

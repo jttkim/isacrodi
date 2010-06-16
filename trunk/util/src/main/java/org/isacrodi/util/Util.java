@@ -284,6 +284,47 @@ public class Util
 
 
   /**
+   * Determine whether an class represents a collection of entities.
+   *
+   * <p>A collection of entities is defined as an instance of {@code
+   * java.util.Collection} with an element type that is annotated
+   * {@code @javax.persistence.Entity}.</p>
+   *
+   * <p>Seems to be impossible due to restrictions caused by type erasure :-(((</p>
+   *
+   * @param objClass the class to be checked
+   * @return {@code} true if the object is a collection of entities
+   */
+  public static boolean isEntityCollectionClass(Class<?> objClass)
+  {
+    throw new RuntimeException("not implemented due to erasure problems");
+    /*
+    if (!(objClass instanceof ParameterizedType))
+    {
+      return (false);
+    }
+    return (true);
+    */
+  }
+
+
+  /**
+   * Determine whether an object is a collection of entities.
+   *
+   * <p>A collection of entities is defined as an instance of {@code
+   * java.util.Collection} with an element type that is annotated
+   * {@code @javax.persistence.Entity}.</p>
+   *
+   * @param obj the object to be checked
+   * @return {@code} true if the object is a collection of entities
+   */
+  public static boolean isEntityCollection(Object obj)
+  {
+    return (isEntityCollectionClass(obj.getClass()));
+  }
+
+
+  /**
    * Compute a map of property names to classes that the entity has
    * associations with.
    *

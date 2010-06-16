@@ -6,20 +6,20 @@ import java.util.Set;
 import java.util.HashSet;
 
 
-/*
-** Categorical Collection Feature Vector Mapper Component
-*/
+/**
+ * Categorical Collection Feature Vector Mapper Component
+ */
 
 public class CategoricalColFeatureVectorMapperComponent extends FeatureVectorMapperComponent
 {
 
-  private Set<CategoricalFeatureVectorMapperComponent> cfvms;
+  private Set<CategoricalFeatureVectorMapperComponent> stateMapperSet;
 
 
   public CategoricalColFeatureVectorMapperComponent()
   {
     super();
-    this.cfvms = new HashSet<CategoricalFeatureVectorMapperComponent>();
+    this.stateMapperSet = new HashSet<CategoricalFeatureVectorMapperComponent>();
   }
 
 
@@ -29,27 +29,27 @@ public class CategoricalColFeatureVectorMapperComponent extends FeatureVectorMap
   }
 
 
-  public void setCategoricalFeatureVectorMapperComponentSet(Set<CategoricalFeatureVectorMapperComponent> cfvms)
+  public void setCategoricalFeatureVectorMapperComponentSet(Set<CategoricalFeatureVectorMapperComponent> stateMapperSet)
   {
-    this.cfvms = cfvms;
+    this.stateMapperSet = stateMapperSet;
   }
 
 
   public Set<CategoricalFeatureVectorMapperComponent> getCategoricalFeatureVectorMapperComponentSet()
   {
-    return this.cfvms;
+    return this.stateMapperSet;
   }
 
 
   public void addCategoryElement(CategoricalFeatureVectorMapperComponent cfvm)
   {
-    this.cfvms.add(cfvm);
+    this.stateMapperSet.add(cfvm);
   }
 
 
   public int getArraySize()
   {
-    return cfvms.size();
+    return stateMapperSet.size();
   }
 
 
