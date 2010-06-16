@@ -2,8 +2,7 @@ package org.isacrodi.diagnosis;
 
 import org.isacrodi.ejb.entity.*;
 import org.isacrodi.ejb.session.*;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.HashMap;
 
 import libsvm.svm_node;
 
@@ -13,7 +12,12 @@ import libsvm.svm_node;
 
 public class CategoricalComponentMapper extends AbstractComponentMapper
 {
-  private hashMap<String, Integer> stateIndexMap;
+  /*
+   * as a simplification, this implementation doesn't use a dedicated
+   * state mapper class as in the previous design, a hash map using
+   * state names as keys and indexes as values is sufficient.
+   */
+  private HashMap<String, Integer> stateIndexMap;
 
 
   public CategoricalComponentMapper()
@@ -23,9 +27,9 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
   }
 
 
-  public CategoricalComponentMapper(String name, int indexpresence)
+  public CategoricalComponentMapper(String name, int indexPresence)
   {
-    super(name, indexpresence);
+    super(name, indexPresence);
     this.stateIndexMap = new HashMap<String, Integer>();
   }
 
@@ -36,7 +40,7 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
     {
       throw new IllegalArgumentException(String.format("state \"%s\" already mapped", stateName));
     }
-    this.stateIndexMap.put(stateName, index);
+    this.stateIndexMap.put(stateName, new Integer(index));
   }
 
 
@@ -57,7 +61,22 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
   }
 
 
-  public svm_node map(AbstractFeature feature, svm_node[] node)
+  public int getMaxIndex()
+  {
+    int m = this.indexPresence;
+    for (String stateName : this.stateIndexMap.keySet())
+    {
+      int i = this.stateIndexMap.get(stateName).intValue();
+      if (i > m)
+      {
+	m = i;
+      }
+    }
+    return (m);
+  }
+
+
+  public svm_node[] map(AbstractFeature feature, svm_node[] node)
   {
     if (feature == null)
     {

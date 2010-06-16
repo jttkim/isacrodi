@@ -58,6 +58,9 @@ abstract class AbstractComponentMapper
   }
 
 
+  abstract int getMaxIndex();
+
+
   /**
    * Set components in the SVM feature vector based on an Isacrodi
    * level feature.
@@ -65,9 +68,9 @@ abstract class AbstractComponentMapper
    * <p><strong>Notice:</strong> Implementations of this method may
    * modify {@code node}.</p>
    *
-   * @param feature the feature
+   * @param feature the feature, a {@code null} value indicates a missing feature
    * @param node the libsvm feature vector within which to set components
    * @return a reference to {@code node}
    */
-  abstract svm_node map(AbstractFeature feature, svm_node node);
+  abstract svm_node[] map(AbstractFeature feature, svm_node[] node);
 }
