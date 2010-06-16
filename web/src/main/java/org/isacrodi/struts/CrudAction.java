@@ -173,27 +173,67 @@ public class CrudAction extends IsacrodiActionSupport
 	{
 	  s += htmlEscape("<null>");
 	}
+	else if (property instanceof Collection<?>)
+	{
+	  // FIXME: ought to check whether this is a set of entities
+	  Collection<?> propertyCollection = genericTypecast(property);
+	  s += entityHtmlLinkList(propertyCollection);
+	}
+	else if (isEntityInstance(property))
+	{
+	  s += entityHtmlLink(property);
+	}
 	else
 	{
-	  if (property instanceof Set<?>)
-	  {
-	    Set<?> propertySet = genericTypecast(property);
-	    s += entityHtmlLinkList(propertySet);
-	  }
-	  else if (isEntityInstance(property))
-	  {
-	    s += entityHtmlLink(property);
-	  }
-	  else
-	  {
-	    // FIXME: probably not suitable for all property types...
-	    s += htmlEscape(property.toString());
-	  }
+	  // FIXME: probably not suitable for all property types...
+	  s += htmlEscape(property.toString());
 	}
 	s += "</td></tr>\n";
       }
     }
     s += "</table>\n";
+    return (s);
+  }
+
+
+  public static String entityHtmlForm(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  {
+    String s = "<form method=\"post\" action=\"crud\">\n";
+    s += "<table>\n";
+    Method[] methodList = entity.getClass().getMethods();
+    for (Method method : methodList)
+    {
+      if (isAccessor(method))
+      {
+	String propertyName = extractPropertyName(method.getName());
+	Object property = method.invoke(entity);
+	s += "<tr>";
+	s += String.format("<td>%s</td>", htmlEscape(propertyName));
+	s += "<td>";
+	if (property instanceof Collection<?>)
+	{
+	  Collection<?> collection = (Collection<?>) property;
+	  s += entityHtmlLinkList(collection);
+	}
+	else if (isEntityInstance(property))
+	{
+	  s += entityHtmlLink(property);
+	}
+	else
+	{
+	  String propertyValue = "";
+	  if (property != null)
+	  {
+	    propertyValue = property.toString();
+	    s += String.format("<input name=\"%s\" value=\"%s\"/>", propertyName, propertyValue);
+	  }
+	}
+	s += "</td></tr>\n";
+      }
+    }
+    s += "<tr><td><input type=\"submit\"/></td><td></td></tr>\n";
+    s += "</table>\n";
+    s += "</form>\n";
     return (s);
   }
 

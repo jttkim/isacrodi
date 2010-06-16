@@ -24,7 +24,7 @@
 <s:url var="diagnosisurl" action="requestdiagnosis"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url>
 <p><s:a href="%{diagnosisurl}">request diagnosis for this record</s:a></p>
 
-<p>Affected crop: <s:property value="%{crop.name}"/>.</p>
+<p>Affected crop: <s:property value="%{crop.name}"/> (<span class="scientificname"><s:property value="%{crop.scientificName}"/></span>).</p>
 
 <p class="todonote">CDRs should have some description here, and perhaps a name.</p>
 

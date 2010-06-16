@@ -3,11 +3,13 @@ package org.isacrodi.diagnosis;
 import org.isacrodi.ejb.entity.*;
 import org.isacrodi.ejb.session.*;
 
-/**
- ** Abstract Feature Vector Mapper Component 
-**/
+import libsvm.svm_node;
 
-class FeatureVectorMapperComponent
+/**
+ * Abstract Feature Vector Mapper Component 
+ */
+
+abstract class FeatureVectorMapperComponent
 {
 
   private String name;
@@ -50,4 +52,5 @@ class FeatureVectorMapperComponent
     return String.format("%s %d", this.name, this.indexpresence);
   }
 
+  abstract svm_node map(AbstractFeature feature, svm_node n);
 }

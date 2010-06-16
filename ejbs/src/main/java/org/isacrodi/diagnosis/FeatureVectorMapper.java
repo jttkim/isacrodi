@@ -17,19 +17,19 @@ import libsvm.*;
 
 
 /**
-*  Feature Vector Mapper
-**/
+ *  Feature Vector Mapper
+ */
 
 
 public class FeatureVectorMapper
 {
-
-  private Collection<FeatureVectorMapperComponent> fvmc = new ArrayList<FeatureVectorMapperComponent>();
+  private Collection<FeatureVectorMapperComponent> fvmc;
 
 
   public FeatureVectorMapper()
   {
     super();
+    this.fvmc = new ArrayList<FeatureVectorMapperComponent>();
   }
 
   
@@ -107,6 +107,14 @@ public class FeatureVectorMapper
   }
 
 
+  public static FeatureVectorMapper parse(String filename)
+  {
+    FeatureVectorMapper featureVectorMapper = new FeatureVectorMapper();
+    // FIXME: doesn't really parse anything
+    return (featureVectorMapper);
+  }
+
+
   public void importFile(String filename) throws IOException
   {
 
@@ -142,18 +150,14 @@ public class FeatureVectorMapper
 
   public int searchCategoricalFeature(String key)
   {
-
     int index = 0;
-
-    CategoricalFeatureVectorMapperComponent cfvmc = new CategoricalFeatureVectorMapperComponent();
-
     for(FeatureVectorMapperComponent o : this.fvmc)
     {
       if(o.getName().equals(key))
       {
-        if(o.getClass().isInstance(new CategoricalFeatureVectorMapperComponent()))
+        if(o instanceof CategoricalColFeatureVectorMapperComponent)
 	{
-	  cfvmc = (CategoricalFeatureVectorMapperComponent)o;
+	  CategoricalColFeatureVectorMapperComponent cfvmc = (CategoricalColFeatureVectorMapperComponent) o;
 	  index = cfvmc.getIndex();
 	  break;
 	}
@@ -256,7 +260,8 @@ public class FeatureVectorMapper
     int index = searchMaximumIndex();
     if(index <= 0)
       index = 8;
-    String filename = "/home/bkx08wju/Stuff/isacrodi/trunk/sampledata/isacrodi_feature_mapper.txt";
+    // FIXME: ????
+    String filename = "/local/home/jtk/devel/isacrodi/trunk/sampledata/isacrodi_feature_mapper.txt";
     svm_node[] fv = new svm_node[index + 1];
     int [] numericindex = null;
     int i = 0;
@@ -320,6 +325,29 @@ public class FeatureVectorMapper
     }
 
   return fv;
+  }
+
+
+  /* structure of the map method 
+  public svm_node map(FeatureVector featureVector)
+  {
+    svm_node n = new svm_node(this.getSize());
+    for (FeatureVectorMapperComponent c : this.fvmc)
+    {
+      AbstractFeature f = featureVector.get(c.getName());
+      if (f != null)
+      {
+	c.map(f, n);
+      }
+    }
+  }
+  */
+
+  public static void main(String[] args)
+  {
+    FeatureVectorMapper fvm = new FeatureVectorMapper();
+    fvm.importFile(args[0]);
+    fvm.map(new FeatureVector());
   }
 
 }
