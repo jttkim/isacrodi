@@ -12,7 +12,6 @@ public class NumericFeatureVectorMapperComponent extends FeatureVectorMapperComp
 {
 
   private int index;
-  private int indexpresence;
   private double valuemissing;
 
 
@@ -24,9 +23,8 @@ public class NumericFeatureVectorMapperComponent extends FeatureVectorMapperComp
 
   public NumericFeatureVectorMapperComponent(String name, int index, int indexpresence, double valuemissing)
   {
-    super(name);
+    super(name, indexpresence);
     this.index = index;
-    this.indexpresence = indexpresence;
     this.valuemissing = valuemissing;
   }
 
@@ -34,12 +32,6 @@ public class NumericFeatureVectorMapperComponent extends FeatureVectorMapperComp
   public int getIndex()
   {
     return this.index;
-  }
-
-
-  public int getIndexPresence()
-  {
-    return this.indexpresence;
   }
 
 
@@ -51,7 +43,7 @@ public class NumericFeatureVectorMapperComponent extends FeatureVectorMapperComp
 
   public String toString()
   {
-    return String.format("%d %d %f", this.index, this.indexpresence, this.valuemissing);
+    return String.format("%d %f", this.index, this.valuemissing);
   }
 
 }

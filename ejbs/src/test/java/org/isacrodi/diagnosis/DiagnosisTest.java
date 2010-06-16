@@ -330,15 +330,6 @@ public class DiagnosisTest
     FeatureVector featureVector = new FeatureVector();
     FeatureVectorMapper fvm = new FeatureVectorMapper();
 
-    try 
-    {
-      fvm.importFile("/home/bkx08wju/Stuff/isacrodi/trunk/sampledata/isacrodi_feature_mapper.txt");
-    }
-    catch (IOException ex) 
-    {
-      ex.printStackTrace();
-    }
-
     svm_node[] fv = null;
     fv = fvm.map(featureVector);
 
