@@ -30,5 +30,6 @@ public interface Access
   CropDisorder findCropDisorder(String scientificName);
   NumericType findNumericType(String name);
   ImageType findImageType(String name);
-  void updateEntity(Class<?> entityClass, Integer entityId, Map<String, String> propertyMap) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
+  void updateEntity(Class<?> entityClass, Integer entityId, Map<String, String[]> propertyMap) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
+  void removeEntity(Class<?> entityClass, Integer id);
 }

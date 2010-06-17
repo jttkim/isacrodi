@@ -26,8 +26,9 @@ import static org.isacrodi.util.Util.getProperty;
 import static org.isacrodi.util.Util.setProperty;
 import static org.isacrodi.util.Util.isEntityClass;
 import static org.isacrodi.util.Util.isEntityInstance;
-import static org.isacrodi.util.Util.findUniquePropertyNameList;
+import static org.isacrodi.util.Util.findUniquePropertyNameSet;
 import static org.isacrodi.util.Util.findPropertyType;
+import static org.isacrodi.util.Util.findPropertyNameSet;
 
 
 public class CrudAction extends IsacrodiActionSupport
@@ -149,7 +150,7 @@ public class CrudAction extends IsacrodiActionSupport
   {
     String s = "";
     String glue = "";
-    for (String propertyName : findUniquePropertyNameList(entity.getClass()))
+    for (String propertyName : findUniquePropertyNameSet(entity))
     {
       s += String.format("%s%s: %s", glue, propertyName, getProperty(entity, propertyName).toString());
       glue = ", ";
@@ -170,6 +171,10 @@ public class CrudAction extends IsacrodiActionSupport
 
   public static String entityHtmlLinkList(Collection<?> entityCollection) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
+    if (entityCollection.size() == 0)
+    {
+      return ("");
+    }
     String s = "<ul>\n";
     for (Object entity : entityCollection)
     {
@@ -199,41 +204,45 @@ public class CrudAction extends IsacrodiActionSupport
   }
 
 
+  public String propertyHtmlTableRow(Object entity, String propertyName) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  {
+    Object property = getProperty(entity, propertyName);
+    Class<?> propertyType = findPropertyType(entity, propertyName);
+    String s = "<tr>";
+    s += String.format("<td>%s</td>", htmlEscape(propertyName));
+    s += "<td>";
+    if (property == null)
+    {
+      s += htmlEscape("<null>");
+    }
+    else if (Collection.class.isAssignableFrom(propertyType))
+    {
+      // FIXME: ought to check whether this is a set of entities
+      Collection<?> propertyCollection = genericTypecast(property);
+      s += entityHtmlLinkList(propertyCollection);
+    }
+    else if (isEntityInstance(property))
+    {
+      s += entityHtmlLink(property);
+    }
+    else
+    {
+      // FIXME: probably not suitable for all property types...
+      s += htmlEscape(property.toString());
+    }
+    s += "</td>";
+    s += "</tr>\n";
+    return (s);
+  }
+
+
   public String entityHtmlTable(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
+    Set<String> propertyNameSet = findPropertyNameSet(entity);
     String s = "<table>\n";
-    Method[] methodList = entity.getClass().getMethods();
-    for (Method method : methodList)
+    for (String propertyName : propertyNameSet)
     {
-      if (isAccessor(method))
-      {
-	String methodName = method.getName();
-	String propertyName = extractPropertyName(methodName);
-	Object property = method.invoke(entity);
-	s += "<tr>";
-	s += String.format("<td>%s</td>", htmlEscape(propertyName));
-	s += "<td>";
-	if (property == null)
-	{
-	  s += htmlEscape("<null>");
-	}
-	else if (property instanceof Collection<?>)
-	{
-	  // FIXME: ought to check whether this is a set of entities
-	  Collection<?> propertyCollection = genericTypecast(property);
-	  s += entityHtmlLinkList(propertyCollection);
-	}
-	else if (isEntityInstance(property))
-	{
-	  s += entityHtmlLink(property);
-	}
-	else
-	{
-	  // FIXME: probably not suitable for all property types...
-	  s += htmlEscape(property.toString());
-	}
-	s += "</td></tr>\n";
-      }
+      s += propertyHtmlTableRow(entity, propertyName);
     }
     s += "</table>\n";
     s += this.crudMenu();
@@ -266,16 +275,104 @@ public class CrudAction extends IsacrodiActionSupport
     return (false);
   }
 
+
   public static String crudFormParameterName(String propertyName)
   {
     return (crudParameterPrefix + propertyName);
   }
 
 
+  public static boolean isEditableType(Class<?> c)
+  {
+    return (Integer.class.isAssignableFrom(c) || Double.class.isAssignableFrom(c) || String.class.isAssignableFrom(c));
+  }
+
+
+  public String propertyHtmlFormRow(Object entity, String propertyName) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  {
+    String s = "";
+    Object property = getProperty(entity, propertyName);
+    Class<?> propertyType = findPropertyType(entity, propertyName);
+    if (Collection.class.isAssignableFrom(propertyType))
+    {
+      s += "<tr>";
+      s += String.format("<td>%s</td>", htmlEscape(propertyName));
+      s += "<td>";
+      if (property == null)
+      {
+	s += "<strong><code>%s</code>: null collection</strong>";
+      }
+      else
+      {
+	// using multi-value for adding removing: first value is
+	// command ("add" or "remove"), second value is id of entity
+	// to be associated / disassociated
+	s += String.format("<select name = %s>", crudFormParameterName(propertyName));
+	s += "<option name=\"add\">add</option>";
+	s += "<option name=\"remove\">remove</option>";
+	s += "</select>";
+	s += String.format("<input name=\"%s\" value=\"\"/>", crudFormParameterName(propertyName));
+	Collection<?> collection = (Collection<?>) property;
+	s += entityHtmlLinkList(collection);
+      }
+      s += "</td>";
+      s += "</tr>\n";
+    }
+    else if (isEntityClass(propertyType))
+    {
+      s += "<tr>";
+      s += String.format("<td>id of %s</td>", htmlEscape(propertyName));
+      s += "<td>";
+      String propertyValue = "";
+      if (property != null)
+      {
+	Integer associatedEntityId = (Integer) getProperty(property, "id");
+	propertyValue = associatedEntityId.toString();
+      }
+      s += String.format("<input name=\"%s\" value=\"%s\"/>", crudFormParameterName(propertyName), propertyValue);
+      if (property != null)
+      {
+	s += "<br/>";
+	s += entityHtmlLink(property);
+      }
+      s += "</td>";
+      s += "</tr>\n";
+    }
+    else if (isEditableType(propertyType))
+    {
+      s += "<tr>";
+      s += String.format("<td>%s</td>", htmlEscape(propertyName));
+      s += "<td>";
+      String propertyValue = "";
+      if (property != null)
+      {
+	propertyValue = property.toString();
+      }
+      if (isReadOnly(propertyName))
+      {
+	s += htmlEscape(propertyValue);
+      }
+      else
+      {
+	s += String.format("<input name=\"%s\" value=\"%s\"/>", crudFormParameterName(propertyName), propertyValue);
+      }
+      s += "</td>";
+      s += "</tr>\n";
+    }
+    else
+    {
+      s = propertyHtmlTableRow(entity, propertyName);
+    }
+    return (s);
+  }
+
+
   public String entityHtmlForm(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
-    // FIXME: this method needs modularisation (dispatch by property type)
+    // FIXME: consider introducing an IsacrodiEntity interface declaring getId (and setId), so that we can use typecasts to get at ids.
     Object id = getProperty(entity, "id");
+    Set<String> propertyNameSet = findPropertyNameSet(entity);
+    // FIXME: order properties?
     String s = "<form method=\"post\" action=\"crud\">\n";
     s += "<input type=\"hidden\" name=\"crudOp\" value=\"update\"/>";
     s += String.format("<input type=\"hidden\" name=\"entityClassName\" value=\"%s\"/>", entity.getClass().getSimpleName());
@@ -284,58 +381,32 @@ public class CrudAction extends IsacrodiActionSupport
       s += String.format("<input type=\"hidden\" name=\"entityId\" value=\"%s\"/>", id.toString());
     }
     s += "<table>\n";
-    Method[] methodList = entity.getClass().getMethods();
-    for (Method method : methodList)
+    for (String propertyName : propertyNameSet)
     {
-      if (isAccessor(method))
+      if (!isHidden(propertyName))
       {
-	String propertyName = extractPropertyName(method.getName());
-	if (!isHidden(propertyName))
+	if (isReadOnly(propertyName))
 	{
-	  Object property = method.invoke(entity);
-	  s += "<tr>";
-	  s += String.format("<td>%s</td>", htmlEscape(propertyName));
-	  s += "<td>";
-	  if ((property != null) && property instanceof Collection<?>)
-	  {
-	    Collection<?> collection = (Collection<?>) property;
-	    s += entityHtmlLinkList(collection);
-	  }
-	  else if ((property != null) && isEntityInstance(property))
-	  {
-	    Integer associatedEntityId = (Integer) getProperty(property, "id");
-	    String propertyValue = "";
-	    if (associatedEntityId != null)
-	    {
-	      propertyValue = associatedEntityId.toString();
-	    }
-	    s += String.format("<input name=\"%s\" value=\"%s\"/>", crudFormParameterName(propertyName), propertyValue);
-	    s += "<br/>";
-	    s += entityHtmlLink(property);
-	  }
-	  else
-	  {
-	    String propertyValue = "";
-	    if (property != null)
-	    {
-	      propertyValue = property.toString();
-	    }
-	    if (isReadOnly(propertyName))
-	    {
-	      s += htmlEscape(propertyValue);
-	    }
-	    else
-	    {
-	      s += String.format("<input name=\"%s\" value=\"%s\"/>", crudFormParameterName(propertyName), propertyValue);
-	    }
-	  }
-	  s += "</td></tr>\n";
+	  s += propertyHtmlTableRow(entity, propertyName);
+	}
+	else
+	{
+	  s += propertyHtmlFormRow(entity, propertyName);
 	}
       }
     }
     s += "<tr><td><input type=\"submit\"/></td><td></td></tr>\n";
     s += "</table>\n";
     s += "</form>\n";
+    if (id != null)
+    {
+      s += "<form method=\"post\" action=\"crud\">\n";
+      s += "<input type=\"hidden\" name=\"crudOp\" value=\"delete\"/>";
+      s += String.format("<input type=\"hidden\" name=\"entityClassName\" value=\"%s\"/>", entity.getClass().getSimpleName());
+      s += String.format("<input type=\"hidden\" name=\"entityId\" value=\"%s\"/>", id.toString());
+      s += String.format("<input type=\"submit\" value=\"Delete %s\"/>", id.toString());
+      s += "</form>\n";
+    }
     s += this.crudMenu();
     return (s);
   }
@@ -435,21 +506,30 @@ public class CrudAction extends IsacrodiActionSupport
   }
 
 
-  public Map<String, String> getCrudParameterMap()
+  public Map<String, String[]> getCrudParameterMap()
   {
-    Map<String, String> crudParameterMap = new HashMap<String, String>();
+    Map<String, String[]> crudParameterMap = new HashMap<String, String[]>();
     Map<String, String[]> parameterMap = genericTypecast(this.servletRequest.getParameterMap());
     for (String parameterName : parameterMap.keySet())
     {
       if (parameterName.startsWith(crudParameterPrefix))
       {
 	String crudParameterName = parameterName.substring(crudParameterPrefix.length());
-	String[] s = parameterMap.get(parameterName);
-	// FIXME: not considering multiple values for one name here
-	String crudParameterValue = s[0];
-	if (crudParameterValue.length() > 0)
+	// note that multi-value parameters are used for adding and removing from to-many sets
+	String[] v = parameterMap.get(parameterName);
+	// weed out empty strings -- this really should be a proper translation from form parameters to sanitised commands for the session bean
+	boolean containsBlank = false;
+	for (String s : v)
 	{
-	  crudParameterMap.put(crudParameterName, crudParameterValue);
+	  containsBlank = (s == null) || (s.length() == 0);
+	  if (containsBlank)
+	  {
+	    break;
+	  }
+	}
+	if (!containsBlank)
+	{
+	  crudParameterMap.put(crudParameterName, v);
 	}
       }
     }
@@ -460,7 +540,7 @@ public class CrudAction extends IsacrodiActionSupport
   public void updateEntity() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
   {
     this.LOG.info("updating entity");
-    Map<String, String> crudParameterMap = this.getCrudParameterMap();
+    Map<String, String[]> crudParameterMap = this.getCrudParameterMap();
     Integer id = null;
     if (this.entityId != null)
     {
@@ -470,11 +550,32 @@ public class CrudAction extends IsacrodiActionSupport
   }
 
 
+  public void deleteEntity() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+  {
+    if (this.entityClassName == null)
+    {
+      this.LOG.error("trying to delete an entity but no class name specified");
+      return;
+    }
+    if (this.entityId == null)
+    {
+      this.LOG.error(String.format("trying to delete an entity of class %s without specifying an id", this.entityClassName));
+      return;
+    }
+    Integer id = new Integer(Integer.parseInt(this.entityId));
+    this.access.removeEntity(this.findEntityClass(), id);
+  }
+
+
   public String execute() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
   {
     if ((this.crudOp != null) && this.crudOp.equals("update"))
     {
       this.updateEntity();
+    }
+    else if ((this.crudOp != null) && this.crudOp.equals("delete"))
+    {
+      this.deleteEntity();
     }
     return (SUCCESS);
   }
