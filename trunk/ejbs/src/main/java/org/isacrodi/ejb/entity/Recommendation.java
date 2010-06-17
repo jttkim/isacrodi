@@ -29,6 +29,7 @@ public class Recommendation implements Serializable
     this.procedureScoreSet = new HashSet<ProcedureScore>();
   }
 
+
   @Id
   @GeneratedValue
   public Integer getId()
@@ -56,7 +57,7 @@ public class Recommendation implements Serializable
   }
 
 
-  @OneToOne(mappedBy="recommendation")
+  @OneToOne(mappedBy="recommendation", optional = false)
   public CropDisorderRecord getCropDisorderRecord()
   {
     return (this.cropDisorderRecord);

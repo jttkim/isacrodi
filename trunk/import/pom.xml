@@ -4,7 +4,7 @@
   <parent>
     <groupId>isacrodi-proj</groupId>
     <artifactId>isacrodi</artifactId>
-    <version>1.0</version>
+    <version>${isacrodiVersion}</version>
   </parent>
 
   <artifactId>import</artifactId>
@@ -15,6 +15,7 @@
     <dependency>
       <groupId>isacrodi-proj</groupId>
       <artifactId>ejbs</artifactId>
+      <version>${isacrodiVersion}</version>
       <type>ejb</type>
     </dependency>
     <!-- jtk: system dependencies don't seem to make it to the classpath...?? -->

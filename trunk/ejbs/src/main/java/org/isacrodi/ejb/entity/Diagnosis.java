@@ -59,7 +59,7 @@ public class Diagnosis implements Serializable
   }
 
 
-  @OneToOne(mappedBy="diagnosis")
+  @OneToOne(mappedBy="diagnosis", optional = false)
   public CropDisorderRecord getCropDisorderRecord()
   {
     return (this.cropDisorderRecord);

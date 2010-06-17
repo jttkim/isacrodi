@@ -57,7 +57,7 @@ public class DisorderScore implements Serializable
   }
 
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   public Diagnosis getDiagnosis()
   {
     return this.diagnosis;
@@ -70,7 +70,7 @@ public class DisorderScore implements Serializable
   }
 
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   public CropDisorder getCropDisorder()
   {
     return this.cropDisorder;

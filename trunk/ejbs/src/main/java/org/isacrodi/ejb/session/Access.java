@@ -1,6 +1,9 @@
 package org.isacrodi.ejb.session;
 
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.List;
+import java.util.Map;
 
 import org.isacrodi.ejb.entity.*;
 
@@ -27,4 +30,5 @@ public interface Access
   CropDisorder findCropDisorder(String scientificName);
   NumericType findNumericType(String name);
   ImageType findImageType(String name);
+  void updateEntity(Class<?> entityClass, Integer entityId, Map<String, String> propertyMap) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
 }

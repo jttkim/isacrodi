@@ -3,6 +3,7 @@ package org.isacrodi.ejb.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.OneToMany;
@@ -78,6 +79,7 @@ public class ImageType implements Serializable
 
 
 
+  @Column(unique = true, nullable = false)
   public String getTypeName()
   {
     return typeName;
