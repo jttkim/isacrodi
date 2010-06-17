@@ -66,8 +66,10 @@ public class NumericComponentMapper extends AbstractComponentMapper
   {
     if (feature == null)
     {
+      node[this.index] = new svm_node();
       node[this.index].index = this.index;
       node[this.index].value = this.valueMissing;
+      node[this.indexPresence] = new svm_node();
       node[this.indexPresence].index = this.indexPresence;
       node[this.indexPresence].value = 0.0;
     }
@@ -78,8 +80,10 @@ public class NumericComponentMapper extends AbstractComponentMapper
 	throw new IllegalArgumentException(String.format("feature %s is not numeric", feature.getName()));
       }
       NumericFeature numericFeature = (NumericFeature) feature;
+      node[this.index] = new svm_node();
       node[this.index].index = this.index;
       node[this.index].value = numericFeature.getValue();
+      node[this.indexPresence] = new svm_node();
       node[this.indexPresence].index = this.indexPresence;
       node[this.indexPresence].value = 1.0;
     }

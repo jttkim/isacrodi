@@ -2,62 +2,60 @@ package org.isacrodi.diagnosis;
 
 
 import org.isacrodi.ejb.entity.*;
-import java.io.IOException;
-import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
-import java.util.Set;
-import java.util.Vector;
-import java.util.HashSet;
 import java.io.*;
-import java.io.ByteArrayOutputStream;
 import libsvm.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 
 /**
-  * Feature classifier
+  * Score Table
   */
-public class ScoreTable implements Serializable
+
+public class ScoreTable
 {
 
-  private String label;
-  private Double score;
+  private HashMap<String, Double> scoreMap;
+
 
   public ScoreTable()
   {
-    super();
+    this.scoreMap = new HashMap<String, Double>();
   }
 
-  public ScoreTable(String label, Double score)
+
+  public void addScore(String label, double score)
   {
-    this();
-    this.label = label;
-    this.score = score;
+    if (this.scoreMap.containsKey(label))
+    {
+      throw new IllegalArgumentException(String.format("score \"%s\" already mapped", label));
+    }
+    this.scoreMap.put(label, new Double(score));
   }
 
 
-  public Double getScore()
-  { 
-    return this.score;
-  }
-
-  
-  public void setScore(Double score)
+  public double getScore(String label)
   {
-    this.score = score;
-  }
-  
-  
-  public String getLabe()
-  { 
-    return this.label;
+    double score = 0.0;
+
+    for(String s : this.scoreMap.keySet())
+    {
+      if(s.equals(label))
+      {
+        score = this.scoreMap.get(s);
+	break;
+      }
+    }
+    return score;
   }
 
-  
-  public void setLabel(String label)
+
+  public String toString()
   {
-    this.label = label;
+    String s = String.format("ScoreTable (");
+    for (String label : scoreMap.keySet())
+    {
+      s += String.format("  Label %s -> Score  %f",  label, this.scoreMap.get(label));
+    }
+    return (s + ")");
   }
 
 }
