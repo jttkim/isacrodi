@@ -289,7 +289,23 @@ public class Util
 
 
   /**
-   * Find all properties of an entity class.
+   * Determine the type of a property.
+   *
+   * <p>This method operates by trying to find an accessor method for
+   * the property and returns that accessor's return type.</p>
+   *
+   * @param entity the entity for which to determine the property type
+   * @param propertyName the property's name
+   * @return the type of the property, or {@code null} if the entity class has no accessor for the specified property
+   */
+  public static Class<?> findPropertyType(Object entity, String propertyName)
+  {
+    return (findPropertyType(entity.getClass(), propertyName));
+  }
+
+
+  /**
+   * Find the names of all properties of an entity class.
    *
    * <p>Properties found by this method are both accessible and
    * mutatable.</p>
@@ -312,6 +328,21 @@ public class Util
       }
     }
     return (propertyNameSet);
+  }
+
+
+  /**
+   * Find the names of all properties of an entity.
+   *
+   * <p>Properties found by this method are both accessible and
+   * mutatable.</p>
+   *
+   * @param entity the entity
+   * @return a set containing the names of the properties
+   */
+  public static Set<String> findPropertyNameSet(Object entity)
+  {
+    return (findPropertyNameSet(entity.getClass()));
   }
 
 
@@ -370,12 +401,14 @@ public class Util
     {
       Method accessor = findAccessor(entityClass, propertyName);
       Method mutator = findMutator(entityClass, propertyName);
-      if ((accessor.getAnnotation(OneToOne.class) != null) || (accessor.getAnnotation(ManyToOne.class) == null) || (mutator.getAnnotation(OneToOne.class) == null) || (mutator.getAnnotation(ManyToOne.class) == null))
+      if ((accessor.getAnnotation(OneToOne.class) != null) || (accessor.getAnnotation(ManyToOne.class) != null) || (mutator.getAnnotation(OneToOne.class) != null) || (mutator.getAnnotation(ManyToOne.class) != null))
       {
+	// System.err.println(String.format("Util.findAssociationPropertyMap: %s: using simple returnType for to-one association", propertyName));
 	associationPropertyMap.put(propertyName, accessor.getReturnType());
       }
-      else if ((accessor.getAnnotation(OneToMany.class) != null) || (accessor.getAnnotation(ManyToMany.class) == null) || (mutator.getAnnotation(OneToMany.class) == null) || (mutator.getAnnotation(ManyToMany.class) == null))
+      else if ((accessor.getAnnotation(OneToMany.class) != null) || (accessor.getAnnotation(ManyToMany.class) != null) || (mutator.getAnnotation(OneToMany.class) != null) || (mutator.getAnnotation(ManyToMany.class) != null))
       {
+	// System.err.println(String.format("Util.findAssociationPropertyMap: %s: analysing generic returnType for to-many association", propertyName));
 	Type rawToManyType = accessor.getGenericReturnType();
 	if (!(rawToManyType instanceof ParameterizedType))
 	{
@@ -422,16 +455,16 @@ public class Util
    * @param entityClass the entity class
    * @return a list of names of the entity class' unique properties
    */
-  public static ArrayList<String> findUniquePropertyNameList(Class<?> entityClass)
+  public static Set<String> findUniquePropertyNameSet(Class<?> entityClass)
   {
-    ArrayList<String> uniquePropertyNameList = new ArrayList<String>();
+    HashSet<String> uniquePropertyNameSet = new HashSet<String>();
     for (String propertyName : findPropertyNameSet(entityClass))
     {
       Method accessor = findAccessor(entityClass, propertyName);
       Method mutator = findMutator(entityClass, propertyName);
       if ((accessor.getAnnotation(Id.class) != null) || (mutator.getAnnotation(Id.class) != null))
       {
-	uniquePropertyNameList.add(propertyName);
+	uniquePropertyNameSet.add(propertyName);
       }
       else
       {
@@ -442,11 +475,27 @@ public class Util
 	}
 	if (columnAnnotation != null && columnAnnotation.unique())
 	{
-	  uniquePropertyNameList.add(propertyName);
+	  uniquePropertyNameSet.add(propertyName);
 	}
       }
     }
-    return (uniquePropertyNameList);
+    return (uniquePropertyNameSet);
+  }
+
+
+
+
+  /**
+   * Find properties of an entity that are constrained to be
+   * unique by a {@code @Column} annotation or that have an {@code @Id}
+   * annotation.
+   *
+   * @param entity the entity
+   * @return a list of names of the entity's unique properties
+   */
+  public static Set<String> findUniquePropertyNameSet(Object entity)
+  {
+    return (findUniquePropertyNameSet(entity.getClass()));
   }
 
 
