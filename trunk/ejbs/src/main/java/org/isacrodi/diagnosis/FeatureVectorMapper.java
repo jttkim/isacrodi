@@ -23,6 +23,7 @@ import libsvm.*;
 
 public class FeatureVectorMapper
 {
+
   private List<AbstractComponentMapper> componentMapperList;
 
 
@@ -46,7 +47,7 @@ public class FeatureVectorMapper
   }
 
 
-  public void importNumericFeatureBlock(String featurename, SimpleScanner s) throws IOException
+  public void parseNumericFeatureBlock(String featurename, SimpleScanner s) throws IOException
   {
     Token indexToken = s.nextToken(Token.TokenType.NAMEVALUE, "index");
     Token index_presenceToken = s.nextToken(Token.TokenType.NAMEVALUE, "indexpresence");
@@ -56,7 +57,7 @@ public class FeatureVectorMapper
   }
 
 
-  public void importCategoricalFeatureBlock(String featurename, SimpleScanner s) throws IOException
+  public void parseCategoricalFeatureBlock(String featurename, SimpleScanner s) throws IOException
   {
 
     Token endBlockToken = new Token(Token.TokenType.SYMBOL, "}");
@@ -79,7 +80,7 @@ public class FeatureVectorMapper
   }
 
 
-  public void importFeatureBlock(String featurename, SimpleScanner s) throws IOException
+  public void parseFeatureBlock(String featurename, SimpleScanner s) throws IOException
   {
     Token endBlockToken = new Token(Token.TokenType.SYMBOL, "}");
     s.nextToken(Token.TokenType.SYMBOL, "{");
@@ -87,11 +88,11 @@ public class FeatureVectorMapper
     String type = typeToken.getValue();
     if (type.equals("numeric"))
     {
-      importNumericFeatureBlock(featurename, s);
+      parseNumericFeatureBlock(featurename, s);
     }
     else if (type.equals("categorical")) 
     {
-      importCategoricalFeatureBlock(featurename, s);
+      parseCategoricalFeatureBlock(featurename, s);
     }
     else 
     {
@@ -101,7 +102,7 @@ public class FeatureVectorMapper
   }
 
 
-  public void importFeatureMapperFile(BufferedReader in) throws IOException
+  public void parseFeatureMapperFile(BufferedReader in) throws IOException
   {
     new ArrayList<Object>();
 
@@ -109,7 +110,7 @@ public class FeatureVectorMapper
     for (Token t = s.nextToken(); t != null; t = s.nextToken())
     {
       String featurename = t.getName();
-      importFeatureBlock(featurename, s);
+      parseFeatureBlock(featurename, s);
     }
   }
 
@@ -122,34 +123,32 @@ public class FeatureVectorMapper
   }
 
 
-  public void importFile(String filename) throws IOException
+  public void parseFile(String filename) 
   {
-
-    BufferedReader in = new BufferedReader(new FileReader(filename));
-    String magic = in.readLine();
-    if (magic.equals("isacrodi-featuremapper-0.1"))
+    try 
     {
-      importFeatureMapperFile(in);
-      // FIXME: should check for completeness (compact index set from 0 to max) after parsing is finished
+      BufferedReader in = new BufferedReader(new FileReader(filename));
+      String magic = in.readLine();
+      if (magic.equals("isacrodi-featuremapper-0.1"))
+      {
+        parseFeatureMapperFile(in);
+        // FIXME: should check for completeness (compact index set from 0 to max) after parsing is finished
+      }
+      else
+      {
+        throw new IOException(String.format("cannot identify table type of %s: unknown magic \"%s\"", filename, magic));
+      }
     }
-    else
+    catch (IOException e) 
     {
-      throw new IOException(String.format("cannot identify table type of %s: unknown magic \"%s\"", filename, magic));
+      System.err.println(e);
     }
-  }
-
-
-  public double calculateAverage()
-  {
-    // FIXME: ?????
-    double value = 12.4;
-    return(value);
   }
 
 
   public int getMappedVectorDimension()
   {
-    // FIXME: check for nonredundant and contiguous indexes is really important, this method depends on it.
+    // FIXME: check for nonredundant and contiguous indexes is really parseant, this method depends on it.
     int d = 0;
     for (AbstractComponentMapper c : this.componentMapperList)
     {
@@ -165,7 +164,7 @@ public class FeatureVectorMapper
 
   public svm_node[] map(FeatureVector featureVector)
   {
-    svm_node[] node = new svm_node[this.getMappedVectorDimension()];
+    svm_node[] node = new svm_node[this.getMappedVectorDimension() + 1];
     for (AbstractComponentMapper c : this.componentMapperList)
     {
       AbstractFeature f = featureVector.get(c.getFeatureName());
@@ -185,7 +184,7 @@ public class FeatureVectorMapper
     m.addState("crinkled", 7);
     m.addState("rotten", 8);
     m.addState("yellowish", 9);
-    // fvm.importFile(args[0]);
+    // fvm.parseFile(args[0]);
     svm_node[] node = fvm.map(new FeatureVector());
     for (svm_node n : node)
     {

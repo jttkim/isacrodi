@@ -3,11 +3,13 @@ package org.isacrodi.diagnosis;
 import java.io.*;
 import java.util.*;
 import libsvm.*;
-import java.util.ArrayList;
-import java.util.Collection;
 
 
-class svm_predict 
+/**
+ * SVM feauture class prediction
+ */
+
+public class svm_predict 
 {
 
   public svm_predict()
@@ -15,10 +17,8 @@ class svm_predict
     super();
   }
   
-  public Collection<ScoreTable> predict(svm_model model, svm_node[] x)
+  public ScoreTable predict(svm_model model, svm_node[] x)
   {
-
-    Collection<ScoreTable> scoreTable = new ArrayList<ScoreTable>();
 
     int nr_class = svm.svm_get_nr_class(model);
     double[] prob_estimates = null;
@@ -29,16 +29,13 @@ class svm_predict
     prob_estimates = new double[nr_class];
    
     v = svm.svm_predict_probability(model, x, prob_estimates);
+    ScoreTable score = new ScoreTable();
+
     for(int i = 0; i < prob_estimates.length; i++) 
     {
-      ScoreTable st = new ScoreTable();
-      st.setLabel(Integer.toString(labels[i]));
-      st.setScore(prob_estimates[i]);
-      scoreTable.add(st);
+      score.addScore(Integer.toString(labels[i]),prob_estimates[i]);
     }
    
-  return scoreTable;
+  return score;
   }
-
-
 }

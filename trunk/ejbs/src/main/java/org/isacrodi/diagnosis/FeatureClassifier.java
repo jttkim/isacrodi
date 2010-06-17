@@ -27,46 +27,28 @@ public class FeatureClassifier implements Serializable
   }
 
   
-  public Collection<ScoreTable> dummyClassifier(FeatureVector featureVector) 
+  public ScoreTable dummyClassifier(svm_node [] node) 
   {
 
    String model_filename;
+   ScoreTable score = new ScoreTable();
+
    Collection<ScoreTable> scoreTable = new ArrayList<ScoreTable>();
-   svm_node[] fv = new svm_node[featureVector.size()];
 
    model_filename = "src/test/java/org/isacrodi/diagnosis/isacrodi_model";
 
    try
    {
      svm_model model = svm.svm_load_model(model_filename);
-     fv = mapFeature(featureVector);
      svm_predict p = new svm_predict();
-     scoreTable = p.predict(model, fv);
+     score = p.predict(model, node);
    }
    catch(IOException e) 
    { 
      System.out.println("Unable to create " + model_filename + ": " + e.getMessage());
    }
-    return scoreTable;
+    return score;
 
   }
-
-  
-  public svm_node[] mapFeature(FeatureVector featureVector)
-  {
-
-    int i = 0;
-
-    svm_node[] fv = new svm_node[featureVector.size()];
-    for (String k : featureVector.keySet())
-    {
-      fv[i] = new svm_node();
-      fv[i].index = 1;
-      fv[i].value = 2.00;
-      i++;
-    }
-    return fv;
-  }
-
 }
 

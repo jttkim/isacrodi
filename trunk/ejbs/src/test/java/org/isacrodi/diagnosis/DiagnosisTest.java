@@ -318,7 +318,6 @@ public class DiagnosisTest
   }
 
 
-
   /**
    * Test Feature Mapper
    *
@@ -332,7 +331,6 @@ public class DiagnosisTest
 
     svm_node[] fv = null;
     fv = fvm.map(featureVector);
-
   }
 
 }

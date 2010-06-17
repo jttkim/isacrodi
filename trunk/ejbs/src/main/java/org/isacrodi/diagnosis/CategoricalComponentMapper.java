@@ -83,9 +83,11 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
       for (String stateName : this.stateIndexMap.keySet())
       {
 	int index = this.stateIndexMap.get(stateName).intValue();
+	node[index] = new svm_node();
 	node[index].index = index;
 	node[index].value = 0.0;
       }
+      node[this.indexPresence] = new svm_node();
       node[this.indexPresence].index = this.indexPresence;
       node[this.indexPresence].value = 0.0;
     }
@@ -99,6 +101,7 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
       for (String stateName : this.stateIndexMap.keySet())
       {
 	int index = this.stateIndexMap.get(stateName).intValue();
+	node[index] = new svm_node();
 	node[index].index = index;
 	if (stateName.equals(categoricalFeature.getState()))
 	{
@@ -109,6 +112,7 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
 	  node[index].value = 0.0;
 	}
       }
+      node[this.indexPresence] = new svm_node();
       node[this.indexPresence].index = this.indexPresence;
       node[this.indexPresence].value = 1.0;
     }
