@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import org.isacrodi.ejb.session.*;
 import org.isacrodi.ejb.entity.*;
 
 import static org.isacrodi.util.Util.genericTypecast;
+import static org.isacrodi.util.Util.constructDefaultInstance;
 import static org.isacrodi.util.Util.extractPropertyName;
 import static org.isacrodi.util.Util.isAccessor;
 import static org.isacrodi.util.Util.getProperty;
@@ -25,6 +27,7 @@ import static org.isacrodi.util.Util.setProperty;
 import static org.isacrodi.util.Util.isEntityClass;
 import static org.isacrodi.util.Util.isEntityInstance;
 import static org.isacrodi.util.Util.findUniquePropertyNameList;
+import static org.isacrodi.util.Util.findPropertyType;
 
 
 public class CrudAction extends IsacrodiActionSupport
@@ -35,6 +38,8 @@ public class CrudAction extends IsacrodiActionSupport
   private static final String packageName = "org.isacrodi.ejb.entity";
   private static final String[] hiddenPropertyNameList = {"class", "version"};
   private static final String[] readOnlyPropertyNameList = {"id"};
+  private static final String crudParameterPrefix = "_crud_";
+
 
   public CrudAction() throws NamingException
   {
@@ -95,7 +100,25 @@ public class CrudAction extends IsacrodiActionSupport
       this.LOG.info("trying to find entity class without entity class name");
       return (null);
     }
-    return (Class.forName(canonicalEntityClassName(this.entityClassName)));
+    Class<?> entityClass = Class.forName(canonicalEntityClassName(this.entityClassName));
+    if (!isEntityClass(entityClass))
+    {
+      throw new IllegalArgumentException(String.format("%s is not an entity class", this.entityClassName));
+    }
+    return (entityClass);
+  }
+
+
+  public Object newEntity() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+  {
+    if (this.entityClassName == null)
+    {
+      return (null);
+    }
+    else
+    {
+      return (constructDefaultInstance(this.findEntityClass()));
+    }
   }
 
 
@@ -157,7 +180,26 @@ public class CrudAction extends IsacrodiActionSupport
   }
 
 
-  public static String entityHtmlTable(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  public String crudMenu()
+  {
+    String s = "<hr/>\n";
+    s += "[";
+    if (this.entityId != null)
+    {
+      s += String.format("<a href=\"crud?entityClassName=%s&entityId=%s\">show</a>", this.entityClassName, this.entityId);
+      s += "|";
+      s += String.format("<a href=\"crud?entityClassName=%s&entityId=%s&crudOp=form\">edit</a>", this.entityClassName, this.entityId);
+      s += "|";
+    }
+    s += String.format("<a href=\"crud?entityClassName=%s&crudOp=form\">new <code>%s</code></a>", this.entityClassName, htmlEscape(this.entityClassName));
+    s += "|";
+    s += String.format("<a href=\"crud?entityClassName=%s\">list all <code>%s</code></a>", this.entityClassName, htmlEscape(this.entityClassName));
+    s += "]\n";
+    return (s);
+  }
+
+
+  public String entityHtmlTable(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
     String s = "<table>\n";
     Method[] methodList = entity.getClass().getMethods();
@@ -194,13 +236,7 @@ public class CrudAction extends IsacrodiActionSupport
       }
     }
     s += "</table>\n";
-    s += "<hr/>\n";
-    s += "[";
-    Object id = getProperty(entity, "id");
-    s += String.format("<a href=\"crud?entityClassName=%s&entityId=%s&crudOp=edit\">edit</a>", entity.getClass().getSimpleName(), id.toString());
-    s += "|";
-    s += String.format("<a href=\"crud?entityClassName=%s\">list all <code>%s</code></a>", entity.getClass().getSimpleName(), entity.getClass().getSimpleName());
-    s += "]\n";
+    s += this.crudMenu();
     return (s);
   }
 
@@ -230,13 +266,23 @@ public class CrudAction extends IsacrodiActionSupport
     return (false);
   }
 
-
-  public static String entityHtmlForm(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  public static String crudFormParameterName(String propertyName)
   {
+    return (crudParameterPrefix + propertyName);
+  }
+
+
+  public String entityHtmlForm(Object entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  {
+    // FIXME: this method needs modularisation (dispatch by property type)
     Object id = getProperty(entity, "id");
     String s = "<form method=\"post\" action=\"crud\">\n";
+    s += "<input type=\"hidden\" name=\"crudOp\" value=\"update\"/>";
     s += String.format("<input type=\"hidden\" name=\"entityClassName\" value=\"%s\"/>", entity.getClass().getSimpleName());
-    s += String.format("<input type=\"hidden\" name=\"entityId\" value=\"%s\"/>", id.toString());
+    if (id != null)
+    {
+      s += String.format("<input type=\"hidden\" name=\"entityId\" value=\"%s\"/>", id.toString());
+    }
     s += "<table>\n";
     Method[] methodList = entity.getClass().getMethods();
     for (Method method : methodList)
@@ -257,6 +303,14 @@ public class CrudAction extends IsacrodiActionSupport
 	  }
 	  else if ((property != null) && isEntityInstance(property))
 	  {
+	    Integer associatedEntityId = (Integer) getProperty(property, "id");
+	    String propertyValue = "";
+	    if (associatedEntityId != null)
+	    {
+	      propertyValue = associatedEntityId.toString();
+	    }
+	    s += String.format("<input name=\"%s\" value=\"%s\"/>", crudFormParameterName(propertyName), propertyValue);
+	    s += "<br/>";
 	    s += entityHtmlLink(property);
 	  }
 	  else
@@ -272,7 +326,7 @@ public class CrudAction extends IsacrodiActionSupport
 	    }
 	    else
 	    {
-	      s += String.format("<input name=\"%s\" value=\"%s\"/>", propertyName, propertyValue);
+	      s += String.format("<input name=\"%s\" value=\"%s\"/>", crudFormParameterName(propertyName), propertyValue);
 	    }
 	  }
 	  s += "</td></tr>\n";
@@ -282,12 +336,7 @@ public class CrudAction extends IsacrodiActionSupport
     s += "<tr><td><input type=\"submit\"/></td><td></td></tr>\n";
     s += "</table>\n";
     s += "</form>\n";
-    s += "<hr/>\n";
-    s += "[";
-    s += String.format("<a href=\"crud?entityClassName=%s&entityId=%s\">show</a>", entity.getClass().getSimpleName(), id.toString());
-    s += "|";
-    s += String.format("<a href=\"crud?entityClassName=%s\">list all <code>%s</code></a>", entity.getClass().getSimpleName(), entity.getClass().getSimpleName());
-    s += "]\n";
+    s += this.crudMenu();
     return (s);
   }
 
@@ -296,22 +345,28 @@ public class CrudAction extends IsacrodiActionSupport
   {
     Class<?> entityClass = this.findEntityClass();
     List<?> entityList = this.access.findEntityList(entityClass);
+    String s;
     if (entityList.size() == 0)
     {
-      return (String.format("<p>no entities of class <code>%s</code> found</p>", htmlEscape(entityClassName)));
+      s = (String.format("<p>no entities of class <code>%s</code> found</p>\n", htmlEscape(entityClassName)));
     }
-    return (entityHtmlLinkList(entityList));
+    else
+    {
+      s = entityHtmlLinkList(entityList);
+    }
+    s += this.crudMenu();
+    return (s);
   }
 
 
-  public String getEntityHtml() throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  public String getEntityHtml() throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException
   {
     Object entity = this.retrieveEntity();
     if (entity != null)
     {
       if (this.crudOp != null)
       {
-	if  (this.crudOp.equals("edit"))
+	if  ("form".equals(this.crudOp))
 	{
 	  return (entityHtmlForm(entity));
 	}
@@ -320,6 +375,14 @@ public class CrudAction extends IsacrodiActionSupport
     }
     else if (this.entityClassName != null)
     {
+      if ("form".equals(this.crudOp))
+      {
+	entity = this.newEntity();
+	if (entity != null)
+	{
+	  return (entityHtmlForm(entity));
+	}
+      }
       return (entitySetHtmlList());
     }
     else
@@ -372,8 +435,47 @@ public class CrudAction extends IsacrodiActionSupport
   }
 
 
-  public String execute()
+  public Map<String, String> getCrudParameterMap()
   {
+    Map<String, String> crudParameterMap = new HashMap<String, String>();
+    Map<String, String[]> parameterMap = genericTypecast(this.servletRequest.getParameterMap());
+    for (String parameterName : parameterMap.keySet())
+    {
+      if (parameterName.startsWith(crudParameterPrefix))
+      {
+	String crudParameterName = parameterName.substring(crudParameterPrefix.length());
+	String[] s = parameterMap.get(parameterName);
+	// FIXME: not considering multiple values for one name here
+	String crudParameterValue = s[0];
+	if (crudParameterValue.length() > 0)
+	{
+	  crudParameterMap.put(crudParameterName, crudParameterValue);
+	}
+      }
+    }
+    return (crudParameterMap);
+  }
+
+
+  public void updateEntity() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+  {
+    this.LOG.info("updating entity");
+    Map<String, String> crudParameterMap = this.getCrudParameterMap();
+    Integer id = null;
+    if (this.entityId != null)
+    {
+      id = new Integer(Integer.parseInt(this.entityId));
+    }
+    this.access.updateEntity(this.findEntityClass(), id, crudParameterMap);
+  }
+
+
+  public String execute() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+  {
+    if ((this.crudOp != null) && this.crudOp.equals("update"))
+    {
+      this.updateEntity();
+    }
     return (SUCCESS);
   }
 }

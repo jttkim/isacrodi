@@ -58,7 +58,7 @@ public class ProcedureScore implements Serializable
   }
 
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   public Recommendation getRecommendation()
   {
     return this.recommendation;
@@ -71,7 +71,7 @@ public class ProcedureScore implements Serializable
   }
 
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   public Procedure getProcedure()
   {
     return this.procedure;

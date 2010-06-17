@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import java.util.List;
 import java.util.Set;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.ejb.Remote;
@@ -14,6 +15,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.isacrodi.ejb.entity.*;
+
+import org.isacrodi.util.Util;
 import static org.isacrodi.util.Util.genericTypecast;
 
 
@@ -220,6 +223,61 @@ public class AccessBean implements Access
     else
     {
       return (null);
+    }
+  }
+
+
+  public void updateEntity(Class<?> entityClass, Integer entityId, Map<String, String> propertyMap) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+  {
+    // FIXME: propertyMap may need some sanitising, especially it must not contain an id entry (!!)
+    Object entity = Util.constructDefaultInstance(entityClass);
+    if (entityId != null)
+    {
+      entity = this.entityManager.find(entity.getClass(), entityId);
+    }
+    for (String propertyName : propertyMap.keySet())
+    {
+      System.err.println(String.format("setting property %s to value \"%s\"", propertyName, propertyMap.get(propertyName)));
+      Class<?> propertyType = Util.findPropertyType(entity.getClass(), propertyName);
+      if (String.class.isAssignableFrom(propertyType))
+      {
+	String propertyValue = propertyMap.get(propertyName);
+	Util.setProperty(entity, propertyName, propertyValue);
+      }
+      else if (Integer.class.isAssignableFrom(propertyType))
+      {
+	Integer propertyValue = new Integer(Integer.parseInt(propertyMap.get(propertyName)));
+	Util.setProperty(entity, propertyName, propertyValue);
+      }
+      else if (Double.class.isAssignableFrom(propertyType))
+      {
+	Double propertyValue = new Double(Double.parseDouble(propertyMap.get(propertyName)));
+	Util.setProperty(entity, propertyName, propertyValue);
+      }
+      else if (Util.isEntityClass(propertyType))
+      {
+	Integer associatedEntityId = new Integer(Integer.parseInt(propertyMap.get(propertyName)));
+	Object associatedEntity = this.entityManager.find(propertyType, associatedEntityId);
+	{
+	  if (associatedEntity != null)
+	  {
+	    // FIXME: association not set up bidirectionally
+	    Util.setProperty(entity, propertyName, associatedEntity);
+	  }
+	  else
+	  {
+	    System.err.println(String.format("Access.updateEntity: no entity of type %s with id %d", propertyType.toString(), associatedEntityId.intValue()));
+	  }
+	}
+      }
+      else
+      {
+	System.err.println(String.format("Access.updateEntity: no support for type %s", propertyType.toString()));
+      }
+    }
+    if (entityId == null)
+    {
+      this.entityManager.persist(entity);
     }
   }
 }

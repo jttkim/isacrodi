@@ -37,6 +37,20 @@ public class Util
 
 
   /**
+   * Construct an instance of a class.
+   *
+   * @param c the class to be instantiated
+   * @return an instance of the class, obtained by invoking the parameterless constructor of the class
+   */
+  public static Object constructDefaultInstance(Class<?> c) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+  {
+    Constructor defaultConstructor = c.getConstructor();
+    Object o = defaultConstructor.newInstance();
+    return (o);
+  }
+
+
+  /**
    * Construct an instance of a class specified by a name.
    *
    * @param className the canonical name of the class to be instantiated
@@ -44,10 +58,7 @@ public class Util
    */
   public static Object constructDefaultInstance(String className) throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
   {
-    Class<?> c = Class.forName(className);
-    Constructor defaultConstructor = c.getConstructor();
-    Object o = defaultConstructor.newInstance();
-    return (o);
+    return (constructDefaultInstance(Class.forName(className)));
   }
 
 
@@ -257,6 +268,27 @@ public class Util
 
 
   /**
+   * Determine the type of a property.
+   *
+   * <p>This method operates by trying to find an accessor method for
+   * the property and returns that accessor's return type.</p>
+   *
+   * @param entityClass the entity class for which to determine the property type
+   * @param propertyName the property's name
+   * @return the type of the property, or {@code null} if the entity class has no accessor for the specified property
+   */
+  public static Class<?> findPropertyType(Class<?> entityClass, String propertyName)
+  {
+    Method accessor = findAccessor(entityClass, propertyName);
+    if (accessor == null)
+    {
+      return (null);
+    }
+    return(accessor.getReturnType());
+  }
+
+
+  /**
    * Find all properties of an entity class.
    *
    * <p>Properties found by this method are both accessible and
@@ -447,6 +479,53 @@ public class Util
     String mutatorName = makeMutatorName(propertyName);
     Class<?> entityClass = entity.getClass();
     Class<?> valueClass = propertyValue.getClass();
+    Method mutatorMethod = entityClass.getMethod(mutatorName, valueClass);
+    // FIXME: ignoring the return value, assuming method returns void
+    mutatorMethod.invoke(entity, propertyValue);
+  }
+
+
+  /**
+   * Set a property based on a {@code String} value on an entity (or
+   * generally a bean like object).
+   *
+   * <p>This method checks the type of the property and converts the
+   * {@code String} accordingly. Currently supported types are:</p>
+   * <table>
+   * <tr><td>{@code String}</td><td>no conversion</td></tr>
+   * <tr><td>{@code Integer}</td><td>conversion by {@code Integer.parseInt}</td></tr>
+   * <tr><td>{@code Double}</td><td>conversion by {@code Double.parseDouble}</td></tr>
+   * </table>
+   *
+   * @param object the object to get the property from
+   * @param propertyName the name of the property to get
+   * @param propertyValue the value to set
+   */
+  public static void setPropertyFromString(Object entity, String propertyName, String propertyValueString) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  {
+    Class<?> valueClass = findPropertyType(entity.getClass(), propertyValueString);
+    Object propertyValue = null;
+    if (String.class.isAssignableFrom(valueClass))
+    {
+      valueClass = String.class;
+      propertyValue = propertyValueString;
+    }
+    else if (Integer.class.isAssignableFrom(valueClass))
+    {
+      valueClass = Integer.class;
+      propertyValue = new Integer(Integer.parseInt(propertyValueString));
+    }
+    else if (Double.class.isAssignableFrom(valueClass))
+    {
+      valueClass = Double.class;
+      propertyValue = new Double(Double.parseDouble(propertyValueString));
+    }
+    else
+    {
+      throw new IllegalArgumentException("property type not (yet) supported");
+    }
+    String mutatorName = makeMutatorName(propertyName);
+    Class<?> entityClass = entity.getClass();
     Method mutatorMethod = entityClass.getMethod(mutatorName, valueClass);
     // FIXME: ignoring the return value, assuming method returns void
     mutatorMethod.invoke(entity, propertyValue);

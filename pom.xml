@@ -1,8 +1,16 @@
 <project>
+
+  <properties>
+    <!-- jbosshome>${user.home}/hacking/java/jboss/jboss-current</jbosshome -->
+    <isacrodiVersion>SNAPSHOT</isacrodiVersion>
+    <jbosshome>${env.JBOSS_HOME}</jbosshome>
+    <projectroot>${project.basedir}</projectroot>
+  </properties>
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>isacrodi-proj</groupId>
   <!-- FIXME: state version once and reference it throughout all poms -->
-  <version>1.0</version>
+  <version>${isacrodiVersion}</version>
   <artifactId>isacrodi</artifactId>
   <packaging>pom</packaging>
   <name>isacrodi-root</name>
@@ -13,12 +21,6 @@
     <module>web</module>
     <module>import</module>
   </modules>
-
-  <properties>
-    <!-- jbosshome>${user.home}/hacking/java/jboss/jboss-current</jbosshome -->
-    <jbosshome>${env.JBOSS_HOME}</jbosshome>
-    <projectroot>${project.basedir}</projectroot>
-  </properties>
 
   <build>
     <plugins>
@@ -39,25 +41,25 @@
       <dependency>
         <groupId>isacrodi-proj</groupId>
 	<artifactId>util</artifactId>
-	<version>1.0</version>
+	<version>${isacrodiVersion}</version>
 	<type>jar</type>
       </dependency>
       <dependency>
         <groupId>isacrodi-proj</groupId>
 	<artifactId>ejbs</artifactId>
-	<version>1.0</version>
+	<version>${isacrodiVersion}</version>
 	<type>ejb</type>
       </dependency>
       <dependency>
         <groupId>isacrodi-proj</groupId>
 	<artifactId>web</artifactId>
-	<version>1.0</version>
+	<version>${isacrodiVersion}</version>
 	<type>war</type>
       </dependency>
       <dependency>
         <groupId>isacrodi-proj</groupId>
 	<artifactId>import</artifactId>
-	<version>1.0</version>
+	<version>${isacrodiVersion}</version>
 	<type>jar</type>
       </dependency>
     </dependencies>

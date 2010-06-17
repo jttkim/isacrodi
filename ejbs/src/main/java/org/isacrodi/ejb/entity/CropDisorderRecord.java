@@ -1,6 +1,7 @@
 package org.isacrodi.ejb.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
@@ -85,7 +86,7 @@ public class CropDisorderRecord implements Serializable
   }
 
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   public IsacrodiUser getIsacrodiUser()
   {
     return (this.isacrodiUser);
