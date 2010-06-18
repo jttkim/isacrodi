@@ -1,7 +1,6 @@
 package org.isacrodi.ejb.entity;
 
 import java.util.Set;
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -10,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class DisorderScore implements Serializable
+public class DisorderScore implements IsacrodiEntity
 {
   private Integer id;
   private int version;
@@ -70,6 +69,28 @@ public class DisorderScore implements Serializable
   }
 
 
+  public void linkDiagnosis(Diagnosis diagnosis)
+  {
+    this.diagnosis = diagnosis;
+    diagnosis.getDisorderScoreSet().add(this);
+  }
+
+
+  public boolean unlinkDiagnosis()
+  {
+    if (this.diagnosis == null)
+    {
+      return (false);
+    }
+    if (!this.diagnosis.getDisorderScoreSet().remove(this))
+    {
+      return (false);
+    }
+    this.diagnosis = null;
+    return (true);
+  }
+
+
   @ManyToOne(optional = false)
   public CropDisorder getCropDisorder()
   {
@@ -80,6 +101,28 @@ public class DisorderScore implements Serializable
   public void setCropDisorder(CropDisorder cropDisorder)
   {
     this.cropDisorder = cropDisorder;
+  }
+
+
+  public void linkCropDisorder(CropDisorder cropDisorder)
+  {
+    this.cropDisorder = cropDisorder;
+    cropDisorder.getDisorderScoreSet().add(this);
+  }
+
+
+  public boolean unlinkCropDisorder()
+  {
+    if (this.cropDisorder == null)
+    {
+      return (false);
+    }
+    if (!this.cropDisorder.getDisorderScoreSet().remove(this))
+    {
+      return (false);
+    }
+    this.cropDisorder = null;
+    return (true);
   }
 
 
@@ -95,8 +138,16 @@ public class DisorderScore implements Serializable
   }
 
 
+  public void unlink()
+  {
+    this.unlinkDiagnosis();
+    this.unlinkCropDisorder();
+  }
+
+
   public int hashCode()
   {
+    // jtk: what do we need this for? is this a good hash code?
     return 1948 * diagnosis.hashCode() + cropDisorder.hashCode();
   }
 

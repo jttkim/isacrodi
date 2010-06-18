@@ -1,7 +1,5 @@
 package org.isacrodi.ejb.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -14,7 +12,7 @@ import java.util.HashSet;
 
 
 @Entity
-public class ImageType implements Serializable
+public class ImageType implements IsacrodiEntity
 {
   private Integer id;
   private int version;
@@ -78,6 +76,20 @@ public class ImageType implements Serializable
   }
 
 
+  @Deprecated
+  public void addImageDescriptor(ImageDescriptor imageDescriptor)
+  {
+    this.imageDescriptorSet.add(imageDescriptor);
+    imageDescriptor.setImageType(this);
+  }
+
+
+  public void linkImageDescriptor(ImageDescriptor imageDescriptor)
+  {
+    this.imageDescriptorSet.add(imageDescriptor);
+    imageDescriptor.setImageType(this);
+  }
+
 
   @Column(unique = true, nullable = false)
   public String getTypeName()
@@ -89,5 +101,15 @@ public class ImageType implements Serializable
   public void setTypeName(String typeName)
   {
     this.typeName = typeName;
+  }
+
+
+  public void unlink()
+  {
+    for (ImageDescriptor imageDescriptor : this.imageDescriptorSet)
+    {
+      imageDescriptor.setImageType(null);
+    }
+    this.imageDescriptorSet.clear();
   }
 }

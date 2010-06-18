@@ -8,9 +8,10 @@ import javax.persistence.Version;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
+
 import java.util.Set;
 import java.util.HashSet;
-import java.io.Serializable;
+
 import org.isacrodi.diagnosis.*;
 
 
@@ -19,7 +20,7 @@ import org.isacrodi.diagnosis.*;
   */
 
 @Entity
-public class CropDisorderRecord implements Serializable
+public class CropDisorderRecord implements IsacrodiEntity
 {
   private Integer id;
   private int version;
@@ -28,6 +29,7 @@ public class CropDisorderRecord implements Serializable
   private Set<Descriptor> descriptorSet;
   private IsacrodiUser isacrodiUser;
   private Crop crop;
+  private CropDisorder expertDiagnosedCropDisorder;
 
   private static final long serialVersionUID = 1;
 
@@ -79,10 +81,32 @@ public class CropDisorderRecord implements Serializable
   }
 
 
+  @Deprecated
   public void addDescriptor(Descriptor descriptor)
   {
     this.descriptorSet.add(descriptor);
     descriptor.setCropDisorderRecord(this);
+  }
+
+
+  public void linkDescriptor(Descriptor descriptor)
+  {
+    this.descriptorSet.add(descriptor);
+    descriptor.setCropDisorderRecord(this);
+  }
+
+
+  public boolean unlinkDescriptor(Descriptor descriptor)
+  {
+    if (this.descriptorSet.remove(descriptor))
+    {
+      descriptor.setCropDisorderRecord(null);
+      return (true);
+    }
+    else
+    {
+      return (false);
+    }
   }
 
 
@@ -99,6 +123,28 @@ public class CropDisorderRecord implements Serializable
   }
 
 
+  public void linkIsacrodiUser(IsacrodiUser isacrodiUser)
+  {
+    this.isacrodiUser = isacrodiUser;
+    isacrodiUser.getCropDisorderRecordSet().add(this);
+  }
+
+
+  public boolean unlinkIsacrodiUser()
+  {
+    if (this.isacrodiUser == null)
+    {
+      return (false);
+    }
+    if (!this.isacrodiUser.getCropDisorderRecordSet().remove(this))
+    {
+      return (false);
+    }
+    this.isacrodiUser = null;
+    return (true);
+  }
+
+
   @ManyToOne
   public Crop getCrop()
   {
@@ -109,6 +155,28 @@ public class CropDisorderRecord implements Serializable
   public void setCrop(Crop crop)
   {
     this.crop = crop;
+  }
+
+
+  public void linkCrop(Crop crop)
+  {
+    this.crop = crop;
+    crop.getCropDisorderRecordSet().add(this);
+  }
+
+
+  public boolean unlinkCrop()
+  {
+    if (this.crop == null)
+    {
+      return (false);
+    }
+    if (!this.crop.getCropDisorderRecordSet().remove(this))
+    {
+      return (false);
+    }
+    this.crop = null;
+    return (true);
   }
 
 
@@ -127,8 +195,20 @@ public class CropDisorderRecord implements Serializable
 
   public void linkDiagnosis(Diagnosis diagnosis)
   {
-    this.setDiagnosis(diagnosis);
+    this.diagnosis = diagnosis;
     diagnosis.setCropDisorderRecord(this);
+  }
+
+
+  public boolean unlinkDiagnosis()
+  {
+    if (this.diagnosis == null)
+    {
+      return (false);
+    }
+    this.diagnosis.setCropDisorderRecord(null);
+    this.diagnosis = null;
+    return (true);
   }
 
 
@@ -142,6 +222,76 @@ public class CropDisorderRecord implements Serializable
   public void setRecommendation(Recommendation recommendation)
   {
     this.recommendation = recommendation;
+  }
+
+
+  public void linkRecommendation(Recommendation recommendation)
+  {
+    this.recommendation = recommendation;
+    recommendation.setCropDisorderRecord(this);
+  }
+
+
+  public boolean unlinkRecommendation()
+  {
+    if (this.recommendation == null)
+    {
+      return (false);
+    }
+    this.recommendation.setCropDisorderRecord(null);
+    this.recommendation = null;
+    return (true);
+  }
+
+
+  @ManyToOne
+  public CropDisorder getExpertDiagnosedCropDisorder()
+  {
+    return (this.expertDiagnosedCropDisorder);
+  }
+
+
+  public void setExpertDiagnosedCropDisorder(CropDisorder expertDiagnosedCropDisorder)
+  {
+    this.expertDiagnosedCropDisorder = expertDiagnosedCropDisorder;
+  }
+
+
+  public void linkExpertDiagnosedCropDisorder(CropDisorder expertDiagnosedCropDisorder)
+  {
+    this.expertDiagnosedCropDisorder = expertDiagnosedCropDisorder;
+    expertDiagnosedCropDisorder.getExpertDiagnosedCropDisorderRecordSet().add(this);
+  }
+
+
+  public boolean unlinkExpertDiagnosedCropDisorder()
+  {
+    if (this.expertDiagnosedCropDisorder == null)
+    {
+      return (false);
+    }
+
+    if (!this.expertDiagnosedCropDisorder.getExpertDiagnosedCropDisorderRecordSet().remove(this))
+    {
+      return (false);
+    }
+    this.expertDiagnosedCropDisorder = null;
+    return (true);
+  }
+
+
+  public void unlink()
+  {
+    this.unlinkRecommendation();
+    this.unlinkDiagnosis();
+    for (Descriptor descriptor : this.descriptorSet)
+    {
+      descriptor.setCropDisorderRecord(null);
+    }
+    this.descriptorSet.clear();
+    this.unlinkIsacrodiUser();
+    this.unlinkCrop();
+    this.unlinkExpertDiagnosedCropDisorder();
   }
 
 

@@ -564,6 +564,7 @@ public class CrudAction extends IsacrodiActionSupport
     }
     Integer id = new Integer(Integer.parseInt(this.entityId));
     this.access.removeEntity(this.findEntityClass(), id);
+    this.entityId = null;
   }
 
 

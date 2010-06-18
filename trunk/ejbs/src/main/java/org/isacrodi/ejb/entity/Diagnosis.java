@@ -10,11 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.util.Set;
 import java.util.HashSet;
-import java.io.Serializable;
 
 
 @Entity
-public class Diagnosis implements Serializable
+public class Diagnosis implements IsacrodiEntity
 {
   private Integer Id;
   private int version;
@@ -79,6 +78,18 @@ public class Diagnosis implements Serializable
   }
 
 
+  public boolean unlinkCropDisorderRecord()
+  {
+    if (this.cropDisorderRecord == null)
+    {
+      return (false);
+    }
+    this.cropDisorderRecord.setDiagnosis(null);
+    this.cropDisorderRecord = null;
+    return (true);
+  }
+
+
   @OneToMany(mappedBy="diagnosis")
   public Set<DisorderScore> getDisorderScoreSet()
   {
@@ -92,10 +103,43 @@ public class Diagnosis implements Serializable
   }
 
 
+  @Deprecated
   public void addDisorderScore(DisorderScore disorderScore)
   {
     this.disorderScoreSet.add(disorderScore);
     disorderScore.setDiagnosis(this);
+  }
+
+
+  public void linkDisorderScore(DisorderScore disorderScore)
+  {
+    this.disorderScoreSet.add(disorderScore);
+    disorderScore.setDiagnosis(this);
+  }
+
+
+  public boolean unlinkDisorderScore(DisorderScore disorderScore)
+  {
+    if (this.disorderScoreSet.remove(disorderScore))
+    {
+      disorderScore.setDiagnosis(null);
+      return (true);
+    }
+    else
+    {
+      return (false);
+    }
+  }
+
+
+  public void unlink()
+  {
+    this.unlinkCropDisorderRecord();
+    for (DisorderScore disorderScore : this.disorderScoreSet)
+    {
+      disorderScore.setDiagnosis(null);
+    }
+    this.disorderScoreSet.clear();
   }
 
 

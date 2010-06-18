@@ -1,7 +1,6 @@
 package org.isacrodi.ejb.entity;
 
 import java.util.Set;
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -10,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class ProcedureScore implements Serializable
+public class ProcedureScore implements IsacrodiEntity
 {
   private Integer id;
   private int version;
@@ -71,6 +70,24 @@ public class ProcedureScore implements Serializable
   }
 
 
+  public void linkRecommendation(Recommendation recommendation)
+  {
+    this.recommendation = recommendation;
+    recommendation.getProcedureScoreSet().add(this);
+  }
+
+
+  public boolean unlinkRecommendation()
+  {
+    if (!this.recommendation.getProcedureScoreSet().remove(this))
+    {
+      return (false);
+    }
+    this.recommendation = null;
+    return (true);
+  }
+
+
   @ManyToOne(optional = false)
   public Procedure getProcedure()
   {
@@ -82,6 +99,8 @@ public class ProcedureScore implements Serializable
   {
     this.procedure = procedure;
   }
+
+
 
 
   public double getScore()
@@ -119,5 +138,20 @@ public class ProcedureScore implements Serializable
       return false;
 
     return true;
+  }
+
+
+  public void unlink()
+  {
+    if (this.recommendation != null)
+    {
+      this.recommendation.getProcedureScoreSet().remove(this);
+      this.recommendation = null;
+    }
+    if (this.procedure != null)
+    {
+      this.procedure.getProcedureScoreSet().remove(this);
+      this.procedure = null;
+    }
   }
 }

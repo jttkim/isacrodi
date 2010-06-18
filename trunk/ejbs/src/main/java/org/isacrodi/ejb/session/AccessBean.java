@@ -132,9 +132,9 @@ public class AccessBean implements Access
     cropDisorderRecord.setIsacrodiUser(isacrodiUser);
     cropDisorderRecord.setCrop(crop);
     this.entityManager.persist(cropDisorderRecord);
-    for (Descriptor d : cropDisorderRecord.getDescriptorSet())
+    for (Descriptor descriptor : cropDisorderRecord.getDescriptorSet())
     {
-      this.entityManager.persist(d);
+      this.entityManager.persist(descriptor);
     }
   }
 
@@ -341,6 +341,12 @@ public class AccessBean implements Access
   public void removeEntity(Class<?> entityClass, Integer id)
   {
     Object entity = this.entityManager.find(entityClass, id);
+    if (!(entity instanceof IsacrodiEntity))
+    {
+      throw new RuntimeException("not an Isacrodi entity");
+    }
+    IsacrodiEntity isacrodiEntity = (IsacrodiEntity) entity;
+    isacrodiEntity.unlink();
     this.entityManager.remove(entity);
   }
 }

@@ -7,13 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.OneToOne;
 import javax.persistence.OneToMany;
-import java.io.Serializable;
+
 import java.util.Set;
 import java.util.HashSet;
 
 
 @Entity
-public class Recommendation implements Serializable
+public class Recommendation implements IsacrodiEntity
 {
   private Integer id;
   private int version;
@@ -77,6 +77,18 @@ public class Recommendation implements Serializable
   }
 
 
+  public boolean unlinkCropDisorderRecord()
+  {
+    if (this.cropDisorderRecord == null)
+    {
+      return (false);
+    }
+    this.cropDisorderRecord.setRecommendation(null);
+    this.cropDisorderRecord = null;
+    return (true);
+  }
+
+
   @OneToMany(mappedBy="recommendation")
   public Set<ProcedureScore> getProcedureScoreSet()
   {
@@ -90,9 +102,28 @@ public class Recommendation implements Serializable
   }
 
 
+  @Deprecated
   public void addProcedureScore(ProcedureScore procedureScore)
   {
     this.procedureScoreSet.add(procedureScore);
     procedureScore.setRecommendation(this);
+  }
+
+
+  public void linkProcedureScore(ProcedureScore procedureScore)
+  {
+    this.procedureScoreSet.add(procedureScore);
+    procedureScore.setRecommendation(this);
+  }
+
+
+  public void unlink()
+  {
+    this.unlinkCropDisorderRecord();
+    for (ProcedureScore procedureScore : this.procedureScoreSet)
+    {
+      procedureScore.setRecommendation(null);
+    }
+    this.procedureScoreSet.clear();
   }
 }

@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +14,7 @@ import java.util.Set;
  * Class Procedure
  */
 @Entity
-public class Procedure implements Serializable
+public class Procedure implements IsacrodiEntity
 {
   private Integer id;
   private int version;
@@ -94,6 +93,24 @@ public class Procedure implements Serializable
   }
 
 
+  public void linkProcedureScore(ProcedureScore procedureScore)
+  {
+    this.procedureScoreSet.add(procedureScore);
+    procedureScore.setProcedure(this);
+  }
+
+
+  public boolean unlinkProcedureScore(ProcedureScore procedureScore)
+  {
+    if (!this.procedureScoreSet.remove(procedureScore))
+    {
+      return (false);
+    }
+    procedureScore.setProcedure(null);
+    return (true);
+  }
+
+
   @ManyToMany
   public Set<CropDisorder> getCropDisorderSet()
   {
@@ -107,9 +124,40 @@ public class Procedure implements Serializable
   }
 
 
+  public void linkCropDisorder(CropDisorder cropDisorder)
+  {
+    this.cropDisorderSet.add(cropDisorder);
+    cropDisorder.getProcedureSet().add(this);
+  }
+
+
+  public boolean unlinkCropDisorder(CropDisorder cropDisorder)
+  {
+    if (!this.cropDisorderSet.remove(cropDisorder))
+    {
+      return (false);
+    }
+    return (cropDisorder.getProcedureSet().remove(this));
+  }
+
+
   public String toString()
   {
     return String.format("%s %s %s", getId(), getVersion(), getDescription());
   }
 
+
+  public void unlink()
+  {
+    for (CropDisorder cropDisorder : this.cropDisorderSet)
+    {
+      cropDisorder.getProcedureSet().remove(this);
+    }
+    this.cropDisorderSet.clear();
+    for (ProcedureScore procedureScore: this.procedureScoreSet)
+    {
+      procedureScore.setProcedure(null);
+    }
+    this.procedureScoreSet.clear();
+  }
 }

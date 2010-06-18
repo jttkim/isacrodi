@@ -1,7 +1,5 @@
 package org.isacrodi.ejb.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,7 @@ import java.util.HashSet;
  * recorded by descriptors of this type.
  */
 @Entity
-public class NumericType implements Serializable
+public class NumericType implements IsacrodiEntity
 {
   private Integer id;
   private int version;
@@ -80,6 +78,24 @@ public class NumericType implements Serializable
   }
 
 
+  public void linkNumericDescriptor(NumericDescriptor numericDescriptor)
+  {
+    this.numericDescriptorSet.add(numericDescriptor);
+    numericDescriptor.setNumericType(this);
+  }
+
+
+  public boolean unlinkNumericDescriptor(NumericDescriptor numericDescriptor)
+  {
+    if (!this.numericDescriptorSet.remove(numericDescriptor))
+    {
+      return (false);
+    }
+    numericDescriptor.setNumericType(null);
+    return (true);
+  }
+
+
   @Column(unique = true, nullable = false)
   public String getTypeName()
   {
@@ -90,5 +106,15 @@ public class NumericType implements Serializable
   public void setTypeName(String typeName)
   {
     this.typeName = typeName;
+  }
+
+
+  public void unlink()
+  {
+    for (NumericDescriptor numericDescriptor : this.numericDescriptorSet)
+    {
+      numericDescriptor.setNumericType(null);
+    }
+    this.numericDescriptorSet.clear();
   }
 }

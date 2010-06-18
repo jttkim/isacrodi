@@ -35,6 +35,13 @@
       <artifactId>struts2-core</artifactId>
       <version>2.1.8.1</version>
     </dependency>
+    <!-- unfathomably, access to @Inheritance is required (???!!) -->
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
