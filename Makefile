@@ -10,11 +10,14 @@ doc :
 deploy : package
 	cp ear/target/isacrodi.ear $(JBOSS_DEPLOYDIR)
 
-tgz :
-	mvn clean
+tgz : clean
 	rm -f isacrodi_trunk.tgz
 	cd ../.. ; tar -zcvf isacrodi_trunk.tgz isacrodi/trunk
 	mv ../../isacrodi_trunk.tgz .
 
-.PHONY : package deploy tgz doc
+clean :
+	mvn clean
+	make -C docs clean
+
+.PHONY : package deploy tgz doc clean
 

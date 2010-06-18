@@ -2,7 +2,6 @@ package org.isacrodi.ejb.entity;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.Serializable;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
@@ -16,7 +15,7 @@ import javax.persistence.ManyToOne;
   * Implements image descriptor from Digital Image.
   */
 @Entity
-public class ImageDescriptor extends Descriptor implements Serializable
+public class ImageDescriptor extends Descriptor
 {
   private ImageType imageType;
   private String mimeType;
@@ -50,7 +49,7 @@ public class ImageDescriptor extends Descriptor implements Serializable
   }
 
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   public ImageType getImageType()
   {
     return imageType;
@@ -60,6 +59,28 @@ public class ImageDescriptor extends Descriptor implements Serializable
   public void setImageType(ImageType imageType)
   {
     this.imageType = imageType;
+  }
+
+
+  public void linkImageType(ImageType imageType)
+  {
+    this.imageType = imageType;
+    imageType.getImageDescriptorSet().add(this);
+  }
+
+
+  public boolean unlinkImageType()
+  {
+    if (this.imageType == null)
+    {
+      return (false);
+    }
+    if (!this.imageType.getImageDescriptorSet().remove(this))
+    {
+      return (false);
+    }
+    this.imageType = null;
+    return (true);
   }
 
 
@@ -105,15 +126,11 @@ public class ImageDescriptor extends Descriptor implements Serializable
     this.imageData = imageData;
   }
 
-  // method to get image as java.awt... object to encapsulate low-level octet stream and MIME type stuff...
 
-
-  /* JTK: bad name as this is not an accessor (bad return type as well)
-  public void getFeatureVector()
+  public void unlink()
   {
-    //to implement
+    this.unlinkImageType();
   }
-  */
 
 
   public void readImageData(String fileName) throws IOException

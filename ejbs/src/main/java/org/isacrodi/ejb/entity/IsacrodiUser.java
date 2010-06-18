@@ -1,12 +1,12 @@
 package org.isacrodi.ejb.entity;
 
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import java.util.Set;
+import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +17,7 @@ import javax.persistence.Column;
 
 
 @Entity
-public class IsacrodiUser implements Serializable
+public class IsacrodiUser implements IsacrodiEntity
 {
   private Integer id;
   private int version;
@@ -34,6 +34,7 @@ public class IsacrodiUser implements Serializable
   public IsacrodiUser()
   {
     super();
+    this.cropDisorderRecordSet = new HashSet<CropDisorderRecord>();
   }
 
 
@@ -81,9 +82,28 @@ public class IsacrodiUser implements Serializable
     return (this.cropDisorderRecordSet);
   }
 
+
   public void setCropDisorderRecordSet(Set<CropDisorderRecord> cropDisorderRecordSet)
   {
     this.cropDisorderRecordSet = cropDisorderRecordSet;
+  }
+
+
+  public void linkCropDisorderRecord(CropDisorderRecord cropDisorderRecord)
+  {
+    this.cropDisorderRecordSet.add(cropDisorderRecord);
+    cropDisorderRecord.setIsacrodiUser(this);
+  }
+
+
+  public boolean unlinkCropDisorderRecord(CropDisorderRecord cropDisorderRecord)
+  {
+    if (!this.cropDisorderRecordSet.remove(cropDisorderRecord))
+    {
+      return (false);
+    }
+    cropDisorderRecord.setIsacrodiUser(null);
+    return (true);
   }
 
 
@@ -147,6 +167,16 @@ public class IsacrodiUser implements Serializable
   public void setPasswordHash(String passwordHash)
   {
     this.passwordHash = passwordHash;
+  }
+
+
+  public void unlink()
+  {
+    for (CropDisorderRecord cropDisorderRecord : this.cropDisorderRecordSet)
+    {
+      cropDisorderRecord.setIsacrodiUser(null);
+    }
+    this.cropDisorderRecordSet.clear();
   }
 
 

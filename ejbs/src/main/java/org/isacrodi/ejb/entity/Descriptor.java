@@ -1,6 +1,5 @@
 package org.isacrodi.ejb.entity;
 
-import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,9 +10,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
-public abstract class Descriptor implements Serializable
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Descriptor implements IsacrodiEntity
 {
-  // JTK: isn't this redundantly recording class?
   private Integer id;
   private int version;
   private CropDisorderRecord cropDisorderRecord;
@@ -48,7 +47,7 @@ public abstract class Descriptor implements Serializable
   }
 
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   public CropDisorderRecord getCropDisorderRecord()
   {
     return (this.cropDisorderRecord);
@@ -60,4 +59,31 @@ public abstract class Descriptor implements Serializable
     this.cropDisorderRecord = cropDisorderRecord;
   }
 
+
+  public void linkCropDisorderRecord(CropDisorderRecord cropDisorderRecord)
+  {
+    this.cropDisorderRecord = cropDisorderRecord;
+    cropDisorderRecord.getDescriptorSet().add(this);
+  }
+
+
+  public boolean unlinkCropDisorderRecord()
+  {
+    if (this.cropDisorderRecord == null)
+    {
+      return (false);
+    }
+    if (!this.cropDisorderRecord.getDescriptorSet().remove(this))
+    {
+      return (false);
+    }
+    this.cropDisorderRecord = null;
+    return (true);
+  }
+
+
+  public void unlink()
+  {
+    this.unlinkCropDisorderRecord();
+  }
 }

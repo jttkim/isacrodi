@@ -1,13 +1,11 @@
 package org.isacrodi.ejb.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 @Entity
-public class NumericDescriptor extends Descriptor implements Serializable
+public class NumericDescriptor extends Descriptor
 {
   private NumericType numericType;
   private double numericValue;
@@ -29,7 +27,7 @@ public class NumericDescriptor extends Descriptor implements Serializable
   }
 
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   public NumericType getNumericType()
   {
     return numericType;
@@ -42,6 +40,24 @@ public class NumericDescriptor extends Descriptor implements Serializable
   }
 
 
+  public void linkNumericType(NumericType numericType)
+  {
+    this.numericType = numericType;
+    numericType.getNumericDescriptorSet().add(this);
+  }
+
+
+  public boolean unlinkNumericType()
+  {
+    if (!this.numericType.getNumericDescriptorSet().remove(this))
+    {
+      return (false);
+    }
+    this.numericType = null;
+    return (true);
+  }
+
+
   public double getNumericValue()
   {
     return numericValue;
@@ -51,6 +67,12 @@ public class NumericDescriptor extends Descriptor implements Serializable
   public void setNumericValue(double numericValue)
   {
     this.numericValue = numericValue;
+  }
+
+
+  public void unlink()
+  {
+    this.unlinkNumericType();
   }
 
 

@@ -11,11 +11,9 @@ import javax.persistence.OneToMany;
 import java.util.Set;
 import java.util.HashSet;
 
-import java.io.Serializable;
-
 
 @Entity
-public class Crop implements Serializable
+public class Crop implements IsacrodiEntity
 {
   private Integer id;
   private int version;
@@ -84,6 +82,24 @@ public class Crop implements Serializable
   }
 
 
+  public void linkCropDisorderRecord(CropDisorderRecord cropDisorderRecord)
+  {
+    this.cropDisorderRecordSet.add(cropDisorderRecord);
+    cropDisorderRecord.setCrop(this);
+  }
+
+
+  public boolean unlinkCropDisorderRecord(CropDisorderRecord cropDisorderRecord)
+  {
+    if (!this.cropDisorderRecordSet.remove(cropDisorderRecord))
+    {
+      return (false);
+    }
+    cropDisorderRecord.setCrop(null);
+    return (true);
+  }
+
+
   public String getName()
   {
     return this.name;
@@ -120,10 +136,43 @@ public class Crop implements Serializable
   }
 
 
+  @Deprecated
   public void addCropDisorder(CropDisorder cropDisorder)
   {
     this.cropDisorderSet.add(cropDisorder);
     cropDisorder.getCropSet().add(this);
+  }
+
+
+  public void linkCropDisorder(CropDisorder cropDisorder)
+  {
+    this.cropDisorderSet.add(cropDisorder);
+    cropDisorder.getCropSet().add(this);
+  }
+
+
+  public boolean unlinkCropDisorder(CropDisorder cropDisorder)
+  {
+    if (!this.cropDisorderSet.remove(cropDisorder))
+    {
+      return (false);
+    }
+    return (cropDisorder.getCropSet().remove(this));
+  }
+
+
+  public void unlink()
+  {
+    for (CropDisorder cropDisorder : this.cropDisorderSet)
+    {
+      cropDisorder.getCropSet().remove(this);
+    }
+    this.cropDisorderSet.clear();
+    for (CropDisorderRecord cropDisorderRecord : this.cropDisorderRecordSet)
+    {
+      cropDisorderRecord.setCrop(null);
+    }
+    this.cropDisorderRecordSet.clear();
   }
 
 

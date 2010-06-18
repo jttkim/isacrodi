@@ -1,7 +1,5 @@
 package org.isacrodi.ejb.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -10,15 +8,15 @@ import javax.persistence.Version;
 import java.util.Set;
 
 /**
-  *Set symptom type
+ * Set symptom type
  */
 @Entity
-public class SymptomType implements Serializable
+public class SymptomType implements IsacrodiEntity
 {
   private Integer id;
   private int version;
   private String typeName;
-  private Set<SymptomDescriptor> symptomDescriptor;
+  private Set<SymptomDescriptor> symptomDescriptorSet;
 
   private static final long serialVersionUID = 1;
 
@@ -27,7 +25,7 @@ public class SymptomType implements Serializable
   {
     super();
   }
- 
+
 
   public SymptomType(String typeName)
   {
@@ -64,17 +62,34 @@ public class SymptomType implements Serializable
 
 
   @OneToMany(mappedBy="symptomType")
-  public Set<SymptomDescriptor> getSymptomDescriptor()
+  public Set<SymptomDescriptor> getSymptomDescriptorSet()
   {
-    return symptomDescriptor;
+    return symptomDescriptorSet;
   }
 
 
-  public void setSymptomDescriptor(Set<SymptomDescriptor> symptomDescriptor)
+  public void setSymptomDescriptorSet(Set<SymptomDescriptor> symptomDescriptorSet)
   {
-    this.symptomDescriptor = symptomDescriptor;
+    this.symptomDescriptorSet = symptomDescriptorSet;
   }
 
+
+  public void linkSymptomDescriptor(SymptomDescriptor symptomDescriptor)
+  {
+    this.symptomDescriptorSet.add(symptomDescriptor);
+    symptomDescriptor.setSymptomType(this);
+  }
+
+
+  public boolean unlinkSymptomDescriptor(SymptomDescriptor symptomDescriptor)
+  {
+    if (!this.symptomDescriptorSet.remove(symptomDescriptor))
+    {
+      return (false);
+    }
+    symptomDescriptor.setSymptomType(null);
+    return (true);
+  }
 
 
   public String getTypeName()
@@ -86,5 +101,15 @@ public class SymptomType implements Serializable
   public void setTypeName(String typeName)
   {
     this.typeName = typeName;
+  }
+
+
+  public void unlink()
+  {
+    for (SymptomDescriptor symptomDescriptor : this.symptomDescriptorSet)
+    {
+      symptomDescriptor.setSymptomType(null);
+    }
+    this.symptomDescriptorSet.clear();
   }
 }

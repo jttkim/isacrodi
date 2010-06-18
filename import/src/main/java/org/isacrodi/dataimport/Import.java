@@ -187,7 +187,7 @@ public class Import
       // System.err.println(String.format("value: \"%s\", double: %f", t.getValue(), v));
       NumericDescriptor d = new NumericDescriptor(numericType, v);
       // System.err.println(d);
-      cdr.addDescriptor(d);
+      cdr.linkDescriptor(d);
     }
     // s.nextToken(Token.TokenType.SYMBOL, "}");
     s.nextToken(Token.TokenType.BLOCKIDENTIFIER, "imageDescriptors");
@@ -211,7 +211,7 @@ public class Import
       Token mimeToken = s.nextToken(Token.TokenType.NAMEVALUE, "mimeType");
       Token fileToken = s.nextToken(Token.TokenType.NAMEVALUE, "file");
       ImageDescriptor d = new ImageDescriptor(imageType, mimeToken.getValue(), fileToken.getValue());
-      cdr.addDescriptor(d);
+      cdr.linkDescriptor(d);
       s.nextToken(Token.TokenType.SYMBOL, "}");
     }
     s.nextToken(Token.TokenType.SYMBOL, "}");
@@ -290,11 +290,29 @@ public class Import
   {
     if (args.length == 0)
     {
-      System.err.println("usage: import <file> [<file>]*");
+      System.err.println("usage: import <file> [<file>]* or import -r ... (check code for parameters)");
     }
-    for (String arg : args)
+    if (args[0].equals("-r"))
     {
-      importFile(arg);
+      int rndseed = Integer.parseInt(args[1]);
+      int numNumericTypes = Integer.parseInt(args[2]);
+      int numCrops = Integer.parseInt(args[3]);
+      int numCropDisorders = Integer.parseInt(args[4]);
+      int numCDRs = Integer.parseInt(args[5]);
+      int numDisorderAssociations = Integer.parseInt(args[6]);
+      double numericDescriptorPercentage = Double.parseDouble(args[7]);
+      double stddevBetween = Double.parseDouble(args[8]);
+      double stddevWithin = Double.parseDouble(args[9]);
+      InitialContext context = new InitialContext();
+      Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
+      kludge.makeRandomExpertDiagnosedCDRs(rndseed, numNumericTypes, numCrops, numCropDisorders, numCDRs, numDisorderAssociations, numericDescriptorPercentage, stddevBetween, stddevWithin);
+    }
+    else
+    {
+      for (String arg : args)
+      {
+	importFile(arg);
+      }
     }
   }
 }

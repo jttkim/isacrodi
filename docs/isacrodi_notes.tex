@@ -137,6 +137,21 @@ specification of this mapping:
 \end{itemize}
 
 
+\subsection{The CRUD System}
+
+The Struts action \computercode{CrudAction} (CRUD = ``Create, Read,
+Update, Delete'') provides a simple ``database browser'' like web
+interface to the Isacrodi entity set. The system can display lists of
+links to all entities to a given type and details on entities. A
+detail page contains links to all associated entities, and all
+properties in textual form.
+
+The CRUD system mostly uses reflection but requires that entities
+implement the \computercode{IsacrodiEntity} interface.
+
+For deleting entities, the system invokes the \computercode{unlink}
+method to remove all associations of the entity to others.
+
 \section{Coding Standards}
 
 
