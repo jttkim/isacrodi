@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import java.util.Set;
 import java.util.HashSet;
 
+import org.javamisc.jee.entitycrud.CrudConfig;
+
 import org.isacrodi.diagnosis.*;
 
 
@@ -20,6 +22,7 @@ import org.isacrodi.diagnosis.*;
   */
 
 @Entity
+@CrudConfig(propertyOrder = {"id", "isacrodiUser", "crop", "expertDiagnosedCropDisorder", "descriptorSet", "diagnosis", "*"})
 public class CropDisorderRecord implements IsacrodiEntity
 {
   private Integer id;
@@ -39,6 +42,7 @@ public class CropDisorderRecord implements IsacrodiEntity
   {
     super();
     this.descriptorSet = new HashSet<Descriptor>();
+    this.description = "";
   }
 
 
@@ -339,6 +343,11 @@ public class CropDisorderRecord implements IsacrodiEntity
 
   public String toString()
   {
-    return String.format("%s %s %s", getId(), getVersion(), getCrop().getName());
+    String cropName = "<null>";
+    if (this.crop != null)
+    {
+      cropName = this.crop.getName();
+    }
+    return String.format("id = %d, version = %d, user = %s, crop = %s, description = %s, %d numeric descriptors, %d image descriptors", this.id.intValue(), this.version, this.isacrodiUser.getUsername(), cropName, this.description, this.findNumericDescriptorSet().size(), this.findImageDescriptorSet().size());
   }
 }

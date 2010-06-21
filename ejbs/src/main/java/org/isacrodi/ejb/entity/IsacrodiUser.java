@@ -15,8 +15,11 @@ import javax.persistence.Version;
 import javax.persistence.OneToMany;
 import javax.persistence.Column;
 
+import org.javamisc.jee.entitycrud.CrudConfig;
+
 
 @Entity
+@CrudConfig(propertyOrder = {"id", "lastname", "firstname", "username", "email", "*"})
 public class IsacrodiUser implements IsacrodiEntity
 {
   private Integer id;
