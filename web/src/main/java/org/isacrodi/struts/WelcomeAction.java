@@ -30,7 +30,7 @@ public class WelcomeAction extends IsacrodiActionSupport
 
   public String execute()
   {
-    this.cropDisorderRecordList = genericTypecast(this.access.findEntityList(CropDisorderRecord.class));
+    this.cropDisorderRecordList = genericTypecast(this.entityAccess.findEntityList(CropDisorderRecord.class));
     return (SUCCESS);
   }
 }

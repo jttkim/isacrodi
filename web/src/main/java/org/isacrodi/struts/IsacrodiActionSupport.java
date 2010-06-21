@@ -13,6 +13,8 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.dispatcher.SessionMap;
 
+import org.javamisc.jee.entitycrud.EntityAccess;
+
 import org.isacrodi.ejb.session.*;
 import org.isacrodi.ejb.entity.*;
 
@@ -36,6 +38,7 @@ public abstract class IsacrodiActionSupport extends ActionSupport implements Ses
   protected IsacrodiUser isacrodiUser;
   protected UserHandler userHandler;
   protected Access access;
+  protected EntityAccess entityAccess;
 
 
   public IsacrodiActionSupport() throws NamingException
@@ -43,7 +46,9 @@ public abstract class IsacrodiActionSupport extends ActionSupport implements Ses
     InitialContext context = new InitialContext();
     this.userHandler = (UserHandler) context.lookup("isacrodi/UserHandlerBean/remote");
     this.access = (Access) context.lookup("isacrodi/AccessBean/remote");
+    this.entityAccess = (EntityAccess) context.lookup("isacrodi/EntityAccessBean/remote");
   }
+
 
   @Override
   public void setSession(Map<String, Object> sessionMap)

@@ -14,8 +14,8 @@ import javax.naming.InitialContext;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.javamisc.jee.CrudAction;
-import org.javamisc.jee.EntityAccess;
+import org.javamisc.jee.entitycrud.CrudAction;
+import org.javamisc.jee.entitycrud.EntityAccess;
 
 import org.isacrodi.ejb.session.*;
 import org.isacrodi.ejb.entity.*;

@@ -101,7 +101,7 @@ public class ShowInlineImageAction extends IsacrodiActionSupport
     }
     else
     {
-      this.imageDescriptor = this.access.findEntity(ImageDescriptor.class, this.imageDescriptorId);
+      this.imageDescriptor = this.entityAccess.findEntity(ImageDescriptor.class, this.imageDescriptorId);
       if (this.imageDescriptor == null)
       {
 	this.createMessageImage(String.format("image descriptor %d not found", this.imageDescriptorId.intValue()));

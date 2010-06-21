@@ -77,7 +77,7 @@ public class ShowCropDisorderRecordAction extends IsacrodiActionSupport implemen
     }
     else
     {
-      this.cropDisorderRecord = this.access.findEntity(CropDisorderRecord.class, this.cropDisorderRecordId);
+      this.cropDisorderRecord = this.entityAccess.findEntity(CropDisorderRecord.class, this.cropDisorderRecordId);
       this.LOG.info(String.format("got cdr %d", this.cropDisorderRecord.getId().intValue()));
     }
   }
