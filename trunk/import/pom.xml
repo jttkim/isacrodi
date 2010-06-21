@@ -88,9 +88,18 @@
 	      <goal>shade</goal>
 	    </goals>
 	    <configuration>
+	      <!-- artifactSet>
+	        <includes>
+		  <include>jboss-stuff:*</include>
+		  <include>javamisc:*</include>
+		</includes>
+	      </artifactSet -->
 	      <transformers>
 	        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 		  <mainClass>org.isacrodi.dataimport.Import</mainClass>
+		  <manifestEntries>
+		    <Class-Path>${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/common/lib/hibernate-core.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
+		  </manifestEntries>
 	        </transformer>
 	      </transformers>
 	    </configuration>
