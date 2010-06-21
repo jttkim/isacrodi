@@ -62,6 +62,12 @@
 	<version>${isacrodiVersion}</version>
 	<type>jar</type>
       </dependency>
+      <dependency>
+	<groupId>javamisc</groupId>
+	<artifactId>javamisc</artifactId>
+	<version>1.0</version>
+	<type>jar</type>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

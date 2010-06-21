@@ -47,7 +47,7 @@
       <result name="success" type="stream"></result>
     </action>
 
-    <action name="crud" class="org.isacrodi.struts.CrudAction">
+    <action name="crud" class="org.isacrodi.struts.IsacrodiCrudAction">
       <result name="success">/WEB-INF/views/crud.jsp</result>
     </action>
 

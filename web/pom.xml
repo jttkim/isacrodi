@@ -42,6 +42,11 @@
       <version>1.0</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>javamisc</groupId>
+      <artifactId>javamisc</artifactId>
+      <type>jar</type>
+    </dependency>
   </dependencies>
 
   <build>

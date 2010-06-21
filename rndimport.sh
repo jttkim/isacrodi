@@ -11,6 +11,16 @@ function do_run ()
   fi
 }
 
+rndseed=1
+numNumericTypes=5
+numCrops=10
+numCropDisorders=10
+numCDRs=100
+numDisorderAssociations=20
+numericDescriptorPercentage=0.7
+stddevBetween=3.0
+stddevWithin=1.0
 
 do_run cp import/target/isacrodi-import.jar ./
-do_run java -jar isacrodi-import.jar -r 1 5 10 10 100 20 0.7 3.0 1.0
+do_run java -jar isacrodi-import.jar -r ${rndseed} ${numCrops} ${numCropDisorders} ${numCDRs} ${numDisorderAssociations} ${numericDescriptorPercentage} ${stddevBetween} ${stddevWithin}
+

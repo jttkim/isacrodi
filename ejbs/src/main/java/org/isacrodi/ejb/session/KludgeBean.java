@@ -121,11 +121,15 @@ public class KludgeBean implements Kludge
       this.entityManager.persist(cropDisorder);
       cropDisorderList.add(cropDisorder);
       HashMap<String, Double> disorderCharacteristics = new HashMap<String, Double>();
+      String cropDisorderDescription = String.format("dummy disorder #%d\n", i);
       for (NumericType nt : numericTypeList)
       {
-	disorderCharacteristics.put(nt.getTypeName(), new Double(rng.nextGaussian() * stddevBetween));
+	double c = new Double(rng.nextGaussian() * stddevBetween);
+	disorderCharacteristics.put(nt.getTypeName(), c);
+	cropDisorderDescription += String.format("%s: %s\n", nt.getTypeName(), c);
       }
       disorderCharacteristicsMap.put(cropDisorder.getScientificName(), disorderCharacteristics);
+      cropDisorder.setDescription(cropDisorderDescription);
     }
     for (int i = 0; i < numDisorderAssociations; i++)
     {
@@ -145,6 +149,7 @@ public class KludgeBean implements Kludge
       cdr.linkCrop(cropList.randomSample(rng));
       Crop crop = cdr.getCrop();
       SamplableList<CropDisorder> dList = new SamplableList<CropDisorder>(crop.getCropDisorderSet());
+      String cdrDescription = String.format("dummy cdr #%d\n", i);
       if (dList.size() > 0)
       {
 	cdr.linkExpertDiagnosedCropDisorder(dList.randomSample(rng));
@@ -155,14 +160,16 @@ public class KludgeBean implements Kludge
 	  if (rng.nextDouble() < numericDescriptorPercentage)
 	  {
 	    double m = disorderCharacteristics.get(nt.getTypeName()).doubleValue(); // mean of diagnosed disorder
-	    NumericDescriptor nd = new NumericDescriptor(nt, m + rng.nextGaussian() * stddevWithin);
+	    double jitter = rng.nextGaussian() * stddevWithin;
+	    NumericDescriptor nd = new NumericDescriptor(nt, m + jitter);
+	    cdrDescription += String.format("%s: %f + %f\n", nt.getTypeName(), m, jitter);
 	    cdr.linkDescriptor(nd);
 	    this.entityManager.persist(nd);
 	  }
 	}
       }
+      cdr.setDescription(cdrDescription);
       cropDisorderRecordList.add(cdr);
     }
   }
 }
-

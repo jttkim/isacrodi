@@ -24,6 +24,7 @@ public class CropDisorderRecord implements IsacrodiEntity
 {
   private Integer id;
   private int version;
+  private String description;
   private Recommendation recommendation;
   private Diagnosis diagnosis;
   private Set<Descriptor> descriptorSet;
@@ -65,6 +66,19 @@ public class CropDisorderRecord implements IsacrodiEntity
   public void setVersion(int version)
   {
     this.version = version;
+  }
+
+
+  @Column(length = 4096)
+  public String getDescription()
+  {
+    return (this.description);
+  }
+
+
+  public void setDescription(String description)
+  {
+    this.description = description;
   }
 
 

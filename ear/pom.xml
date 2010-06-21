@@ -21,6 +21,11 @@
       <artifactId>ejbs</artifactId>
       <type>ejb</type>
     </dependency>
+    <dependency>
+      <groupId>javamisc</groupId>
+      <artifactId>javamisc</artifactId>
+      <type>jar</type>
+    </dependency>
   </dependencies>
 
   <build>
