@@ -67,6 +67,11 @@
       <version>2010-05-25</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>javamisc</groupId>
+      <artifactId>javamisc</artifactId>
+      <type>jar</type>
+    </dependency>
   </dependencies>
 
   <build>
