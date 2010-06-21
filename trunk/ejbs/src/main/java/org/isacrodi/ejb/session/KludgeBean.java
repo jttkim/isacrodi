@@ -20,8 +20,7 @@ import javax.persistence.Query;
 
 import org.isacrodi.ejb.entity.*;
 
-import org.isacrodi.util.Util;
-import static org.isacrodi.util.Util.genericTypecast;
+import static org.javamisc.Util.genericTypecast;
 
 
 /**

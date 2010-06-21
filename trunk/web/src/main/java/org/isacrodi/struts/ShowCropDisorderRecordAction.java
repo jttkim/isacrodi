@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.Preparable;
 
 import org.isacrodi.ejb.entity.*;
 
-import static org.isacrodi.util.Util.genericTypecast;
+import static org.javamisc.Util.genericTypecast;
 
 
 public class ShowCropDisorderRecordAction extends IsacrodiActionSupport implements ModelDriven<CropDisorderRecord>, Preparable
