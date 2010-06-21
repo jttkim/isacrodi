@@ -7,7 +7,7 @@ import javax.naming.NamingException;
 
 import org.isacrodi.ejb.entity.*;
 
-import static org.isacrodi.util.Util.genericTypecast;
+import static org.javamisc.Util.genericTypecast;
 
 
 public class WelcomeAction extends IsacrodiActionSupport
