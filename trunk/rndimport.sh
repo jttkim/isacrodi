@@ -22,5 +22,5 @@ stddevBetween=3.0
 stddevWithin=1.0
 
 do_run cp import/target/isacrodi-import.jar ./
-do_run java -jar isacrodi-import.jar -r ${rndseed} ${numCrops} ${numCropDisorders} ${numCDRs} ${numDisorderAssociations} ${numericDescriptorPercentage} ${stddevBetween} ${stddevWithin}
+do_run java -jar isacrodi-import.jar -r ${rndseed} ${numNumericTypes} ${numCrops} ${numCropDisorders} ${numCDRs} ${numDisorderAssociations} ${numericDescriptorPercentage} ${stddevBetween} ${stddevWithin}
 
