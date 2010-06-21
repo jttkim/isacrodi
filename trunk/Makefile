@@ -1,5 +1,6 @@
 JBOSS_DEPLOYDIR	= $(JBOSS_HOME)/server/jtktest/deploy
 package :
+	mvn -o clean
 	mvn -o package
 
 doc :
