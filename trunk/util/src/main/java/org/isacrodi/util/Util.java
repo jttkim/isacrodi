@@ -36,6 +36,9 @@ public class Util
   }
 
 
+  // FIXME: reflection stuff redundant to javamisc Util stuff, kept
+  // around for AccessBean for the time being.
+
   /**
    * Construct an instance of a class.
    *

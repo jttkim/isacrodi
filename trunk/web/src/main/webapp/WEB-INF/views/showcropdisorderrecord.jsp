@@ -26,7 +26,13 @@
 
 <p>Affected crop: <s:property value="%{crop.name}"/> (<span class="scientificname"><s:property value="%{crop.scientificName}"/></span>).</p>
 
-<p class="todonote">CDRs should have some description here, and perhaps a name.</p>
+<p class="todonote">CDRs should perhaps have a name.</p>
+
+<p>Description</p>
+
+<pre>
+<s:property value="%{description}"/>
+</pre>
 
 
 <h2>Numeric Descriptors</h2>

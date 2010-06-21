@@ -24,12 +24,8 @@ public interface Access
   void insert(NumericType numericType);
   void insert(ImageType imageType);
   void insert(CropDisorderRecord cropDisorderRecord, String username, String cropScientificName);
-  <EntityClass> EntityClass findEntity(Class<EntityClass> entityClass, Integer id);
-  List<?> findEntityList(Class<?> entityClass);
   Crop findCrop(String scientificName);
   CropDisorder findCropDisorder(String scientificName);
   NumericType findNumericType(String name);
   ImageType findImageType(String name);
-  void updateEntity(Class<?> entityClass, Integer entityId, Map<String, String[]> propertyMap) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
-  void removeEntity(Class<?> entityClass, Integer id);
 }
