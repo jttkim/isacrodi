@@ -4,9 +4,9 @@ package :
 	mvn -o package
 
 doc :
-	make -C docs
 	mvn -o install
 	mvn -o javadoc:javadoc
+	make -C docs
 
 deploy : package
 	cp ear/target/isacrodi.ear $(JBOSS_DEPLOYDIR)
