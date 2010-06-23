@@ -21,7 +21,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
   private CDRFeatureExtractor fe;
   private FeatureVectorMapper fvm;
   private ScoreTable score;
-  private svm_predict svmpredict;
+  private SVMPredict svmpredict;
   private svm_model model;
 
 
@@ -31,7 +31,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
     this.fe = new DummyCDRFeatureExtractor();
     this.fvm = new FeatureVectorMapper();
     this.score = new ScoreTable();
-    this.svmpredict = new svm_predict();
+    this.svmpredict = new SVMPredict();
     this.model = new svm_model();
   }
 
