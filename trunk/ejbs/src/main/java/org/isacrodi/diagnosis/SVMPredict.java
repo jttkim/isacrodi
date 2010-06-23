@@ -9,10 +9,10 @@ import libsvm.*;
  * SVM feauture class prediction
  */
 
-public class svm_predict 
+public class SVMPredict 
 {
 
-  public svm_predict()
+  public SVMPredict()
   {
     super();
   }

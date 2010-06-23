@@ -284,6 +284,11 @@ public class DiagnosisTest
   }
 
 
+  /**
+   * Test Feature Mapper
+   *
+   * @author jtk
+   */
   @Test
   public void testSVMDiagnosis() throws IOException
   {
