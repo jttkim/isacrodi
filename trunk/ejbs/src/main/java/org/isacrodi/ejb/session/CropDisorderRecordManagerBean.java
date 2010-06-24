@@ -25,15 +25,31 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
   private static final long serialVersionUID = 1;
 
 
-  private void fetchLists(CropDisorderRecord cropDisorderRecord)
+  private void fetchLists(CropDisorderRecord cdr)
   {
-    // FIXME: nothing yet
+    for (Descriptor descriptor : cdr.getDescriptorSet())
+    {
+      descriptor.getId();
+    }
+    // FIXME: not implemented
   }
 
 
   public List<CropDisorderRecord> findCropDisorderRecordList()
   {
     Query query = this.entityManager.createQuery("SELECT r FROM CropDisorderRecord r ORDER BY r.id");
+    List<CropDisorderRecord> cdrList = genericTypecast(query.getResultList());
+    for (CropDisorderRecord cdr : cdrList)
+    {
+      fetchLists(cdr);
+    }
+    return(cdrList);
+  }
+
+
+  public List<CropDisorderRecord> findExpertDiagnosedCropDisorderRecordList()
+  {
+    Query query = this.entityManager.createQuery("SELECT r FROM CropDisorderRecord r WHERE r.expertDiagnosedCropDisorder IS NOT NULL ORDER BY r.id");
     List<CropDisorderRecord> cdrList = genericTypecast(query.getResultList());
     for (CropDisorderRecord cdr : cdrList)
     {
