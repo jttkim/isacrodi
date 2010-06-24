@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import java.util.List;
 import java.util.Iterator;
 
 import javax.naming.InitialContext;
@@ -16,6 +17,10 @@ import org.javamisc.csv.CsvTable;
 import org.isacrodi.ejb.entity.*;
 import org.isacrodi.ejb.session.*;
 import org.isacrodi.util.io.*;
+
+// FIXME: wildcard imports
+import java.util.*;
+import org.isacrodi.diagnosis.*;
 
 
 // FIXME: exceptions thrown by this class are a haphazard mess, util should provide exceptions for scanning and parsing
@@ -306,6 +311,30 @@ public class Import
       InitialContext context = new InitialContext();
       Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
       kludge.makeRandomExpertDiagnosedCDRs(rndseed, numNumericTypes, numCrops, numCropDisorders, numCDRs, numDisorderAssociations, numericDescriptorPercentage, stddevBetween, stddevWithin);
+    }
+    else if (args[0].equals("-x"))
+    {
+      InitialContext context = new InitialContext();
+      CropDisorderRecordManager cdrm = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
+      HashMap<String, FeatureVector> labelledFeatureVectorMap = new HashMap<String, FeatureVector>();
+      DummyCDRFeatureExtractor extractor = new DummyCDRFeatureExtractor();
+      List<CropDisorderRecord> cdrList = cdrm.findExpertDiagnosedCropDisorderRecordList();
+      for (CropDisorderRecord cdr : cdrList)
+      {
+	System.err.println(String.format("cdr #%d: crop: %s", cdr.getId().intValue(), cdr.getCrop().getName()));
+	System.err.println("  " + cdr.getExpertDiagnosedCropDisorder().getScientificName());
+	labelledFeatureVectorMap.put(cdr.getExpertDiagnosedCropDisorder().getScientificName(), extractor.extract(cdr));
+      }
+      for (String label : labelledFeatureVectorMap.keySet())
+      {
+	System.err.println(String.format("%s: %s", label, labelledFeatureVectorMap.get(label).toString()));
+      }
+      Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
+      for (int i = 1; i < args.length; i++)
+      {
+	Integer cdrId = new Integer(Integer.parseInt(args[i]));
+	kludge.concoctDiagnosis(cdrId);
+      }
     }
     else
     {

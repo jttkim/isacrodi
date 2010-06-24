@@ -93,6 +93,19 @@ public class KludgeBean implements Kludge
   private EntityManager entityManager;
 
 
+  public void concoctDiagnosis(Integer cdrId)
+  {
+    CropDisorderRecord cdr = this.entityManager.find(CropDisorderRecord.class, cdrId);
+    if (cdr == null)
+    {
+      return;
+    }
+    Diagnosis diagnosis = new Diagnosis();
+    diagnosis.linkCropDisorderRecord(cdr);
+    this.entityManager.persist(diagnosis);
+  }
+
+
   public void makeRandomExpertDiagnosedCDRs(int rndseed, int numNumericTypes, int numCrops, int numCropDisorders, int numCDRs, int numDisorderAssociations, double numericDescriptorPercentage, double stddevBetween, double stddevWithin)
   {
     Random rng = new Random(rndseed);

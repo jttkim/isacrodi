@@ -41,7 +41,7 @@ public class FeatureVector extends HashMap<String, AbstractFeature>
     String glue = "";
     for (String k : this.keySet())
     {
-      s += String.format("%s%s: %f", glue, k, this.get(k));
+      s += String.format("%s%s: %s", glue, k, this.get(k).toString());
       glue = ", ";
     }
     s += "}";
