@@ -1,23 +1,26 @@
 package org.isacrodi.diagnosis;
 
 import org.isacrodi.ejb.entity.*;
-import java.io.IOException;
 import java.util.Set;
 import java.util.Vector;
 import java.util.HashSet;
-import java.io.*;
-import java.io.ByteArrayOutputStream;
-import libsvm.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import java.io.IOException;
+import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
+
+import libsvm.*;
+
 
 /**
  * Implements Diagnosis Provider Interface
  */
 public class SVMDiagnosisProvider implements DiagnosisProvider
 {
-  private Set<CropDisorder> cropDisorderSet;
+  private Set<CropDisorder> knownCropDisorderSet;
   private CDRFeatureExtractor fe;
   private FeatureVectorMapper fvm;
   private ScoreTable score;
@@ -36,9 +39,29 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
   }
 
 
-  public void setKnownDisorderSet(Set<CropDisorder> cropDisorderSet)
+  public SVMDiagnosisProvider(String modelFileName) throws IOException
   {
-    this.cropDisorderSet = cropDisorderSet;
+    this();
+    this.model = svm.svm_load_model(modelFileName);
+  }
+
+
+  @Deprecated
+  public void setKnownCropDisorderSet(Set<CropDisorder> knownCropDisorderSet)
+  {
+    this.knownCropDisorderSet = knownCropDisorderSet;
+  }
+
+
+  public void train(Collection<CropDisorderRecord> labelledCropDisorderRecordSet)
+  {
+    this.knownCropDisorderSet = new HashSet<CropDisorder>();
+    for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
+    {
+      this.knownCropDisorderSet.add(cropDisorderRecord.getExpertDiagnosedCropDisorder());
+      // get feature vectors...
+    }
+    this.model = null; // compute and set the model to be used for predicting...
   }
 
 
@@ -59,7 +82,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
       this.model = svm.svm_load_model(model_filename);
       this.score = this.svmpredict.predict(this.model, fv);
 
-      for (CropDisorder disorder : this.cropDisorderSet)
+      for (CropDisorder disorder : this.knownCropDisorderSet)
       {
         DisorderScore ds1 = new DisorderScore();
         ds1.setScore(this.score.getScore(Integer.toString(disorder.getId())));
