@@ -20,6 +20,7 @@
     <module>ejbs</module>
     <module>web</module>
     <module>import</module>
+    <module>diagnose</module>
   </modules>
 
   <build>
@@ -59,6 +60,12 @@
       <dependency>
         <groupId>isacrodi-proj</groupId>
 	<artifactId>import</artifactId>
+	<version>${isacrodiVersion}</version>
+	<type>jar</type>
+      </dependency>
+      <dependency>
+        <groupId>isacrodi-proj</groupId>
+	<artifactId>diagnose</artifactId>
 	<version>${isacrodiVersion}</version>
 	<type>jar</type>
       </dependency>
