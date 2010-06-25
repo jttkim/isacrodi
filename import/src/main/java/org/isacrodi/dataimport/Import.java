@@ -329,6 +329,10 @@ public class Import
       {
 	System.err.println(String.format("%s: %s", label, labelledFeatureVectorMap.get(label).toString()));
       }
+      SVMDiagnosisProvider svmdp = new SVMDiagnosisProvider();
+      svmdp.train(cdrList);
+      CropDisorderRecord cdr = null; // get one
+      Diagnosis diagnosis = svmdp.diagnose(cdr);
       Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
       for (int i = 1; i < args.length; i++)
       {

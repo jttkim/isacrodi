@@ -293,7 +293,7 @@ public class DiagnosisTest
   public void testSVMDiagnosis() throws IOException
   {
     SVMDiagnosisProvider dp = new SVMDiagnosisProvider();
-    dp.setKnownDisorderSet(this.cropDisorderSet);
+    dp.setKnownCropDisorderSet(this.cropDisorderSet);
     this.diagnosis = new Diagnosis();
     this.diagnosis.setId(1);
     this.diagnosis.setCropDisorderRecord(this.cropDisorderRecord);
