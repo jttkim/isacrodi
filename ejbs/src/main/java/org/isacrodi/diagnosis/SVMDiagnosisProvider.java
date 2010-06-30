@@ -4,6 +4,8 @@ import org.isacrodi.ejb.entity.*;
 import java.util.Set;
 import java.util.Vector;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -35,14 +37,15 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
     this.fvm = new FeatureVectorMapper();
     this.score = new ScoreTable();
     this.svmpredict = new SVMPredict();
-    this.model = new svm_model();
+    this.model = null;
   }
 
 
-  public SVMDiagnosisProvider(String modelFileName) throws IOException
+  public SVMDiagnosisProvider(String modelFileName, String parseFileName) throws IOException
   {
     this();
     this.model = svm.svm_load_model(modelFileName);
+    this.fvm.parseFile(parseFileName);
   }
 
 
@@ -55,46 +58,46 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
 
   public void train(Collection<CropDisorderRecord> labelledCropDisorderRecordSet)
   {
+    //FIXME: Do the index mapping as now it uses consecutive double numbers
+
     this.knownCropDisorderSet = new HashSet<CropDisorder>();
+    HashMap<Double, svm_node[]> hm = new HashMap<Double, svm_node[]>();
+    svm_node[] fv = null;
+    Double i = 0.0;
+    int max = 0;
+
     for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
     {
       this.knownCropDisorderSet.add(cropDisorderRecord.getExpertDiagnosedCropDisorder());
-      // get feature vectors...
+      hm.put(i,this.fvm.map(this.fe.extract(cropDisorderRecord)));
+      max = this.fvm.getMappedVectorDimension();
+      i++;
     }
-    this.model = null; // compute and set the model to be used for predicting...
+    SVMTrain train = new SVMTrain();
+    this.model = train.classify(hm, max);
   }
 
 
   public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
   {
-    String model_filename = "src/test/java/org/isacrodi/diagnosis/isacrodi_model";
     Diagnosis diagnosis = new Diagnosis();
     svm_node[] fv = null;
     diagnosis.setCropDisorderRecord(cropDisorderRecord);
     diagnosis.setDisorderScoreSet(new HashSet<DisorderScore>());
     FeatureVector featureVector = fe.extract(cropDisorderRecord);
 
-    this.fvm.parseFile("src/test/java/org/isacrodi/diagnosis/isacrodi_feature_mapper.txt");
     fv = this.fvm.map(featureVector);
-    //FIXME: How can I get rid of this try
-    try 
-    {
-      this.model = svm.svm_load_model(model_filename);
-      this.score = this.svmpredict.predict(this.model, fv);
+    this.score = this.svmpredict.predict(this.model, fv);
 
-      for (CropDisorder disorder : this.knownCropDisorderSet)
-      {
-        DisorderScore ds1 = new DisorderScore();
-        ds1.setScore(this.score.getScore(Integer.toString(disorder.getId())));
-        ds1.setDiagnosis(diagnosis);
-        ds1.setCropDisorder(disorder);
-        diagnosis.addDisorderScore(ds1);
-      }
-    } 
-    catch (IOException e)
+    for (CropDisorder disorder : this.knownCropDisorderSet)
     {
-      System.err.println(e);
+      DisorderScore ds1 = new DisorderScore();
+      ds1.setScore(this.score.getScore(Integer.toString(disorder.getId())));
+      ds1.setDiagnosis(diagnosis);
+      ds1.setCropDisorder(disorder);
+      diagnosis.addDisorderScore(ds1);
     }
+
     return diagnosis;   
   }
 }

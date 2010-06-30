@@ -287,12 +287,16 @@ public class DiagnosisTest
   /**
    * Test Feature Mapper
    *
-   * @author jtk
+   * @author avc
    */
+  
   @Test
   public void testSVMDiagnosis() throws IOException
   {
-    SVMDiagnosisProvider dp = new SVMDiagnosisProvider();
+    String model_filename = "src/test/java/org/isacrodi/diagnosis/isacrodi_model";
+    String parse_filename = "src/test/java/org/isacrodi/diagnosis/isacrodi_feature_mapper.txt";
+    SVMDiagnosisProvider dp = new SVMDiagnosisProvider(model_filename, parse_filename);
+
     dp.setKnownCropDisorderSet(this.cropDisorderSet);
     this.diagnosis = new Diagnosis();
     this.diagnosis.setId(1);
@@ -321,7 +325,7 @@ public class DiagnosisTest
 
     Assert.assertTrue(this.diagnosis != null);
   }
-
+  
 
   /**
    * Test Feature Mapper
