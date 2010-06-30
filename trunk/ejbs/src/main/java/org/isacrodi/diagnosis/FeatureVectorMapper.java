@@ -164,7 +164,8 @@ public class FeatureVectorMapper
 
   public svm_node[] map(FeatureVector featureVector)
   {
-    svm_node[] node = new svm_node[this.getMappedVectorDimension() + 1];
+    svm_node[] node = new svm_node[getMappedVectorDimension() + 1];
+
     for (AbstractComponentMapper c : this.componentMapperList)
     {
       AbstractFeature f = featureVector.get(c.getFeatureName());

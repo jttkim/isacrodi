@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import libsvm.*;
 
 import java.util.List;
 import java.util.Iterator;
@@ -314,26 +315,34 @@ public class Import
     }
     else if (args[0].equals("-x"))
     {
+      String model_filename = "ejbs/src/test/java/org/isacrodi/diagnosis/isacrodi_model";
+      String parse_filename = "ejbs/src/test/java/org/isacrodi/diagnosis/isacrodi_feature_mapper_v1.txt";
       InitialContext context = new InitialContext();
       CropDisorderRecordManager cdrm = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
       HashMap<String, FeatureVector> labelledFeatureVectorMap = new HashMap<String, FeatureVector>();
       DummyCDRFeatureExtractor extractor = new DummyCDRFeatureExtractor();
       List<CropDisorderRecord> cdrList = cdrm.findExpertDiagnosedCropDisorderRecordList();
+      CropDisorderRecord cdro = null;
+
       for (CropDisorderRecord cdr : cdrList)
       {
 	System.err.println(String.format("cdr #%d: crop: %s", cdr.getId().intValue(), cdr.getCrop().getName()));
 	System.err.println("  " + cdr.getExpertDiagnosedCropDisorder().getScientificName());
 	labelledFeatureVectorMap.put(cdr.getExpertDiagnosedCropDisorder().getScientificName(), extractor.extract(cdr));
+	cdro = cdr;
       }
+
       for (String label : labelledFeatureVectorMap.keySet())
       {
 	System.err.println(String.format("%s: %s", label, labelledFeatureVectorMap.get(label).toString()));
       }
-      SVMDiagnosisProvider svmdp = new SVMDiagnosisProvider();
+
+      SVMDiagnosisProvider svmdp = new SVMDiagnosisProvider(model_filename, parse_filename);
       svmdp.train(cdrList);
-      CropDisorderRecord cdr = null; // get one
-      Diagnosis diagnosis = svmdp.diagnose(cdr);
+
+      Diagnosis diagnosis = svmdp.diagnose(cdrm.findCropDisorderRecord(Integer.parseInt(args[1])));
       Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
+
       for (int i = 1; i < args.length; i++)
       {
 	Integer cdrId = new Integer(Integer.parseInt(args[i]));
