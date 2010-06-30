@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import libsvm.*;
 
 
+// FIXME: can this be generified so that multiple source and target types can be supported?
+
 /**
  *  Feature Vector Mapper.
  */
-
-
 public class FeatureVectorMapper
 {
 
