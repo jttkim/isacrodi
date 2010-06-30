@@ -80,6 +80,10 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>edu.berkeley.compbio</groupId>
+      <artifactId>jlibsvm</artifactId>
+    </dependency>
+    <dependency>
       <groupId>javamisc</groupId>
       <artifactId>javamisc</artifactId>
       <type>jar</type>

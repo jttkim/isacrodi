@@ -40,9 +40,16 @@ public class SVMTrain
   {
 
   // default values
+    // use slack variables
     this.svmparameter.svm_type = svm_parameter.C_SVC;
+
+    // use radial basis function
     this.svmparameter.kernel_type = svm_parameter.RBF;
+
+    // unused?
     this.svmparameter.degree = 3;
+
+    // 
     this.svmparameter.gamma = 0;
     this.svmparameter.coef0 = 0;
     this.svmparameter.nu = 0.5;
@@ -55,7 +62,6 @@ public class SVMTrain
     this.svmparameter.nr_weight = 0;
     this.svmparameter.weight_label = new int[0];
     this.svmparameter.weight = new double[0];
-
   }
 
 
