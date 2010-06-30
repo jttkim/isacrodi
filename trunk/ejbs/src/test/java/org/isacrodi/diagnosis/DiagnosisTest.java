@@ -342,4 +342,52 @@ public class DiagnosisTest
     fv = fvm.map(featureVector);
   }
 
+
+  /**
+   * Test {@code JSVMDiagnosisProvider}.
+   *
+   * @author jtk
+   */
+  @Test
+  public void testJSVMDiagnosisProvider()
+  {
+    IsacrodiUser user = new IsacrodiUser("Driver", "Test", "testdriver", "", "testdriver@somewhere.org");
+    NumericType[] ntList = {new NumericType("disorderIndex"), new NumericType("x"), new NumericType("i")};
+    Crop crop = new Crop("weed", "Arabidopsis abhorrens");
+    CropDisorder[] disorderList = {new CropDisorder("pestilence", "Yersinia ynfestans"), new CropDisorder("fluffymold", "Fungus fatalis"), new CropDisorder("velvetwilt", "Virus virulens")};
+    for (CropDisorder cd : disorderList)
+    {
+      cd.linkCrop(crop);
+    }
+    int numCdrsPerDisorder = 10;
+    List<CropDisorderRecord> cdrList = new ArrayList<CropDisorderRecord>();
+    for (int i = 0; i < numCdrsPerDisorder * disorderList.length; i++)
+    {
+      CropDisorderRecord cdr = new CropDisorderRecord();
+      cdr.linkIsacrodiUser(user);
+      int disorderIndex = i % disorderList.length;
+      CropDisorder disorder = disorderList[disorderIndex];
+      cdr.linkExpertDiagnosedCropDisorder(disorder);
+      cdr.linkDescriptor(new NumericDescriptor(ntList[0], (double) disorderIndex));
+      cdr.linkDescriptor(new NumericDescriptor(ntList[1], (double) (i / disorderList.length)));
+      cdr.linkDescriptor(new NumericDescriptor(ntList[2], (double) i));
+      cdrList.add(cdr);
+    }
+    JSVMDiagnosisProvider dp = new JSVMDiagnosisProvider();
+    dp.train(cdrList);
+    for (CropDisorderRecord cdr : cdrList)
+    {
+      String expertDiagnosis = cdr.getExpertDiagnosedCropDisorder().getScientificName();
+      Diagnosis diagnosis = dp.diagnose(cdr);
+      String jsvmDiagnosis = null;
+      for (DisorderScore ds : diagnosis.getDisorderScoreSet())
+      {
+	if (ds.getScore() == 1.0)
+	{
+	  jsvmDiagnosis = ds.getCropDisorder().getScientificName();
+	}
+      }
+      Assert.assertEquals("jsvm misdiagnosis", expertDiagnosis, jsvmDiagnosis);
+    }
+  }
 }

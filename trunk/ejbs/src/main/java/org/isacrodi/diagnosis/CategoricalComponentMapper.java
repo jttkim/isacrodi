@@ -1,8 +1,10 @@
 package org.isacrodi.diagnosis;
 
+import java.util.Map;
+import java.util.HashMap;
+
 import org.isacrodi.ejb.entity.*;
 import org.isacrodi.ejb.session.*;
-import java.util.HashMap;
 
 import libsvm.svm_node;
 
@@ -17,7 +19,7 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
    * state mapper class as in the previous design, a hash map using
    * state names as keys and indexes as values is sufficient.
    */
-  private HashMap<String, Integer> stateIndexMap;
+  private Map<String, Integer> stateIndexMap;
 
 
   public CategoricalComponentMapper()
@@ -27,16 +29,43 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
   }
 
 
-  public CategoricalComponentMapper(String name, int indexPresence)
+  public CategoricalComponentMapper(String featureName)
   {
-    super(name, indexPresence);
+    // FIXME: partially initialised, cannot represent uninitialised indexPresence
+    super(featureName);
+  }
+
+
+  public CategoricalComponentMapper(String featureName, int indexPresence)
+  {
+    super(featureName, indexPresence);
     this.stateIndexMap = new HashMap<String, Integer>();
   }
 
 
+  /**
+   * Determine whether a state is mapped.
+   *
+   * @param stateName the name of the state to be checked
+   * @return {@code true} if the state is mapped
+   */
+  public boolean hasState(String stateName)
+  {
+    return (this.stateIndexMap.containsKey(stateName));
+  }
+
+
+  /**
+   * Add a state with a given index.
+   *
+   * @param stateName the name of the state
+   * @param index the index to be associated with that state
+   *
+   * @throws IllegalArgumentException if the state name is alrady taken
+   */
   public void addState(String stateName, int index)
   {
-    if (this.stateIndexMap.containsKey(stateName))
+    if (this.hasState(stateName))
     {
       throw new IllegalArgumentException(String.format("state \"%s\" already mapped", stateName));
     }
@@ -58,6 +87,19 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
       s += String.format(", %s -> %d", stateName, this.stateIndexMap.get(stateName).intValue());
     }
     return (s + ")");
+  }
+
+
+  public void designateIndexes(int startIndex)
+  {
+    Map<String, Integer> newMap = new HashMap<String, Integer>();
+    int i = startIndex;
+    for (String stateName : this.stateIndexMap.keySet())
+    {
+      newMap.put(stateName, new Integer(i++));
+    }
+    this.indexPresence = i++;
+    this.stateIndexMap = newMap;
   }
 
 
@@ -97,6 +139,7 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
       {
 	throw new IllegalArgumentException(String.format("feature %s is not categorical", feature.getName()));
       }
+      // FIXME: should also verify that feature has expected name -- by method provided by abstract base class?
       CategoricalFeature categoricalFeature = (CategoricalFeature) feature;
       for (String stateName : this.stateIndexMap.keySet())
       {
