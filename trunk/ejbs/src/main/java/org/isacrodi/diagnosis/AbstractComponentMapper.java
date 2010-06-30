@@ -8,7 +8,7 @@ import libsvm.svm_node;
 /**
  * Abstract Feature Vector Mapper Component 
  */
-abstract class AbstractComponentMapper
+public abstract class AbstractComponentMapper
 {
   protected String featureName;
   protected int indexPresence;
