@@ -26,8 +26,17 @@ public class DisorderScore implements IsacrodiEntity
 
   public DisorderScore(double score)
   {
+    this();
     this.score = score;
   }
+
+
+  public DisorderScore(double score, CropDisorder cropDisorder)
+  {
+    this(score);
+    this.cropDisorder = cropDisorder;
+  }
+
 
   @Id
   @GeneratedValue
@@ -145,11 +154,13 @@ public class DisorderScore implements IsacrodiEntity
   }
 
 
+  /* jtk: hash code breaks if diagnosis or cropDisorder are null
   public int hashCode()
   {
     // jtk: what do we need this for? is this a good hash code?
     return 1948 * diagnosis.hashCode() + cropDisorder.hashCode();
   }
+  */
 
 
   public boolean equals(Object obj)

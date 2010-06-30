@@ -162,6 +162,25 @@ public class FeatureVectorMapper
   }
 
 
+  /**
+   * Designate indexes for all component mappers of this feature mapper.
+   *
+   * <p><strong>Notice:</strong> Existing indexes are wiped out by
+   * this method. This method is intended to be used to complete
+   * construction of a feature vector mapper based on a training set
+   * only.</p>
+   */
+  public void designateIndexes()
+  {
+    int startIndex = 0;
+    for (AbstractComponentMapper componentMapper : this.componentMapperList)
+    {
+      componentMapper.designateIndexes(startIndex);
+      startIndex = componentMapper.getMaxIndex() + 1;
+    }
+  }
+
+
   public svm_node[] map(FeatureVector featureVector)
   {
     svm_node[] node = new svm_node[getMappedVectorDimension() + 1];

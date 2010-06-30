@@ -12,7 +12,7 @@ import libsvm.svm_node;
 
 public class NumericComponentMapper extends AbstractComponentMapper
 {
-
+  // FIXME: cannot represent uninitialised state
   private int index;
   private double valueMissing;
 
@@ -23,9 +23,15 @@ public class NumericComponentMapper extends AbstractComponentMapper
   }
 
 
-  public NumericComponentMapper(String name, int index, int indexPresence, double valueMissing)
+  public NumericComponentMapper(String featureName)
   {
-    super(name, indexPresence);
+    super(featureName);
+  }
+
+
+  public NumericComponentMapper(String featureName, int index, int indexPresence, double valueMissing)
+  {
+    super(featureName, indexPresence);
     this.index = index;
     this.valueMissing = valueMissing;
   }
@@ -37,15 +43,35 @@ public class NumericComponentMapper extends AbstractComponentMapper
   }
 
 
+  public void setIndex(int index)
+  {
+    this.index = index;
+  }
+
+
   public double getValueMissing()
   {
     return this.valueMissing;
   }
 
 
+  public void setValueMissing(double valueMissing)
+  {
+    this.valueMissing = valueMissing;
+  }
+
+
   public String toString()
   {
     return String.format("%d %f", this.index, this.valueMissing);
+  }
+
+
+  public void designateIndexes(int startIndex)
+  {
+    int i = startIndex;
+    this.index = i++;
+    this.indexPresence = i++;
   }
 
 
@@ -79,6 +105,7 @@ public class NumericComponentMapper extends AbstractComponentMapper
       {
 	throw new IllegalArgumentException(String.format("feature %s is not numeric", feature.getName()));
       }
+      // FIXME: should also verify that feature has expected name -- by method provided by abstract base class?
       NumericFeature numericFeature = (NumericFeature) feature;
       node[this.index] = new svm_node();
       node[this.index].index = this.index;

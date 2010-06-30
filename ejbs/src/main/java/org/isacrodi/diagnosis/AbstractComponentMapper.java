@@ -20,10 +20,16 @@ public abstract class AbstractComponentMapper
   }
 
 
-  public AbstractComponentMapper(String featureName, int indexPresence)
+  public AbstractComponentMapper(String featureName)
   {
     this();
     this.featureName = featureName;
+  }
+
+
+  public AbstractComponentMapper(String featureName, int indexPresence)
+  {
+    this(featureName);
     this.indexPresence = indexPresence;
   }
 
@@ -58,7 +64,10 @@ public abstract class AbstractComponentMapper
   }
 
 
-  abstract int getMaxIndex();
+  public abstract void designateIndexes(int startIndex);
+
+
+  public abstract int getMaxIndex();
 
 
   /**
