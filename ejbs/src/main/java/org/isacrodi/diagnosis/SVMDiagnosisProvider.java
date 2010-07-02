@@ -28,6 +28,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
   private ScoreTable score;
   private SVMPredict svmpredict;
   private svm_model model;
+  private Map<String, Integer> disorderIndexMap;
 
 
   public SVMDiagnosisProvider()
@@ -38,6 +39,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
     this.score = new ScoreTable();
     this.svmpredict = new SVMPredict();
     this.model = null;
+    this.disorderIndexMap = null;
   }
 
 
@@ -58,20 +60,31 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
 
   public void train(Collection<CropDisorderRecord> labelledCropDisorderRecordSet)
   {
-    //FIXME: Do the index mapping as now it uses consecutive double numbers
-
+    // FIXME: consider defining this mapping as part of the feature vector mappers' responsibilities
     this.knownCropDisorderSet = new HashSet<CropDisorder>();
     HashMap<Double, svm_node[]> hm = new HashMap<Double, svm_node[]>();
     svm_node[] fv = null;
-    Double i = 0.0;
     int max = 0;
 
+    this.disorderIndexMap = new HashMap<String, Integer>();
+    int maxDisorderIndex = 0;
     for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
     {
+      CropDisorder edd = cropDisorderRecord.getExpertDiagnosedCropDisorder();
+      // FIXME: should check whether this is not null
+      String eddName = edd.getScientificName();
+      if (!this.disorderIndexMap.containsKey(eddName))
+      {
+	this.disorderIndexMap.put(eddName, new Integer(maxDisorderIndex++));
+      }
+      int disorderIndex = this.disorderIndexMap.get(eddName).intValue();
       this.knownCropDisorderSet.add(cropDisorderRecord.getExpertDiagnosedCropDisorder());
-      hm.put(i,this.fvm.map(this.fe.extract(cropDisorderRecord)));
+      // FIXME: jtk: I think this is wrong -- if there are multiple CDRs
+      // with the same disorder diagnosed by an expert, only the last
+      // CDR with a given expert diagnosis will end up in the map.
+      hm.put(new Double((double) disorderIndex), this.fvm.map(this.fe.extract(cropDisorderRecord)));
+      // FIXME: determining dimension of mapped feature vectors is a feature vector mapper responsibility
       max = this.fvm.getMappedVectorDimension();
-      i++;
     }
     SVMTrain train = new SVMTrain();
     this.model = train.classify(hm, max);
