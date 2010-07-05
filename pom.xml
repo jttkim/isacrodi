@@ -46,7 +46,8 @@
     </plugins>
   </reporting>
 
-  <!-- repositories>
+  <repositories>
+    <!-- jlibsvm repository -->
     <repository>
       <id>dev.davidsoergel.com releases</id>
       <url>http://dev.davidsoergel.com/artifactory/repo</url>
@@ -61,8 +62,7 @@
 	<enabled>false</enabled>
       </releases>
     </repository>
-  </repositories -->
-
+  </repositories>
 
   <build>
     <plugins>
@@ -137,12 +137,12 @@
 	<version>${isacrodiVersion}</version>
 	<type>war</type>
       </dependency>
-      <!-- dependency>
+      <dependency>
 	<groupId>edu.berkeley.compbio</groupId>
 	<artifactId>jlibsvm</artifactId>
 	<version>0.902</version>
 	<type>jar</type>
-      </dependency -->
+      </dependency>
       <dependency>
 	<groupId>classifier</groupId>
 	<artifactId>libsvm</artifactId>
