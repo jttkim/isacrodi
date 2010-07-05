@@ -32,7 +32,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
   {
     super();
     this.fe = new DummyCDRFeatureExtractor();
-    this.svmNodeFeatureVectorMapper = new SvmNodeFeatureVectorMapper();
+    this.svmNodeFeatureVectorMapper = null;
     this.model = null;
     this.disorderIndexMap = null;
   }
@@ -92,7 +92,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
   }
 
 
-  protected void extractFeatureVectorMapper(Collection<FeatureVector> featureVectorCollection)
+  protected static SvmNodeFeatureVectorMapper extractFeatureVectorMapper(Collection<FeatureVector> featureVectorCollection)
   {
     Map<String, AbstractComponentMapper> componentMapperMap = new HashMap<String, AbstractComponentMapper>();
     for (FeatureVector featureVector : featureVectorCollection)
@@ -109,12 +109,13 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
 	updateComponentMapper(feature, componentMapper);
       }
     }
-    this.svmNodeFeatureVectorMapper = new SvmNodeFeatureVectorMapper();
+    SvmNodeFeatureVectorMapper svmNodeFeatureVectorMapper = new SvmNodeFeatureVectorMapper();
     for (AbstractComponentMapper componentMapper : componentMapperMap.values())
     {
-      this.svmNodeFeatureVectorMapper.addComponentMapper(componentMapper);
+      svmNodeFeatureVectorMapper.addComponentMapper(componentMapper);
     }
-    this.svmNodeFeatureVectorMapper.designateIndexes();
+    svmNodeFeatureVectorMapper.designateIndexes();
+    return (svmNodeFeatureVectorMapper);
   }
   // jtk: end copied stuff
 
@@ -136,12 +137,11 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
 
   public void train(Collection<CropDisorderRecord> labelledCropDisorderRecordSet)
   {
+    System.err.println(String.format("SVMDiagnosisProvider.train: starting, %d labelled CDRs", labelledCropDisorderRecordSet.size()));
     // FIXME: consider defining this mapping as part of the feature vector mappers' responsibilities
     this.disorderIndexMap = new HashMap<CropDisorder, Integer>();
-    svm_node[][] sample = new svm_node[labelledCropDisorderRecordSet.size()][];
-    double label[] = new double[labelledCropDisorderRecordSet.size()];
     int maxDisorderIndex = 0;
-    int i = 0;
+    Collection<FeatureVector> featureVectorCollection = new HashSet<FeatureVector>();
     for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
     {
       CropDisorder edd = cropDisorderRecord.getExpertDiagnosedCropDisorder();
@@ -153,10 +153,24 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
       {
 	this.disorderIndexMap.put(edd, new Integer(maxDisorderIndex++));
       }
-      int disorderIndex = this.disorderIndexMap.get(edd).intValue();
-      label[i] = (double) disorderIndex;
       FeatureVector featureVector = this.fe.extract(cropDisorderRecord);
+      featureVectorCollection.add(featureVector);
+    }
+    this.svmNodeFeatureVectorMapper = this.extractFeatureVectorMapper(featureVectorCollection);
+    svm_node[][] sample = new svm_node[labelledCropDisorderRecordSet.size()][];
+    double label[] = new double[labelledCropDisorderRecordSet.size()];
+    int i = 0;
+    for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
+    {
+      CropDisorder edd = cropDisorderRecord.getExpertDiagnosedCropDisorder();
+      int disorderIndex = this.disorderIndexMap.get(edd).intValue();
+      // FIXME: clumsy programming -- duplicate feature vector extraction
+      FeatureVector featureVector = this.fe.extract(cropDisorderRecord);
+      featureVectorCollection.add(featureVector);
+      label[i] = (double) disorderIndex;
       sample[i] = this.svmNodeFeatureVectorMapper.map(featureVector);
+      System.err.println(String.format("SVMDiagnosisProvider.train: svn_node vector length: %d", sample[i].length));
+      i++;
     }
     svm_parameter svmparameter = new svm_parameter();
     // use svm with slack variables
@@ -166,7 +180,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
     // unused?
     svmparameter.degree = 3;
     // gamma = 1 / number of features
-    svmparameter.gamma = 1.0 / ((double) labelledCropDisorderRecordSet.size());
+    svmparameter.gamma = 1.0 / ((double) this.svmNodeFeatureVectorMapper.targetSpaceDimension());
     svmparameter.coef0 = 0;
     svmparameter.nu = 0.5;
     svmparameter.cache_size = 100;
