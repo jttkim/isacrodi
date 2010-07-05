@@ -289,7 +289,7 @@ public class DiagnosisTest
    *
    * @author avc
    */
-  
+  /* jtk: suspended test while redesign of serialising / parsing is pending
   @Test
   public void testSVMDiagnosis() throws IOException
   {
@@ -297,7 +297,6 @@ public class DiagnosisTest
     String parse_filename = "src/test/java/org/isacrodi/diagnosis/isacrodi_feature_mapper.txt";
     SVMDiagnosisProvider dp = new SVMDiagnosisProvider(model_filename, parse_filename);
 
-    dp.setKnownCropDisorderSet(this.cropDisorderSet);
     this.diagnosis = new Diagnosis();
     this.diagnosis.setId(1);
     this.diagnosis.setCropDisorderRecord(this.cropDisorderRecord);
@@ -325,7 +324,7 @@ public class DiagnosisTest
 
     Assert.assertTrue(this.diagnosis != null);
   }
-  
+  */
 
   /**
    * Test Feature Mapper
@@ -336,7 +335,8 @@ public class DiagnosisTest
   public void testFeatureMapper()
   {
     FeatureVector featureVector = new FeatureVector();
-    FeatureVectorMapper fvm = new FeatureVectorMapper();
+    // jtk: changed FeatureVectorMapper to SvmNodeFeatureVectorMapper
+    SvmNodeFeatureVectorMapper fvm = new SvmNodeFeatureVectorMapper();
 
     svm_node[] fv = null;
     fv = fvm.map(featureVector);

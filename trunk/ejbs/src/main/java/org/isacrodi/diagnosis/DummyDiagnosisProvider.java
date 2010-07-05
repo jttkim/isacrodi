@@ -26,6 +26,7 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
   }
 
 
+  @Deprecated
   public void setKnownDisorderSet(Set<CropDisorder> cropDisorderSet)
   {
     this.cropDisorderSet = cropDisorderSet;
@@ -52,7 +53,6 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
       ds.setCropDisorder(disorder);
       d.addDisorderScore(ds);
     }
-    
     return (d);
   }
 
