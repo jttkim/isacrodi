@@ -1,4 +1,4 @@
-<project>  
+<project>
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -19,74 +19,63 @@
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
+	  <verbose>true</verbose>
+	  <showDeprecation>false</showDeprecation>
+	  <showWarnings>false</showWarnings>
         </configuration>
-        </plugin>        
-        <plugin>
-	  <groupId>org.apache.maven.plugins</groupId>
-	  <artifactId>maven-ejb-plugin</artifactId>
-	  <configuration>
-	    <archive>
-	      <manifestEntries>
-		<!-- FIXME: hard-coded jar names - is there a Maven way to get at these by dependency?? -->
-		<Class-Path>isacrodi-util.jar javamisc-1.0.jar</Class-Path>
-	      </manifestEntries>
-            </archive>
-	    <ejbVersion>3.0</ejbVersion>
-	    <generateClient>true</generateClient>
-	  </configuration>
-	</plugin>
+      </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-ejb-plugin</artifactId>
+	<configuration>
+	  <archive>
+	    <manifestEntries>
+	      <!-- FIXME: hard-coded jar names - is there a Maven way to get at these by dependency?? -->
+	      <Class-Path>isacrodi-util.jar javamisc-1.0.jar</Class-Path>
+	    </manifestEntries>
+	  </archive>
+	  <ejbVersion>3.0</ejbVersion>
+	  <generateClient>true</generateClient>
+	</configuration>
+      </plugin>
     </plugins>    
   </build> 
   <dependencies> 
     <dependency>
       <groupId>isacrodi-proj</groupId>
       <artifactId>util</artifactId>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>javax.ejb</groupId>
       <artifactId>ejb</artifactId>
-      <version>3.0</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
-      <version>2.0</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.1</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>classifier</groupId>
       <artifactId>libsvm</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
     </dependency>
-    <dependency>
+    <!-- dependency>
       <groupId>edu.berkeley.compbio</groupId>
       <artifactId>jlibsvm</artifactId>
-    </dependency>
+    </dependency -->
     <dependency>
       <groupId>javamisc</groupId>
       <artifactId>javamisc</artifactId>
-      <type>jar</type>
     </dependency>
   </dependencies> 
 </project>

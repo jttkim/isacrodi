@@ -43,6 +43,10 @@
       <result>/WEB-INF/views/showcropdisorderrecord.jsp</result>
     </action>
 
+    <action name="requestdiagnosis" class="org.isacrodi.struts.RequestDiagnosisAction">
+      <result>/WEB-INF/views/showcropdisorderrecord.jsp</result>
+    </action>
+
     <action name="showinlineimage" class="org.isacrodi.struts.ShowInlineImageAction">
       <result name="success" type="stream"></result>
     </action>

@@ -193,7 +193,6 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
       throw new RuntimeException("attempt to diagnose without training first");
     }
     Diagnosis diagnosis = new Diagnosis();
-    diagnosis.linkCropDisorderRecord(cropDisorderRecord);
     int[] svmLabels = new int[this.disorderIndexMap.size()];
     svm.svm_get_labels(this.model, svmLabels);
     FeatureVector featureVector = fe.extract(cropDisorderRecord);
@@ -209,6 +208,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
       DisorderScore disorderScore = new DisorderScore(probability[i], cropDisorder);
       diagnosis.linkDisorderScore(disorderScore);
     }
+    diagnosis.linkCropDisorderRecord(cropDisorderRecord);
     return diagnosis;   
   }
 }

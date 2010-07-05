@@ -32,7 +32,7 @@ public class ShowCropDisorderRecordAction extends IsacrodiActionSupport implemen
   }
 
 
-  public Integer getCropDisorderRecordid()
+  public Integer getCropDisorderRecordId()
   {
     return (this.cropDisorderRecordId);
   }

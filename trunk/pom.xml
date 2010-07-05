@@ -32,7 +32,7 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
-      <plugin>
+      <!-- plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
         <version>2.4</version>
@@ -42,11 +42,11 @@
 	  <format>xml</format>
 	  </formats>
 	</configuration>
-      </plugin>
+      </plugin -->
     </plugins>
   </reporting>
 
-  <repositories>
+  <!-- repositories>
     <repository>
       <id>dev.davidsoergel.com releases</id>
       <url>http://dev.davidsoergel.com/artifactory/repo</url>
@@ -61,7 +61,7 @@
 	<enabled>false</enabled>
       </releases>
     </repository>
-  </repositories>
+  </repositories -->
 
 
   <build>
@@ -73,6 +73,9 @@
 	<configuration>
 	  <source>1.6</source>
 	  <target>1.6</target>
+	  <verbose>false</verbose>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
 	</configuration>
       </plugin>
     </plugins>
@@ -94,20 +97,57 @@
       </dependency>
       <dependency>
         <groupId>isacrodi-proj</groupId>
-	<artifactId>web</artifactId>
-	<version>${isacrodiVersion}</version>
-	<type>war</type>
-      </dependency>
-      <dependency>
-        <groupId>isacrodi-proj</groupId>
 	<artifactId>import</artifactId>
 	<version>${isacrodiVersion}</version>
 	<type>jar</type>
       </dependency>
       <dependency>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>
+	<version>4.1</version>
+	<scope>test</scope>
+      </dependency>
+      <dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>servlet-api</artifactId>
+	<version>2.5</version>
+	<scope>provided</scope>
+      </dependency>
+      <dependency>
+	<groupId>javax.servlet.jsp</groupId>
+	<artifactId>jsp-api</artifactId>
+	<version>2.0</version>
+	<scope>provided</scope>
+      </dependency>
+      <dependency>
+	<groupId>javax.persistence</groupId>
+	<artifactId>persistence-api</artifactId>
+	<version>1.0</version>
+	<scope>provided</scope>
+      </dependency>
+      <dependency>
+	<groupId>javax.ejb</groupId>
+	<artifactId>ejb</artifactId>
+	<version>3.0</version>
+	<scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>isacrodi-proj</groupId>
+	<artifactId>web</artifactId>
+	<version>${isacrodiVersion}</version>
+	<type>war</type>
+      </dependency>
+      <!-- dependency>
 	<groupId>edu.berkeley.compbio</groupId>
 	<artifactId>jlibsvm</artifactId>
 	<version>0.902</version>
+	<type>jar</type>
+      </dependency -->
+      <dependency>
+	<groupId>classifier</groupId>
+	<artifactId>libsvm</artifactId>
+	<version>1.0</version>
+	<type>jar</type>
       </dependency>
       <dependency>
 	<groupId>javamisc</groupId>

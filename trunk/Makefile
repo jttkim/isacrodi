@@ -1,4 +1,9 @@
+include make.local
+
+ifeq ($(JBOSS_DEPLOYDIR),)
 JBOSS_DEPLOYDIR	= $(JBOSS_HOME)/server/default/deploy
+endif
+
 package :
 	mvn -o clean
 	mvn -o package
