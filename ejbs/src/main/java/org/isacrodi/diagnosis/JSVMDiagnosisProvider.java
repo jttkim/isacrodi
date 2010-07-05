@@ -35,7 +35,7 @@ public class JSVMDiagnosisProvider implements DiagnosisProvider
   private Map<String, Integer> featureNameIndexMap;
   private Map<String, Integer> disorderScientificNameIndexMap;
   private CDRFeatureExtractor cdrFeatureExtractor;
-  private FeatureVectorMapper featureVectorMapper;
+  private SvmNodeFeatureVectorMapper featureVectorMapper;
   private MultiClassModel<String, SparseVector> model;
   private Map<String, CropDisorder> cropDisorderMap;
 
@@ -177,7 +177,7 @@ public class JSVMDiagnosisProvider implements DiagnosisProvider
 	updateComponentMapper(feature, componentMapper);
       }
     }
-    this.featureVectorMapper = new FeatureVectorMapper();
+    this.featureVectorMapper = new SvmNodeFeatureVectorMapper();
     for (AbstractComponentMapper componentMapper : componentMapperMap.values())
     {
       this.featureVectorMapper.addComponentMapper(componentMapper);
@@ -191,7 +191,6 @@ public class JSVMDiagnosisProvider implements DiagnosisProvider
     this.cropDisorderMap = new HashMap<String, CropDisorder>();
     for (CropDisorderRecord cropDisorderRecord : cropDisorderRecordCollection)
     {
-      // FIXME: duplicate feature vector extraction
       CropDisorder cropDisorder = cropDisorderRecord.getExpertDiagnosedCropDisorder();
       if (cropDisorder == null)
       {
@@ -219,6 +218,7 @@ public class JSVMDiagnosisProvider implements DiagnosisProvider
     // b.p = 0.1f;
     ImmutableSvmParameter<String, SparseVector> param = new ImmutableSvmParameterPoint<String, SparseVector>(b);
     LabelInverter<String> labelInverter = new StringLabelInverter();
+    // FIXME: duplicate feature vector extraction
     Map<SparseVector, String> sampleLabelMap = this.extractSampleLabelMap(cropDisorderRecordCollection);
     System.err.printf("%d sparse vectors\n", sampleLabelMap.size());
     /*

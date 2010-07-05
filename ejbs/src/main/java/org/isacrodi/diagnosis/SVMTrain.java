@@ -66,6 +66,7 @@ public class SVMTrain
   }
 
 
+  // FIXME: type parameters missing
   public void loadTrainingData(HashMap hm, int max)
   {
    
