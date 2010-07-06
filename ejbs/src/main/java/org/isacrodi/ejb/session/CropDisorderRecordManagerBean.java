@@ -28,13 +28,20 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
   private static final long serialVersionUID = 1;
 
 
-  private void fetchLists(CropDisorderRecord cdr)
+  private void fetchSets(CropDisorderRecord cdr)
   {
     for (Descriptor descriptor : cdr.getDescriptorSet())
     {
       descriptor.getId();
     }
-    // FIXME: not implemented
+    Diagnosis diagnosis = cdr.getDiagnosis();
+    if (diagnosis != null)
+    {
+      for (DisorderScore disorderScore : diagnosis.getDisorderScoreSet())
+      {
+	disorderScore.getId();
+      }
+    }
   }
 
 
@@ -44,7 +51,7 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
     List<CropDisorderRecord> cdrList = genericTypecast(query.getResultList());
     for (CropDisorderRecord cdr : cdrList)
     {
-      fetchLists(cdr);
+      this.fetchSets(cdr);
     }
     return(cdrList);
   }
@@ -56,7 +63,7 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
     List<CropDisorderRecord> cdrList = genericTypecast(query.getResultList());
     for (CropDisorderRecord cdr : cdrList)
     {
-      fetchLists(cdr);
+      fetchSets(cdr);
     }
     return(cdrList);
   }
@@ -67,7 +74,7 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
     CropDisorderRecord cropDisorderRecord = this.entityManager.find(CropDisorderRecord.class, id);
     if (cropDisorderRecord != null)
     {
-      fetchLists(cropDisorderRecord);
+      fetchSets(cropDisorderRecord);
     }
     return (cropDisorderRecord);
   }

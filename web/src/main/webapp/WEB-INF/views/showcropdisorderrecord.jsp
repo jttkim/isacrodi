@@ -55,6 +55,21 @@
 <img src="<s:property escape="false" value="%{imgurl}"/>" alt="image"/>
 </s:iterator>
 
+<h2>Diagnosis</h2>
+
+<s:if test="%{diagnosis}">
+<table>
+<tr><th>score</th><th>disorder</th></tr>
+<s:iterator value="%{diagnosis.disorderScoreSet}">
+<s:url var="disorderurl" action="showdisorder"><s:param name="cropDisorderId" value="%{cropDisorder.id}"/></s:url>
+<tr><td><s:property value="%{score}"/></td><td><s:a href="%{disorderurl}"><span class="scientificname"><s:property value="%{cropDisorder.scientificName}"/></span></s:a></td></tr>
+</s:iterator>
+</table>
+</s:if>
+<s:else>
+<p>No diagnosis available</p>
+</s:else>
+
 </div>
 
 </body>
