@@ -32,17 +32,17 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
-      <!-- plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
         <version>2.4</version>
 	<configuration>
 	  <formats>
-	  <format>html</format>
-	  <format>xml</format>
+	    <format>html</format>
+	    <format>xml</format>
 	  </formats>
 	</configuration>
-      </plugin -->
+      </plugin>
     </plugins>
   </reporting>
 
@@ -83,6 +83,7 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- isacrodi dependencies -->
       <dependency>
         <groupId>isacrodi-proj</groupId>
 	<artifactId>util</artifactId>
@@ -102,11 +103,67 @@
 	<type>jar</type>
       </dependency>
       <dependency>
-	<groupId>junit</groupId>
-	<artifactId>junit</artifactId>
-	<version>4.1</version>
-	<scope>test</scope>
+        <groupId>isacrodi-proj</groupId>
+	<artifactId>web</artifactId>
+	<version>${isacrodiVersion}</version>
+	<type>war</type>
       </dependency>
+
+      <!-- other local dependencies -->
+      <dependency>
+	<groupId>javamisc</groupId>
+	<artifactId>javamisc</artifactId>
+	<version>1.0</version>
+	<type>jar</type>
+      </dependency>
+
+      <!-- jboss dependencies -->
+      <!-- FIXME: not very portable / maven-like to use system paths like this -->
+      <!-- managing jboss dependencies in top-level pom.xml is incompatible with shade plugin (dependency-reduced-pom.xml problems) -->
+      <!-- dependency>
+	<groupId>jboss-stuff</groupId>
+	<artifactId>jnpserver</artifactId>
+	<version>5.1</version>
+	<scope>system</scope>
+	<systemPath>${jbosshome}/common/lib/jnpserver.jar</systemPath>
+      </dependency>
+      <dependency>
+	<groupId>jboss-stuff</groupId>
+	<artifactId>hibernate-core</artifactId>
+	<version>5.1</version>
+	<scope>system</scope>
+	<systemPath>${jbosshome}/common/lib/hibernate-core.jar</systemPath>
+      </dependency>
+      <dependency>
+	<groupId>jboss-stuff</groupId>
+	<artifactId>jbosssx-client</artifactId>
+	<version>5.1</version>
+	<scope>system</scope>
+	<systemPath>${jbosshome}/client/jbosssx-client.jar</systemPath>
+      </dependency>
+      <dependency>
+	<groupId>jboss-stuff</groupId>
+	<artifactId>jboss-security-spi</artifactId>
+	<version>5.1</version>
+	<scope>system</scope>
+	<systemPath>${jbosshome}/client/jboss-security-spi.jar</systemPath>
+      </dependency>
+      <dependency>
+	<groupId>jboss-stuff</groupId>
+	<artifactId>jbossall-client</artifactId>
+	<version>5.1</version>
+	<scope>system</scope>
+	<systemPath>${jbosshome}/client/jbossall-client.jar</systemPath>
+      </dependency>
+      <dependency>
+	<groupId>jboss-stuff</groupId>
+	<artifactId>jboss-logging-spi.jar</artifactId>
+	<version>5.1</version>
+	<scope>system</scope>
+	<systemPath>${jbosshome}/client/jboss-logging-spi.jar</systemPath>
+      </dependency -->
+
+      <!-- jee dependencies -->
       <dependency>
 	<groupId>javax.servlet</groupId>
 	<artifactId>servlet-api</artifactId>
@@ -131,12 +188,16 @@
 	<version>3.0</version>
 	<scope>provided</scope>
       </dependency>
+
+      <!-- junit -->
       <dependency>
-        <groupId>isacrodi-proj</groupId>
-	<artifactId>web</artifactId>
-	<version>${isacrodiVersion}</version>
-	<type>war</type>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>
+	<version>4.1</version>
+	<scope>test</scope>
       </dependency>
+
+      <!-- other external libraries -->
       <dependency>
 	<groupId>edu.berkeley.compbio</groupId>
 	<artifactId>jlibsvm</artifactId>
@@ -149,11 +210,16 @@
 	<version>1.0</version>
 	<type>jar</type>
       </dependency>
+      <!-- dependency>
+	<groupId>miscutils</groupId>
+	<artifactId>json</artifactId>
+	<version>2010-05-25</version>
+	<scope>provided</scope>
+      </dependency -->
       <dependency>
-	<groupId>javamisc</groupId>
-	<artifactId>javamisc</artifactId>
-	<version>1.0</version>
-	<type>jar</type>
+	<groupId>org.apache.struts</groupId>
+	<artifactId>struts2-core</artifactId>
+	<version>2.1.8.1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
