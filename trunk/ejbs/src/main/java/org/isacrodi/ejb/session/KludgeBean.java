@@ -164,7 +164,9 @@ public class KludgeBean implements Kludge
       String cdrDescription = String.format("dummy cdr #%d\n", i);
       if (dList.size() > 0)
       {
-	cdr.linkExpertDiagnosedCropDisorder(dList.randomSample(rng));
+	CropDisorder edd = dList.randomSample(rng);
+	cdr.linkExpertDiagnosedCropDisorder(edd);
+	cdrDescription += String.format("expert diagnosed disorder is #%d: %s\n", edd.getId().intValue(), edd.getScientificName());
 	CropDisorder cropDisorder = cdr.getExpertDiagnosedCropDisorder();
 	HashMap<String, Double> disorderCharacteristics = disorderCharacteristicsMap.get(cropDisorder.getScientificName());
 	for (NumericType nt : numericTypeList)

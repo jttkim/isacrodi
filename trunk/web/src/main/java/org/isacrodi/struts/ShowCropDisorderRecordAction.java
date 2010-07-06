@@ -3,12 +3,15 @@ package org.isacrodi.struts;
 import java.util.List;
 import java.util.ArrayList;
 
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
 import org.isacrodi.ejb.entity.*;
+
+import org.isacrodi.ejb.session.CropDisorderRecordManager;
 
 import static org.javamisc.Util.genericTypecast;
 
@@ -17,11 +20,14 @@ public class ShowCropDisorderRecordAction extends IsacrodiActionSupport implemen
 {
   private Integer cropDisorderRecordId;
   private CropDisorderRecord cropDisorderRecord;
+  private CropDisorderRecordManager cropDisorderRecordManager;
 
 
   public ShowCropDisorderRecordAction() throws NamingException
   {
     super();
+    InitialContext context = new InitialContext();
+    this.cropDisorderRecordManager = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
   }
 
 
@@ -77,7 +83,7 @@ public class ShowCropDisorderRecordAction extends IsacrodiActionSupport implemen
     }
     else
     {
-      this.cropDisorderRecord = this.entityAccess.findEntity(CropDisorderRecord.class, this.cropDisorderRecordId);
+      this.cropDisorderRecord = this.cropDisorderRecordManager.findCropDisorderRecord(this.cropDisorderRecordId);
       this.LOG.info(String.format("got cdr %d", this.cropDisorderRecord.getId().intValue()));
     }
   }
