@@ -24,12 +24,10 @@
     <dependency>
       <groupId>javamisc</groupId>
       <artifactId>javamisc</artifactId>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>classifier</groupId>
       <artifactId>libsvm</artifactId>
-      <version>1.0</version>
     </dependency>
   </dependencies>
 

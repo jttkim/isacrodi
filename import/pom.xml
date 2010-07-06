@@ -19,6 +19,8 @@
       <type>ejb</type>
     </dependency>
     <!-- jtk: system dependencies don't seem to make it to the classpath...?? -->
+    <!-- jboss dependencies, can't manage them in the top-level pom.xml -->
+    <!-- FIXME: not very portable / maven-like to use system paths like this -->
     <dependency>
       <groupId>jboss-stuff</groupId>
       <artifactId>jnpserver</artifactId>
@@ -28,7 +30,7 @@
     </dependency>
     <dependency>
       <groupId>jboss-stuff</groupId>
-      <artifactId>jnpserver</artifactId>
+      <artifactId>hibernate-core</artifactId>
       <version>5.1</version>
       <scope>system</scope>
       <systemPath>${jbosshome}/common/lib/hibernate-core.jar</systemPath>
@@ -102,6 +104,7 @@
 	        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 		  <mainClass>org.isacrodi.dataimport.Import</mainClass>
 		  <manifestEntries>
+		    <!-- FIXME: quite unsatisfactory having to feed jars into the classpath like this - can't these be pulled from the system dependencies...??  -->
 		    <Class-Path>${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/common/lib/hibernate-core.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
 		  </manifestEntries>
 	        </transformer>

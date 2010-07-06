@@ -1,4 +1,6 @@
+ifneq ($(wildcard make.local),)
 include make.local
+endif
 
 ifeq ($(JBOSS_DEPLOYDIR),)
 JBOSS_DEPLOYDIR	= $(JBOSS_HOME)/server/default/deploy
