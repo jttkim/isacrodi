@@ -8,7 +8,6 @@ import javax.naming.NamingException;
 import javax.naming.InitialContext;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.dispatcher.SessionMap;
