@@ -19,11 +19,6 @@
 
 <p>Expert diagnosed disorder: <s:property value="%{expertDiagnosedCropDisorder.scientificName}"/></p>
 
-<p class="todonote">link below not yet functional</p>
-
-<s:url var="diagnosisurl" action="requestdiagnosis"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url>
-<p><s:a href="%{diagnosisurl}">request diagnosis for this record</s:a></p>
-
 <p class="todonote">This should be a link to the crop.</p>
 
 <p>Affected crop: <s:property value="%{crop.name}"/> (<span class="scientificname"><s:property value="%{crop.scientificName}"/></span>).</p>
@@ -36,6 +31,8 @@
 <s:property value="%{description}"/>
 </pre>
 
+<p><s:url var="editurl" action="editcropdisorderrecord_input"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{editurl}">edit</s:a></p>
+
 
 <h2>Numeric Descriptors</h2>
 
@@ -46,6 +43,8 @@
 </s:iterator>
 </table>
 
+<p><s:url var="editndurl" action="editcdrnumericdescriptorss_input"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{editndurl}">edit</s:a></p>
+
 
 <h2>Image Descriptors</h2>
 
@@ -54,6 +53,9 @@
 <s:url var="imgurl" action="showinlineimage"><s:param name="imageDescriptorId" value="%{id}"/></s:url>
 <img src="<s:property escape="false" value="%{imgurl}"/>" alt="image"/>
 </s:iterator>
+
+<p><s:url var="editidurl" action="editcdrimagedescriptorss_input"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{editidurl}">edit</s:a></p>
+
 
 <h2>Diagnosis</h2>
 
@@ -69,6 +71,8 @@
 <s:else>
 <p>No diagnosis available</p>
 </s:else>
+
+<p><s:url var="requestdiagnosisurl" action="requestdiagnosis"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{requestdiagnosisurl}">request diagnosis for this record</s:a></p>
 
 </div>
 

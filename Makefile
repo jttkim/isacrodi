@@ -2,6 +2,11 @@ ifneq ($(wildcard make.local),)
 include make.local
 endif
 
+ifeq ($(JBOSS_HOME),)
+JBOSS_HOME	= $(HOME)/hacking/java/jboss/jboss-current
+export JBOSS_HOME
+endif
+
 ifeq ($(JBOSS_DEPLOYDIR),)
 JBOSS_DEPLOYDIR	= $(JBOSS_HOME)/server/default/deploy
 endif
