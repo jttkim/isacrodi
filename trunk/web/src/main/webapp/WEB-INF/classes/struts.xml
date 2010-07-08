@@ -43,6 +43,22 @@
       <result>/WEB-INF/views/showcropdisorderrecord.jsp</result>
     </action>
 
+    <action name="editcropdisorderrecord_input" method="input" class="org.isacrodi.struts.EditCropDisorderRecordAction">
+      <result name="success" type="redirectAction">f
+        <param name="actionName">showcropdisorderrecord</param>
+        <param name="cropDisorderRecordId">${cropDisorderRecordId}</param>
+      </result>
+      <result name="input">/WEB-INF/views/cropdisorderrecordform.jsp</result>
+    </action>
+
+    <action name="editcropdisorderrecord" class="org.isacrodi.struts.EditCropDisorderRecordAction">
+      <result name="success" type="redirectAction">f
+        <param name="actionName">showcropdisorderrecord</param>
+        <param name="cropDisorderRecordId">${cropDisorderRecordId}</param>
+      </result>
+      <result name="input">/WEB-INF/views/cropdisorderrecordform.jsp</result>
+    </action>
+
     <action name="requestdiagnosis" class="org.isacrodi.struts.RequestDiagnosisAction">
       <result>/WEB-INF/views/showcropdisorderrecord.jsp</result>
     </action>

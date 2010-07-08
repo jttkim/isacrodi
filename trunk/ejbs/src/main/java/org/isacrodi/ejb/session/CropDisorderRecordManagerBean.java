@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -24,6 +25,9 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
 {
   @PersistenceContext
   private EntityManager entityManager;
+
+  @EJB
+  private Access access;
 
   private static final long serialVersionUID = 1;
 
@@ -91,6 +95,59 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
     for (DisorderScore disorderScore : diagnosis.getDisorderScoreSet())
     {
       this.entityManager.persist(disorderScore);
+    }
+  }
+
+
+  public void update(CropDisorderRecord cropDisorderRecord, String cropScientificName, String expertDiagnosedCropDisorderScientificName)
+  {
+    if (cropDisorderRecord.getId() == null)
+    {
+      this.entityManager.persist(cropDisorderRecord);
+    }
+    else
+    {
+      CropDisorderRecord oldCdr = this.entityManager.find(CropDisorderRecord.class, cropDisorderRecord.getId());
+      if (oldCdr == null)
+      {
+	throw new RuntimeException(String.format("No CDR with id %d ", cropDisorderRecord.getId().intValue()));
+      }
+      oldCdr.setDescription(cropDisorderRecord.getDescription());
+      cropDisorderRecord = oldCdr;
+    }
+    if (cropScientificName != null)
+    {
+      cropDisorderRecord.unlinkCrop();
+      if (cropScientificName.length() > 0)
+      {
+	// FIXME: a few line repeated from AccessBean.findCrop --
+	// trouble is that crop instance found by AccessBean's entity
+	// manager won't work with this bean's entity manager...
+	Query query = this.entityManager.createQuery("SELECT c FROM Crop c WHERE scientificName = :s");
+	query.setParameter("s", cropScientificName);
+	Crop crop = (Crop) query.getSingleResult();
+	if (crop == null)
+	{
+	  throw new RuntimeException(String.format("no crop with scientific name \"%s\"", cropScientificName));
+	}
+	cropDisorderRecord.linkCrop(crop);
+      }
+    }
+    this.entityManager.persist(cropDisorderRecord);
+    if (expertDiagnosedCropDisorderScientificName != null)
+    {
+      cropDisorderRecord.unlinkExpertDiagnosedCropDisorder();
+      if (expertDiagnosedCropDisorderScientificName.length() > 0)
+      {
+	Query query = this.entityManager.createQuery("SELECT d FROM CropDisorder d WHERE scientificName = :s");
+	query.setParameter("s", expertDiagnosedCropDisorderScientificName);
+	CropDisorder cropDisorder = (CropDisorder) query.getSingleResult();
+	if (cropDisorder == null)
+	{
+	  throw new RuntimeException(String.format("no crop disorder with scientific name \"%s\"", expertDiagnosedCropDisorderScientificName));
+	}
+	cropDisorderRecord.linkExpertDiagnosedCropDisorder(cropDisorder);
+      }
     }
   }
 }

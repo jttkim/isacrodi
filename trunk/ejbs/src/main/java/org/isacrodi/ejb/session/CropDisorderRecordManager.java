@@ -7,8 +7,48 @@ import org.isacrodi.ejb.entity.*;
 
 public interface CropDisorderRecordManager
 {
+  /**
+   * Find all persisted crop disorder records.
+   *
+   * @return a list containing all persisted crop disorder records.
+   */
   List<CropDisorderRecord> findCropDisorderRecordList();
+
+  /**
+   * Find all persisted crop disorder records that have a disorder diagnosed by an expert.
+   *
+   * @return a list containing all persisted crop disorder records with an expert diagnosis.
+   */
   List<CropDisorderRecord> findExpertDiagnosedCropDisorderRecordList();
+
+  /**
+   * Find a crop disorder record by ID.
+   *
+   * @param id the id
+   * @return the crop disorder record, or {@code null} if no record with that id exists.
+   */
   CropDisorderRecord findCropDisorderRecord(Integer id);
+
+  /**
+   * Request a diagnosis for a crop disorder record.
+   */
   void requestDiagnosis(int cropDisorderRecordId);
+
+  /**
+   * Update a crop disorder record.
+   *
+   * <p>This method uses the contents of the record passed in to
+   * update the simple properties in the persistent storage. Links to
+   * other entities are updated based on the further parameters. This
+   * method does not update any collection properties.</p>
+   *
+   * <p>If the record passed to this method has no ID, it will be
+   * persisted. Otherwise, the existing record is updated according to
+   * the properties provided by the record passed in.</p>
+   *
+   * @param cropDisorderRecord the record containing up to date properties
+   * @param cropScientificName the scientific name of the crop
+   * @param expertDiagnosedCropDisorderScientificName the scientific name of the disorder diagnosed by an expert
+   */
+  void update(CropDisorderRecord cropDisorderRecord, String cropScientificName, String expertDiagnosedCropDisorderScientificName);
 }
