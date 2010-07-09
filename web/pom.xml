@@ -16,10 +16,12 @@
       <groupId>isacrodi-proj</groupId>
       <artifactId>ejbs</artifactId>
       <type>ejb</type>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>isacrodi-proj</groupId>
       <artifactId>util</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

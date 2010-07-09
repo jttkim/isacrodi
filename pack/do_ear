@@ -1,9 +1,26 @@
 #!/bin/sh
 
+function do_run ()
+{
+  echo $*
+  if $* ; then
+    true
+  else
+    exit $?
+  fi
+}
+
+
+if test "$#" -eq 0 ; then
+  earname=isacrodi.ear
+else
+  earname="${1}"
+fi
+
 cd ejbjar
-jar cvf ../ear/isacrodi-ejb.jar *
+do_run jar cvmf META-INF/MANIFEST.MF ../ear/isacrodi-ejb.jar *
 cd ../war
-jar cvf ../ear/isacrodi-web.war *
+do_run jar cvmf META-INF/MANIFEST.MF ../ear/isacrodi-web.war *
 cd ../ear
-jar cvf ../isacrodi.ear *
+do_run jar cvf ../${earname} *
 
