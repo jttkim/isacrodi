@@ -17,5 +17,8 @@ isacrodi-validate.ear : ../ear/target/isacrodi.ear do_unpack do_ear
 	cp struts-validate.xml war/WEB-INF/classes/struts.xml
 	./do_ear isacrodi-validate.ear
 
-.PHONY : production_ears
+clean :
+	rm -rf ear war ejbjar *.xml *.ear
+
+.PHONY : production_ears clean
 

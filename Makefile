@@ -1,3 +1,4 @@
+PRODUCTIONTGZ	= isacrodi_production.tgz
 ifeq ($(JBOSS_HOME),)
 JBOSS_HOME	= $(HOME)/hacking/java/jboss/jboss-current
 export JBOSS_HOME
@@ -15,7 +16,7 @@ package :
 	mvn -o clean
 	mvn -o package
 
-prod : isacrodi_production.tgz
+prod : $(PRODUCTIONTGZ)
 
 doc :
 	mvn -o install
@@ -29,17 +30,18 @@ undeploy :
 	rm -f isacrodi.ear $(JBOSS_DEPLOYDIR)
 
 tgz : clean
-	rm -f isacrodi_trunk.tgz
 	cd ../.. ; tar -zcvf isacrodi_trunk.tgz isacrodi/trunk
 	mv ../../isacrodi_trunk.tgz .
 
-isacrodi_production.tgz : package
+$(PRODUCTIONTGZ) : package
 	$(MAKE) -C pack production_ears
-	tar --no-wildcards --exclude .svn -zcvf isacrodi_production.tgz *.sh pack/*.ear sampledata import/target/isacrodi-import.jar
+	tar --no-wildcards --exclude .svn -zcvf $(PRODUCTIONTGZ) *.sh pack/*.ear sampledata import/target/isacrodi-import.jar
 
 clean :
 	mvn clean
 	$(MAKE) -C docs clean
+	$(MAKE) -C pack clean
+	rm -f $(PRODUCTIONTGZ) isacrodi_trunk.tgz
 
 .PHONY : package deploy undeploy tgz doc clean prod
 
