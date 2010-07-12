@@ -1,0 +1,1 @@
+<s:url var="cropdisorderurl" action="crud"><s:param name="entityClassName" value="%{'CropDisorder'}"/><s:param name="entityId" value="%{cropDisorder.id}"/></s:url><s:a href="%{cropdisorderurl}"><s:property value="%{cropDisorder.name}"/> (<span class="scientificname"><s:property value="%{cropDisorder.scientificName}"/></span></s:a>)
