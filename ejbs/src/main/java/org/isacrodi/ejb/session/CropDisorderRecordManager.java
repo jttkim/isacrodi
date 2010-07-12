@@ -1,6 +1,7 @@
 package org.isacrodi.ejb.session;
 
 import java.util.List;
+import java.util.Map;
 
 import org.isacrodi.ejb.entity.*;
 
@@ -51,4 +52,14 @@ public interface CropDisorderRecordManager
    * @param expertDiagnosedCropDisorderScientificName the scientific name of the disorder diagnosed by an expert
    */
   void update(CropDisorderRecord cropDisorderRecord, String cropScientificName, String expertDiagnosedCropDisorderScientificName);
+
+  /**
+   * Replace the numeric descriptors of a crop disorder record with new ones specified by a map.
+   *
+   * The keys of the map are numeric type IDs, the values are the numeric values.
+   *
+   * @param cropDisorderRecordId the ID of the crop disorder record to be updated
+   * @param numericDescriptorMap the map from which to update the numeric descriptors
+   */
+  void updateNumericDescriptors(Integer cropDisorderRecordId, Map<Integer, Double> numericDescriptorMap);
 }

@@ -25,9 +25,12 @@
 <td>Diagnosis by expert</td>
 <td>
 <s:if test="%{expertDiagnosedCropDisorder}">
+<s:push value="%{expertDiagnosedCropDisorder}"><%@include file="links/cropdisorderlink.jsp" %></s:push>
 </s:if>
 <s:else>
+none
 </s:else>
+<span class="todo">link to expert edit form here</span>
 </td>
 </tr>
 <s:textfield label="Diagnosis by expert (scientific name of disorder)" name="expertDiagnosedCropDisorderScientificName" value="%{expertDiagnosedCropDisorder.scientificName}"/>

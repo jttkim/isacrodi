@@ -141,6 +141,12 @@ public class AccessBean implements Access
   }
 
 
+  public NumericType findNumericType(Integer id)
+  {
+    return (this.entityManager.find(NumericType.class, id));
+  }
+
+
   public NumericType findNumericType(String typename)
   {
     Query query = this.entityManager.createQuery("SELECT n FROM NumericType n WHERE typename = :s");

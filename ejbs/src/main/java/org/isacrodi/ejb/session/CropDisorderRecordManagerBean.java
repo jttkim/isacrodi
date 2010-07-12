@@ -3,6 +3,8 @@ package org.isacrodi.ejb.session;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -95,6 +97,32 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
     for (DisorderScore disorderScore : diagnosis.getDisorderScoreSet())
     {
       this.entityManager.persist(disorderScore);
+    }
+  }
+
+
+  public void updateNumericDescriptors(Integer cropDisorderRecordId, Map<Integer, Double> numericDescriptorMap)
+  {
+    CropDisorderRecord cropDisorderRecord = this.entityManager.find(CropDisorderRecord.class, cropDisorderRecordId);
+    if (cropDisorderRecord == null)
+    {
+      throw new RuntimeException(String.format("no crop disorder record with id = %d", cropDisorderRecordId.intValue()));
+    }
+    Set<NumericDescriptor> oldNumericDescriptorSet = cropDisorderRecord.findNumericDescriptorSet();
+    for (NumericDescriptor oldNumericDescriptor : oldNumericDescriptorSet)
+    {
+      this.entityManager.remove(oldNumericDescriptor);
+    }
+    for (Integer numericTypeId : numericDescriptorMap.keySet())
+    {
+      NumericType numericType = (NumericType) this.entityManager.find(NumericType.class, numericTypeId);
+      if (numericType == null)
+      {
+	throw new RuntimeException(String.format("no numeric type with id = %d", numericTypeId.intValue()));
+      }
+      NumericDescriptor numericDescriptor = new NumericDescriptor(numericType, numericDescriptorMap.get(numericTypeId).doubleValue());
+      cropDisorderRecord.linkDescriptor(numericDescriptor);
+      this.entityManager.persist(numericDescriptor);
     }
   }
 
