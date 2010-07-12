@@ -2,7 +2,7 @@
 
 <p class="todonote">Should link to a dedicated crop jsp based view.</p>
 
-<p><%@include file="links/croplink.jsp" %></p>
+<p>Affected crop: <%@include file="links/croplink.jsp" %></p>
 
 <p class="todonote">CDRs should perhaps have a name.</p>
 
