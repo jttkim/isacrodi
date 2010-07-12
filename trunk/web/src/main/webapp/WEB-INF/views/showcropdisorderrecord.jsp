@@ -24,14 +24,14 @@
 
 <%@include file="/WEB-INF/views/components/cropdisorderrecord_numericdescriptors.jsp" %>
 
-<p><s:url var="editndurl" action="editcdrnumericdescriptors_input"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{editndurl}">edit</s:a></p>
+<p><s:url var="editndurl" action="editnumericdescriptors_input"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{editndurl}">edit</s:a></p>
 
 
 <h2>Image Descriptors</h2>
 
-<%@include file="/WEB-INF/views/components/cropdisorderrecord_numericdescriptors.jsp" %>
+<%@include file="/WEB-INF/views/components/cropdisorderrecord_imagedescriptors.jsp" %>
 
-<p><s:url var="editidurl" action="editcdrimagedescriptors_input"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{editidurl}">edit</s:a></p>
+<p><s:url var="editidurl" action="editimagedescriptors_input"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{editidurl}">edit</s:a></p>
 
 
 <h2>Diagnosis</h2>

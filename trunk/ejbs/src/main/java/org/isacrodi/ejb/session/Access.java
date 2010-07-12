@@ -26,6 +26,7 @@ public interface Access
   void insert(CropDisorderRecord cropDisorderRecord, String username, String cropScientificName);
   Crop findCrop(String scientificName);
   CropDisorder findCropDisorder(String scientificName);
+  NumericType findNumericType(Integer id);
   NumericType findNumericType(String name);
   ImageType findImageType(String name);
 }

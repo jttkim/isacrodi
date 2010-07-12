@@ -1,1 +1,1 @@
-<s:url var="cropurl" action="crud"><s:param name="entityClassName" value="%{'Crop'}"/><s:param name="entityId" value="%{crop.id}"/></s:url><s:a href="%{cropurl}"><s:property value="%{crop.name}"/> (<span class="scientificname"><s:property value="%{crop.scientificName}"/></span></s:a>)
+<s:url var="cropurl" action="crud"><s:param name="entityClassName" value="%{'Crop'}"/><s:param name="entityId" value="%{id}"/></s:url><s:a href="%{cropurl}"><s:property value="%{name}"/> (<span class="scientificname"><s:property value="%{scientificName}"/></span>)</s:a>

@@ -1,5 +1,5 @@
 <s:if test="%{expertDiagnosedCropDisorder}">
-<p>Disorder diagnosed by expert: <s:property value="%{expertDiagnosedCropDisorder.scientificName}"/></p>
+<p>Disorder diagnosed by expert: <s:push value="%{expertDiagnosedCropDisorder}"><%@include file="links/cropdisorderlink.jsp" %></s:push></p>
 </s:if>
 <s:else>
 <p>No diagnosis by expert</p>
@@ -9,8 +9,7 @@
 <table>
 <tr><th>score</th><th>disorder</th></tr>
 <s:iterator value="%{diagnosis.disorderScoreSet}">
-<s:url var="disorderurl" action="showdisorder"><s:param name="cropDisorderId" value="%{cropDisorder.id}"/></s:url>
-<tr><td><s:property value="%{score}"/></td><td><s:a href="%{disorderurl}"><span class="scientificname"><s:property value="%{cropDisorder.scientificName}"/></span></s:a></td></tr>
+<tr><td><s:property value="%{score}"/></td><td><s:push value="%{cropDisorder}"><%@include file="links/cropdisorderlink.jsp" %></s:push></td></tr>
 </s:iterator>
 </table>
 </s:if>
