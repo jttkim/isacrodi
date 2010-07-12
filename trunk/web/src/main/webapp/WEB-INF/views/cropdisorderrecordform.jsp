@@ -21,6 +21,15 @@
 <tr><td>Reporting user</td><td><s:property value="%{isacrodiUser.firstname}"/> <s:property value="%{isacrodiUser.lastname}"/></tr>
 </s:if>
 <s:textfield label="Crop (scientific name)" name="cropScientificName" value="%{crop.scientificName}"/>
+<tr>
+<td>Diagnosis by expert</td>
+<td>
+<s:if test="%{expertDiagnosedCropDisorder}">
+</s:if>
+<s:else>
+</s:else>
+</td>
+</tr>
 <s:textfield label="Diagnosis by expert (scientific name of disorder)" name="expertDiagnosedCropDisorderScientificName" value="%{expertDiagnosedCropDisorder.scientificName}"/>
 <s:textarea label="Description" name="description" value="%{description}" rows="8" cols="60"/>
 <s:submit/>
