@@ -31,8 +31,8 @@
 <tr>
 <th colspan="2">Add new numeric descriptor</th>
 </tr>
-<s:textfield label="numeric type" name="newNumericTypeName" value=""/>
-<s:textfield label="value" name="newNumericValue" value=""/>
+<s:textfield label="numeric type" name="newNumericTypeName" value="%{newNumericTypeName}"/>
+<s:textfield label="value" name="newNumericValue" value="%{newNumericValue}"/>
 <s:submit/>
 </s:form>
 
