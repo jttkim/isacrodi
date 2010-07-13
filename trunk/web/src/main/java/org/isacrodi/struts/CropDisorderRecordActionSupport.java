@@ -18,14 +18,14 @@ import org.isacrodi.ejb.session.CropDisorderRecordManager;
 import static org.javamisc.Util.genericTypecast;
 
 
-public abstract class EditCropDisorderRecordSupport extends IsacrodiActionSupport implements ModelDriven<CropDisorderRecord>, Preparable
+public abstract class CropDisorderRecordActionSupport extends IsacrodiActionSupport implements ModelDriven<CropDisorderRecord>, Preparable
 {
   protected Integer cropDisorderRecordId;
   protected CropDisorderRecord cropDisorderRecord;
   protected CropDisorderRecordManager cropDisorderRecordManager;
 
 
-  public EditCropDisorderRecordSupport() throws NamingException
+  public CropDisorderRecordActionSupport() throws NamingException
   {
     super();
     InitialContext context = new InitialContext();
@@ -42,7 +42,7 @@ public abstract class EditCropDisorderRecordSupport extends IsacrodiActionSuppor
   public void setCropDisorderRecordId(Integer cropDisorderRecordId)
   {
     this.cropDisorderRecordId = cropDisorderRecordId;
-    this.LOG.info(String.format("editCDR: cdr Id set to %d", this.cropDisorderRecordId));
+    this.LOG.info(String.format("CDR action support: cdr Id set to %d", this.cropDisorderRecordId));
   }
 
 
