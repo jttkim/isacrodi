@@ -1,7 +1,9 @@
 package org.isacrodi.struts;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -53,7 +55,16 @@ public abstract class EditCropDisorderRecordSupport extends IsacrodiActionSuppor
     else
     {
       ArrayList<NumericDescriptor> numericDescriptorList = new ArrayList<NumericDescriptor>(this.cropDisorderRecord.findNumericDescriptorSet());
-      // FIXME: sort descriptor here to maintain stable order
+      Comparator<NumericDescriptor> comparator = new Comparator<NumericDescriptor>()
+      {
+	public int compare(NumericDescriptor n1, NumericDescriptor n2)
+	{
+	  String t1Name = n1.getNumericType().getTypeName();
+	  String t2Name = n2.getNumericType().getTypeName();
+	  return (t1Name.compareTo(t2Name));
+	}
+      };
+      Collections.sort(numericDescriptorList, comparator);
       return (numericDescriptorList);
     }
   }
@@ -68,7 +79,17 @@ public abstract class EditCropDisorderRecordSupport extends IsacrodiActionSuppor
     else
     {
       ArrayList<ImageDescriptor> imageDescriptorList = new ArrayList<ImageDescriptor>(this.cropDisorderRecord.findImageDescriptorSet());
-      // FIXME: sort descriptor here to maintain stable order
+      Comparator<ImageDescriptor> comparator = new Comparator<ImageDescriptor>()
+      {
+	public int compare(ImageDescriptor i1, ImageDescriptor i2)
+	{
+	  String t1Name = i1.getImageType().getTypeName();
+	  String t2Name = i2.getImageType().getTypeName();
+	  return (t1Name.compareTo(t2Name));
+	}
+      };
+      Collections.sort(imageDescriptorList, comparator);
+
       return (imageDescriptorList);
     }
   }

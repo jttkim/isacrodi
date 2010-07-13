@@ -89,14 +89,19 @@ public class EditNumericDescriptorsAction extends EditCropDisorderRecordSupport 
 	}
 	if (numericTypeId != null)
 	{
-	  try
+	  // FIXME: just assuming that there's only one parameter of this name
+	  String numericValueStr = parameterMap.get(parameterName)[0];
+	  if (numericValueStr.length() > 0)
 	  {
-	    Double numericValue = new Double(Double.parseDouble(parameterMap.get(parameterName)[0]));
-	    this.numericDescriptorMap.put(numericTypeId, numericValue);
-	  }
-	  catch (NumberFormatException e)
-	  {
-	    this.addFieldError(parameterName, "malformed number");
+	    try
+	    {
+	      Double numericValue = new Double(Double.parseDouble(numericValueStr));
+	      this.numericDescriptorMap.put(numericTypeId, numericValue);
+	    }
+	    catch (NumberFormatException e)
+	    {
+	      this.addFieldError(parameterName, "malformed number");
+	    }
 	  }
 	}
       }
@@ -107,6 +112,16 @@ public class EditNumericDescriptorsAction extends EditCropDisorderRecordSupport 
       if (newNumericType == null)
       {
 	this.addFieldError("newNumericTypeName", "unknown numeric type");
+      }
+      else
+      {
+	for (Integer id : this.numericDescriptorMap.keySet())
+	{
+	  if (newNumericType.getId().equals(id))
+	  {
+	    this.addFieldError("newNumericTypeName", "duplicate numeric descriptor");
+	  }
+	}
       }
       if (this.newNumericValue == null)
       {
