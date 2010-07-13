@@ -19,7 +19,7 @@ import org.isacrodi.ejb.session.CropDisorderRecordManager;
 import static org.javamisc.Util.genericTypecast;
 
 
-public class EditNumericDescriptorsAction extends EditCropDisorderRecordSupport implements ServletRequestAware
+public class EditNumericDescriptorsAction extends CropDisorderRecordActionSupport implements ServletRequestAware
 {
   static final String numericparameterPrefix = "numerictype_id_";
   private HttpServletRequest servletRequest;

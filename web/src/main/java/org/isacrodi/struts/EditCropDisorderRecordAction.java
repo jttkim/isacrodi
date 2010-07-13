@@ -16,7 +16,7 @@ import org.isacrodi.ejb.session.CropDisorderRecordManager;
 import static org.javamisc.Util.genericTypecast;
 
 
-public class EditCropDisorderRecordAction extends EditCropDisorderRecordSupport
+public class EditCropDisorderRecordAction extends CropDisorderRecordActionSupport
 {
   private String cropScientificName;
   private String expertDiagnosedCropDisorderScientificName;
