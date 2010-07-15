@@ -20,7 +20,6 @@ public class Diagnosis implements IsacrodiEntity
   private CropDisorderRecord cropDisorderRecord;
   private Set<DisorderScore> disorderScoreSet;
 
-
   private static final long serialVersionUID = 1;
 
 
@@ -129,6 +128,31 @@ public class Diagnosis implements IsacrodiEntity
     {
       return (false);
     }
+  }
+
+
+  public DisorderScore highestDisorderScore()
+  {
+    if (this.disorderScoreSet.size() == 0)
+    {
+      return (null);
+    }
+    DisorderScore highscore = null;
+    for (DisorderScore disorderScore : this.disorderScoreSet)
+    {
+      if (highscore == null)
+      {
+	highscore = disorderScore;
+      }
+      else
+      {
+	if (highscore.getScore() < disorderScore.getScore())
+	{
+	  highscore = disorderScore;
+	}
+      }
+    }
+    return (highscore);
   }
 
 

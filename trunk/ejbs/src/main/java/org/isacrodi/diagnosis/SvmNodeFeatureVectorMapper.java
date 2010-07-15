@@ -3,6 +3,7 @@ package org.isacrodi.diagnosis;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Serializable;
 
 import java.util.Iterator;
 import javax.naming.*;
@@ -19,10 +20,11 @@ import libsvm.*;
 /**
  *  Feature Vector Mapper.
  */
-public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[]>
+public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[]>, Serializable
 {
-
   private List<AbstractComponentMapper> componentMapperList;
+
+  private static final long serialVersionUID = 1;
 
 
   public SvmNodeFeatureVectorMapper()
@@ -31,7 +33,7 @@ public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[
     this.componentMapperList = new ArrayList<AbstractComponentMapper>();
   }
 
-  
+
   public SvmNodeFeatureVectorMapper(List<AbstractComponentMapper> componentMapperList)
   {
     this();
@@ -88,11 +90,11 @@ public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[
     {
       parseNumericFeatureBlock(featurename, s);
     }
-    else if (type.equals("categorical")) 
+    else if (type.equals("categorical"))
     {
       parseCategoricalFeatureBlock(featurename, s);
     }
-    else 
+    else
     {
       throw new IllegalStateException("unexpected token type: ");
     }
@@ -104,7 +106,7 @@ public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[
   {
     new ArrayList<Object>();
 
-    SimpleScanner s = new SimpleScanner(in); 
+    SimpleScanner s = new SimpleScanner(in);
     for (Token t = s.nextToken(); t != null; t = s.nextToken())
     {
       String featurename = t.getName();
@@ -121,9 +123,9 @@ public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[
   }
 
 
-  public void parseFile(String filename) 
+  public void parseFile(String filename)
   {
-    try 
+    try
     {
       BufferedReader in = new BufferedReader(new FileReader(filename));
       String magic = in.readLine();
@@ -137,7 +139,7 @@ public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[
         throw new IOException(String.format("cannot identify table type of %s: unknown magic \"%s\"", filename, magic));
       }
     }
-    catch (IOException e) 
+    catch (IOException e)
     {
       System.err.println(e);
     }

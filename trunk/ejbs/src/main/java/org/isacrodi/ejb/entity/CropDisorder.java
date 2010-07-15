@@ -15,7 +15,7 @@ import java.util.HashSet;
 @Entity
 public class CropDisorder implements IsacrodiEntity
 {
-  private Integer Id;
+  private Integer id;
   private int version;
   private String name;
   private String scientificName;
@@ -50,13 +50,13 @@ public class CropDisorder implements IsacrodiEntity
   @GeneratedValue
   public Integer getId()
   {
-    return (this.Id);
+    return (this.id);
   }
 
 
-  public void setId(Integer Id)
+  public void setId(Integer id)
   {
-    this.Id = Id;
+    this.id = id;
   }
 
 
@@ -281,6 +281,31 @@ public class CropDisorder implements IsacrodiEntity
       expertDiagnosedCropDisorderRecord.setExpertDiagnosedCropDisorder(null);
     }
     this.expertDiagnosedCropDisorderRecordSet.clear();
+  }
+
+
+  public boolean equals(Object other)
+  {
+    if (other instanceof CropDisorder)
+    {
+      CropDisorder otherCropDisorder = (CropDisorder) other;
+      if ((this.id == null) || (otherCropDisorder.id == null))
+      {
+	if ((this.scientificName != null) && (otherCropDisorder.scientificName != null))
+	{
+	  return (this.scientificName.equals(otherCropDisorder.scientificName));
+	}
+	else
+	{
+	  return (false);
+	}
+      }
+      else
+      {
+	return (this.id.equals(otherCropDisorder.id));
+      }
+    }
+    return (false);
   }
 
 

@@ -1,15 +1,19 @@
 package org.isacrodi.diagnosis;
 
 import java.io.IOException;
+import java.io.Serializable;
+
 import org.isacrodi.ejb.entity.*;
-import java.lang.*;
+
 
 // FIXME: this doesn't get much more clever... should rename it from "dummy" to something more appropriate (adapter?)
 /**
  * Implements Feature Extractor Interface.
  */
-public class DummyCDRFeatureExtractor implements CDRFeatureExtractor
+public class DummyCDRFeatureExtractor implements CDRFeatureExtractor, Serializable
 {
+  private static final long serialVersionUID = 1;
+
 
   public DummyCDRFeatureExtractor()
   {
@@ -39,4 +43,3 @@ public class DummyCDRFeatureExtractor implements CDRFeatureExtractor
     return featureVector;
   }
 }
-

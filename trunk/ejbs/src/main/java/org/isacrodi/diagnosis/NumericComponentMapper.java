@@ -1,5 +1,7 @@
 package org.isacrodi.diagnosis;
 
+import java.io.Serializable;
+
 import org.isacrodi.ejb.entity.*;
 import org.isacrodi.ejb.session.*;
 
@@ -10,11 +12,13 @@ import libsvm.svm_node;
  * Numeric Feature Vector Mapper Component
  */
 
-public class NumericComponentMapper extends AbstractComponentMapper
+public class NumericComponentMapper extends AbstractComponentMapper implements Serializable
 {
   // FIXME: cannot represent uninitialised state
   private int index;
   private double valueMissing;
+
+  private static final long serialVersionUID = 1;
 
 
   public NumericComponentMapper()
@@ -117,4 +121,3 @@ public class NumericComponentMapper extends AbstractComponentMapper
     return (node);
   }
 }
-

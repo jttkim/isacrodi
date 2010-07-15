@@ -3,6 +3,7 @@ package org.isacrodi.ejb.session;
 import java.util.List;
 import java.util.Map;
 
+import org.isacrodi.diagnosis.DiagnosisProvider;
 import org.isacrodi.ejb.entity.*;
 
 
@@ -29,6 +30,11 @@ public interface CropDisorderRecordManager
    * @return the crop disorder record, or {@code null} if no record with that id exists.
    */
   CropDisorderRecord findCropDisorderRecord(Integer id);
+
+  /**
+   * Get a current diagnosis provider.
+   */
+  DiagnosisProvider getDiagnosisProvider();
 
   /**
    * Request a diagnosis for a crop disorder record.

@@ -20,12 +20,14 @@ import libsvm.*;
 /**
  * Implements Diagnosis Provider Interface
  */
-public class SVMDiagnosisProvider implements DiagnosisProvider
+public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
 {
   private CDRFeatureExtractor fe;
   private SvmNodeFeatureVectorMapper svmNodeFeatureVectorMapper;
   private svm_model model;
   private Map<CropDisorder, Integer> disorderIndexMap;
+
+  private static final long serialVersionUID = 1;
 
 
   public SVMDiagnosisProvider()
@@ -128,7 +130,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
   {
     Map<Integer, CropDisorder> reverseDisorderIndexMap = new HashMap<Integer, CropDisorder>();
     for (CropDisorder cropDisorder : this.disorderIndexMap.keySet())
-    { 
+    {
       reverseDisorderIndexMap.put(this.disorderIndexMap.get(cropDisorder), cropDisorder);
     }
     return (reverseDisorderIndexMap);
@@ -223,6 +225,6 @@ public class SVMDiagnosisProvider implements DiagnosisProvider
       diagnosis.linkDisorderScore(disorderScore);
     }
     diagnosis.linkCropDisorderRecord(cropDisorderRecord);
-    return diagnosis;   
+    return diagnosis;
   }
 }

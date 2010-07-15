@@ -15,6 +15,7 @@ import javax.persistence.Query;
 
 import org.isacrodi.ejb.entity.*;
 
+import org.isacrodi.diagnosis.DiagnosisProvider;
 import org.isacrodi.diagnosis.SVMDiagnosisProvider;
 
 
@@ -86,13 +87,20 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
   }
 
 
+  public DiagnosisProvider getDiagnosisProvider()
+  {
+    SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
+    svmDiagnosisProvider.train(this.findExpertDiagnosedCropDisorderRecordList());
+    return (svmDiagnosisProvider);
+  }
+
+
   public void requestDiagnosis(int cropDisorderRecordId)
   {
     CropDisorderRecord cropDisorderRecord = this.entityManager.find(CropDisorderRecord.class, new Integer(cropDisorderRecordId));
     // FIXME: should check whether we got a cdr
-    SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
-    svmDiagnosisProvider.train(this.findExpertDiagnosedCropDisorderRecordList());
-    Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
+    DiagnosisProvider diagnosisProvider = this.getDiagnosisProvider();
+    Diagnosis diagnosis = diagnosisProvider.diagnose(cropDisorderRecord);
     this.entityManager.persist(diagnosis);
     for (DisorderScore disorderScore : diagnosis.getDisorderScoreSet())
     {
