@@ -1,5 +1,7 @@
 package org.isacrodi.diagnosis;
 
+import java.io.Serializable;
+
 import java.util.Map;
 import java.util.HashMap;
 
@@ -12,7 +14,7 @@ import libsvm.svm_node;
  * Mapper for a categorical component.
  */
 
-public class CategoricalComponentMapper extends AbstractComponentMapper
+public class CategoricalComponentMapper extends AbstractComponentMapper implements Serializable
 {
   /*
    * as a simplification, this implementation doesn't use a dedicated
@@ -20,6 +22,8 @@ public class CategoricalComponentMapper extends AbstractComponentMapper
    * state names as keys and indexes as values is sufficient.
    */
   private Map<String, Integer> stateIndexMap;
+
+  private static final long serialVersionUID = 1;
 
 
   public CategoricalComponentMapper()

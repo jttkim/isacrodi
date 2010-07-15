@@ -20,6 +20,7 @@
     <module>ejbs</module>
     <module>web</module>
     <module>import</module>
+    <module>cmdtool</module>
   </modules>
 
   <reporting>
@@ -99,6 +100,12 @@
       <dependency>
         <groupId>isacrodi-proj</groupId>
 	<artifactId>import</artifactId>
+	<version>${isacrodiVersion}</version>
+	<type>jar</type>
+      </dependency>
+      <dependency>
+        <groupId>isacrodi-proj</groupId>
+	<artifactId>cmdtool</artifactId>
 	<version>${isacrodiVersion}</version>
 	<type>jar</type>
       </dependency>
