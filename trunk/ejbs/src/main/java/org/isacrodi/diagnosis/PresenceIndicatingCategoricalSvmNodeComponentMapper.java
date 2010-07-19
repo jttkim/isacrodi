@@ -14,7 +14,7 @@ import libsvm.svm_node;
  * Mapper for a categorical component.
  */
 
-public class CategoricalComponentMapper extends AbstractComponentMapper implements Serializable
+public class PresenceIndicatingCategoricalSvmNodeComponentMapper extends PresenceIndicatingSvmNodeComponentMapper implements Serializable
 {
   /*
    * as a simplification, this implementation doesn't use a dedicated
@@ -26,21 +26,15 @@ public class CategoricalComponentMapper extends AbstractComponentMapper implemen
   private static final long serialVersionUID = 1;
 
 
-  public CategoricalComponentMapper()
+  public PresenceIndicatingCategoricalSvmNodeComponentMapper(String featureName)
   {
-    super();
+    // FIXME: partially initialised, cannot represent uninitialised indexPresence
+    super(featureName);
     this.stateIndexMap = new HashMap<String, Integer>();
   }
 
 
-  public CategoricalComponentMapper(String featureName)
-  {
-    // FIXME: partially initialised, cannot represent uninitialised indexPresence
-    super(featureName);
-  }
-
-
-  public CategoricalComponentMapper(String featureName, int indexPresence)
+  public PresenceIndicatingCategoricalSvmNodeComponentMapper(String featureName, int indexPresence)
   {
     super(featureName, indexPresence);
     this.stateIndexMap = new HashMap<String, Integer>();
@@ -85,7 +79,7 @@ public class CategoricalComponentMapper extends AbstractComponentMapper implemen
 
   public String toString()
   {
-    String s = String.format("CategoricalComponentMapper(indexPresence = %d", this.indexPresence);
+    String s = String.format("PresenceIndicatingCategoricalSvmNodeComponentMapper for %s, indexPresence = %d", this.featureName, this.indexPresence);
     for (String stateName : stateIndexMap.keySet())
     {
       s += String.format(", %s -> %d", stateName, this.stateIndexMap.get(stateName).intValue());

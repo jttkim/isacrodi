@@ -12,7 +12,7 @@ import libsvm.svm_node;
  * Numeric Feature Vector Mapper Component
  */
 
-public class NumericComponentMapper extends AbstractComponentMapper implements Serializable
+public class PresenceIndicatingNumericSvmNodeComponentMapper extends PresenceIndicatingSvmNodeComponentMapper implements Serializable
 {
   // FIXME: cannot represent uninitialised state
   private int index;
@@ -21,19 +21,20 @@ public class NumericComponentMapper extends AbstractComponentMapper implements S
   private static final long serialVersionUID = 1;
 
 
-  public NumericComponentMapper()
-  {
-    super();
-  }
-
-
-  public NumericComponentMapper(String featureName)
+  public PresenceIndicatingNumericSvmNodeComponentMapper(String featureName)
   {
     super(featureName);
   }
 
 
-  public NumericComponentMapper(String featureName, int index, int indexPresence, double valueMissing)
+  public PresenceIndicatingNumericSvmNodeComponentMapper(String featureName, double valueMissing)
+  {
+    this(featureName);
+    this.valueMissing = valueMissing;
+  }
+
+
+  public PresenceIndicatingNumericSvmNodeComponentMapper(String featureName, int index, int indexPresence, double valueMissing)
   {
     super(featureName, indexPresence);
     this.index = index;
@@ -67,7 +68,7 @@ public class NumericComponentMapper extends AbstractComponentMapper implements S
 
   public String toString()
   {
-    return String.format("%d %f", this.index, this.valueMissing);
+    return String.format("PresenceIndicatingNumericSvmNodeComponentMapper for %s, index = %d, indexPresence = %d, valueMissing = %f", this.featureName, this.index, this.indexPresence, this.valueMissing);
   }
 
 

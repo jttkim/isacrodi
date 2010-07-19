@@ -12,7 +12,7 @@ import java.util.*;
 
 
 /**
- * Feature vector.
+ * Numeric feature vector component.
  *
  * Notice that the order of components is undefined, as feature
  * vectors are implemented by maps -- i.e. remember to match elements
@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class NumericFeature extends AbstractFeature
 {
-  
+
   private Double value;
 
   public NumericFeature()

@@ -47,5 +47,5 @@ public interface FeatureVectorMapper<MappingTarget>
    *
    * @return the target feature vector
    */
-  public MappingTarget map(FeatureVector featureVector) throws Exception;
+  public MappingTarget map(FeatureVector featureVector);
 }

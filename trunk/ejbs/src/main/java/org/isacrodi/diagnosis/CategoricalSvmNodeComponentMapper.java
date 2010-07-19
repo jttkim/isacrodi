@@ -14,35 +14,17 @@ import libsvm.svm_node;
  * Mapper for a categorical component.
  */
 
-public class CategoricalComponentMapper extends AbstractComponentMapper implements Serializable
+public class CategoricalSvmNodeComponentMapper extends AbstractSvmNodeComponentMapper implements Serializable
 {
-  /*
-   * as a simplification, this implementation doesn't use a dedicated
-   * state mapper class as in the previous design, a hash map using
-   * state names as keys and indexes as values is sufficient.
-   */
   private Map<String, Integer> stateIndexMap;
 
   private static final long serialVersionUID = 1;
 
 
-  public CategoricalComponentMapper()
-  {
-    super();
-    this.stateIndexMap = new HashMap<String, Integer>();
-  }
-
-
-  public CategoricalComponentMapper(String featureName)
+  public CategoricalSvmNodeComponentMapper(String featureName)
   {
     // FIXME: partially initialised, cannot represent uninitialised indexPresence
     super(featureName);
-  }
-
-
-  public CategoricalComponentMapper(String featureName, int indexPresence)
-  {
-    super(featureName, indexPresence);
     this.stateIndexMap = new HashMap<String, Integer>();
   }
 
@@ -55,6 +37,7 @@ public class CategoricalComponentMapper extends AbstractComponentMapper implemen
    */
   public boolean hasState(String stateName)
   {
+    // FIXME: shared method with presence indicating
     return (this.stateIndexMap.containsKey(stateName));
   }
 
@@ -67,13 +50,19 @@ public class CategoricalComponentMapper extends AbstractComponentMapper implemen
    *
    * @throws IllegalArgumentException if the state name is alrady taken
    */
-  public void addState(String stateName, int index)
+  public void addState(String stateName, Integer index)
   {
     if (this.hasState(stateName))
     {
       throw new IllegalArgumentException(String.format("state \"%s\" already mapped", stateName));
     }
-    this.stateIndexMap.put(stateName, new Integer(index));
+    this.stateIndexMap.put(stateName, index);
+  }
+
+
+  public void addState(String stateName)
+  {
+    this.addState(stateName, null);
   }
 
 
@@ -85,12 +74,12 @@ public class CategoricalComponentMapper extends AbstractComponentMapper implemen
 
   public String toString()
   {
-    String s = String.format("CategoricalComponentMapper(indexPresence = %d", this.indexPresence);
+    String s = String.format("CategoricalSvmNodeComponentMapper for feature %s", this.featureName);
     for (String stateName : stateIndexMap.keySet())
     {
       s += String.format(", %s -> %d", stateName, this.stateIndexMap.get(stateName).intValue());
     }
-    return (s + ")");
+    return (s);
   }
 
 
@@ -102,20 +91,19 @@ public class CategoricalComponentMapper extends AbstractComponentMapper implemen
     {
       newMap.put(stateName, new Integer(i++));
     }
-    this.indexPresence = i++;
     this.stateIndexMap = newMap;
   }
 
 
   public int getMaxIndex()
   {
-    int m = this.indexPresence;
+    int m = -1;
     for (String stateName : this.stateIndexMap.keySet())
     {
       int i = this.stateIndexMap.get(stateName).intValue();
       if (i > m)
       {
-	m = i;
+        m = i;
       }
     }
     return (m);
@@ -124,44 +112,44 @@ public class CategoricalComponentMapper extends AbstractComponentMapper implemen
 
   public svm_node[] map(AbstractFeature feature, svm_node[] node)
   {
-    if (feature == null)
-    {
-      for (String stateName : this.stateIndexMap.keySet())
-      {
-	int index = this.stateIndexMap.get(stateName).intValue();
-	node[index] = new svm_node();
-	node[index].index = index;
-	node[index].value = 0.0;
-      }
-      node[this.indexPresence] = new svm_node();
-      node[this.indexPresence].index = this.indexPresence;
-      node[this.indexPresence].value = 0.0;
-    }
-    else
+    if (feature != null)
     {
       if (!(feature instanceof CategoricalFeature))
       {
-	throw new IllegalArgumentException(String.format("feature %s is not categorical", feature.getName()));
+        throw new IllegalArgumentException(String.format("feature %s is not categorical", feature.getName()));
       }
       // FIXME: should also verify that feature has expected name -- by method provided by abstract base class?
       CategoricalFeature categoricalFeature = (CategoricalFeature) feature;
+      svm_node[] c = new svm_node[this.stateIndexMap.size()];
+      int i = 0;
       for (String stateName : this.stateIndexMap.keySet())
       {
-	int index = this.stateIndexMap.get(stateName).intValue();
-	node[index] = new svm_node();
-	node[index].index = index;
-	if (stateName.equals(categoricalFeature.getState()))
+        Integer index = this.stateIndexMap.get(stateName).intValue();
+	if (index == null)
 	{
-	  node[index].value = 1.0;
+	  throw new IllegalStateException(String.format("no index designated for state %s", stateName));
 	}
-	else
-	{
-	  node[index].value = 0.0;
-	}
+        c[i] = new svm_node();
+        c[i].index = index.intValue();
+        if (stateName.equals(categoricalFeature.getState()))
+        {
+          c[i++].value = 1.0;
+        }
+        else
+        {
+          c[i++].value = 0.0;
+        }
       }
-      node[this.indexPresence] = new svm_node();
-      node[this.indexPresence].index = this.indexPresence;
-      node[this.indexPresence].value = 1.0;
+      svm_node[] newNode = new svm_node[node.length + c.length];
+      for (int j = 0; j < node.length; j++)
+      {
+	newNode[j] = node[j];
+      }
+      for (int j = 0; j < c.length; j++)
+      {
+	newNode[node.length + j] = c[j];
+      }
+      node = newNode;
     }
     return (node);
   }

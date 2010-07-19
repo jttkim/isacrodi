@@ -315,6 +315,7 @@ public class Import
     }
     else if (args[0].equals("-x"))
     {
+      /* jtk: inactivated experimental code -- parsing of feature vector mapper no longer necessary
       String model_filename = "ejbs/src/test/java/org/isacrodi/diagnosis/isacrodi_model";
       String parse_filename = "ejbs/src/test/java/org/isacrodi/diagnosis/isacrodi_feature_mapper_v1.txt";
       InitialContext context = new InitialContext();
@@ -348,6 +349,7 @@ public class Import
 	Integer cdrId = new Integer(Integer.parseInt(args[i]));
 	kludge.concoctDiagnosis(cdrId);
       }
+      */
     }
     else
     {

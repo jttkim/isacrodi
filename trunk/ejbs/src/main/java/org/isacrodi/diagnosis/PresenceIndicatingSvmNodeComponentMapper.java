@@ -6,43 +6,25 @@ import org.isacrodi.ejb.session.*;
 import libsvm.svm_node;
 
 /**
- * Abstract Feature Vector Mapper Component 
+ * Base class for presence indicating component mappers.
  */
-public abstract class AbstractComponentMapper
+public abstract class PresenceIndicatingSvmNodeComponentMapper extends AbstractSvmNodeComponentMapper
 {
-  protected String featureName;
+  // FIXME: should manage value to use for missing values as well...??
   protected int indexPresence;
 
 
-  public AbstractComponentMapper()
+  public PresenceIndicatingSvmNodeComponentMapper(String featureName)
   {
-    super();
-  }
-
-
-  public AbstractComponentMapper(String featureName)
-  {
-    this();
+    super(featureName);
     this.featureName = featureName;
   }
 
 
-  public AbstractComponentMapper(String featureName, int indexPresence)
+  public PresenceIndicatingSvmNodeComponentMapper(String featureName, int indexPresence)
   {
     this(featureName);
     this.indexPresence = indexPresence;
-  }
-
-
-  public String getFeatureName()
-  {
-    return this.featureName = featureName;
-  }
-
-
-  public void setFeatureName(String featureName)
-  {
-    this.featureName = featureName;
   }
 
 
@@ -56,30 +38,4 @@ public abstract class AbstractComponentMapper
   {
     this.indexPresence = indexPresence;
   }
-
-
-  public String toString()
-  {
-    return String.format("%s %d", this.featureName, this.indexPresence);
-  }
-
-
-  public abstract void designateIndexes(int startIndex);
-
-
-  public abstract int getMaxIndex();
-
-
-  /**
-   * Set components in the SVM feature vector based on an Isacrodi
-   * level feature.
-   *
-   * <p><strong>Notice:</strong> Implementations of this method may
-   * modify {@code node}.</p>
-   *
-   * @param feature the feature, a {@code null} value indicates a missing feature
-   * @param node the libsvm feature vector within which to set components
-   * @return a reference to {@code node}
-   */
-  abstract svm_node[] map(AbstractFeature feature, svm_node[] node);
 }

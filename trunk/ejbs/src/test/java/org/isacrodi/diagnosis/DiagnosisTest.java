@@ -99,7 +99,7 @@ public class DiagnosisTest
     cdTom2.addCrop(this.tomato);
     cdTom2.setProcedureSet(new java.util.HashSet<Procedure>());
     cdTom2.addProcedure(proc1);
-    
+
     CropDisorder cdTom3 = new CropDisorder("anthraclips", "Colletotrichum lips");
     cdTom3.setId(3);
     cdTom3.setCropSet(new java.util.HashSet<Crop>());
@@ -242,7 +242,7 @@ public class DiagnosisTest
     DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
     dp.setKnownDisorderSet(this.cropDisorderSet);
     /* FIXME: test partially disabled pending refactoring of classification*/
-    
+
     Diagnosis d = dp.diagnose(this.emptyCDR);
     Assert.assertEquals(this.cropDisorderSet.size(), d.getDisorderScoreSet().size());
     double s = d.getDisorderScoreSet().iterator().next().getScore();
@@ -250,7 +250,7 @@ public class DiagnosisTest
     {
       Assert.assertEquals(s, ds.getScore());
     }
-    
+
   }
 
 
@@ -265,7 +265,7 @@ public class DiagnosisTest
   {
     Assert.assertTrue("no disorders", this.cropDisorderSet.size() > 0);
     /* FIXME: partially disabled pending refactoring of classification*/
-    
+
     DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
     dp.setKnownDisorderSet(this.cropDisorderSet);
     Diagnosis d = dp.diagnose(this.cropDisorderRecord);
@@ -280,7 +280,7 @@ public class DiagnosisTest
 	Assert.assertEquals(0.0, ds.getScore());
       }
     }
-    
+
   }
 
 
@@ -336,7 +336,7 @@ public class DiagnosisTest
   {
     FeatureVector featureVector = new FeatureVector();
     // jtk: changed FeatureVectorMapper to SvmNodeFeatureVectorMapper
-    SvmNodeFeatureVectorMapper fvm = new SvmNodeFeatureVectorMapper();
+    PresenceIndicatingSvmNodeFeatureVectorMapper fvm = new PresenceIndicatingSvmNodeFeatureVectorMapper();
 
     svm_node[] fv = null;
     fv = fvm.map(featureVector);
@@ -389,5 +389,50 @@ public class DiagnosisTest
       }
       Assert.assertEquals("jsvm misdiagnosis", expertDiagnosis, jsvmDiagnosis);
     }
+  }
+
+
+  /**
+   * Test straightforward mapping to arrays of {@code svm_node} (with
+   * non-existent features simply not being mapped, using the sparse
+   * vector approach provided by the {@code svm_node} structure.
+   *
+   * @author jtk
+   */
+  @Test
+  public void testSvmNodeMapping()
+  {
+    SvmNodeFeatureVectorMapper sfvm = new SvmNodeFeatureVectorMapper();
+    sfvm.addComponentMapper(new NumericSvmNodeComponentMapper("temperature"));
+    sfvm.addComponentMapper(new NumericSvmNodeComponentMapper("altitude"));
+    CategoricalSvmNodeComponentMapper cm = new CategoricalSvmNodeComponentMapper("leafcondition");
+    cm.addState("normal");
+    cm.addState("crinkled");
+    cm.addState("rotten");
+    cm.addState("yellowish");
+    sfvm.addComponentMapper(cm);
+    sfvm.designateIndexes();
+    FeatureVector fv = new FeatureVector();
+    svm_node[] sn = sfvm.map(fv);
+    Assert.assertEquals(sn.length, 0);
+    fv.putFeature(new NumericFeature("temperature", 47.11));
+    sn = sfvm.map(fv);
+    Assert.assertEquals(sn.length, 1);
+    fv.putFeature(new CategoricalFeature("leafcondition", "yellowish"));
+    sn = sfvm.map(fv);
+    Assert.assertEquals(sn.length, 5);
+    fv.putFeature(new CategoricalFeature("leafcondition", "undefined"));
+    sn = sfvm.map(fv);
+    Assert.assertEquals(sn.length, 5);
+    for (int i = 1; i < sn.length; i++)
+    {
+      Assert.assertEquals(sn[i].value, 0.0);
+    }
+    fv.putFeature(new NumericFeature("nonsense", -1111.11));
+    sn = sfvm.map(fv);
+    Assert.assertEquals(sn.length, 5);
+    fv.putFeature(new NumericFeature("altitude", 123.45));
+    sn = sfvm.map(fv);
+    Assert.assertEquals(sn.length, 6);
   }
 }
