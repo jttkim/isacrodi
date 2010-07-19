@@ -38,7 +38,7 @@ public class Main
       }
       numCdrs++;
     }
-    System.out.printf("%d out of %d diagnoses are correct (%5.2f%%\n", numCorrectDiagnoses, numCdrs, ((double) numCorrectDiagnoses) / ((double) numCdrs));
+    System.out.printf("%d out of %d diagnoses are correct (%5.2f%%)\n", numCorrectDiagnoses, numCdrs, ((double) numCorrectDiagnoses) / ((double) numCdrs));
   }
 
 
@@ -61,6 +61,10 @@ public class Main
     if ("diagnosischeck".equals(command))
     {
       diagnosischeck();
+    }
+    else if ("featuremappercheck".equals(command))
+    {
+      FeatureMapping.check();
     }
     else
     {

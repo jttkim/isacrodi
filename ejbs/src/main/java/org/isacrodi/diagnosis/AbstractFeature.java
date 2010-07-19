@@ -19,7 +19,7 @@ public class AbstractFeature
 
 
   public AbstractFeature()
-  {  
+  {
     super();
   }
 
@@ -28,7 +28,7 @@ public class AbstractFeature
     this.name = name;
   }
 
-  
+
   public String getName()
   {
     return this.name;
@@ -44,6 +44,4 @@ public class AbstractFeature
   {
     return String.format("%s", this.name);
   }
-
 }
-

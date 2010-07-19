@@ -5,35 +5,21 @@ import org.isacrodi.ejb.session.*;
 
 import libsvm.svm_node;
 
-/**
- * Abstract Feature Vector Mapper Component 
- */
-public abstract class AbstractComponentMapper
+
+public abstract class AbstractSvmNodeComponentMapper
 {
   protected String featureName;
-  protected int indexPresence;
 
 
-  public AbstractComponentMapper()
+  public AbstractSvmNodeComponentMapper(String featureName)
   {
     super();
-  }
-
-
-  public AbstractComponentMapper(String featureName)
-  {
-    this();
     this.featureName = featureName;
   }
 
 
-  public AbstractComponentMapper(String featureName, int indexPresence)
-  {
-    this(featureName);
-    this.indexPresence = indexPresence;
-  }
-
-
+  // FIXME: this should be the base class of component mappers, other
+  // abstract classes should inherit the featureName property.
   public String getFeatureName()
   {
     return this.featureName = featureName;
@@ -43,24 +29,6 @@ public abstract class AbstractComponentMapper
   public void setFeatureName(String featureName)
   {
     this.featureName = featureName;
-  }
-
-
-  public int getIndexPresence()
-  {
-    return (this.indexPresence);
-  }
-
-
-  public void setIndexPresence(int indexPresence)
-  {
-    this.indexPresence = indexPresence;
-  }
-
-
-  public String toString()
-  {
-    return String.format("%s %d", this.featureName, this.indexPresence);
   }
 
 

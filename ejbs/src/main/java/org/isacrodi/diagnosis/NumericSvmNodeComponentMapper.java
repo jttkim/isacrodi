@@ -11,33 +11,24 @@ import libsvm.svm_node;
 /**
  * Numeric Feature Vector Mapper Component
  */
-
-public class NumericComponentMapper extends AbstractComponentMapper implements Serializable
+public class NumericSvmNodeComponentMapper extends AbstractSvmNodeComponentMapper implements Serializable
 {
   // FIXME: cannot represent uninitialised state
   private int index;
-  private double valueMissing;
 
   private static final long serialVersionUID = 1;
 
 
-  public NumericComponentMapper()
-  {
-    super();
-  }
-
-
-  public NumericComponentMapper(String featureName)
+  public NumericSvmNodeComponentMapper(String featureName)
   {
     super(featureName);
   }
 
 
-  public NumericComponentMapper(String featureName, int index, int indexPresence, double valueMissing)
+  public NumericSvmNodeComponentMapper(String featureName, int index)
   {
-    super(featureName, indexPresence);
+    this(featureName);
     this.index = index;
-    this.valueMissing = valueMissing;
   }
 
 
@@ -53,57 +44,27 @@ public class NumericComponentMapper extends AbstractComponentMapper implements S
   }
 
 
-  public double getValueMissing()
-  {
-    return this.valueMissing;
-  }
-
-
-  public void setValueMissing(double valueMissing)
-  {
-    this.valueMissing = valueMissing;
-  }
-
-
   public String toString()
   {
-    return String.format("%d %f", this.index, this.valueMissing);
+    return String.format("NumericSvmNodeComponentMapper for %s, index = %d", this.featureName, this.index);
   }
 
 
   public void designateIndexes(int startIndex)
   {
-    int i = startIndex;
-    this.index = i++;
-    this.indexPresence = i++;
+    this.index = startIndex;
   }
 
 
   public int getMaxIndex()
   {
-    if (this.index > this.indexPresence)
-    {
-      return (this.index);
-    }
-    else
-    {
-      return (this.indexPresence);
-    }
+    return (this.index);
   }
 
 
   public svm_node[] map(AbstractFeature feature, svm_node[] node)
   {
-    if (feature == null)
-    {
-      node[this.index] = new svm_node();
-      node[this.index].index = this.index;
-      node[this.index].value = this.valueMissing;
-      node[this.indexPresence] = new svm_node();
-      node[this.indexPresence].index = this.indexPresence;
-      node[this.indexPresence].value = 0.0;
-    }
-    else
+    if (feature != null)
     {
       if (!(feature instanceof NumericFeature))
       {
@@ -111,12 +72,15 @@ public class NumericComponentMapper extends AbstractComponentMapper implements S
       }
       // FIXME: should also verify that feature has expected name -- by method provided by abstract base class?
       NumericFeature numericFeature = (NumericFeature) feature;
-      node[this.index] = new svm_node();
-      node[this.index].index = this.index;
-      node[this.index].value = numericFeature.getValue();
-      node[this.indexPresence] = new svm_node();
-      node[this.indexPresence].index = this.indexPresence;
-      node[this.indexPresence].value = 1.0;
+      svm_node[] newNode = new svm_node[node.length + 1];
+      for (int i = 0; i < node.length; i++)
+      {
+	newNode[i] = node[i];
+      }
+      node = newNode;
+      node[node.length - 1] = new svm_node();
+      node[node.length - 1].index = this.index;
+      node[node.length - 1].value = numericFeature.getValue();
     }
     return (node);
   }

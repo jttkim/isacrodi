@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public class DummyRecommendationProvider implements RecommendationProvider
 {
-  
+
   public DummyRecommendationProvider()
   {
     super();
@@ -17,8 +17,8 @@ public class DummyRecommendationProvider implements RecommendationProvider
 
   public Recommendation recommend(Diagnosis diagnosis)
   {
-   
-    Recommendation recommendation = new Recommendation(); 
+
+    Recommendation recommendation = new Recommendation();
     //this.cropDisorderRecord.setRecommendation(this.recommendation);
     recommendation.setId(1);
 
@@ -34,10 +34,7 @@ public class DummyRecommendationProvider implements RecommendationProvider
 	recommendation.addProcedureScore(ps);
       }
     }
-   
-    return (recommendation);   
+
+    return (recommendation);
   }
-
-  
 }
-

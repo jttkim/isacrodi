@@ -35,7 +35,7 @@ public class JSVMDiagnosisProvider implements DiagnosisProvider
   private Map<String, Integer> featureNameIndexMap;
   private Map<String, Integer> disorderScientificNameIndexMap;
   private CDRFeatureExtractor cdrFeatureExtractor;
-  private SvmNodeFeatureVectorMapper featureVectorMapper;
+  private PresenceIndicatingSvmNodeFeatureVectorMapper featureVectorMapper;
   private MultiClassModel<String, SparseVector> model;
   private Map<String, CropDisorder> cropDisorderMap;
 
@@ -116,16 +116,17 @@ public class JSVMDiagnosisProvider implements DiagnosisProvider
   }
 
 
-  public static AbstractComponentMapper makeComponentMapper(AbstractFeature feature)
+  public static PresenceIndicatingSvmNodeComponentMapper makeComponentMapper(AbstractFeature feature)
   {
-    AbstractComponentMapper componentMapper = null;
+    // FIXME: should use a mapper system that doesn't require retrofitting etc.
+    PresenceIndicatingSvmNodeComponentMapper componentMapper = null;
     if (feature instanceof NumericFeature)
     {
-      componentMapper = new NumericComponentMapper(feature.getName());
+      componentMapper = new PresenceIndicatingNumericSvmNodeComponentMapper(feature.getName());
     }
     else if (feature instanceof CategoricalFeature)
     {
-      componentMapper = new CategoricalComponentMapper(feature.getName());
+      componentMapper = new PresenceIndicatingCategoricalSvmNodeComponentMapper(feature.getName());
     }
     else
     {
@@ -135,18 +136,18 @@ public class JSVMDiagnosisProvider implements DiagnosisProvider
   }
 
 
-  public static void updateComponentMapper(AbstractFeature feature, AbstractComponentMapper componentMapper)
+  public static void updateComponentMapper(AbstractFeature feature, PresenceIndicatingSvmNodeComponentMapper componentMapper)
   {
-    if ((feature instanceof NumericFeature) && (componentMapper instanceof NumericComponentMapper))
+    if ((feature instanceof NumericFeature) && (componentMapper instanceof PresenceIndicatingNumericSvmNodeComponentMapper))
     {
       NumericFeature numericFeature = (NumericFeature) feature;
-      NumericComponentMapper numericComponentMapper = (NumericComponentMapper) componentMapper;
+      PresenceIndicatingNumericSvmNodeComponentMapper numericComponentMapper = (PresenceIndicatingNumericSvmNodeComponentMapper) componentMapper;
       // FIXME: nothing to do really if we're going to map to sparse vectors -- could collect set of values to obtain statistics for scaling etc., though.
     }
-    else if ((feature instanceof CategoricalFeature) && (componentMapper instanceof CategoricalComponentMapper))
+    else if ((feature instanceof CategoricalFeature) && (componentMapper instanceof PresenceIndicatingCategoricalSvmNodeComponentMapper))
     {
       CategoricalFeature categoricalFeature = (CategoricalFeature) feature;
-      CategoricalComponentMapper categoricalComponentMapper = (CategoricalComponentMapper) componentMapper;
+      PresenceIndicatingCategoricalSvmNodeComponentMapper categoricalComponentMapper = (PresenceIndicatingCategoricalSvmNodeComponentMapper) componentMapper;
       if (!categoricalComponentMapper.hasState(categoricalFeature.getState()))
       {
 	// FIXME: using index -1 to try and trigger exceptions if index designation is forgotten or fails -- should really set a proper NA value
@@ -162,13 +163,13 @@ public class JSVMDiagnosisProvider implements DiagnosisProvider
 
   protected void extractFeatureVectorMapper(Collection<FeatureVector> featureVectorCollection)
   {
-    Map<String, AbstractComponentMapper> componentMapperMap = new HashMap<String, AbstractComponentMapper>();
+    Map<String, PresenceIndicatingSvmNodeComponentMapper> componentMapperMap = new HashMap<String, PresenceIndicatingSvmNodeComponentMapper>();
     for (FeatureVector featureVector : featureVectorCollection)
     {
       for (String featureName : featureVector.keySet())
       {
 	AbstractFeature feature = featureVector.get(featureName);
-	AbstractComponentMapper componentMapper = componentMapperMap.get(featureName);
+	PresenceIndicatingSvmNodeComponentMapper componentMapper = componentMapperMap.get(featureName);
 	if (componentMapper == null)
 	{
 	  componentMapper = makeComponentMapper(feature);
@@ -177,8 +178,8 @@ public class JSVMDiagnosisProvider implements DiagnosisProvider
 	updateComponentMapper(feature, componentMapper);
       }
     }
-    this.featureVectorMapper = new SvmNodeFeatureVectorMapper();
-    for (AbstractComponentMapper componentMapper : componentMapperMap.values())
+    this.featureVectorMapper = new PresenceIndicatingSvmNodeFeatureVectorMapper();
+    for (PresenceIndicatingSvmNodeComponentMapper componentMapper : componentMapperMap.values())
     {
       this.featureVectorMapper.addComponentMapper(componentMapper);
     }
@@ -247,7 +248,7 @@ public class JSVMDiagnosisProvider implements DiagnosisProvider
     {
       double p = 0.0;
       if (label.equals(cropDisorderScientificName))
-      {	
+      {
 	p = 1.0;
       }
       DisorderScore disorderScore = new DisorderScore(p, this.cropDisorderMap.get(cropDisorderScientificName));

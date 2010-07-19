@@ -20,12 +20,14 @@ public class FeatureVector extends HashMap<String, AbstractFeature>
 {
 
   public FeatureVector()
-  {  
+  {
     super();
   }
 
+
   public void putFeature(AbstractFeature f)
   {
+    // FIXME: should superseding a feature be allowed?
     this.put(f.getName(), f);
   }
 

@@ -22,8 +22,8 @@ import libsvm.*;
  */
 public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
 {
-  private CDRFeatureExtractor fe;
-  private SvmNodeFeatureVectorMapper svmNodeFeatureVectorMapper;
+  private CDRFeatureExtractor cdrFeatureExtractor;
+  private FeatureVectorMapper<svm_node[]> svmNodeFeatureVectorMapper;
   private svm_model model;
   private Map<CropDisorder, Integer> disorderIndexMap;
 
@@ -33,13 +33,13 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   public SVMDiagnosisProvider()
   {
     super();
-    this.fe = new DummyCDRFeatureExtractor();
+    this.cdrFeatureExtractor = new DummyCDRFeatureExtractor();
     this.svmNodeFeatureVectorMapper = null;
     this.model = null;
     this.disorderIndexMap = null;
   }
 
-
+  /*
   public SVMDiagnosisProvider(String modelFileName, String parseFileName) throws IOException
   {
     // FIXME: dangerous design -- modelFileName and parseFileName have to be consistent!!
@@ -47,80 +47,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     this.model = svm.svm_load_model(modelFileName);
     this.svmNodeFeatureVectorMapper.parseFile(parseFileName);
   }
-
-
-  // jtk: feature vector mapper copied from JSVMDiagnosisProvider, expecting that JSVMDiagnosisProvider will be phased out
-  public static AbstractComponentMapper makeComponentMapper(AbstractFeature feature)
-  {
-    AbstractComponentMapper componentMapper = null;
-    if (feature instanceof NumericFeature)
-    {
-      componentMapper = new NumericComponentMapper(feature.getName());
-    }
-    else if (feature instanceof CategoricalFeature)
-    {
-      componentMapper = new CategoricalComponentMapper(feature.getName());
-    }
-    else
-    {
-      throw new IllegalArgumentException("unsupported feature type: " + feature.getClass().getCanonicalName());
-    }
-    return (componentMapper);
-  }
-
-
-  public static void updateComponentMapper(AbstractFeature feature, AbstractComponentMapper componentMapper)
-  {
-    if ((feature instanceof NumericFeature) && (componentMapper instanceof NumericComponentMapper))
-    {
-      NumericFeature numericFeature = (NumericFeature) feature;
-      NumericComponentMapper numericComponentMapper = (NumericComponentMapper) componentMapper;
-      // FIXME: nothing to do really if we're going to map to sparse vectors -- could collect set of values to obtain statistics for scaling etc., though.
-    }
-    else if ((feature instanceof CategoricalFeature) && (componentMapper instanceof CategoricalComponentMapper))
-    {
-      CategoricalFeature categoricalFeature = (CategoricalFeature) feature;
-      CategoricalComponentMapper categoricalComponentMapper = (CategoricalComponentMapper) componentMapper;
-      if (!categoricalComponentMapper.hasState(categoricalFeature.getState()))
-      {
-	// FIXME: using index -1 to try and trigger exceptions if index designation is forgotten or fails -- should really set a proper NA value
-	categoricalComponentMapper.addState(categoricalFeature.getState(), -1);
-      }
-    }
-    else
-    {
-      throw new IllegalArgumentException(String.format("feature / component mapper mismatch or unsupported feature or mapper: feature type %s, mapper type %s", feature.getClass().getSimpleName(), componentMapper.getClass().getSimpleName()));
-    }
-  }
-
-
-  protected static SvmNodeFeatureVectorMapper extractFeatureVectorMapper(Collection<FeatureVector> featureVectorCollection)
-  {
-    Map<String, AbstractComponentMapper> componentMapperMap = new HashMap<String, AbstractComponentMapper>();
-    for (FeatureVector featureVector : featureVectorCollection)
-    {
-      for (String featureName : featureVector.keySet())
-      {
-	AbstractFeature feature = featureVector.get(featureName);
-	AbstractComponentMapper componentMapper = componentMapperMap.get(featureName);
-	if (componentMapper == null)
-	{
-	  componentMapper = makeComponentMapper(feature);
-	  componentMapperMap.put(featureName, componentMapper);
-	}
-	updateComponentMapper(feature, componentMapper);
-      }
-    }
-    SvmNodeFeatureVectorMapper svmNodeFeatureVectorMapper = new SvmNodeFeatureVectorMapper();
-    for (AbstractComponentMapper componentMapper : componentMapperMap.values())
-    {
-      svmNodeFeatureVectorMapper.addComponentMapper(componentMapper);
-    }
-    svmNodeFeatureVectorMapper.designateIndexes();
-    return (svmNodeFeatureVectorMapper);
-  }
-  // jtk: end copied stuff
-
+  */
 
 
   /**
@@ -155,10 +82,10 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       {
 	this.disorderIndexMap.put(edd, new Integer(maxDisorderIndex++));
       }
-      FeatureVector featureVector = this.fe.extract(cropDisorderRecord);
+      FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
       featureVectorCollection.add(featureVector);
     }
-    this.svmNodeFeatureVectorMapper = this.extractFeatureVectorMapper(featureVectorCollection);
+    this.svmNodeFeatureVectorMapper = new PresenceIndicatingSvmNodeFeatureVectorMapper(featureVectorCollection);
     svm_node[][] sample = new svm_node[labelledCropDisorderRecordSet.size()][];
     double label[] = new double[labelledCropDisorderRecordSet.size()];
     int i = 0;
@@ -167,7 +94,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       CropDisorder edd = cropDisorderRecord.getExpertDiagnosedCropDisorder();
       int disorderIndex = this.disorderIndexMap.get(edd).intValue();
       // FIXME: clumsy programming -- duplicate feature vector extraction
-      FeatureVector featureVector = this.fe.extract(cropDisorderRecord);
+      FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
       featureVectorCollection.add(featureVector);
       label[i] = (double) disorderIndex;
       sample[i] = this.svmNodeFeatureVectorMapper.map(featureVector);
@@ -211,7 +138,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     Diagnosis diagnosis = new Diagnosis();
     int[] svmLabels = new int[this.disorderIndexMap.size()];
     svm.svm_get_labels(this.model, svmLabels);
-    FeatureVector featureVector = fe.extract(cropDisorderRecord);
+    FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
     svm_node[] fv = this.svmNodeFeatureVectorMapper.map(featureVector);
     double[] probability = new double[this.disorderIndexMap.size()];
     double predictedLabel = svm.svm_predict_probability(this.model, fv, probability);
