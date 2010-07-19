@@ -34,12 +34,27 @@ public interface CropDisorderRecordManager
   /**
    * Get a current diagnosis provider.
    */
-  DiagnosisProvider getDiagnosisProvider();
+  DiagnosisProvider constructDiagnosisProvider();
 
   /**
    * Request a diagnosis for a crop disorder record.
+   *
+   * @param cropDisorderRecordId the ID of the crop disorder record to be diagnosed
    */
   void requestDiagnosis(int cropDisorderRecordId);
+
+
+  /**
+   * Request a diagnosis for a crop disorder record, specifying
+   * whether a new (updated) diagnosis provider should be constructed
+   * for this purpose.
+   *
+   * @param cropDisorderRecordId the ID of the crop disorder record to be diagnosed
+   * @param constructNewDiagnosisProvider passing in {@true} forces
+   * construction of a new diagnosis provider based on the training
+   * data currently available
+   */
+  void requestDiagnosis(int cropDisorderRecordId, boolean constructNewDiagnosisProvider);
 
   /**
    * Update a crop disorder record.

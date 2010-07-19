@@ -34,6 +34,15 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
 
   private static final long serialVersionUID = 1;
 
+  private DiagnosisProvider diagnosisProvider;
+
+
+  public CropDisorderRecordManagerBean()
+  {
+    super();
+    this.diagnosisProvider = null;
+  }
+
 
   private void fetchSets(CropDisorderRecord cdr)
   {
@@ -87,7 +96,7 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
   }
 
 
-  public DiagnosisProvider getDiagnosisProvider()
+  public DiagnosisProvider constructDiagnosisProvider()
   {
     SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
     svmDiagnosisProvider.train(this.findExpertDiagnosedCropDisorderRecordList());
@@ -95,17 +104,29 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
   }
 
 
-  public void requestDiagnosis(int cropDisorderRecordId)
+  public void requestDiagnosis(int cropDisorderRecordId, boolean constructNewDiagnosisProvider)
   {
     CropDisorderRecord cropDisorderRecord = this.entityManager.find(CropDisorderRecord.class, new Integer(cropDisorderRecordId));
-    // FIXME: should check whether we got a cdr
-    DiagnosisProvider diagnosisProvider = this.getDiagnosisProvider();
-    Diagnosis diagnosis = diagnosisProvider.diagnose(cropDisorderRecord);
+    if (cropDisorderRecord == null)
+    {
+      throw new RuntimeException(String.format("no crop disorder record with id %s found", cropDisorderRecordId));
+    }
+    if ((this.diagnosisProvider == null) || constructNewDiagnosisProvider)
+    {
+      this.diagnosisProvider = this.constructDiagnosisProvider();
+    }
+    Diagnosis diagnosis = this.diagnosisProvider.diagnose(cropDisorderRecord);
     this.entityManager.persist(diagnosis);
     for (DisorderScore disorderScore : diagnosis.getDisorderScoreSet())
     {
       this.entityManager.persist(disorderScore);
     }
+  }
+
+
+  public void requestDiagnosis(int cropDisorderRecordId)
+  {
+    this.requestDiagnosis(cropDisorderRecordId, false);
   }
 
 
