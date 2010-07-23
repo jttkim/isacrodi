@@ -27,6 +27,7 @@ public class CropDisorderRecord implements IsacrodiEntity
 {
   private Integer id;
   private int version;
+  private String name;
   private String description;
   private Recommendation recommendation;
   private Diagnosis diagnosis;
@@ -70,6 +71,18 @@ public class CropDisorderRecord implements IsacrodiEntity
   public void setVersion(int version)
   {
     this.version = version;
+  }
+
+
+  public String getName()
+  {
+    return (this.name);
+  }
+
+
+  public void setName(String name)
+  {
+    this.name = name;
   }
 
 

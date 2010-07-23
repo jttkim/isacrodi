@@ -1,13 +1,15 @@
 package org.isacrodi.ejb.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
-import java.util.HashSet;
-import java.util.Set;
 
 
 /*
@@ -21,6 +23,7 @@ public class Procedure implements IsacrodiEntity
   private String description;
   private Set<CropDisorder> cropDisorderSet;
   private Set<ProcedureScore> procedureScoreSet;
+  private Set<Procedure> incompatibleProcedureSet;
 
 
   private static final long serialVersionUID = 1;
@@ -68,6 +71,7 @@ public class Procedure implements IsacrodiEntity
   }
 
 
+  @Column(length = 4096)
   public String getDescription()
   {
     return this.description;
@@ -141,6 +145,40 @@ public class Procedure implements IsacrodiEntity
   }
 
 
+  @ManyToMany
+  public Set<Procedure> getIncompatibleProcedureSet()
+  {
+    return (this.incompatibleProcedureSet);
+  }
+
+
+  public void setIncompatibleProcedureSet(Set<Procedure> incompatibleProcedureSet)
+  {
+    this.incompatibleProcedureSet = incompatibleProcedureSet;
+  }
+
+
+  public void linkIncompatibleProcedure(Procedure incompatibleProcedure)
+  {
+    this.incompatibleProcedureSet.add(incompatibleProcedure);
+    incompatibleProcedure.getIncompatibleProcedureSet().add(this);
+  }
+
+
+  public boolean unlinkIncompatibleProcedure(Procedure incompatibleProcedure)
+  {
+    if (!this.incompatibleProcedureSet.remove(incompatibleProcedure))
+    {
+      return (false);
+    }
+    if (!incompatibleProcedure.getIncompatibleProcedureSet().remove(this))
+    {
+      return (false);
+    }
+    return (true);
+  }
+
+
   public String toString()
   {
     return String.format("%s %s %s", getId(), getVersion(), getDescription());
@@ -159,5 +197,10 @@ public class Procedure implements IsacrodiEntity
       procedureScore.setProcedure(null);
     }
     this.procedureScoreSet.clear();
+    for (Procedure incompatibleProcedure : this.getIncompatibleProcedureSet())
+    {
+      incompatibleProcedure.getIncompatibleProcedureSet().remove(this);
+    }
+    this.incompatibleProcedureSet.clear();
   }
 }

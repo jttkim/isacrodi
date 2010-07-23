@@ -19,6 +19,7 @@ public class Crop implements IsacrodiEntity
   private int version;
   private String name;
   private String scientificName;
+  private String description;
   private Set<CropDisorder> cropDisorderSet;
   private Set<CropDisorderRecord> cropDisorderRecordSet;
 
@@ -66,6 +67,19 @@ public class Crop implements IsacrodiEntity
   public void setVersion(int version)
   {
     this.version = version;
+  }
+
+
+  @Column(length = 4096)
+  public String getDescription()
+  {
+    return this.description;
+  }
+
+
+  public void setDescription(String description)
+  {
+    this.description = description;
   }
 
 

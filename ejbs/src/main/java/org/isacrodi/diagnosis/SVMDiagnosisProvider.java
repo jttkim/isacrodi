@@ -85,7 +85,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
       featureVectorCollection.add(featureVector);
     }
-    this.svmNodeFeatureVectorMapper = new PresenceIndicatingSvmNodeFeatureVectorMapper(featureVectorCollection);
+    this.svmNodeFeatureVectorMapper = new SvmNodeFeatureVectorMapper(featureVectorCollection);
     svm_node[][] sample = new svm_node[labelledCropDisorderRecordSet.size()][];
     double label[] = new double[labelledCropDisorderRecordSet.size()];
     int i = 0;
