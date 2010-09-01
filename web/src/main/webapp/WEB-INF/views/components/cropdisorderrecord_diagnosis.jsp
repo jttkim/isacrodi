@@ -8,7 +8,7 @@
 <s:if test="%{diagnosis}">
 <table>
 <tr><th>score</th><th>disorder</th></tr>
-<s:iterator value="%{diagnosis.disorderScoreSet}">
+<s:iterator value="%{disorderScoreList}">
 <tr><td><s:property value="%{score}"/></td><td><s:push value="%{cropDisorder}"><%@include file="links/cropdisorderlink.jsp" %></s:push></td></tr>
 </s:iterator>
 </table>

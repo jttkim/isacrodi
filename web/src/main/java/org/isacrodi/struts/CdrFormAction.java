@@ -89,20 +89,62 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
+  public Double prepareNumericMap(String descriptorName)
+  {
+    Set<NumericDescriptor> numericDescriptorSet = this.cropDisorderRecord.findNumericDescriptorSet();
+    for (NumericDescriptor numericDescriptor : numericDescriptorSet)
+    {
+      NumericType numericType = (NumericType) numericDescriptor.getDescriptorType();
+      if (descriptorName.equals(numericType.getTypeName()))
+        return(new Double(numericDescriptor.getNumericValue()));
+    }
+    return(null);
+  }
+
+
+  public String prepareCategoricalMap(String descriptorName)
+  {
+    String dv = null;
+    Set<CategoricalDescriptor> categoricalDescriptorSet = this.cropDisorderRecord.findCategoricalDescriptorSet();
+    for (CategoricalDescriptor categoricalDescriptor : categoricalDescriptorSet)
+    {
+      CategoricalType categoricalType = (CategoricalType) categoricalDescriptor.getDescriptorType();
+      if (descriptorName.equals(categoricalType.getTypeName()))
+      {
+        if (categoricalType.getMultivalue())
+        {
+
+        }
+        else
+        {
+          for(CategoricalTypeValue ctv : categoricalDescriptor.getCategoricalTypeValueSet())
+          {
+            return(ctv.getValueType());
+          }
+        }
+      }
+    }
+    return(dv);
+  }
+
+
   public void prepare()
   {
     super.prepare();
     if (this.cropDisorderRecord != null)
     {
-      Set<NumericDescriptor> numericDescriptorSet = this.cropDisorderRecord.findNumericDescriptorSet();
-      for (NumericDescriptor numericDescriptor : numericDescriptorSet)
-      {
-	NumericType numericType = (NumericType) numericDescriptor.getDescriptorType();
-	if ("altitude".equals(numericType.getTypeName()))
-	{
-	  this.altitude = new Double(numericDescriptor.getNumericValue());
-	}
-      }
+      this.altitude = prepareNumericMap("altitude");
+      this.monthlyaveragetemperature = prepareNumericMap("monthlyaveragetemperature");
+      this.monthlyaveragehumidity = prepareNumericMap("monthlyaveragehumidity");
+      this.monthlyprecipitation = prepareNumericMap("monthlyprecipitation");
+      this.cultivatedarea = prepareNumericMap("cultivatedarea");
+      this.cropage = prepareNumericMap("cropage");
+      this.relativeaffectedarea = prepareNumericMap("relativeaffectedarea");
+      this.irrigationamount = prepareNumericMap("irrigationamount");
+      this.irrigationfrequency = prepareNumericMap("irrigationfrequency");
+      this.pH = prepareNumericMap("pH");
+      this.pestdensity = prepareNumericMap("pestdensity");
+      prepareCategoricalMap("symptom");
     }
   }
 
@@ -557,6 +599,15 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
+  public void addNumericDescriptorToMap(Map<Integer, Double> numericDescriptorMap, Integer id, Double descriptorValue)
+  {
+    if (descriptorValue != null)
+    {
+       numericDescriptorMap.put(id, descriptorValue);
+    }
+  }
+
+
   public String execute()
   {
     this.LOG.info("show CDR: executing");
@@ -585,59 +636,19 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
       this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "seedlingorigin", this.seedlingorigin);
       this.cropDisorderRecordManager.updateCategoricalDescriptors(this.cropDisorderRecordId, categoricalDescriptorMap);
 
-      // sample for updateing numerical types
       Map<Integer, Double> numericDescriptorMap = new HashMap<Integer, Double>();
-      if (this.altitude != null)
-      {
-	numericDescriptorMap.put(this.altitudeType.getId(), this.altitude);
-      }
-
-      if (this.monthlyaveragetemperature != null)
-      {
-	numericDescriptorMap.put(this.monthlyaveragetemperatureType.getId(), this.monthlyaveragetemperature);
-      }
-
-      if (this.monthlyaveragehumidity != null)
-      {
-	numericDescriptorMap.put(this.monthlyaveragehumidityType.getId(), this.monthlyaveragehumidity);
-      }
-
-      if (this.monthlyprecipitation != null)
-      {
-	numericDescriptorMap.put(this.monthlyprecipitationType.getId(), this.monthlyprecipitation);
-      }
-
-      if (this.cultivatedarea != null)
-      {
-	numericDescriptorMap.put(this.cultivatedareaType.getId(), this.cultivatedarea);
-      }
-      if (this.cropage != null)
-      {
-	numericDescriptorMap.put(this.cropageType.getId(), this.cropage);
-      }
-      if (this.relativeaffectedarea != null)
-      {
-	numericDescriptorMap.put(this.relativeaffectedareaType.getId(), this.relativeaffectedarea);
-      }
-      if (this.irrigationamount != null)
-      {
-	numericDescriptorMap.put(this.irrigationamountType.getId(), this.irrigationamount);
-      }
-      if (this.irrigationfrequency != null)
-      {
-	numericDescriptorMap.put(this.irrigationfrequencyType.getId(), this.irrigationfrequency);
-      }
-      if (this.pH != null)
-      {
-	numericDescriptorMap.put(this.pHType.getId(), this.pH);
-      }
-      if (this.pestdensity != null)
-      {
-	numericDescriptorMap.put(this.pestdensityType.getId(), this.pestdensity);
-      }
-
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.altitudeType.getId(), this.altitude);
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyaveragetemperatureType.getId(), this.monthlyaveragetemperature);
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyaveragehumidityType.getId(), this.monthlyaveragehumidity);
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyprecipitationType.getId(), this.monthlyprecipitation);
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.cultivatedareaType.getId(), this.cultivatedarea);
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.cropageType.getId(), this.cropage);
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.relativeaffectedareaType.getId(), this.relativeaffectedarea);
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.irrigationamountType.getId(), this.irrigationamount);
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.irrigationfrequencyType.getId(), this.irrigationfrequency);
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.pHType.getId(), this.pH);
+      this.addNumericDescriptorToMap(numericDescriptorMap, this.pestdensityType.getId(), this.pestdensity);
       this.cropDisorderRecordManager.updateNumericDescriptors(this.cropDisorderRecordId, numericDescriptorMap);
-
 
     }
     else
