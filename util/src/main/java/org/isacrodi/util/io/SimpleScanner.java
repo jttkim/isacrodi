@@ -32,15 +32,37 @@ public class SimpleScanner
   }
 
 
-  public Token nextToken() throws IOException
+  private boolean isEmptyLine(String line)
+  {
+    if (line == null)
+    {
+      return (false);
+    }
+    String s = line.trim();
+    if ("".equals(s) || s.startsWith("#"))
+    {
+      return (true);
+    }
+    return (false);
+  }
+
+
+  private String nextLine() throws IOException
   {
     String s = this.in.readLine();
     this.lineNumber++;
-    while ((s != null) && s.trim().equals(""))
+    while (this.isEmptyLine(s))
     {
       s = this.in.readLine();
       this.lineNumber++;
     }
+    return (s);
+  }
+
+
+  public Token nextToken() throws IOException
+  {
+    String s = this.nextLine();
     if (s == null)
     {
       return (null);
@@ -80,7 +102,8 @@ public class SimpleScanner
     Token t = this.nextToken(expectedTokenType);
     if (!t.getName().equals(expectedName))
     {
-      throw new IllegalStateException(String.format("line %d: expected name %s but found %s", expectedName, t.getName()));
+      // FIXME: consider managing line numbers in tokens?
+      throw new IllegalStateException(String.format("line %d: expected name %s but found %s", this.lineNumber, expectedName, t.getName()));
     }
     return (t);
   }
