@@ -26,7 +26,7 @@
 </tr>
 </tr>
 <s:iterator value="%{numericDescriptorList}">
-<s:textfield label="%{numericType.typeName}" name="numerictype_id_%{numericType.id}" value="%{numericValue}"/>
+<s:textfield label="%{descriptorType.typeName} (%{descriptorType.unit})" name="numerictype_id_%{descriptorType.id}" value="%{numericValue}" tooltip="%{descriptorType.description}"/>
 </s:iterator>
 <tr>
 <th colspan="2">Add new numeric descriptor</th>

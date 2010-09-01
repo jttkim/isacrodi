@@ -4,6 +4,7 @@
 <ul>
 <li><a href="<%= response.encodeURL("home") %>">home</a></li>
 <li><a href="<%= response.encodeURL("newcdrform_input") %>">New CDR</a></li>
+<li><a href="<%= response.encodeURL("cdrform_input") %>">CDR form</a></li>
 <li><a href="<s:url action="logout"/>">logout</a></li>
 </ul>
 <p>Browse</p>
@@ -12,7 +13,10 @@
 <li><a href="crud?entityClassName=CropDisorder">Disorders</a></li>
 <li><a href="crud?entityClassName=CropDisorderRecord">CDRs</a></li>
 <li><a href="crud?entityClassName=NumericType">Numeric Types</a></li>
+<li><a href="crud?entityClassName=CategoricalType">Categorical Types</a></li>
 <li><a href="crud?entityClassName=ImageType">Image Types</a></li>
+<li><a href="crud?entityClassName=Procedure">Procedures</a></li>
+<li><a href="crud?entityClassName=Recommendation">Recommendations</a></li>
 </ul>
 </div>
 <%

@@ -1,0 +1,1 @@
+<s:url var="procedureurl" action="crud"><s:param name="entityClassName" value="%{'Procedure'}"/><s:param name="entityId" value="%{id}"/></s:url><s:a href="%{procedureurl}"><s:property value="%{name}"/></s:a>
