@@ -106,6 +106,7 @@ public class KludgeBean implements Kludge
   }
 
 
+
   public void makeRandomExpertDiagnosedCDRs(int rndseed, int numNumericTypes, int numCrops, int numCropDisorders, int numCDRs, int numDisorderAssociations, double numericDescriptorPercentage, double stddevBetween, double stddevWithin)
   {
     Random rng = new Random(rndseed);
@@ -190,7 +191,7 @@ public class KludgeBean implements Kludge
     }
   }
 
-
+/*
   public void makeDummies()
   {
     Dummy1 d1a = new Dummy1("a");
@@ -254,7 +255,7 @@ public class KludgeBean implements Kludge
     imageDescriptor.linkCropDisorderRecord(cdr);
     this.entityManager.persist(imageDescriptor);
   }
-
+*/
 
   public ImageDescriptor findImageDescriptor(Integer id)
   {
