@@ -52,10 +52,12 @@ public class FeatureMapping
     showMapping(sfvm, fv);
     fv.putFeature(new NumericFeature("temperature", 47.11));
     showMapping(sfvm, fv);
+    /*
     fv.putFeature(new CategoricalFeature("leafcondition", "yellowish"));
     showMapping(sfvm, fv);
     fv.putFeature(new CategoricalFeature("leafcondition", "rotten"));
     showMapping(sfvm, fv);
+    */
     fv.putFeature(new NumericFeature("nonsense", -1111.11));
     showMapping(sfvm, fv);
     fv.putFeature(new NumericFeature("altitude", 123.45));

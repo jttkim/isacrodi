@@ -11,16 +11,22 @@ import javax.persistence.Version;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
 
+import org.javamisc.Util;
+import org.javamisc.jee.entitycrud.CrudConfig;
+
 
 /*
  * Class Procedure
  */
 @Entity
+@CrudConfig(propertyOrder = {"id", "name", "toxicologicalClass", "description", "cropDisorderSet", "incompatibleProcedureSet", "*"})
 public class Procedure implements IsacrodiEntity
 {
   private Integer id;
   private int version;
+  private String name;
   private String description;
+  private String toxicologicalClass;
   private Set<CropDisorder> cropDisorderSet;
   private Set<ProcedureScore> procedureScoreSet;
   private Set<Procedure> incompatibleProcedureSet;
@@ -34,12 +40,20 @@ public class Procedure implements IsacrodiEntity
     super();
     this.cropDisorderSet = new HashSet<CropDisorder>();
     this.procedureScoreSet = new HashSet<ProcedureScore>();
+    this.incompatibleProcedureSet = new HashSet<Procedure>();
   }
 
 
-  public Procedure(String description)
+  public Procedure(String name)
   {
     this();
+    this.name = name;
+  }
+
+
+  public Procedure(String name, String description)
+  {
+    this(name);
     this.description = description;
   }
 
@@ -71,6 +85,19 @@ public class Procedure implements IsacrodiEntity
   }
 
 
+  @Column(unique = true, nullable = false)
+  public String getName()
+  {
+    return (this.name);
+  }
+
+
+  public void setName(String name)
+  {
+    this.name = name;
+  }
+
+
   @Column(length = 4096)
   public String getDescription()
   {
@@ -81,6 +108,18 @@ public class Procedure implements IsacrodiEntity
   public void setDescription(String description)
   {
     this.description = description;
+  }
+
+
+  public String getToxicologicalClass()
+  {
+    return (this.toxicologicalClass);
+  }
+
+
+  public void setToxicologicalClass(String toxicologicalClass)
+  {
+    this.toxicologicalClass = toxicologicalClass;
   }
 
 
@@ -179,12 +218,6 @@ public class Procedure implements IsacrodiEntity
   }
 
 
-  public String toString()
-  {
-    return String.format("%s %s %s", getId(), getVersion(), getDescription());
-  }
-
-
   public void unlink()
   {
     for (CropDisorder cropDisorder : this.cropDisorderSet)
@@ -202,5 +235,51 @@ public class Procedure implements IsacrodiEntity
       incompatibleProcedure.getIncompatibleProcedureSet().remove(this);
     }
     this.incompatibleProcedureSet.clear();
+  }
+
+
+  /*
+  public boolean equals(Object other)
+  {
+    if (other instanceof Procedure)
+    {
+      Procedure otherProcedure = (Procedure) other;
+      if ((this.id == null) || (otherProcedure.id == null))
+      {
+	return (false);
+      }
+      return (this.id.equals(otherProcedure.id));
+    }
+    return (false);
+  }
+
+
+  public int hashCode()
+  {
+    if (this.id == null)
+    {
+      return (0);
+    }
+    return (this.id.intValue());
+  }
+  */
+
+
+  public boolean compatibleWith(Procedure otherProcedure)
+  {
+    /*
+    System.err.println(String.format("Procedure.compatibleWith: checking compatibility of %s with %s", this.name, otherProcedure.name));
+    for (Procedure incompatibleProcedure : this.incompatibleProcedureSet)
+    {
+      System.err.println(String.format("Procedure.compatibleWith:   incompatible with %s: %b", incompatibleProcedure.getName(), incompatibleProcedure.equals(otherProcedure)));
+    }
+    */
+    return (!this.incompatibleProcedureSet.contains(otherProcedure));
+  }
+
+
+  public String toString()
+  {
+    return (String.format("Procedure(id = %s, name = %s, description = %s, toxicologicalClass = %s)", Util.safeStr(this.id), Util.safeStr(this.name), Util.safeStr(this.description), Util.safeStr(this.toxicologicalClass)));
   }
 }

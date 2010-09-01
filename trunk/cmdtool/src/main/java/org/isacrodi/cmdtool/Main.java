@@ -1,11 +1,16 @@
 package org.isacrodi.cmdtool;
 
+import java.io.IOException;
+
 import java.util.List;
 
 import javax.naming.NamingException;
 import javax.naming.InitialContext;
 
 import org.isacrodi.ejb.session.CropDisorderRecordManager;
+import org.isacrodi.ejb.session.Access;
+import org.isacrodi.ejb.session.Kludge;
+import org.javamisc.jee.entitycrud.EntityAccess;
 
 import org.isacrodi.ejb.entity.*;
 
@@ -42,6 +47,14 @@ public class Main
   }
 
 
+  private static void dumpEntities(String basename) throws NamingException, IOException
+  {
+    InitialContext context = new InitialContext();
+    Access access = (Access) context.lookup("isacrodi/AccessBean/remote");
+    access.dumpEntities(basename);
+  }
+
+
   private static void usage()
   {
     System.out.println("usage: cmdtool <command> [parameters ...]");
@@ -65,6 +78,15 @@ public class Main
     else if ("featuremappercheck".equals(command))
     {
       FeatureMapping.check();
+    }
+    else if ("dump".equals(command))
+    {
+      if (args.length < 2)
+      {
+	throw new RuntimeException("no base name specified");
+      }
+      String basename = args[1];
+      dumpEntities(basename);
     }
     else
     {

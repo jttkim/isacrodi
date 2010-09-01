@@ -11,8 +11,12 @@ import javax.persistence.Column;
 import java.util.Set;
 import java.util.HashSet;
 
+import org.javamisc.Util;
+import org.javamisc.jee.entitycrud.CrudConfig;
+
 
 @Entity
+@CrudConfig(propertyOrder = {"id", "name", "scientificName", "description", "cropSet", "procedureSet", "expertDiagnosedCropDisorderRecordSet", "disorderScoreSet", "*"})
 public class CropDisorder implements IsacrodiEntity
 {
   private Integer id;
@@ -56,6 +60,7 @@ public class CropDisorder implements IsacrodiEntity
 
   public void setId(Integer id)
   {
+    // System.err.println(String.format("CropDisorder.setId(%s) on %s", Util.safeStr(id), this.toString()));
     this.id = id;
   }
 
@@ -63,6 +68,7 @@ public class CropDisorder implements IsacrodiEntity
   @Version
   public int getVersion()
   {
+    // System.err.printf(String.format("CropDisorder.getVersion: returning %d, scientificName = %s", this.version, Util.safeStr(this.scientificName)));
     return (this.version);
   }
 
@@ -70,6 +76,7 @@ public class CropDisorder implements IsacrodiEntity
   public void setVersion(int version)
   {
     this.version = version;
+    // System.err.printf(String.format("CropDisorder.setVersion: version set to %d, scientificName = %s", this.version, Util.safeStr(this.scientificName)));
   }
 
 
@@ -81,6 +88,7 @@ public class CropDisorder implements IsacrodiEntity
 
   public void setName(String name)
   {
+    // System.err.println(String.format("CropDisorder.setName(%s) on %s", Util.safeStr(name), this.toString()));
     this.name = name;
   }
 
@@ -94,6 +102,7 @@ public class CropDisorder implements IsacrodiEntity
 
   public void setScientificName(String scientificName)
   {
+    // System.err.println(String.format("CropDisorder.setScientificName(%s) on %s", Util.safeStr(scientificName), this.toString()));
     this.scientificName = scientificName;
   }
 
@@ -107,6 +116,7 @@ public class CropDisorder implements IsacrodiEntity
 
   public void setDescription(String description)
   {
+    // System.err.println(String.format("CropDisorder.setDescription(%s) on %s", Util.safeStr(description), this.toString()));
     this.description = description;
   }
 
@@ -159,7 +169,7 @@ public class CropDisorder implements IsacrodiEntity
 
   public void setDisorderScoreSet(Set<DisorderScore> disorderScoreSet)
   {
-    this.disorderScoreSet = this.disorderScoreSet;
+    this.disorderScoreSet = disorderScoreSet;
   }
 
 
@@ -231,18 +241,21 @@ public class CropDisorder implements IsacrodiEntity
   @OneToMany(mappedBy = "expertDiagnosedCropDisorder")
   public Set<CropDisorderRecord> getExpertDiagnosedCropDisorderRecordSet()
   {
+    // System.err.println("CropDisorder.getExpertDiagnosedCropDisorderRecordSet");
     return (this.expertDiagnosedCropDisorderRecordSet);
   }
 
 
   public void setExpertDiagnosedCropDisorderRecordSet(Set<CropDisorderRecord> expertDiagnosedCropDisorderRecordSet)
   {
+    // System.err.println("CropDisorder.setExpertDiagnosedCropDisorderRecordSet");
     this.expertDiagnosedCropDisorderRecordSet = expertDiagnosedCropDisorderRecordSet;
   }
 
 
   public void linkExpertDiagnosedCropDisorderRecordSet(CropDisorderRecord expertDiagnosedCropDisorderRecord)
   {
+    // System.err.println("CropDisorder.linkExpertDiagnosedCropDisorderRecordSet");
     this.expertDiagnosedCropDisorderRecordSet.add(expertDiagnosedCropDisorderRecord);
     expertDiagnosedCropDisorderRecord.setExpertDiagnosedCropDisorder(this);
   }
@@ -250,6 +263,7 @@ public class CropDisorder implements IsacrodiEntity
 
   public boolean unlinkExpertDiagnosedCropDisorderRecordSet(CropDisorderRecord expertDiagnosedCropDisorderRecord)
   {
+    // System.err.println("CropDisorder.unlinkExpertDiagnosedCropDisorderRecordSet");
     if (!this.expertDiagnosedCropDisorderRecordSet.remove(expertDiagnosedCropDisorderRecord))
     {
       return (false);
@@ -283,12 +297,25 @@ public class CropDisorder implements IsacrodiEntity
     this.expertDiagnosedCropDisorderRecordSet.clear();
   }
 
+  /*
+  public int hashCode()
+  {
+    System.err.println(String.format("CropDisorder.hashCode: %s", this.toString()));
+    if (this.id == null)
+    {
+      return (0);
+    }
+    return (this.id.intValue());
+  }
+
 
   public boolean equals(Object other)
   {
+    System.err.println(String.format("CropDisorder.equals(%s)", other.toString()));
     if (other instanceof CropDisorder)
     {
       CropDisorder otherCropDisorder = (CropDisorder) other;
+      System.err.println(String.format("CropDisorder.equals(%s, %s)", this.toString(), other.toString()));
       if ((this.id == null) || (otherCropDisorder.id == null))
       {
 	if ((this.scientificName != null) && (otherCropDisorder.scientificName != null))
@@ -307,10 +334,28 @@ public class CropDisorder implements IsacrodiEntity
     }
     return (false);
   }
+  */
 
 
   public String toString()
   {
-    return String.format("%s %s %s %s", getId(), getVersion(), getName(), getScientificName());
+    // FIXME: not safe outside transaction context (size() may then fail)
+    return (String.format("CropDisorder(id = %s, name = %s, scientificName = %s, description = %s, %d crops, %d procedures, %d expert diagnoses, %d scores", Util.safeStr(this.id), Util.safeStr(this.name), Util.safeStr(this.scientificName), Util.safeStr(this.description), this.cropSet.size(), this.procedureSet.size(), this.expertDiagnosedCropDisorderRecordSet.size(), this.disorderScoreSet.size()));
+  }
+
+
+  public String fileRepresentation()
+  {
+    String s = "disorder\n{\n";
+    s += String.format("  name: %s", this.name);
+    s += String.format("  scientificName: %s", this.scientificName);
+    s += "  cropSet: ";
+    String glue = "";
+    for (Crop crop : this.cropSet)
+    {
+      s += glue + crop.getScientificName();
+    }
+    s += "\n}\n";
+    return (s);
   }
 }

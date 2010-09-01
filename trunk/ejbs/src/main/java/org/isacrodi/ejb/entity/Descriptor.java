@@ -13,11 +13,18 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Descriptor implements IsacrodiEntity
 {
-  private Integer id;
-  private int version;
-  private CropDisorderRecord cropDisorderRecord;
+  protected Integer id;
+  protected int version;
+  protected CropDisorderRecord cropDisorderRecord;
+  protected DescriptorType descriptorType;
 
   private static final long serialVersionUID = 1;
+
+
+  public Descriptor()
+  {
+    super();
+  }
 
 
   @Id
@@ -82,8 +89,44 @@ public abstract class Descriptor implements IsacrodiEntity
   }
 
 
+  @ManyToOne(optional = false)
+  public DescriptorType getDescriptorType()
+  {
+    return (this.descriptorType);
+  }
+
+
+  public void setDescriptorType(DescriptorType descriptorType)
+  {
+    this.descriptorType = descriptorType;
+  }
+
+
+  public void linkDescriptorType(DescriptorType descriptorType)
+  {
+    this.descriptorType = descriptorType;
+    descriptorType.getDescriptorSet().add(this);
+  }
+
+
+  public boolean unlinkDescriptorType()
+  {
+    if (this.descriptorType == null)
+    {
+      return (false);
+    }
+    this.descriptorType = null;
+    if (!descriptorType.getDescriptorSet().remove(this))
+    {
+      return (false);
+    }
+    return (true);
+  }
+
+
   public void unlink()
   {
+    this.unlinkDescriptorType();
     this.unlinkCropDisorderRecord();
   }
 }

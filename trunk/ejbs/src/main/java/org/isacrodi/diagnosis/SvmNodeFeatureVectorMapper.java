@@ -56,16 +56,19 @@ public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[
     {
       NumericFeature numericFeature = (NumericFeature) feature;
       NumericSvmNodeComponentMapper numericSvmNodeComponentMapper = (NumericSvmNodeComponentMapper) componentMapper;
-      // FIXME: nothing to do really if we're going to map to sparse vectors -- could collect set of values to obtain statistics for scaling etc., though.
+      numericSvmNodeComponentMapper.addTrainingValue(numericFeature.getValue());
     }
     else if ((feature instanceof CategoricalFeature) && (componentMapper instanceof CategoricalSvmNodeComponentMapper))
     {
       CategoricalFeature categoricalFeature = (CategoricalFeature) feature;
       CategoricalSvmNodeComponentMapper categoricalSvmNodeComponentMapper = (CategoricalSvmNodeComponentMapper) componentMapper;
-      if (!categoricalSvmNodeComponentMapper.hasState(categoricalFeature.getState()))
+      if (!categoricalSvmNodeComponentMapper.hasAllStates(categoricalFeature.getStateSet()))
       {
 	// FIXME: using index -1 to try and trigger exceptions if index designation is forgotten or fails -- should really set a proper NA value
-	categoricalSvmNodeComponentMapper.addState(categoricalFeature.getState(), -1);
+	for (String stateName : categoricalFeature.getStateSet())
+	{
+	  categoricalSvmNodeComponentMapper.addState(stateName, -1);
+	}
       }
     }
     else

@@ -130,15 +130,18 @@ public class KludgeBean implements Kludge
     for (int i = 0; i < numCropDisorders; i++)
     {
       CropDisorder cropDisorder = new CropDisorder(String.format("rndDisorder_%03d", i), String.format("Fungus randomicus_%03d", i));
+      Procedure procedure = new Procedure(String.format("rndCure_%03d", i));
+      cropDisorder.linkProcedure(procedure);
+      this.entityManager.persist(procedure);
       this.entityManager.persist(cropDisorder);
       cropDisorderList.add(cropDisorder);
       HashMap<String, Double> disorderCharacteristics = new HashMap<String, Double>();
       String cropDisorderDescription = String.format("dummy disorder #%d\n", i);
       for (NumericType nt : numericTypeList)
       {
-	double c = new Double(rng.nextGaussian() * stddevBetween);
-	disorderCharacteristics.put(nt.getTypeName(), c);
-	cropDisorderDescription += String.format("%s: %s\n", nt.getTypeName(), c);
+        double c = new Double(rng.nextGaussian() * stddevBetween);
+        disorderCharacteristics.put(nt.getTypeName(), c);
+        cropDisorderDescription += String.format("%s: %s\n", nt.getTypeName(), c);
       }
       disorderCharacteristicsMap.put(cropDisorder.getScientificName(), disorderCharacteristics);
       cropDisorder.setDescription(cropDisorderDescription);
@@ -149,7 +152,7 @@ public class KludgeBean implements Kludge
       CropDisorder cropDisorder = cropDisorderList.randomSample(rng);
       if (!crop.getCropDisorderSet().contains(cropDisorder))
       {
-	crop.linkCropDisorder(cropDisorder);
+        crop.linkCropDisorder(cropDisorder);
       }
     }
     SamplableList<CropDisorderRecord> cropDisorderRecordList = new SamplableList<CropDisorderRecord>();
@@ -164,26 +167,130 @@ public class KludgeBean implements Kludge
       String cdrDescription = String.format("dummy cdr #%d\n", i);
       if (dList.size() > 0)
       {
-	CropDisorder edd = dList.randomSample(rng);
-	cdr.linkExpertDiagnosedCropDisorder(edd);
-	cdrDescription += String.format("expert diagnosed disorder is #%d: %s\n", edd.getId().intValue(), edd.getScientificName());
-	CropDisorder cropDisorder = cdr.getExpertDiagnosedCropDisorder();
-	HashMap<String, Double> disorderCharacteristics = disorderCharacteristicsMap.get(cropDisorder.getScientificName());
-	for (NumericType nt : numericTypeList)
-	{
-	  if (rng.nextDouble() < numericDescriptorPercentage)
-	  {
-	    double m = disorderCharacteristics.get(nt.getTypeName()).doubleValue(); // mean of diagnosed disorder
-	    double jitter = rng.nextGaussian() * stddevWithin;
-	    NumericDescriptor nd = new NumericDescriptor(nt, m + jitter);
-	    cdrDescription += String.format("%s: %f + %f\n", nt.getTypeName(), m, jitter);
-	    cdr.linkDescriptor(nd);
-	    this.entityManager.persist(nd);
-	  }
-	}
+        CropDisorder edd = dList.randomSample(rng);
+        cdr.linkExpertDiagnosedCropDisorder(edd);
+        cdrDescription += String.format("expert diagnosed disorder is #%d: %s\n", edd.getId().intValue(), edd.getScientificName());
+        CropDisorder cropDisorder = cdr.getExpertDiagnosedCropDisorder();
+        HashMap<String, Double> disorderCharacteristics = disorderCharacteristicsMap.get(cropDisorder.getScientificName());
+        for (NumericType nt : numericTypeList)
+        {
+          if (rng.nextDouble() < numericDescriptorPercentage)
+          {
+            double m = disorderCharacteristics.get(nt.getTypeName()).doubleValue(); // mean of diagnosed disorder
+            double jitter = rng.nextGaussian() * stddevWithin;
+            NumericDescriptor nd = new NumericDescriptor(nt, m + jitter);
+            cdrDescription += String.format("%s: %f + %f\n", nt.getTypeName(), m, jitter);
+            cdr.linkDescriptor(nd);
+            this.entityManager.persist(nd);
+          }
+        }
       }
       cdr.setDescription(cdrDescription);
       cropDisorderRecordList.add(cdr);
     }
+  }
+
+
+  public void makeDummies()
+  {
+    Dummy1 d1a = new Dummy1("a");
+    Dummy1 d1b = new Dummy1("b");
+    Dummy2 d2 = new Dummy2("blah");
+    this.entityManager.persist(d1a);
+    this.entityManager.persist(d1b);
+    this.entityManager.persist(d2);
+    d1a.linkXyzDummy2(d2);
+    d1b.linkXyzDummy2(d2);
+    for (int i = 0; i < 10; i++)
+    {
+      Dummy0 d0 = new Dummy0(String.format("d0-%02d", i));
+      this.entityManager.persist(d0);
+      if ((i % 2) == 0)
+      {
+	d0.linkDummy1(d1a);
+      }
+      else
+      {
+	d0.linkDummy1(d1b);
+      }
+    }
+  }
+
+
+  public Dummy0 findDummy0(Integer id)
+  {
+    Dummy0 dummy0 = this.entityManager.find(Dummy0.class, id);
+    return (dummy0);
+  }
+
+
+  public Dummy0 findDummy0(String name)
+  {
+    Query query = this.entityManager.createQuery("SELECT d0 FROM Dummy0 d0 WHERE something = :s");
+    query.setParameter("s", name);
+    Dummy0 dummy0 = (Dummy0) query.getSingleResult();
+    return (dummy0);
+  }
+
+
+  public void makeScenario()
+  {
+    IsacrodiUser isacrodiUser = new IsacrodiUser("Kim", "Jan Dummy", "jdk", IsacrodiUser.hash("blah"), "jttkim@gmail.com");
+    this.entityManager.persist(isacrodiUser);
+    Crop crop = new Crop("barley", "Hordeum vulgare");
+    this.entityManager.persist(crop);
+    CropDisorder cropDisorder = new CropDisorder("rust", "Fungus horribilis");
+    cropDisorder.linkCrop(crop);
+    this.entityManager.persist(cropDisorder);
+    CropDisorderRecord cdr = new CropDisorderRecord();
+    cdr.linkCrop(crop);
+    cdr.linkExpertDiagnosedCropDisorder(cropDisorder);
+    cdr.linkIsacrodiUser(isacrodiUser);
+    this.entityManager.persist(cdr);
+    ImageType imageType = new ImageType("testpic");
+    this.entityManager.persist(imageType);
+    ImageDescriptor imageDescriptor = new ImageDescriptor();
+    imageDescriptor.linkDescriptorType(imageType);
+    imageDescriptor.linkCropDisorderRecord(cdr);
+    this.entityManager.persist(imageDescriptor);
+  }
+
+
+  public ImageDescriptor findImageDescriptor(Integer id)
+  {
+    ImageDescriptor imageDescriptor = this.entityManager.find(ImageDescriptor.class, id);
+    return (imageDescriptor);
+    /*
+    System.err.println("got image descriptor: " + imageDescriptor.toString());
+    CropDisorderRecord cropDisorderRecord = imageDescriptor.getCropDisorderRecord();
+    if (cropDisorderRecord != null)
+    {
+      System.err.println("cdr: " + cropDisorderRecord.toString());
+      CropDisorder cropDisorder = cropDisorderRecord.getExpertDiagnosedCropDisorder();
+      if (cropDisorder != null)
+      {
+	System.err.println("expert diagnosis: " + cropDisorder.toString());
+      }
+    }
+    if ((imageDescriptor != null) && (imageDescriptor.getCropDisorderRecord() != null))
+    {
+      CropDisorder cropDisorder = imageDescriptor.getCropDisorderRecord().getExpertDiagnosedCropDisorder();
+      if (cropDisorder != null)
+      {
+	System.err.println(String.format("expert diagnosed crop disorder version: %d", cropDisorder.getVersion()));
+      }
+    }
+    System.err.println("sleeping a second");
+    try
+    {
+      Thread.sleep(1000);
+    }
+    catch (InterruptedException e)
+    {
+      System.err.println("rudely woken up by " + e);
+    }
+    System.err.println("returning");
+    return (imageDescriptor);
+    */
   }
 }

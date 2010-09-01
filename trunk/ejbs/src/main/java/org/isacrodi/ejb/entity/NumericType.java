@@ -9,112 +9,81 @@ import javax.persistence.Column;
 import java.util.Set;
 import java.util.HashSet;
 
+import org.javamisc.Util;
+import org.javamisc.jee.entitycrud.CrudConfig;
+
+
 /**
  * Specification of the physical quantity (physical unit) that is
  * recorded by descriptors of this type.
  */
 @Entity
-public class NumericType implements IsacrodiEntity
+@CrudConfig(propertyOrder = {"id", "typeName", "description", "unit", "*"})
+public class NumericType extends DescriptorType
 {
-  private Integer id;
-  private int version;
-  private String typeName;
-  private Set<NumericDescriptor> numericDescriptorSet;
+  private String unit;
 
   private static final long serialVersionUID = 1;
-
 
   public NumericType()
   {
     super();
-    this.numericDescriptorSet = new HashSet<NumericDescriptor>();
   }
 
 
   public NumericType(String typeName)
   {
-    this();
-    this.typeName = typeName;
+    super(typeName);
   }
 
 
-  @Id
-  @GeneratedValue
-  public Integer getId()
+  public NumericType(String typeName, String unit)
   {
-    return id;
+    this(typeName);
+    this.unit = unit;
   }
 
 
-  public void setId(Integer id)
+  /**
+   * Unit of this numeric type.
+   */
+  public String getUnit()
   {
-    this.id = id;
+    return (this.unit);
   }
 
 
-  @Version
-  public int getVersion()
+  public void setUnit(String unit)
   {
-    return (this.version);
-  }
-
-
-  public void setVersion(int version)
-  {
-    this.version = version;
-  }
-
-
-  @OneToMany(mappedBy="numericType")
-  public Set<NumericDescriptor> getNumericDescriptorSet()
-  {
-    return this.numericDescriptorSet;
-  }
-
-
-  public void setNumericDescriptorSet(Set<NumericDescriptor> numericDescriptorSet)
-  {
-    this.numericDescriptorSet = numericDescriptorSet;
-  }
-
-
-  public void linkNumericDescriptor(NumericDescriptor numericDescriptor)
-  {
-    this.numericDescriptorSet.add(numericDescriptor);
-    numericDescriptor.setNumericType(this);
-  }
-
-
-  public boolean unlinkNumericDescriptor(NumericDescriptor numericDescriptor)
-  {
-    if (!this.numericDescriptorSet.remove(numericDescriptor))
-    {
-      return (false);
-    }
-    numericDescriptor.setNumericType(null);
-    return (true);
-  }
-
-
-  @Column(unique = true, nullable = false)
-  public String getTypeName()
-  {
-    return typeName;
-  }
-
-
-  public void setTypeName(String typeName)
-  {
-    this.typeName = typeName;
+    this.unit = unit;
   }
 
 
   public void unlink()
   {
-    for (NumericDescriptor numericDescriptor : this.numericDescriptorSet)
+    super.unlink();
+  }
+
+
+  public String toString()
+  {
+    return (String.format("NumericType(id = %s, name = %s)", Util.safeStr(this.id), Util.safeStr(this.typeName)));
+  }
+
+
+  public String fileRepresentation()
+  {
+    String x;
+    String s = "numerictype\n{\n";
+    s += String.format("  typename: %s\n", this.typeName);
+    s += String.format("  unit: %s\n", this.unit);
+    x = "";
+    if (this.description != null)
     {
-      numericDescriptor.setNumericType(null);
+      x = this.description;
     }
-    this.numericDescriptorSet.clear();
+    s += String.format("  description: %s\n", x);
+    s += "}\n";
+    return (s);
   }
 }

@@ -2,6 +2,7 @@ package org.isacrodi.ejb.session;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.isacrodi.diagnosis.DiagnosisProvider;
 import org.isacrodi.ejb.entity.*;
@@ -83,4 +84,15 @@ public interface CropDisorderRecordManager
    * @param numericDescriptorMap the map from which to update the numeric descriptors
    */
   void updateNumericDescriptors(Integer cropDisorderRecordId, Map<Integer, Double> numericDescriptorMap);
+
+
+  /**
+   * Replace the categorical descriptors of a crop disorder record with new ones specified by a map.
+   *
+   * The keys of the map are categorical type IDs, the values are the categorical values.
+   *
+   * @param cropDisorderRecordId the ID of the crop disorder record to be updated
+   * @param categoricalDescriptorMap the map from which to update the categorical descriptors
+   */
+void updateCategoricalDescriptors(Integer cropDisorderRecordId, Map<Integer, Set<String>> categoricalDescriptorMap);
 }

@@ -3,6 +3,7 @@ package org.isacrodi.diagnosis;
 import java.io.Serializable;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
 
 import org.isacrodi.ejb.entity.*;
@@ -30,15 +31,20 @@ public class CategoricalSvmNodeComponentMapper extends AbstractSvmNodeComponentM
 
 
   /**
-   * Determine whether a state is mapped.
+   * Determine whether all states in a set can be mapped.
    *
-   * @param stateName the name of the state to be checked
-   * @return {@code true} if the state is mapped
+   * @param stateNameSet the set of names of the states to be checked
+   * @return {@code true} if all states are mapped
    */
-  public boolean hasState(String stateName)
+  public boolean hasAllStates(Set<String> stateNameSet)
   {
     // FIXME: shared method with presence indicating
-    return (this.stateIndexMap.containsKey(stateName));
+    boolean allMapped = true;
+    for (String stateName : stateNameSet)
+    {
+      allMapped = allMapped && this.stateIndexMap.containsKey(stateName);
+    }
+    return (allMapped);
   }
 
 
@@ -52,7 +58,7 @@ public class CategoricalSvmNodeComponentMapper extends AbstractSvmNodeComponentM
    */
   public void addState(String stateName, Integer index)
   {
-    if (this.hasState(stateName))
+    if (this.stateIndexMap.containsKey(stateName))
     {
       throw new IllegalArgumentException(String.format("state \"%s\" already mapped", stateName));
     }
@@ -131,7 +137,7 @@ public class CategoricalSvmNodeComponentMapper extends AbstractSvmNodeComponentM
 	}
         c[i] = new svm_node();
         c[i].index = index.intValue();
-        if (stateName.equals(categoricalFeature.getState()))
+        if (categoricalFeature.containsState(stateName))
         {
           c[i++].value = 1.0;
         }
