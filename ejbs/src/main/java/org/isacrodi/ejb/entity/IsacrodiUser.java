@@ -13,8 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Column;
 
+import org.javamisc.Util;
 import org.javamisc.jee.entitycrud.CrudConfig;
 
 
@@ -234,5 +236,11 @@ public class IsacrodiUser implements IsacrodiEntity
     {
       throw new RuntimeException("caught impossible " + e.toString());
     }
+  }
+
+
+  public String toString()
+  {
+    return (String.format("IsacrodiUser(id = %s, lastname = %s, firstname = %s, username = %s)", Util.safeStr(this.id), Util.safeStr(this.lastname), Util.safeStr(this.firstname), Util.safeStr(this.username)));
   }
 }

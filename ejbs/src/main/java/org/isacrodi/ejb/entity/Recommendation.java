@@ -11,8 +11,12 @@ import javax.persistence.OneToMany;
 import java.util.Set;
 import java.util.HashSet;
 
+import org.javamisc.Util;
+import org.javamisc.jee.entitycrud.CrudConfig;
+
 
 @Entity
+@CrudConfig(propertyOrder = {"id", "cropDisorderRecord", "*"})
 public class Recommendation implements IsacrodiEntity
 {
   private Integer id;
@@ -125,5 +129,16 @@ public class Recommendation implements IsacrodiEntity
       procedureScore.setRecommendation(null);
     }
     this.procedureScoreSet.clear();
+  }
+
+
+  public String toString()
+  {
+    Integer cdrId = null;
+    if (this.cropDisorderRecord != null)
+    {
+      cdrId = this.cropDisorderRecord.getId();
+    }
+    return (String.format("Recommendation(id = %s, cdrId = %s)", Util.safeStr(this.id), Util.safeStr(cdrId)));
   }
 }

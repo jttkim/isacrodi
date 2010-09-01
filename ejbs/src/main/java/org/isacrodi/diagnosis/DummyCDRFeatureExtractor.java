@@ -24,20 +24,20 @@ public class DummyCDRFeatureExtractor implements CDRFeatureExtractor, Serializab
   public FeatureVector extract(CropDisorderRecord cropDisorderRecord)
   {
     FeatureVector featureVector = new FeatureVector();
-    for (Object o : cropDisorderRecord.getDescriptorSet())
+    for (Descriptor descriptor : cropDisorderRecord.getDescriptorSet())
     {
-      if (o.getClass().isInstance(new SymptomDescriptor()))
+      if (descriptor instanceof CategoricalDescriptor)
       {
-        SymptomDescriptor sd = (SymptomDescriptor)o;
-        CategoricalFeature cf = new CategoricalFeature(sd.getSymptomType().getTypeName(), sd.getSymptomValue());
-        featureVector.put(sd.getSymptomType().getTypeName(), cf);
+	CategoricalDescriptor categoricalDescriptor = (CategoricalDescriptor) descriptor;
+	// FIXME: responsibilities blurred -- extract extracts the type name but constructor extracts value names
+	CategoricalFeature categoricalFeature = new CategoricalFeature(categoricalDescriptor.getDescriptorType().getTypeName(), categoricalDescriptor.getCategoricalTypeValueSet());
+        featureVector.put(categoricalFeature.getName(), categoricalFeature);
       }
-
-      if (o.getClass().isInstance(new NumericDescriptor()))
+      else if (descriptor instanceof NumericDescriptor)
       {
-        NumericDescriptor nd = (NumericDescriptor)o;
-        NumericFeature nf = new NumericFeature(nd.getNumericType().getTypeName(), nd.getNumericValue());
-        featureVector.put(nd.getNumericType().getTypeName(), nf);
+	NumericDescriptor numericDescriptor = (NumericDescriptor) descriptor;
+	NumericFeature numericFeature = new NumericFeature(numericDescriptor.getDescriptorType().getTypeName(), numericDescriptor.getNumericValue());
+	featureVector.put(numericFeature.getName(), numericFeature);
       }
     }
     return featureVector;

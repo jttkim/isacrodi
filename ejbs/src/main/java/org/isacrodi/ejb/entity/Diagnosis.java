@@ -11,16 +11,26 @@ import javax.persistence.OneToOne;
 import java.util.Set;
 import java.util.HashSet;
 
+import org.javamisc.Util;
+import org.javamisc.jee.entitycrud.CrudConfig;
+
 
 @Entity
+@CrudConfig(propertyOrder = {"id", "cropDisorderRecord", "disorderScoreSet", "*"})
 public class Diagnosis implements IsacrodiEntity
 {
-  private Integer Id;
+  private Integer id;
   private int version;
   private CropDisorderRecord cropDisorderRecord;
   private Set<DisorderScore> disorderScoreSet;
 
   private static final long serialVersionUID = 1;
+
+
+  public String toString()
+  {
+    return (String.format("Diagnosis(id = %s)", Util.safeStr(this.id)));
+  }
 
 
   public Diagnosis()
@@ -34,13 +44,13 @@ public class Diagnosis implements IsacrodiEntity
   @GeneratedValue
   public Integer getId()
   {
-    return (this.Id);
+    return (this.id);
   }
 
 
-  public void setId(Integer Id)
+  public void setId(Integer id)
   {
-    this.Id = Id;
+    this.id = id;
   }
 
 
@@ -167,8 +177,13 @@ public class Diagnosis implements IsacrodiEntity
   }
 
 
-  //public String toString()
-  //{
-  //  return String.format("%s %s %s %s", getId(), getVersion(), getCropDisorderRecord(), getDisorderScoreSet());
-  //}
+  public double disorderScoreSum()
+  {
+    double sum = 0.0;
+    for (DisorderScore disorderScore : this.disorderScoreSet)
+    {
+      sum += disorderScore.getScore();
+    }
+    return (sum);
+  }
 }

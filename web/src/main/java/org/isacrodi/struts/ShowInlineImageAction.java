@@ -102,6 +102,12 @@ public class ShowInlineImageAction extends IsacrodiActionSupport
     else
     {
       this.imageDescriptor = this.entityAccess.findEntity(ImageDescriptor.class, this.imageDescriptorId);
+      String cdVersionString = "<none>";
+      if (this.imageDescriptor.getCropDisorderRecord().getExpertDiagnosedCropDisorder() != null)
+      {
+	cdVersionString = String.format("%d", this.imageDescriptor.getCropDisorderRecord().getExpertDiagnosedCropDisorder().getVersion());
+      }
+      this.LOG.info(String.format("ShowInlineImageAction.execute: imageDescriptor version: %d, crop disorder version: %s", this.imageDescriptor.getVersion(), cdVersionString));
       if (this.imageDescriptor == null)
       {
 	this.createMessageImage(String.format("image descriptor %d not found", this.imageDescriptorId.intValue()));

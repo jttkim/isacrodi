@@ -7,8 +7,8 @@ import libsvm.*;
 import java.util.HashMap;
 
 /**
-  * Score Table
-  */
+ * Score Table
+ */
 
 public class ScoreTable
 {

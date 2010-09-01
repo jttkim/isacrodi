@@ -22,7 +22,7 @@ import org.isacrodi.diagnosis.*;
   */
 
 @Entity
-@CrudConfig(propertyOrder = {"id", "isacrodiUser", "crop", "expertDiagnosedCropDisorder", "descriptorSet", "diagnosis", "*"})
+@CrudConfig(propertyOrder = {"id", "isacrodiUser", "crop", "expertDiagnosedCropDisorder", "descriptorSet", "description", "diagnosis", "recommendation", "*"})
 public class CropDisorderRecord implements IsacrodiEntity
 {
   private Integer id;
@@ -278,18 +278,27 @@ public class CropDisorderRecord implements IsacrodiEntity
   @ManyToOne
   public CropDisorder getExpertDiagnosedCropDisorder()
   {
+    // System.err.println("CropDisorderRecord.getExpertDiagnosedCropDisorder");
+    /*
+    if ((this.expertDiagnosedCropDisorder != null) && (this.expertDiagnosedCropDisorder.getVersion() > 22))
+    {
+      throw new RuntimeException("version has gone to 22");
+    }
+    */
     return (this.expertDiagnosedCropDisorder);
   }
 
 
   public void setExpertDiagnosedCropDisorder(CropDisorder expertDiagnosedCropDisorder)
   {
+    // System.err.println("CropDisorderRecord.setExpertDiagnosedCropDisorder");
     this.expertDiagnosedCropDisorder = expertDiagnosedCropDisorder;
   }
 
 
   public void linkExpertDiagnosedCropDisorder(CropDisorder expertDiagnosedCropDisorder)
   {
+    // System.err.println("CropDisorderRecord.linkExpertDiagnosedCropDisorder");
     this.expertDiagnosedCropDisorder = expertDiagnosedCropDisorder;
     expertDiagnosedCropDisorder.getExpertDiagnosedCropDisorderRecordSet().add(this);
   }
@@ -297,6 +306,7 @@ public class CropDisorderRecord implements IsacrodiEntity
 
   public boolean unlinkExpertDiagnosedCropDisorder()
   {
+    // System.err.println("CropDisorderRecord.unlinkExpertDiagnosedCropDisorder");
     if (this.expertDiagnosedCropDisorder == null)
     {
       return (false);
@@ -340,6 +350,20 @@ public class CropDisorderRecord implements IsacrodiEntity
   }
 
 
+  public Set<CategoricalDescriptor> findCategoricalDescriptorSet()
+  {
+    HashSet<CategoricalDescriptor> categoricalDescriptorSet = new HashSet<CategoricalDescriptor>();
+    for (Descriptor d : this.descriptorSet)
+    {
+      if (d instanceof CategoricalDescriptor)
+      {
+	categoricalDescriptorSet.add((CategoricalDescriptor) d);
+      }
+    }
+    return (categoricalDescriptorSet);
+  }
+
+
   public Set<ImageDescriptor> findImageDescriptorSet()
   {
     HashSet<ImageDescriptor> imageDescriptorSet = new HashSet<ImageDescriptor>();
@@ -361,6 +385,72 @@ public class CropDisorderRecord implements IsacrodiEntity
     {
       cropName = this.crop.getName();
     }
-    return String.format("id = %d, version = %d, user = %s, crop = %s, description = %s, %d numeric descriptors, %d image descriptors", this.id.intValue(), this.version, this.isacrodiUser.getUsername(), cropName, this.description, this.findNumericDescriptorSet().size(), this.findImageDescriptorSet().size());
+    String idString = "<null>";
+    if (this.id != null)
+    {
+      idString = this.id.toString();
+    }
+    String userString = "<null>";
+    if (this.isacrodiUser != null)
+    {
+      if (this.isacrodiUser.getUsername() == null)
+      {
+	userString = "<user with null name>";
+      }
+      else
+      {
+	userString = this.isacrodiUser.getUsername();
+      }
+    }
+    return String.format("id = %s, version = %d, user = %s, crop = %s, description = %s, %d numeric descriptors, %d image descriptors", idString, this.version, userString, cropName, this.description, this.findNumericDescriptorSet().size(), this.findImageDescriptorSet().size());
+  }
+
+
+  public String fileRepresentation()
+  {
+    String x;
+    String s = "cdr\n{\n";
+    s += String.format("  user: %s\n", this.isacrodiUser.getUsername());
+    x = "";
+    if (this.crop != null)
+    {
+      x = this.crop.getScientificName();
+    }
+    s += String.format("  crop: %s\n", x);
+    s += "  numericDescriptors\n  {\n";
+    for (NumericDescriptor numericDescriptor : this.findNumericDescriptorSet())
+    {
+      s += String.format("    %s: %f\n", numericDescriptor.getDescriptorType().getTypeName(), numericDescriptor.getNumericValue());
+    }
+    s += "  }\n";
+    s += "  categoricalDescriptors\n  {\n";
+    for (CategoricalDescriptor categoricalDescriptor : this.findCategoricalDescriptorSet())
+    {
+      s += String.format("    %s: ", categoricalDescriptor.getDescriptorType().getTypeName());
+      String glue = "";
+      for (CategoricalTypeValue categoricalTypeValue : categoricalDescriptor.getCategoricalTypeValueSet())
+      {
+	s += String.format("%s%s\n", glue, categoricalTypeValue.getValueType());
+	glue = ", ";
+      }
+      s += "\n";
+    }
+    s += "  }\n";
+    s += "  imageDescriptors\n  {\n";
+    for (ImageDescriptor imageDescriptor : this.findImageDescriptorSet())
+    {
+      ImageType imageType = (ImageType) imageDescriptor.getDescriptorType();
+      s += String.format("    mimeType: %s\n", imageDescriptor.getMimeType());
+      s += String.format("    file: image_%s\n", imageDescriptor.makeFileName());
+    }
+    s += "  }\n";
+    x = "";
+    if (this.expertDiagnosedCropDisorder != null)
+    {
+      x = this.expertDiagnosedCropDisorder.getScientificName();
+    }
+    s += String.format("  expertDiagnosis: %s", x);
+    s += "}\n";
+    return (s);
   }
 }

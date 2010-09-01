@@ -7,8 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 import javax.persistence.ManyToOne;
 
+import org.javamisc.Util;
+import org.javamisc.jee.entitycrud.CrudConfig;
+
 
 @Entity
+@CrudConfig(propertyOrder = {"id", "diagnosis", "cropDisorder", "score", "*"})
 public class DisorderScore implements IsacrodiEntity
 {
   private Integer id;
@@ -163,22 +167,38 @@ public class DisorderScore implements IsacrodiEntity
   */
 
 
+  /*
+  public int hashCode()
+  {
+    if (this.id == null)
+    {
+      return (0);
+    }
+    return (this.id.intValue());
+  }
+
+
   public boolean equals(Object obj)
   {
     if (obj == this)
-      return true;
+    {
+      return (true);
+    }
+    if (!(obj instanceof DisorderScore))
+    {
+      return (false);
+    }
+    DisorderScore otherDisorderScore = (DisorderScore) obj;
+    if ((this.id == null) || (otherDisorderScore.id == null))
+    {
+      return (false);
+    }
+    return (this.id.equals(otherDisorderScore.id));
+  }
+  */
 
-    if (!(obj instanceof CropDisorder))
-      return false;
-
-    DisorderScore ds = (DisorderScore)obj;
-
-    if (this.diagnosis != ds.diagnosis)
-      return false;
-
-    if (this.cropDisorder != ds.cropDisorder)
-      return false;
-
-    return true;
+  public String toString()
+  {
+    return (String.format("DisorderScore(id = %s, score = %s)", Util.safeStr(id), this.score));
   }
 }

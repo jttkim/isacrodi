@@ -9,45 +9,63 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.*;
+import org.isacrodi.ejb.entity.*;
 
 
 /**
  * Categorical Feature.
- *
  */
 public class CategoricalFeature extends AbstractFeature
 {
-  
-  private String state;
+
+  private Set<String> stateSet;
+
 
   public CategoricalFeature()
   {
     super();
+    this.stateSet = new HashSet<String>();
   }
 
 
-  public CategoricalFeature(String name, String state)
+  public CategoricalFeature(String name, Set<CategoricalTypeValue> categoricalTypeValue)
   {
     super(name);
-    this.state = state;
+    this.stateSet = new HashSet<String>();
+    for(CategoricalTypeValue ctp : categoricalTypeValue)
+    {
+      this.stateSet.add(ctp.getValueType());
+    }
   }
 
 
-  public String getState()
+  public Set<String> getStateSet()
   {
-    return this.state;
+    return this.stateSet;
   }
 
 
-  public void setState(String state)
+  public void setStateSet(Set<String> stateSet)
   {
-    this.state = state;
+    this.stateSet = stateSet;
+  }
+
+
+  public boolean containsState(String stateName)
+  {
+    return (this.stateSet.contains(stateName));
   }
 
 
   public String toString()
   {
-    return String.format("%s", this.state);
+    String s = "CategoricalFeature(stateSet = {";
+    String glue = "";
+    for (String state : this.stateSet)
+    {
+      s += glue + state;
+      glue = ", ";
+    }
+    return (s + "}");
   }
-
 }

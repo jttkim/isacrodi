@@ -11,10 +11,15 @@ import javax.imageio.ImageIO;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import org.javamisc.Util;
+import org.javamisc.jee.entitycrud.CrudConfig;
+
+
 /**
-  * Implements image descriptor from Digital Image.
-  */
+ * Implements image descriptor from Digital Image.
+ */
 @Entity
+@CrudConfig(propertyOrder = {"id", "cropDisorderRecord", "descriptorType", "mimeType", "*"})
 public class ImageDescriptor extends Descriptor
 {
   private ImageType imageType;
@@ -49,41 +54,6 @@ public class ImageDescriptor extends Descriptor
   }
 
 
-  @ManyToOne(optional = false)
-  public ImageType getImageType()
-  {
-    return imageType;
-  }
-
-
-  public void setImageType(ImageType imageType)
-  {
-    this.imageType = imageType;
-  }
-
-
-  public void linkImageType(ImageType imageType)
-  {
-    this.imageType = imageType;
-    imageType.getImageDescriptorSet().add(this);
-  }
-
-
-  public boolean unlinkImageType()
-  {
-    if (this.imageType == null)
-    {
-      return (false);
-    }
-    if (!this.imageType.getImageDescriptorSet().remove(this))
-    {
-      return (false);
-    }
-    this.imageType = null;
-    return (true);
-  }
-
-
   public String getMimeType()
   {
     return (this.mimeType);
@@ -99,6 +69,12 @@ public class ImageDescriptor extends Descriptor
   public byte[] getImageData()
   {
     return (this.imageData);
+  }
+
+
+  public void setImageData(byte[] imageData)
+  {
+    this.imageData = imageData;
   }
 
 
@@ -121,15 +97,9 @@ public class ImageDescriptor extends Descriptor
   }
 
 
-  public void setImageData(byte[] imageData)
-  {
-    this.imageData = imageData;
-  }
-
-
   public void unlink()
   {
-    this.unlinkImageType();
+    super.unlink();
   }
 
 
@@ -141,5 +111,17 @@ public class ImageDescriptor extends Descriptor
     this.imageData = new byte[(int) fileLength];
     fis.read(this.imageData);
     fis.close();
+  }
+
+
+  public String makeFileName()
+  {
+    return (String.format("isacrodi_image_%05d.dat", this.id.intValue()));
+  }
+
+
+  public String toString()
+  {
+    return (String.format("ImageDescriptor(id = %s, mimeType = %s)", Util.safeStr(this.id), Util.safeStr(this.mimeType)));
   }
 }

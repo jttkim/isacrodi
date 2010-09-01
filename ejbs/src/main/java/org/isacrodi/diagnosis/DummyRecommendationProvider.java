@@ -3,8 +3,10 @@ package org.isacrodi.diagnosis;
 import org.isacrodi.ejb.entity.*;
 import java.io.IOException;
 import java.util.Set;
+
+
 /**
-  * Implements Recommendation Provider Interface
+ * Implements Recommendation Provider Interface.
  */
 public class DummyRecommendationProvider implements RecommendationProvider
 {
@@ -21,7 +23,6 @@ public class DummyRecommendationProvider implements RecommendationProvider
     Recommendation recommendation = new Recommendation();
     //this.cropDisorderRecord.setRecommendation(this.recommendation);
     recommendation.setId(1);
-
     recommendation.setProcedureScoreSet(new java.util.HashSet<ProcedureScore>());
     for(DisorderScore cd : diagnosis.getDisorderScoreSet())
     {
@@ -34,7 +35,6 @@ public class DummyRecommendationProvider implements RecommendationProvider
 	recommendation.addProcedureScore(ps);
       }
     }
-
     return (recommendation);
   }
 }

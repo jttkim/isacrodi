@@ -21,6 +21,7 @@ public class RequestDiagnosisAction extends IsacrodiActionSupport
   private Integer cropDisorderRecordId;
   private CropDisorderRecord cropDisorderRecord;
   private CropDisorderRecordManager cropDisorderRecordManager;
+  private boolean constructNewDiagnosisProvider;
 
 
   public RequestDiagnosisAction() throws NamingException
@@ -28,6 +29,7 @@ public class RequestDiagnosisAction extends IsacrodiActionSupport
     super();
     InitialContext context = new InitialContext();
     this.cropDisorderRecordManager = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
+    this.constructNewDiagnosisProvider = false;
   }
 
 
@@ -41,6 +43,18 @@ public class RequestDiagnosisAction extends IsacrodiActionSupport
   public Integer getCropDisorderRecordId()
   {
     return (this.cropDisorderRecordId);
+  }
+
+
+  public boolean getConstructNewDiagnosisProvider()
+  {
+    return (this.constructNewDiagnosisProvider);
+  }
+
+
+  public void setConstructNewDiagnosisProvider(boolean constructNewDiagnosisProvider)
+  {
+    this.constructNewDiagnosisProvider = constructNewDiagnosisProvider;
   }
 
 
@@ -98,7 +112,8 @@ public class RequestDiagnosisAction extends IsacrodiActionSupport
       this.LOG.error("RequestDiagnosisAction.execute: no CDR id");
       return (ERROR);
     }
-    this.cropDisorderRecordManager.requestDiagnosis(this.cropDisorderRecordId.intValue());
+    this.LOG.info(String.format("RequestDiagnosisAction.execute: requesting diagnosis, constructNew = %b", this.constructNewDiagnosisProvider));
+    this.cropDisorderRecordManager.requestDiagnosis(this.cropDisorderRecordId.intValue(), this.constructNewDiagnosisProvider);
     this.cropDisorderRecord = this.cropDisorderRecordManager.findCropDisorderRecord(this.cropDisorderRecordId);
     ActionContext actionContext = ActionContext.getContext();
     ValueStack valueStack = actionContext.getValueStack();

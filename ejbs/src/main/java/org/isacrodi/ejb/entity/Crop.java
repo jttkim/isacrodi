@@ -11,8 +11,12 @@ import javax.persistence.OneToMany;
 import java.util.Set;
 import java.util.HashSet;
 
+import org.javamisc.Util;
+import org.javamisc.jee.entitycrud.CrudConfig;
+
 
 @Entity
+@CrudConfig(propertyOrder = {"id", "name", "scientificName", "description", "cropDisorderSet", "cropDisorderRecordSet", "*"})
 public class Crop implements IsacrodiEntity
 {
   private Integer id;
@@ -192,6 +196,16 @@ public class Crop implements IsacrodiEntity
 
   public String toString()
   {
-    return String.format("%s %s %s", getId(), getName(), getScientificName());
+    return String.format("Crop(id = %s name = %s scientificName = %s)", Util.safeStr(this.id), Util.safeStr(this.name), Util.safeStr(this.scientificName));
+  }
+
+
+  public String fileRepresentation()
+  {
+    String s = "crop\n{\n";
+    s += String.format("  name: %s\n", this.name);
+    s += String.format("  scientificName: %s\n", this.scientificName);
+    s += "}\n";
+    return (s);
   }
 }
