@@ -3,10 +3,84 @@ isacrodi-numerictypes-0.1
 numerictype
 {
   typename: altitude
+  unit: metres
+  description: altitude above sea level
 }
 
 numerictype
 {
-  typename: temperature
+  typename: monthlyaveragetemperature
+  unit: degrees Celsius
+  description: average temperature in the month leading up to the report
+}
+
+numerictype
+{
+  typename: monthlyaveragehumidity
+  unit: relative humidity (percent)
+  description: average humidity of air in the month leading up to the report
+}
+
+numerictype
+{
+  typename: monthlyprecipitation
+  unit: millimetres
+  description: precipitation during the month leading up to the report
+}
+
+numerictype
+{
+  typename: cultivatedarea
+  unit: hectares
+  description: size of the area on which the crop is cultivated
+}
+
+numerictype
+{
+  typename: relativeaffectedarea
+  unit: percentage
+  description: percentage of cultivated area affected by the suspected disorder
+}
+
+numerictype
+{
+  typename: cropage
+  unit: days
+  description: age of the crop, in days after planting
+}
+
+numerictype
+{
+  typename: irrigationamount
+  unit: cubic metres per week and hectare
+  description: amount of irrigation per week and hectare
+}
+
+numerictype
+{
+  typename: irrigationfrequency
+  unit: times per month
+  description: frequency of irrigation
+}
+
+numerictype
+{
+  typename: pH
+  unit: pH
+  description: acidity or basicity of the site. Enter 5 for acid, 7 for neutral, 9 for basic soils if you do not have an exact measurement
+}
+
+numerictype
+{
+  typename: pestdensity
+  unit: pest individuals per plant
+  description: Inspect one plant closely and count or estimate how many pest individuals are on that plant. The order of magnitude is important, where numbers are large the pecise count does not matter.
+}
+
+numerictype
+{
+  typename: lesionsize
+  unit: millimetres
+  description: size of lesions
 }
 

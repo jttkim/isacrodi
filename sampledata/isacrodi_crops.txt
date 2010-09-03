@@ -9,11 +9,17 @@ crop
 crop
 {
   name: eggplant
-  scientificName: Solanum melanogena
+  scientificName: Solanum melongena
 }
 
 crop
 {
   name: tomato
   scientificName: Lycopersicon esculentum
+}
+
+crop
+{
+  name: corn
+  scientificName: Zea mays
 }

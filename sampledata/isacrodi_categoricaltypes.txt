@@ -1,0 +1,154 @@
+isacrodi-categoricaltypes-0.1
+
+categoricaltype
+{
+  typename: soil
+  description: soil type, e.g. 
+  valueSet: clay, sandy, silty, loamy, peaty, chalky
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: affectedpart
+  description: affected part of the plant (root, stem, leaves, flowers, fruits, tubers, seeds)
+  valueSet: root, stem, leaves, flowers, fruits, tubers, seeds
+  multiple: true
+}
+
+categoricaltype
+{
+  typename: overallappearance
+  description: overall appearance of the plant (?)
+  valueSet: healthy, ill
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: pesttype
+  description: type of visible pests, such as aphids, beetles, caterpillars, moths, worms, ants, flies, borers etc.
+  valueSet: aphids, beetles, caterpillars, moths, worms, ants, flies, borers
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: diseasefielddistribution
+  description: distribution of affected plants on the field, e.g. scattered, patchy, compact region, borders
+  valueSet: scattered, patchy, compact region, borders
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: season
+  description: the current season
+  valueSet: spring, summer, autumn, winter
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: symptom
+  description: main symptom of the reported disorder, e.g. wilting, rotting, drying, yellowing, discoloration
+  valueSet: blotch, canker, brownish, silvering, bronzing, chlorosis, yellowish, callus, cracking, cupping, curling, damping off, dieback, dwarfing, proliferation, gall, halo, herbicide injury, hydrosis, defoliation, honeydew, soot, lodging, mummification, necrosis, mosaic, powdery mildew, reddening, rot, rugosity, russetting, rust, scab, smut, streak, wilting, drying, wrinkling, lesions, scarring, loss of turgescence
+  multiple: true
+}
+
+categoricaltype
+{
+  typename: cropstage
+  description: stage of the crop, e.g. seedling, vegetative, flowering, fruiting, mature, post harvest
+  valueSet: seedling, vegetative, flowering, fruiting, mature, post harvest
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: seedlingorigin
+  description: origin of the seedlings
+  valueSet: national, international
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: firstsymptomcropstage
+  description: developmental stage of the crop at which the main symptom became first noticeable e.g. seedling, vegetative, flowering, fruiting, mature
+  valueSet: seedling, vegetative, flowering, fruiting, mature
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: irrigationsystem
+  description: irrigation system, e.g. drip, sprinkler, bucket, ditch, terraced, rotary, pivot, water cannon
+  valueSet: none, drip, sprinkler, bucket, ditch, terraced, rotary, pivot, water cannon
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: irrigationorigin
+  description: irrigation origin, e.g. river, ground water, pond, reservoir etc.
+  valueSet: river, ground water, pond, reservoir
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: drainage
+  description: dedritic, parallel, trellis, rectangular, radial, deranged
+  valueSet: dendritic, parallel, trellis, rectangular, radial, deranged
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: lesioncolour
+  description: colour of lesions
+  valueSet: yellow, black, white, brown, gray
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: lesionshape
+  description: shape of lesions
+  valueSet: round, irregular, elongated, stripe
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: lesionappearance
+  description: appearance of lesions
+  valueSet: dry, wet, oily
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: odour
+  description: odour
+  valueSet: present, absent
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: lesionlocation
+  description: localisation of lesions
+  valueSet: lower, middle, top
+  multiple: true
+}
+
+categoricaltype
+{
+  typename: steminternal
+  description: condition inside the stem / branches, determined by a transversal (length-wise) cut of a stem
+  valueSet: normal, necrotic, black
+  multiple: true
+}
+

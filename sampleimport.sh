@@ -17,7 +17,9 @@ cd sampledata
 do_run java -jar isacrodi-import.jar isacrodi_users.txt
 do_run java -jar isacrodi-import.jar isacrodi_crops.txt
 do_run java -jar isacrodi-import.jar isacrodi_disorders.txt
+do_run java -jar isacrodi-import.jar isacrodi_categoricaltypes.txt
 do_run java -jar isacrodi-import.jar isacrodi_numerictypes.txt
 do_run java -jar isacrodi-import.jar isacrodi_imagetypes.txt
 do_run java -jar isacrodi-import.jar isacrodi_cdrs.txt
+do_run java -jar isacrodi-import.jar isacrodi_procedures.txt
 

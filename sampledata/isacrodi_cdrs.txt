@@ -5,8 +5,13 @@ cdr
   crop: Solanum tuberosum
   numericDescriptors
   {
-    temperature: 25.6
+    monthlyaveragetemperature: 25.6
     altitude: 2345.6
+  }
+  categoricalDescriptors
+  {
+    soil: clay
+    cropstage: mature
   }
   imageDescriptors
   {
@@ -16,6 +21,7 @@ cdr
       file: fig_a_potato_blackleg_plant.png
     }
   }
+  expertDiagnosis:
 }
 
 cdr
@@ -24,8 +30,13 @@ cdr
   crop: Lycopersicon esculentum
   numericDescriptors
   {
-    temperature: 22.1
+    monthlyaveragetemperature: 22.1
     altitude: 22.3
+  }
+  categoricalDescriptors
+  {
+    soil: sandy
+    cropstage: flowering
   }
   imageDescriptors
   {
@@ -35,4 +46,124 @@ cdr
       file: fig_g_tomato_anthracnose_fruit.jpg
     }
   }
+  expertDiagnosis:
 }
+
+cdr
+{
+  user: jpm
+  crop: Solanum melongena
+  numericDescriptors
+  {
+    altitude: 350.0
+    monthlyaveragetemperature: 30.0
+    monthlyaveragehumidity: 40.0
+    monthlyprecipitation: 0.0
+    relativeaffectedarea: 20
+    cropage: 50
+  }
+  categoricalDescriptors
+  {
+    soil: sandy
+    affectedpart: leaves
+    pesttype: flies
+    diseasefielddistribution: borders
+    symptom: honeydew
+    cropstage: vegetative
+    firstsymptomcropstage: vegetative
+    irrigationsystem: drip
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Bemisia tabaci
+}
+
+cdr
+{
+  user: jpm
+  crop: Solanum melongena
+  numericDescriptors
+  {
+    altitude: 1000
+    monthlyaveragetemperature: 30
+    monthlyaveragehumidity: 50
+    monthlyprecipitation: 50
+    relativeaffectedarea: 40
+    cropage: 30
+  }
+  categoricalDescriptors
+  {
+    soil: sandy
+    affectedpart: leaves
+    diseasefielddistribution: patchy
+    symptom: wrinkling
+    cropstage: vegetative
+    firstsymptomcropstage: vegetative
+    irrigationsystem: drip
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Thrips palmi
+}
+
+cdr
+{
+  user: jtk
+  crop: Zea mays
+  numericDescriptors
+  {
+    altitude: 15
+    monthlyaveragetemperature: 38
+    monthlyaveragehumidity: 75
+    monthlyprecipitation: 160
+    cultivatedarea: 25
+    relativeaffectedarea: 60
+    cropage: 100
+    pH: 6.5
+    lesionsize: 20
+  }
+  categoricalDescriptors
+  {
+    soil: clay
+    affectedpart: stem
+    diseasefielddistribution: scattered
+    symptom: lesions
+    cropstage: mature
+    seedlingorigin: international
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    irrigationorigin: river
+    lesioncolour: brown
+    lesionshape: round
+    lesionappearance: dry
+    odour: absent
+    lesionlocation: lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: rhizoctonia01_small.jpg
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: rhizoctonia02_small.jpg
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: rhizoctonia03_small.jpg
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: rhizoctonia04_small.jpg
+    }
+  }
+  expertDiagnosis: Rhizoctonia
+}
+

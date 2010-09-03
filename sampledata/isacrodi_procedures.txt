@@ -1,0 +1,173 @@
+isacrodi-procedures-0.1
+
+procedure
+{
+  name: irrigate
+  toxicologicalClass:
+  description: water field
+  incompatibleProcedureSet: burn
+  disorderSet: 
+}
+
+procedure
+{
+  name: burn
+  toxicologicalClass:
+  description: burn field
+  incompatibleProcedureSet: irrigate
+  disorderSet: Erwinia carotovora var. atroseptica, Erwinia carotovora var. carotovora
+}
+
+procedure
+{
+  name: pesticide
+  toxicologicalClass:
+  description: apply pesticide
+  incompatibleProcedureSet: 
+  disorderSet: 
+}
+
+procedure
+{
+  name: fungicide
+  toxicologicalClass:
+  description: apply fungicide
+  incompatibleProcedureSet: 
+  disorderSet: Ralstonia solanacearum, Fusarium sp
+}
+
+procedure
+{
+  name: nim
+  toxicologicalClass: IV
+  description: apply Azadirachta indica, renders insects sterile and interferes with their digestive system
+  incompatibleProcedureSet: 
+  disorderSet: Bemisia tabaci, Thrips palmi
+}
+
+procedure
+{
+  name: drain
+  toxicologicalClass:
+  description: improve drainage of field
+  incompatibleProcedureSet: 
+  disorderSet: Fusarium sp, Rhizoctonia
+}
+
+procedure
+{
+  name: lecanicillium
+  toxicologicalClass: IV
+  description: Lecanicillium lecanii, enteropathogenic fungus afflicting insects, available in Colombia, suitable in Latin America
+  incompatibleProcedureSet: 
+  disorderSet: Bemisia tabaci
+}
+
+procedure
+{
+  name: beauveria
+  toxicologicalClass: IV
+  description: Beauveria bassiana, enteropathogenic fungus afflicting insects, predominantly used in Brazil but suitable in Latin America in general
+  incompatibleProcedureSet: 
+  disorderSet: Thrips palmi
+}
+
+procedure
+{
+  name: aschersonia
+  toxicologicalClass: IV
+  description: Aschersonia aleyrodis, enteropathogenic fungus afflicting insects
+  incompatibleProcedureSet: 
+  disorderSet: Thrips palmi
+}
+
+procedure
+{
+  name: paecilomyces
+  toxicologicalClass: IV
+  description: Paecilomyces fumosoroseus, enteropathogenic fungus afflicting insects
+  incompatibleProcedureSet: 
+  disorderSet: Thrips palmi
+}
+
+procedure
+{
+  name: carbaryl
+  toxicologicalClass: III
+  description: insecticides containing carbaryl as active ingredient (Carbaryl, Sevin)
+  incompatibleProcedureSet: 
+  disorderSet: Thrips palmi
+}
+
+procedure
+{
+  name: imidaclopid
+  toxicologicalClass: III
+  description: insecticides containing imidaclopid as active ingredient (Confidor, Provado)
+  incompatibleProcedureSet: 
+  disorderSet: Thrips palmi, Bemisia tabaci
+}
+
+procedure
+{
+  name: pyriproxifen
+  toxicologicalClass: I
+  description: insecticides containing Pyriproxifen as active ingredient (Tiger, Cordial)
+  incompatibleProcedureSet: 
+  disorderSet: Thrips palmi, Bemisia tabaci
+}
+
+procedure
+{
+  name: thiametoxan
+  toxicologicalClass: III
+  description: insecticides containing thiametoxan as active ingredient (Actara)
+  incompatibleProcedureSet: 
+  disorderSet: Thrips palmi, Bemisia tabaci
+}
+
+procedure
+{
+  name: yellowtraps
+  toxicologicalClass:
+  description: yellow plastic trap coated with oil, attracting and trapping pests
+  incompatibleProcedureSet: 
+  disorderSet: Thrips palmi, Bemisia tabaci
+}
+
+procedure
+{
+  name: weedcontrol
+  toxicologicalClass:
+  description: control weeds that are alternative hosts for pests
+  incompatibleProcedureSet: 
+  disorderSet: Thrips palmi, Bemisia tabaci
+}
+
+procedure
+{
+  name: chrysoperla
+  toxicologicalClass:
+  description: Chrysoperla externa (or other Chrysoperla species) predatory insect for biological control
+  incompatibleProcedureSet: 
+  disorderSet: Bemisia tabaci
+}
+
+procedure
+{
+  name: trichoderma
+  toxicologicalClass:
+  description: treat seeds with trichoderma
+  incompatibleProcedureSet:
+  disorderSet: Rhizoctonia, Fusarium sp
+}
+
+procedure
+{
+  name: removediseasedplants
+  toxicologicalClass:
+  description: remove diseased plants
+  incompatibleProcedureSet:
+  disorderSet: Fusarium sp
+}
+
