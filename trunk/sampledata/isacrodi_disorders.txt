@@ -17,5 +17,41 @@ disorder
 {
   name: southern bacterial wilt
   scientificName: Ralstonia solanacearum
-  cropSet: Solanum tuberosum, Solanum melanogena, Lycopersicon esculentum,
+  cropSet: Solanum tuberosum, Solanum melongena, Lycopersicon esculentum,
 }
+
+disorder
+{
+  name: white fly
+  scientificName: Bemisia tabaci
+  cropSet: Solanum melongena, Lycopersicon esculentum,
+}
+
+disorder
+{
+  name: trips palmi
+  scientificName: Thrips palmi
+  cropSet: Solanum melongena, Lycopersicon esculentum,
+}
+
+disorder
+{
+  name: trips urticae
+  scientificName: Tetranychus urticae
+  cropSet: Lycopersicon esculentum
+}
+
+disorder
+{
+  name: rhizoctonia
+  scientificName: Rhizoctonia
+  cropSet: Zea mays
+}
+
+disorder
+{
+  name: fusarium
+  scientificName: Fusarium sp
+  cropSet: Solanum melongena, Zea mays, Lycopersicon esculentum
+}
+

@@ -1,5 +1,5 @@
 div.navbar {
-  width: 10em;
+  width: 13em;
   background: palegreen;
   /* position: absolute; */
   float: left;
@@ -14,7 +14,7 @@ div.adminstuff
 
 div.content
 {
-  margin-left: 11em;
+  margin-left: 14em;
 }
 
 div.messages
