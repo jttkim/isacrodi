@@ -73,8 +73,41 @@
       <result name="input">/WEB-INF/views/cropdisorderrecordnumericsform.jsp</result>
     </action>
 
+    <action name="editcategoricaldescriptors_input" method="input" class="org.isacrodi.struts.EditCategoricalDescriptorsAction">
+      <result name="success" type="redirectAction">f
+        <param name="actionName">showcropdisorderrecord</param>
+        <param name="cropDisorderRecordId">${cropDisorderRecordId}</param>
+      </result>
+      <result name="input">/WEB-INF/views/cropdisorderrecordcategoricalsform.jsp</result>
+    </action>
+    <action name="editcategoricaldescriptors" class="org.isacrodi.struts.EditCategoricalDescriptorsAction">
+      <result name="success" type="redirectAction">f
+        <param name="actionName">showcropdisorderrecord</param>
+        <param name="cropDisorderRecordId">${cropDisorderRecordId}</param>
+      </result>
+      <result name="input">/WEB-INF/views/cropdisorderrecordcategoricalsform.jsp</result>
+    </action>
+
+    <action name="cdrform_input" method="input" class="org.isacrodi.struts.CdrFormAction">
+      <result name="success" type="redirectAction">
+        <param name="actionName">showcropdisorderrecord</param>
+        <param name="cropDisorderRecordId">${cropDisorderRecordId}</param>
+      </result>
+      <result name="input">/WEB-INF/views/cdrform.jsp</result>
+    </action>
+    <action name="cdrform" class="org.isacrodi.struts.CdrFormAction">
+      <result name="success" type="redirectAction">
+        <param name="actionName">showcropdisorderrecord</param>
+        <param name="cropDisorderRecordId">${cropDisorderRecordId}</param>
+      </result>
+      <result name="input">/WEB-INF/views/cdrform.jsp</result>
+    </action>
+
     <action name="requestdiagnosis" class="org.isacrodi.struts.RequestDiagnosisAction">
-      <result>/WEB-INF/views/showcropdisorderrecord.jsp</result>
+      <result type="redirectAction">
+        <param name="actionName">showcropdisorderrecord</param>
+        <param name="cropDisorderRecordId">${cropDisorderRecordId}</param>
+      </result>
     </action>
 
     <action name="showinlineimage" class="org.isacrodi.struts.ShowInlineImageAction">
