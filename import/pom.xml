@@ -66,6 +66,8 @@
     <dependency>
       <groupId>classifier</groupId>
       <artifactId>libsvm</artifactId>
+      <version>1.0</version>
+      <type>jar</type>
     </dependency>
     <!-- dependency>
       <groupId>miscutils</groupId>

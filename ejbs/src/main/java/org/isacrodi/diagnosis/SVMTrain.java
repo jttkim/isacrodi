@@ -25,7 +25,7 @@ public class SVMTrain
   }
 
   
-  public svm_model classify(HashMap hm, int max)
+  public svm_model train(HashMap hm, int max)
   {
    
     svm_model svmmodel = new svm_model();
@@ -78,8 +78,9 @@ public class SVMTrain
     int i = 0;
     for(Object k : hm.keySet())
     {
-      this.svmproblem.x[i] = (svm_node[])hm.get(k);
-      this.svmproblem.y[i] = (Double)k;
+      System.out.println((svm_node[])k + "::::" + (Double)hm.get(k));
+      this.svmproblem.x[i] = (svm_node[])k;
+      this.svmproblem.y[i] = (Double)hm.get(k);
       i++;
     }
 
