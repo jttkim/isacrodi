@@ -97,7 +97,7 @@ cdr
     soil: sandy
     affectedpart: leaves
     diseasefielddistribution: patchy
-    symptom: wrinkling
+    leafappearance: wrinkling
     cropstage: vegetative
     firstsymptomcropstage: vegetative
     irrigationsystem: drip

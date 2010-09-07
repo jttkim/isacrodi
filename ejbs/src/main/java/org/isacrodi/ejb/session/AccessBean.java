@@ -273,12 +273,16 @@ public class AccessBean implements Access
 	  break;
 	}
       }
-      HashSet<CategoricalDescriptor> h = new HashSet<CategoricalDescriptor>();
-      for (CategoricalDescriptor categoricalDescriptor : categoricalTypeValue.getCategoricalDescriptorSet())
+      // FIXME: this condition deals with the null reference case but is this the adequate way of doing that?
+      if (categoricalTypeValue != null)
       {
-	h.add(categoricalDescriptor);
+	HashSet<CategoricalDescriptor> h = new HashSet<CategoricalDescriptor>();
+	for (CategoricalDescriptor categoricalDescriptor : categoricalTypeValue.getCategoricalDescriptorSet())
+	{
+	  h.add(categoricalDescriptor);
+	}
+	categoricalTypeValue.setCategoricalDescriptorSet(h);
       }
-      categoricalTypeValue.setCategoricalDescriptorSet(h);
       return (categoricalTypeValue);
     }
     else

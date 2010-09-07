@@ -84,6 +84,8 @@ public class CategoricalTypeValue implements IsacrodiEntity
   }
 
 
+  // FIXME: uniqueness should be enforced for one type
+  // @Column(unique = true, nullable = false)
   public String getValueType()
   {
     return(this.valueType);

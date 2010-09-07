@@ -175,6 +175,7 @@ public class Import
       }
       scanner.nextToken(Token.TokenType.SYMBOL, "{");
       String typename = scanner.nextToken(Token.TokenType.NAMEVALUE, "typename").getValue().trim();
+      System.err.println(String.format("importing categorical type \"%s\"", typename));
       String description = scanner.nextToken(Token.TokenType.NAMEVALUE, "description").getValue().trim();
       String valueSetString = scanner.nextToken(Token.TokenType.NAMEVALUE, "valueSet").getValue().trim();
       String multipleString = scanner.nextToken(Token.TokenType.NAMEVALUE, "multiple").getValue().trim();
