@@ -96,7 +96,9 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     {
       NumericType numericType = (NumericType) numericDescriptor.getDescriptorType();
       if (descriptorName.equals(numericType.getTypeName()))
+      {
         return(new Double(numericDescriptor.getNumericValue()));
+      }
     }
     return(null);
   }
@@ -144,7 +146,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
       this.irrigationfrequency = prepareNumericMap("irrigationfrequency");
       this.pH = prepareNumericMap("pH");
       this.pestdensity = prepareNumericMap("pestdensity");
-      prepareCategoricalMap("symptom");
+      this.prepareCategoricalMap("symptom");
     }
   }
 

@@ -28,7 +28,7 @@ categoricaltype
 {
   typename: pesttype
   description: type of visible pests, such as aphids, beetles, caterpillars, moths, worms, ants, flies, borers etc.
-  valueSet: aphids, beetles, caterpillars, moths, worms, ants, flies, borers
+  valueSet: aphids, beetles, caterpillars, moths, worms, ants, flies, borers, leaf miners
   multiple: false
 }
 
@@ -48,11 +48,53 @@ categoricaltype
   multiple: false
 }
 
+# deprecated symptoms: halo, proliferation, herbicide injury, hydrosis, lodging, powdery mildew, rugosity, russeting, mummification, mosaic
+
 categoricaltype
 {
   typename: symptom
-  description: main symptom of the reported disorder, e.g. wilting, rotting, drying, yellowing, discoloration
-  valueSet: blotch, canker, brownish, silvering, bronzing, chlorosis, yellowish, callus, cracking, cupping, curling, damping off, dieback, dwarfing, proliferation, gall, halo, herbicide injury, hydrosis, defoliation, honeydew, soot, lodging, mummification, necrosis, mosaic, powdery mildew, reddening, rot, rugosity, russetting, rust, scab, smut, streak, wilting, drying, wrinkling, lesions, scarring, loss of turgescence
+  description: main symptom of the reported disorder, e.g. wilting, rotting, drying, yellowing
+  valueSet: cankers, calluses, dieback, dwarfing, defoliation, honeydew, soot, necrosis, rot, rust, scab, smut, streak, wilting, drying, lesions
+  multiple: true
+}
+
+categoricaltype
+{
+  typename: leafdiscoloration
+  description: discoloration of affected leaves
+  valueSet: brown, silver, yellow, red
+  multiple: false
+}
+
+categoricaltype
+{
+  typename: leafappearance
+  description: appearance of leaves
+  valueSet: blotches, curling, rot, rust, scab, smut, streaks, wrinkling, lesions, scarring
+  multiple: true
+}
+
+categoricaltype
+{
+  typename: leafsymptom
+  description: main symptoms affecting the leaves
+  valueSet: brittleness, galls, necrosis, white powder, wilting, drying
+  multiple: true
+}
+
+categoricaltype
+{
+  typename: seedlingsymptom
+  description: main symptoms affecting seedlings
+  valueSet: damping off, necrosis, rot, rust, scab, smut, wilting
+  multiple: true
+}
+
+categoricaltype
+{
+  typename: rootsymptom
+  description: main symptoms affecting roots
+  valueSet: galls, necrosis, rot
   multiple: true
 }
 
