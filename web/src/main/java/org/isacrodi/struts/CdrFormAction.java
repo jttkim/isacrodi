@@ -37,6 +37,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   private Double irrigationfrequency;
   private Double pH;
   private Double pestdensity;
+
   private String irrigationsystem;
   private String irrigationorigin;
   private String soil;
@@ -47,6 +48,21 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   private String pesttype;
   private String diseasefielddistribution;
   private String seedlingorigin;
+  // New batch
+  private String overallappearance;
+  private String leafdiscoloration;
+  private String leafappearance;
+  private String leafsymptom;
+  private String seedlingsymptom;
+  private String rootsymptom;
+  private String lesioncolour;
+  private String lesionshape;
+  private String lesionappearance;
+  private String odour;
+  private String lesionlocation;
+  private String steminternal;
+  private String drainage;
+
   private NumericType altitudeType;
   private NumericType monthlyaveragetemperatureType;
   private NumericType monthlyaveragehumidityType;
@@ -147,6 +163,21 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
       this.pH = prepareNumericMap("pH");
       this.pestdensity = prepareNumericMap("pestdensity");
       this.prepareCategoricalMap("symptom");
+      // New batch
+      this.prepareCategoricalMap("overallappearance");
+      this.prepareCategoricalMap("leafdiscoloration");
+      this.prepareCategoricalMap("leafappearance");
+      this.prepareCategoricalMap("leafsymptom");
+      this.prepareCategoricalMap("seedlingsymptom");
+      this.prepareCategoricalMap("rootsymptom");
+      this.prepareCategoricalMap("lesioncolour");
+      this.prepareCategoricalMap("lesionshape");
+      this.prepareCategoricalMap("lesionappearance");
+      this.prepareCategoricalMap("odour");
+      this.prepareCategoricalMap("lesionlocation");
+      this.prepareCategoricalMap("steminternal");
+      this.prepareCategoricalMap("drainage");
+
     }
   }
 
@@ -327,6 +358,85 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     return(categoricalTypeValueList);
   }
 
+  // New batch
+
+  public List<CategoricalTypeValue> getOverallappearanceValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("overallappearance");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getLeafdiscolorationValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("leafdiscoloration");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getLeafappearanceValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("leafappearance");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getLeafsymptomValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("leafsymptom");
+    return(categoricalTypeValueList);
+  }
+ 
+  public List<CategoricalTypeValue> getSeedlingsymptomValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("seedlingsymptom");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getRootsymptomValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("rootsymptom");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getLesioncolourValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("lesioncolour");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getLesionshapeValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("lesionshape");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getLesionappearanceValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("lesionappearance");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getOdourValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("odour");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getLesionlocationValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("lesionlocation");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getSteminternalValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("steminternal");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getDrainageValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("drainage");
+    return(categoricalTypeValueList);
+  }
 
   // Numerical data
 
@@ -563,6 +673,157 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.seedlingorigin = seedlingorigin;
   }
 
+  // New batch
+
+  public String getOverallappearance()
+  {
+    return (this.overallappearance);
+  }
+
+
+  public void setOverallappearance(String overallappearance)
+  {
+    this.overallappearance = overallappearance;
+  }
+
+
+  public String getLeafdiscoloration()
+  {
+    return (this.leafdiscoloration);
+  }
+
+
+  public void setLeafdiscoloration(String leafdiscoloration)
+  {
+    this.leafdiscoloration = leafdiscoloration;
+  }
+
+  public String getLeafappearance()
+  {
+    return (this.leafappearance);
+  }
+
+
+  public void setLeafappearance(String leafappearance)
+  {
+    this.leafappearance = leafappearance;
+  }
+
+ public String getLeafsymptom()
+  {
+    return (this.leafsymptom);
+  }
+
+
+  public void setLeafsymptom(String leafsymptom)
+  {
+    this.leafsymptom = leafsymptom;
+  }
+
+  public String getSeedlingsymptom()
+  {
+    return (this.seedlingsymptom);
+  }
+
+
+  public void setSeedlingsymptom(String seedlingsymptom)
+  {
+    this.seedlingsymptom = seedlingsymptom;
+  }
+
+
+  public String getRootsymptom()
+  {
+    return (this.rootsymptom);
+  }
+
+
+  public void setRootsymptom(String rootsymptom)
+  {
+    this.rootsymptom = rootsymptom;
+  }
+
+  public String getLesioncolour()
+  {
+    return (this.lesioncolour);
+  }
+
+
+  public void setLesioncolour(String lesioncolour)
+  {
+    this.lesioncolour = lesioncolour;
+  }
+
+  public String getLesionshape()
+  {
+    return (this.lesionshape);
+  }
+
+
+  public void setLesionshape(String lesionshape)
+  {
+    this.lesionshape = lesionshape;
+  } 
+  
+   public String getLesionappearance()
+  {
+    return (this.lesionappearance);
+  }
+
+
+  public void setLesionappearance(String lesionappearance)
+  {
+    this.lesionappearance = lesionappearance;
+  }
+
+
+  public String getOdour()
+  {
+    return (this.odour);
+  }
+
+
+  public void setOdour(String odour)
+  {
+    this.odour = odour;
+  }
+
+  public String getLesionlocation()
+  {
+    return (this.lesionlocation);
+  }
+
+
+  public void setLesionlocation(String lesionlocation)
+  {
+    this.lesionlocation = lesionlocation;
+  }
+
+
+  public String getSteminternal()
+  {
+    return (this.steminternal);
+  }
+
+
+  public void setSteminternal(String steminternal)
+  {
+    this.steminternal = steminternal;
+  } 
+
+
+  public String getDrainage()
+  {
+    return (this.drainage);
+  }
+
+
+  public void setDrainage(String drainage)
+  {
+    this.drainage = drainage;
+  }
+
+  //
 
   public List<Crop> getCropList()
   {
@@ -636,6 +897,19 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
       this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "pesttype", this.pesttype);
       this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "diseasefielddistribution", this.diseasefielddistribution);
       this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "seedlingorigin", this.seedlingorigin);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "overallappearance", this.overallappearance);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafdiscoloration", this.leafdiscoloration);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafappearance", this.leafappearance);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafsymptom", this.leafsymptom);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "seedlingsymptom", this.seedlingsymptom);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "rootsymptom", this.rootsymptom);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesioncolour", this.lesioncolour);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesionshape", this.lesionshape);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesionappearance", this.lesionappearance);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "odour", this.odour);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesionlocation", this.lesionlocation);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "steminternal", this.steminternal);
+      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "drainage", this.drainage);
       this.cropDisorderRecordManager.updateCategoricalDescriptors(this.cropDisorderRecordId, categoricalDescriptorMap);
 
       Map<Integer, Double> numericDescriptorMap = new HashMap<Integer, Double>();
