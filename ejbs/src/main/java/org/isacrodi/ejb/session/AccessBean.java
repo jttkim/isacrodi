@@ -297,16 +297,17 @@ public class AccessBean implements Access
   {
     Query query = this.entityManager.createQuery("SELECT c FROM CategoricalTypeValue c WHERE c.categoricalType.typeName = :typeName");
     query.setParameter("typeName", typeName);
-    System.err.println(String.format("AccessBean.findCategoricalTypeValueList: query = %s", query.toString()));
+    // System.err.println(String.format("AccessBean.findCategoricalTypeValueList: query = %s", query.toString()));
     List<Object> objectList = null;
-    System.err.println("got the list");
     try
     {
       objectList = query.getResultList();
+      /* 8 Sept 2010
       for (Object o : objectList)
       {
 	System.err.println(String.format("AccessBean.findCategoricalTypeValueList: object %s", o.toString()));
       }
+      */
     }
     catch (Exception e)
     {
@@ -314,6 +315,7 @@ public class AccessBean implements Access
       e.printStackTrace();
     }
     List<CategoricalTypeValue> categoricalTypeValueList = genericTypecast(objectList);
+    /* 8 Sept 2010
     System.err.println(String.format("AccessBean.findCategoricalTypeValueList: found %d values for %s", categoricalTypeValueList.size(), typeName));
     for (CategoricalTypeValue categoricalTypeValue : categoricalTypeValueList)
     {
@@ -326,6 +328,7 @@ public class AccessBean implements Access
 	System.err.println(String.format("AccessBean.findCategoricalTypeValueList: found value %s", categoricalTypeValue.getValueType()));
       }
     }
+    */
     return (categoricalTypeValueList);
   }
 

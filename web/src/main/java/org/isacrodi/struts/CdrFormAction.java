@@ -41,9 +41,9 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   private String irrigationsystem;
   private String irrigationorigin;
   private String soil;
-  private String symptom;
+  private String[] symptom;
   private String firstsymptomcropstage;
-  private String affectedpart;
+  private String[] affectedpart;
   private String cropstage;
   private String pesttype;
   private String diseasefielddistribution;
@@ -51,16 +51,16 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   // New batch
   private String overallappearance;
   private String leafdiscoloration;
-  private String leafappearance;
-  private String leafsymptom;
-  private String seedlingsymptom;
-  private String rootsymptom;
+  private String[] leafappearance;
+  private String[] leafsymptom;
+  private String[] seedlingsymptom;
+  private String[] rootsymptom;
   private String lesioncolour;
   private String lesionshape;
   private String lesionappearance;
   private String odour;
-  private String lesionlocation;
-  private String steminternal;
+  private String[] lesionlocation;
+  private String[] steminternal;
   private String drainage;
 
   private NumericType altitudeType;
@@ -106,44 +106,93 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
-  public Double prepareNumericMap(String descriptorName)
+  /**
+   * Get a numeric descriptor's value if the specified descriptor
+   * exists in the crop disorder record.
+   */
+  private static Double getNumericValueNullSafe(Map<String, NumericDescriptor> numericDescriptorMap, String key)
   {
-    Set<NumericDescriptor> numericDescriptorSet = this.cropDisorderRecord.findNumericDescriptorSet();
-    for (NumericDescriptor numericDescriptor : numericDescriptorSet)
+    Double numericValue = null;
+    NumericDescriptor numericDescriptor = numericDescriptorMap.get(key);
+    if (numericDescriptor != null)
     {
-      NumericType numericType = (NumericType) numericDescriptor.getDescriptorType();
-      if (descriptorName.equals(numericType.getTypeName()))
-      {
-        return(new Double(numericDescriptor.getNumericValue()));
-      }
+      numericValue = numericDescriptor.getNumericValue();
     }
-    return(null);
+    return (numericValue);
   }
 
 
-  public String prepareCategoricalMap(String descriptorName)
+  public void prepareNumericMap()
   {
-    String dv = null;
-    Set<CategoricalDescriptor> categoricalDescriptorSet = this.cropDisorderRecord.findCategoricalDescriptorSet();
-    for (CategoricalDescriptor categoricalDescriptor : categoricalDescriptorSet)
+    Map<String, NumericDescriptor> numericDescriptorMap = this.cropDisorderRecord.findNumericDescriptorMap();
+    this.altitude = getNumericValueNullSafe(numericDescriptorMap, "altitude");
+    this.monthlyaveragetemperature = getNumericValueNullSafe(numericDescriptorMap, "monthlyaveragetemperature");
+    this.monthlyaveragehumidity = getNumericValueNullSafe(numericDescriptorMap, "monthlyaveragehumidity");
+    this.monthlyprecipitation = getNumericValueNullSafe(numericDescriptorMap, "monthlyprecipitation");
+    this.cultivatedarea = getNumericValueNullSafe(numericDescriptorMap, "cultivatedarea");
+    this.cropage = getNumericValueNullSafe(numericDescriptorMap, "cropage");
+    this.relativeaffectedarea = getNumericValueNullSafe(numericDescriptorMap, "relativeaffectedarea");
+    this.irrigationamount = getNumericValueNullSafe(numericDescriptorMap, "irrigationamount");
+    this.irrigationfrequency = getNumericValueNullSafe(numericDescriptorMap, "irrigationfrequency");
+    this.pH = getNumericValueNullSafe(numericDescriptorMap, "pH");
+    this.pestdensity = getNumericValueNullSafe(numericDescriptorMap, "pestdensity");
+  }
+
+
+  private String[] getCategoricalMultiValueNullSafe(Map<String, CategoricalDescriptor> categoricalDescriptorMap, String key)
+  {
+    String[] categoricalValueString = null;
+    CategoricalDescriptor categoricalDescriptor = categoricalDescriptorMap.get(key);
+    if (categoricalDescriptor != null)
     {
       CategoricalType categoricalType = (CategoricalType) categoricalDescriptor.getDescriptorType();
-      if (descriptorName.equals(categoricalType.getTypeName()))
+      Set<CategoricalTypeValue> valueSet = categoricalDescriptor.getCategoricalTypeValueSet();
+      if (categoricalType.getMultivalue())
       {
-        if (categoricalType.getMultivalue())
-        {
-
-        }
-        else
-        {
-          for(CategoricalTypeValue ctv : categoricalDescriptor.getCategoricalTypeValueSet())
-          {
-            return(ctv.getValueType());
-          }
-        }
+	categoricalValueString = new String[valueSet.size()];
+	int i = 0;
+	for (CategoricalTypeValue categoricalTypeValue : valueSet)
+	{
+	  categoricalValueString[i++] = categoricalTypeValue.getValueType();
+	}
+      }
+      else
+      {
+	throw new RuntimeException(String.format("categorical type %s does not allow multiple values", categoricalType.getTypeName()));
       }
     }
-    return(dv);
+    return (categoricalValueString);
+  }
+
+
+  private String getCategoricalValueNullSafe(Map<String, CategoricalDescriptor> categoricalDescriptorMap, String key)
+  {
+    String categoricalValueString = null;
+    CategoricalDescriptor categoricalDescriptor = categoricalDescriptorMap.get(key);
+    if (categoricalDescriptor != null)
+    {
+      CategoricalType categoricalType = (CategoricalType) categoricalDescriptor.getDescriptorType();
+       Set<CategoricalTypeValue> valueSet = categoricalDescriptor.getCategoricalTypeValueSet();
+      if (categoricalType.getMultivalue())
+      {
+	throw new RuntimeException(String.format("categorical type %s is a multi-value type", categoricalType.getTypeName()));
+      }
+      else
+      {
+	CategoricalTypeValue categoricalTypeValue = valueSet.iterator().next();
+	categoricalValueString = categoricalTypeValue.getValueType();
+      }
+      this.LOG.info(String.format("returning \"%s\" as value of %s", categoricalValueString, categoricalType.getTypeName()));
+    }
+    return (categoricalValueString);
+  }
+
+
+  public void prepareCategoricalMap()
+  {
+    Map <String, CategoricalDescriptor> categoricalDescriptorMap = this.cropDisorderRecord.findCategoricalDescriptorMap();
+    this.soil = getCategoricalValueNullSafe(categoricalDescriptorMap, "soil");
+    this.symptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "symptom");
   }
 
 
@@ -152,19 +201,10 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     super.prepare();
     if (this.cropDisorderRecord != null)
     {
-      this.altitude = this.prepareNumericMap("altitude");
-      this.monthlyaveragetemperature = this.prepareNumericMap("monthlyaveragetemperature");
-      this.monthlyaveragehumidity = this.prepareNumericMap("monthlyaveragehumidity");
-      this.monthlyprecipitation = this.prepareNumericMap("monthlyprecipitation");
-      this.cultivatedarea = this.prepareNumericMap("cultivatedarea");
-      this.cropage = this.prepareNumericMap("cropage");
-      this.relativeaffectedarea = this.prepareNumericMap("relativeaffectedarea");
-      this.irrigationamount = this.prepareNumericMap("irrigationamount");
-      this.irrigationfrequency = this.prepareNumericMap("irrigationfrequency");
-      this.pH = this.prepareNumericMap("pH");
-      this.pestdensity = this.prepareNumericMap("pestdensity");
+      this.prepareNumericMap();
       // New batch
-      this.prepareCategoricalMap("symptom");
+      this.prepareCategoricalMap();
+      /*
       this.prepareCategoricalMap("overallappearance");
       this.prepareCategoricalMap("leafdiscoloration");
       this.prepareCategoricalMap("leafappearance");
@@ -178,7 +218,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
       this.prepareCategoricalMap("lesionlocation");
       this.prepareCategoricalMap("steminternal");
       this.prepareCategoricalMap("drainage");
-
+      */
     }
   }
 
@@ -592,13 +632,13 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
-  public String getSymptom()
+  public String[] getSymptom()
   {
     return (this.symptom);
   }
 
 
-  public void setSymptom(String symptom)
+  public void setSymptom(String[] symptom)
   {
     this.symptom = symptom;
   }
@@ -616,13 +656,13 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
-  public String getAffectedpart()
+  public String[] getAffectedpart()
   {
     return (this.affectedpart);
   }
 
 
-  public void setAffectedpart(String affectedpart)
+  public void setAffectedpart(String[] affectedpart)
   {
     this.affectedpart = affectedpart;
   }
@@ -700,47 +740,47 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.leafdiscoloration = leafdiscoloration;
   }
 
-  public String getLeafappearance()
+  public String[] getLeafappearance()
   {
     return (this.leafappearance);
   }
 
 
-  public void setLeafappearance(String leafappearance)
+  public void setLeafappearance(String[] leafappearance)
   {
     this.leafappearance = leafappearance;
   }
 
- public String getLeafsymptom()
+ public String[] getLeafsymptom()
   {
     return (this.leafsymptom);
   }
 
 
-  public void setLeafsymptom(String leafsymptom)
+  public void setLeafsymptom(String[] leafsymptom)
   {
     this.leafsymptom = leafsymptom;
   }
 
-  public String getSeedlingsymptom()
+  public String[] getSeedlingsymptom()
   {
     return (this.seedlingsymptom);
   }
 
 
-  public void setSeedlingsymptom(String seedlingsymptom)
+  public void setSeedlingsymptom(String[] seedlingsymptom)
   {
     this.seedlingsymptom = seedlingsymptom;
   }
 
 
-  public String getRootsymptom()
+  public String[] getRootsymptom()
   {
     return (this.rootsymptom);
   }
 
 
-  public void setRootsymptom(String rootsymptom)
+  public void setRootsymptom(String[] rootsymptom)
   {
     this.rootsymptom = rootsymptom;
   }
@@ -790,25 +830,25 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.odour = odour;
   }
 
-  public String getLesionlocation()
+  public String[] getLesionlocation()
   {
     return (this.lesionlocation);
   }
 
 
-  public void setLesionlocation(String lesionlocation)
+  public void setLesionlocation(String[] lesionlocation)
   {
     this.lesionlocation = lesionlocation;
   }
 
 
-  public String getSteminternal()
+  public String[] getSteminternal()
   {
     return (this.steminternal);
   }
 
 
-  public void setSteminternal(String steminternal)
+  public void setSteminternal(String[] steminternal)
   {
     this.steminternal = steminternal;
   } 
@@ -834,15 +874,14 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
-  private void addCategoricalDescriptorToMap(Map<Integer, Set<String>> categoricalDescriptorMap, String descriptorTypeName, String descriptorValueCsv)
+  private void addCategoricalDescriptorToMap(Map<Integer, Set<String>> categoricalDescriptorMap, String descriptorTypeName, String[] descriptorValue)
   {
     // FIXME: too many weird checks here...
-    if (descriptorValueCsv == null)
+    if (descriptorValue == null)
     {
       return;
     }
-    String[] categoricalTypeValueNameList = Util.splitTrim(descriptorValueCsv, ",");
-    if (categoricalTypeValueNameList.length == 0)
+    if (descriptorValue.length == 0)
     {
       return;
     }
@@ -851,15 +890,37 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     {
       throw new RuntimeException(String.format("categorical type %s does not exist", descriptorTypeName));
     }
-    if (!categoricalType.getMultivalue() && (categoricalTypeValueNameList.length != 1))
+    if (!categoricalType.getMultivalue())
     {
       throw new RuntimeException(String.format("categorical type %s does not allow multiple values", categoricalType.getTypeName()));
     }
     Set<String> valueSet = new HashSet<String>();
-    for (String categoricalValueName : categoricalTypeValueNameList)
+    for (String categoricalValueName : descriptorValue)
     {
       valueSet.add(categoricalValueName);
     }
+    categoricalDescriptorMap.put(categoricalType.getId(), valueSet);
+  }
+
+
+  private void addCategoricalDescriptorToMap(Map<Integer, Set<String>> categoricalDescriptorMap, String descriptorTypeName, String descriptorValue)
+  {
+    // FIXME: too many weird checks here...
+    if (descriptorValue == null)
+    {
+      return;
+    }
+    CategoricalType categoricalType = this.access.findCategoricalType(descriptorTypeName);
+    if (categoricalType == null)
+    {
+      throw new RuntimeException(String.format("categorical type %s does not exist", descriptorTypeName));
+    }
+    if (categoricalType.getMultivalue())
+    {
+      throw new RuntimeException(String.format("categorical type %s expects multiple values", categoricalType.getTypeName()));
+    }
+    Set<String> valueSet = new HashSet<String>();
+    valueSet.add(descriptorValue);
     categoricalDescriptorMap.put(categoricalType.getId(), valueSet);
   }
 
