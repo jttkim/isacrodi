@@ -378,6 +378,18 @@ public class CropDisorderRecord implements IsacrodiEntity
   }
 
 
+  public Map <String, CategoricalDescriptor> findCategoricalDescriptorMap()
+  {
+    Map<String, CategoricalDescriptor> categoricalDescriptorMap = new HashMap<String, CategoricalDescriptor>();
+    for (CategoricalDescriptor categoricalDescriptor : this.findCategoricalDescriptorSet())
+    {
+      CategoricalType categoricalType = (categoricalType) categoricalDescriptor.getDescriptorType();
+      categoricalDescriptorMap.put(categoricalType.getTypeName(), categoricalDescriptor);
+    }
+    return (categoricalDescriptorMap);
+  }
+
+
   public Set<ImageDescriptor> findImageDescriptorSet()
   {
     HashSet<ImageDescriptor> imageDescriptorSet = new HashSet<ImageDescriptor>();
