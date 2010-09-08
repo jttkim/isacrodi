@@ -69,6 +69,7 @@
           listValue="valueType"
           emptyOption="true"
 	/>
+
 	<s:select label="symptom"
  	  name="symptom"
           multiple="true"
@@ -78,6 +79,7 @@
           emptyOption="true"
           size="8"
 	/>
+
 	<s:select label="First symptom crop stage"
 	  name="firstsymptomcropstage"
           multiple="false"
@@ -86,12 +88,108 @@
           listValue="valueType"
           emptyOption="true"
 	/>
+
+        <s:select label="overall appearance"
+	  emptyOption="true"
+ 	  name="overallappearance"
+          multiple="false"
+	  list="%{overallappearanceValueList}"
+          listKey="valueType"
+          listValue="valueType"
+          emptyOption="true"
+	/>
+
+	<s:checkboxlist label="leafdiscoloration"
+ 	  name="leafdiscoloration"
+	  list="%{leafdiscolorationValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+
+	<s:checkboxlist label="leafappearance"
+ 	  name="leafappearance"
+	  list="%{leafappearanceValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+	
+	<s:checkboxlist label="leafsymptom"
+ 	  name="leafsymptom"
+	  list="%{leafsymptomValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+
+	<s:checkboxlist label="seedlingsymptom"
+ 	  name="seedlingsymptom"
+	  list="%{seedlingsymptomValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+	
+	<s:checkboxlist label="rootsymptom"
+ 	  name="rootsymptom"
+	  list="%{rootsymptomValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+
+	<s:checkboxlist label="lesioncolour"
+ 	  name="lesioncolour"
+	  list="%{lesioncolourValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+
+	<s:checkboxlist label="lesionshape"
+ 	  name="lesionshape"
+	  list="%{lesionshapeValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+
+	<s:checkboxlist label="lesionappearance"
+ 	  name="lesionappearance"
+	  list="%{lesionappearanceValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+
+	<s:checkboxlist label="odour"
+ 	  name="odour"
+	  list="%{odourValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+
+	<s:checkboxlist label="lesionlocation"
+ 	  name="lesionlocation"
+	  list="%{lesionlocationValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+	<s:checkboxlist label="steminternal"
+ 	  name="steminternal"
+	  list="%{steminternalValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+
+	<s:checkboxlist label="drainage"
+ 	  name="drainage"
+	  list="%{drainageValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+
 	<s:checkboxlist label="affected part of the plant"
  	  name="affectedpart"
 	  list="%{affectedpartValueList}"
           listKey="valueType"
           listValue="valueType"
 	/>
+
+
 	<s:radio label="crop stage"
  	  name="cropstage"
 	  list="%{cropstageValueList}"
