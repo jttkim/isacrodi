@@ -19,6 +19,8 @@
 
 <p><s:url var="editurl" action="editcropdisorderrecord_input"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{editurl}">edit</s:a></p>
 
+<p><s:url var="cdrformurl" action="cdrform_input"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{cdrformurl}">edit via CDR form</s:a></p>
+
 
 <h2>Numeric Descriptors</h2>
 
