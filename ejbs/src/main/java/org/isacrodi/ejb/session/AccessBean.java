@@ -292,6 +292,7 @@ public class AccessBean implements Access
   }
 
 
+  @Deprecated
   public List<CategoricalTypeValue> findCategoricalTypeValueList(String typeName)
   {
     Query query = this.entityManager.createQuery("SELECT c FROM CategoricalTypeValue c WHERE c.categoricalType.typeName = :typeName");
