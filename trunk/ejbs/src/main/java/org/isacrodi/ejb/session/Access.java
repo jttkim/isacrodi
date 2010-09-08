@@ -40,6 +40,7 @@ public interface Access
   Procedure findProcedure(Integer id);
   Procedure findProcedure(String procedureName);
   CategoricalTypeValue findCategoricalTypeValue(String categoricalTypeName, String categoricalTypeValueName);
+  @Deprecated
   List<CategoricalTypeValue> findCategoricalTypeValueList(String typename);
   void dumpEntities(String basename) throws IOException;
 }

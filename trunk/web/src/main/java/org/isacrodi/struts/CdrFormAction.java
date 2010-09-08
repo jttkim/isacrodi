@@ -91,6 +91,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.pH = null;
     this.pestdensity = null;
 
+    // FIXME: consider retrieving these in the execute method -- they are not needed anywhere else
     this.altitudeType = this.access.findNumericType("altitude");
     this.monthlyaveragetemperatureType = this.access.findNumericType("monthlyaveragetemperature");
     this.monthlyaveragehumidityType = this.access.findNumericType("monthlyaveragehumidity");
@@ -151,19 +152,19 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     super.prepare();
     if (this.cropDisorderRecord != null)
     {
-      this.altitude = prepareNumericMap("altitude");
-      this.monthlyaveragetemperature = prepareNumericMap("monthlyaveragetemperature");
-      this.monthlyaveragehumidity = prepareNumericMap("monthlyaveragehumidity");
-      this.monthlyprecipitation = prepareNumericMap("monthlyprecipitation");
-      this.cultivatedarea = prepareNumericMap("cultivatedarea");
-      this.cropage = prepareNumericMap("cropage");
-      this.relativeaffectedarea = prepareNumericMap("relativeaffectedarea");
-      this.irrigationamount = prepareNumericMap("irrigationamount");
-      this.irrigationfrequency = prepareNumericMap("irrigationfrequency");
-      this.pH = prepareNumericMap("pH");
-      this.pestdensity = prepareNumericMap("pestdensity");
-      this.prepareCategoricalMap("symptom");
+      this.altitude = this.prepareNumericMap("altitude");
+      this.monthlyaveragetemperature = this.prepareNumericMap("monthlyaveragetemperature");
+      this.monthlyaveragehumidity = this.prepareNumericMap("monthlyaveragehumidity");
+      this.monthlyprecipitation = this.prepareNumericMap("monthlyprecipitation");
+      this.cultivatedarea = this.prepareNumericMap("cultivatedarea");
+      this.cropage = this.prepareNumericMap("cropage");
+      this.relativeaffectedarea = this.prepareNumericMap("relativeaffectedarea");
+      this.irrigationamount = this.prepareNumericMap("irrigationamount");
+      this.irrigationfrequency = this.prepareNumericMap("irrigationfrequency");
+      this.pH = this.prepareNumericMap("pH");
+      this.pestdensity = this.prepareNumericMap("pestdensity");
       // New batch
+      this.prepareCategoricalMap("symptom");
       this.prepareCategoricalMap("overallappearance");
       this.prepareCategoricalMap("leafdiscoloration");
       this.prepareCategoricalMap("leafappearance");
@@ -296,6 +297,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
+  // FIXME: type value lists should be supplied by type itself, findCategoricalTypeValueList is not an access method
   public List<CategoricalTypeValue> getIrrigationoriginValueList()
   {
     List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("irrigationorigin");

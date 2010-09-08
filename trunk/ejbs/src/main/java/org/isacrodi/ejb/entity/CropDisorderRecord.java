@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.javamisc.jee.entitycrud.CrudConfig;
 
@@ -347,6 +349,18 @@ public class CropDisorderRecord implements IsacrodiEntity
       }
     }
     return (numericDescriptorSet);
+  }
+
+
+  public Map <String, NumericDescriptor> findNumericDescriptorMap()
+  {
+    Map<String, NumericDescriptor> numericDescriptorMap = new HashMap<String, NumericDescriptor>();
+    for (NumericDescriptor numericDescriptor : this.findNumericDescriptorSet())
+    {
+      NumericType numericType = (NumericType) numericDescriptor.getDescriptorType();
+      numericDescriptorMap.put(numericType.getTypeName(), numericDescriptor);
+    }
+    return (numericDescriptorMap);
   }
 
 
