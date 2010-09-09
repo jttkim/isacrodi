@@ -184,6 +184,7 @@ public class Procedure implements IsacrodiEntity
   }
 
 
+  // FIXME: many-to-many relationship is "owned" and "foreign" at the same time -- is this ok?
   @ManyToMany
   public Set<Procedure> getIncompatibleProcedureSet()
   {

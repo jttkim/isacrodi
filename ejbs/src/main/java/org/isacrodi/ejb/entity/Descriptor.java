@@ -115,11 +115,11 @@ public abstract class Descriptor implements IsacrodiEntity
     {
       return (false);
     }
-    this.descriptorType = null;
-    if (!descriptorType.getDescriptorSet().remove(this))
+    if (!this.descriptorType.getDescriptorSet().remove(this))
     {
       return (false);
     }
+    this.descriptorType = null;
     return (true);
   }
 

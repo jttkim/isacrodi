@@ -51,6 +51,14 @@ public class CategoricalDescriptor extends Descriptor
   }
 
 
+  @Deprecated
+  public void addCategoricalTypeValue(CategoricalTypeValue categoricalTypeValue)
+  {
+    this.categoricalTypeValueSet.add(categoricalTypeValue);
+    categoricalTypeValue.getCategoricalDescriptorSet().add(this);
+  }
+
+
   public void linkCategoricalTypeValue(CategoricalTypeValue categoricalTypeValue)
   {
     this.categoricalTypeValueSet.add(categoricalTypeValue);

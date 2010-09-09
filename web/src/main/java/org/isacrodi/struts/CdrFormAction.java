@@ -24,7 +24,6 @@ import static org.javamisc.Util.genericTypecast;
 public class CdrFormAction extends CropDisorderRecordActionSupport implements ModelDriven<CropDisorderRecord>, Preparable
 {
   private String cropScientificName;
-  private Set<Descriptor> descriptorSet;
   private String expertDiagnosisName;
   private Double altitude;
   private Double monthlyaveragetemperature;
@@ -78,7 +77,6 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   public CdrFormAction() throws NamingException
   {
     super();
-    this.descriptorSet = new HashSet<Descriptor>();
     this.altitude = null;
     this.monthlyaveragetemperature = null;
     this.monthlyaveragehumidity = null;
@@ -179,6 +177,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
       }
       else
       {
+	this.LOG.info(String.format("categorical type %s, %d values (should be 1)", categoricalType.getTypeName(), valueSet.size()));
 	CategoricalTypeValue categoricalTypeValue = valueSet.iterator().next();
 	categoricalValueString = categoricalTypeValue.getValueType();
       }
@@ -923,6 +922,11 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     {
       return;
     }
+    descriptorValue = descriptorValue.trim();
+    if (descriptorValue.length() == 0)
+    {
+      return;
+    }
     CategoricalType categoricalType = this.access.findCategoricalType(descriptorTypeName);
     if (categoricalType == null)
     {
@@ -950,64 +954,54 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   public String execute()
   {
     this.LOG.info("show CDR: executing");
-    if (this.altitude == null)
-    {
-      this.LOG.info("altitude = null");
-    }
-    else
-    {
-      this.LOG.info(String.format("altitude = %f", this.altitude.doubleValue()));
-    }
     if (this.cropDisorderRecord.getId() == null)
     {
-      this.cropDisorderRecordId = this.access.insert(this.isacrodiUser.getUsername(), this.cropScientificName, this.descriptorSet, this.expertDiagnosisName);
-
-      HashMap<Integer, Set<String>> categoricalDescriptorMap = new HashMap<Integer, Set<String>>();
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "irrigationsystem", this.irrigationsystem);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "irrigationorigin", this.irrigationorigin);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "soil", this.soil);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "symptom", this.symptom);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "firstsymptomcropstage", this.firstsymptomcropstage);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "affectedpart", this.affectedpart);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "cropstage", this.cropstage);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "pesttype", this.pesttype);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "diseasefielddistribution", this.diseasefielddistribution);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "seedlingorigin", this.seedlingorigin);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "overallappearance", this.overallappearance);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafdiscoloration", this.leafdiscoloration);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafappearance", this.leafappearance);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafsymptom", this.leafsymptom);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "seedlingsymptom", this.seedlingsymptom);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "rootsymptom", this.rootsymptom);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesioncolour", this.lesioncolour);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesionshape", this.lesionshape);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesionappearance", this.lesionappearance);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "odour", this.odour);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesionlocation", this.lesionlocation);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "steminternal", this.steminternal);
-      this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "drainage", this.drainage);
-      this.cropDisorderRecordManager.updateCategoricalDescriptors(this.cropDisorderRecordId, categoricalDescriptorMap);
-
-      Map<Integer, Double> numericDescriptorMap = new HashMap<Integer, Double>();
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.altitudeType.getId(), this.altitude);
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyaveragetemperatureType.getId(), this.monthlyaveragetemperature);
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyaveragehumidityType.getId(), this.monthlyaveragehumidity);
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyprecipitationType.getId(), this.monthlyprecipitation);
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.cultivatedareaType.getId(), this.cultivatedarea);
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.cropageType.getId(), this.cropage);
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.relativeaffectedareaType.getId(), this.relativeaffectedarea);
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.irrigationamountType.getId(), this.irrigationamount);
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.irrigationfrequencyType.getId(), this.irrigationfrequency);
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.pHType.getId(), this.pH);
-      this.addNumericDescriptorToMap(numericDescriptorMap, this.pestdensityType.getId(), this.pestdensity);
-      this.cropDisorderRecordManager.updateNumericDescriptors(this.cropDisorderRecordId, numericDescriptorMap);
-
+      // FIXME: insert method should go to CropDisorderRecordManager
+      this.cropDisorderRecordId = this.access.insert(this.isacrodiUser.getUsername(), this.cropScientificName, null, this.expertDiagnosisName);
     }
     else
     {
-      // FIXME: cannot update descriptors...
+      // FIXME: cannot update expert diagnosis
       this.cropDisorderRecordManager.update(this.cropDisorderRecord, this.cropScientificName, null);
     }
+    HashMap<Integer, Set<String>> categoricalDescriptorMap = new HashMap<Integer, Set<String>>();
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "irrigationsystem", this.irrigationsystem);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "irrigationorigin", this.irrigationorigin);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "soil", this.soil);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "symptom", this.symptom);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "firstsymptomcropstage", this.firstsymptomcropstage);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "affectedpart", this.affectedpart);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "cropstage", this.cropstage);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "pesttype", this.pesttype);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "diseasefielddistribution", this.diseasefielddistribution);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "seedlingorigin", this.seedlingorigin);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "overallappearance", this.overallappearance);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafdiscoloration", this.leafdiscoloration);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafappearance", this.leafappearance);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafsymptom", this.leafsymptom);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "seedlingsymptom", this.seedlingsymptom);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "rootsymptom", this.rootsymptom);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesioncolour", this.lesioncolour);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesionshape", this.lesionshape);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesionappearance", this.lesionappearance);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "odour", this.odour);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "lesionlocation", this.lesionlocation);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "steminternal", this.steminternal);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "drainage", this.drainage);
+    this.cropDisorderRecordManager.updateCategoricalDescriptors(this.cropDisorderRecordId, categoricalDescriptorMap);
+    Map<Integer, Double> numericDescriptorMap = new HashMap<Integer, Double>();
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.altitudeType.getId(), this.altitude);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyaveragetemperatureType.getId(), this.monthlyaveragetemperature);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyaveragehumidityType.getId(), this.monthlyaveragehumidity);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyprecipitationType.getId(), this.monthlyprecipitation);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.cultivatedareaType.getId(), this.cultivatedarea);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.cropageType.getId(), this.cropage);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.relativeaffectedareaType.getId(), this.relativeaffectedarea);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.irrigationamountType.getId(), this.irrigationamount);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.irrigationfrequencyType.getId(), this.irrigationfrequency);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.pHType.getId(), this.pH);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.pestdensityType.getId(), this.pestdensity);
+    this.cropDisorderRecordManager.updateNumericDescriptors(this.cropDisorderRecordId, numericDescriptorMap);
     return (SUCCESS);
   }
 

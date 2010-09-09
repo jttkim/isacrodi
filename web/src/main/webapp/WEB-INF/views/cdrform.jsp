@@ -12,11 +12,11 @@
         <h1>CDR Form</h1>
 	<p><s:actionerror/></p>
 	<s:form action="cdrform">
-	<s:if test="cropdisorderrecordid">
-	<tr><td>editing crop disorder record</td><td><code>${cropdisorderrecordid}</td></tr>
-	<s:hidden name="cropdisorderrecordid"/>
-	<tr><td>reporting user</td><td><s:property value="%{isacrodiuser.firstname}"/> <s:property value="%{isacrodiuser.lastname}"/></tr>
-	</s:if>
+        <s:if test="cropDisorderRecordId">
+        <tr><td>Editing crop disorder record</td><td><code>${cropDisorderRecordId}</td></tr>
+        <s:hidden name="cropDisorderRecordId"/>
+        <tr><td>Reporting user</td><td><s:property value="%{isacrodiUser.firstname}"/> <s:property value="%{isacrodiUser.lastname}"/></tr>
+        </s:if>
 	<%-- <s:textfield label="crop (scientific name)" name="cropScientificName" value="%{cropScientificName}"/> --%>
         <s:select label="crop (scientific name)"
           name="cropScientificName"

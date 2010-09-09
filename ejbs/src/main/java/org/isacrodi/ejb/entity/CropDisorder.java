@@ -121,10 +121,10 @@ public class CropDisorder implements IsacrodiEntity
   }
 
 
-  @ManyToMany
+  @ManyToMany(mappedBy = "cropDisorderSet")
   public Set<Crop> getCropSet()
   {
-    return this.cropSet;
+    return (this.cropSet);
   }
 
 
@@ -199,7 +199,7 @@ public class CropDisorder implements IsacrodiEntity
   }
 
 
-  @ManyToMany
+  @ManyToMany(mappedBy = "cropDisorderSet")
   public Set<Procedure> getProcedureSet()
   {
     return this.procedureSet;
