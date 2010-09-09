@@ -172,11 +172,14 @@ public class AccessBean implements Access
     cropDisorderRecord.setIsacrodiUser(isacrodiUser);
     cropDisorderRecord.setCrop(crop);
     this.entityManager.persist(cropDisorderRecord);
-    for (Descriptor descriptor : descriptorSet)
+    if (descriptorSet != null)
     {
-      cropDisorderRecord.linkDescriptor(descriptor);
-      this.entityManager.persist(descriptor);
-      this.entityManager.merge(descriptor.getDescriptorType());
+      for (Descriptor descriptor : descriptorSet)
+      {
+	cropDisorderRecord.linkDescriptor(descriptor);
+	this.entityManager.persist(descriptor);
+	this.entityManager.merge(descriptor.getDescriptorType());
+      }
     }
     if (expertDiagnosisName != null)
     {

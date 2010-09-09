@@ -200,10 +200,15 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
       throw new RuntimeException(String.format("no crop disorder record with id = %d", cropDisorderRecordId.intValue()));
     }
     Set<CategoricalDescriptor> oldCategoricalDescriptorSet = cropDisorderRecord.findCategoricalDescriptorSet();
+    System.err.println(String.format("CropDisorderRecordManagerBean.updateCategoricalDescriptors: removing old categorical descriptors from cdr %d", cropDisorderRecord.getId().intValue()));
     for (CategoricalDescriptor oldCategoricalDescriptor : oldCategoricalDescriptorSet)
     {
+      System.err.println(String.format("CropDisorderRecordManagerBean.updateCategoricalDescriptors: removing descriptor %s", oldCategoricalDescriptor.toString()));
+      oldCategoricalDescriptor.unlink();
       this.entityManager.remove(oldCategoricalDescriptor);
+      this.entityManager.flush();
     }
+    System.err.println("CropDisorderRecordManagerBean.updateCategoricalDescriptors: done");
     Query categoricalTypeValueQuery = this.entityManager.createQuery("SELECT c FROM CategoricalTypeValue c WHERE valueType = :valueName AND c.categoricalType.typeName = :typeName");
     for (Integer categoricalTypeId : categoricalDescriptorMap.keySet())
     {
@@ -232,7 +237,8 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
 	  }
 	  else
 	  {
-	    System.err.println(String.format("CropDisorderRecordManagerBean.updateCategoricalDescriptors: \"%s\" is not a valid value for %s", categoricalTypeValueName, categoricalType.getTypeName()));
+	    throw new RuntimeException(String.format("invalid value \"%s\" specified for categorical type %s", categoricalTypeValueName, categoricalType.getTypeName()));
+	    // System.err.println(String.format("CropDisorderRecordManagerBean.updateCategoricalDescriptors: \"%s\" is not a valid value for %s", categoricalTypeValueName, categoricalType.getTypeName()));
 	  }
 	}
 	cropDisorderRecord.linkDescriptor(categoricalDescriptor);

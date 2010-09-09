@@ -28,6 +28,17 @@ public interface Access
   void insert(CategoricalType categoricalType, String[] valueString);
   void insert(NumericType numericType);
   void insert(ImageType imageType);
+  /**
+   * Insert a new {@link org.isacrodi.ejb.entity.CropDisorderRecord} instance.
+   *
+   * <p>The parameters have to specify existing persistent entities by
+   * their respective appropriate names.</p>
+   *
+   * @param username the Isacrodi username
+   * @param cropScientificname the crop's scientific name
+   * @param descriptorSet set of descriptors (may be {@code null})
+   * @param expertDiagnosisName the scientific name of the disorder diagnosed by an expert
+   */
   Integer insert(String username, String cropScientificName, Set<Descriptor> descriptorSet, String expertDiagnosisName);
   Crop findCrop(String scientificName);
   List<Crop> findCropList();

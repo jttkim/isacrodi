@@ -98,7 +98,7 @@ public class CategoricalTypeValue implements IsacrodiEntity
   }
 
 
-  @ManyToMany
+  @ManyToMany(mappedBy = "categoricalTypeValueSet")
   public Set<CategoricalDescriptor> getCategoricalDescriptorSet()
   {
     return(this.categoricalDescriptorSet);
@@ -108,6 +108,14 @@ public class CategoricalTypeValue implements IsacrodiEntity
   public void setCategoricalDescriptorSet(Set<CategoricalDescriptor> categoricalDescriptorSet)
   {
     this.categoricalDescriptorSet = categoricalDescriptorSet;
+  }
+
+
+  @Deprecated
+  public void addCategoricalDescriptor(CategoricalDescriptor categoricalDescriptor)
+  {
+    this.categoricalDescriptorSet.add(categoricalDescriptor);
+    categoricalDescriptor.getCategoricalTypeValueSet().add(this);
   }
 
 
