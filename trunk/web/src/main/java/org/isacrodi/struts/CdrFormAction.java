@@ -193,6 +193,19 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     Map <String, CategoricalDescriptor> categoricalDescriptorMap = this.cropDisorderRecord.findCategoricalDescriptorMap();
     this.soil = getCategoricalValueNullSafe(categoricalDescriptorMap, "soil");
     this.symptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "symptom");
+    this.leafappearance = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "leafappearance");
+    this.leafsymptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "leafsymptom");
+    this.seedlingsymptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "seedlingsymptom");
+    this.rootsymptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "rootsymptom");
+    this.lesioncolour = getCategoricalValueNullSafe(categoricalDescriptorMap, "lesioncolour");
+    this.lesionshape = getCategoricalValueNullSafe(categoricalDescriptorMap, "lesionshape");
+    this.lesionappearance = getCategoricalValueNullSafe(categoricalDescriptorMap, "lesionappearance");
+    this.odour = getCategoricalValueNullSafe(categoricalDescriptorMap, "odour");
+    this.lesionlocation = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "lesionlocation");
+    this.steminternal = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "steminternal");
+    this.drainage = getCategoricalValueNullSafe(categoricalDescriptorMap, "drainage");
+    this.overallappearance = getCategoricalValueNullSafe(categoricalDescriptorMap, "overallappearance");
+    this.leafdiscoloration = getCategoricalValueNullSafe(categoricalDescriptorMap, "leafdiscoloration");
   }
 
 

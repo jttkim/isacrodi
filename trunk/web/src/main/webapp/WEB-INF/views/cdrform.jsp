@@ -41,7 +41,7 @@
 	<s:textfield label="pH (%{phType.unit})" name="ph" value="%{ph}" rows="1" cols="10"/>
 	<s:textfield label="pest density (%{pestdensityType.unit})" name="pestdensity" value="%{pestdensity}" rows="1" cols="10"/>
 
-	<s:select label="irrigation system"
+	<s:select label="Irrigation system"
 	  emptyOption="true"
  	  name="irrigationsystem"
           multiple="false"
@@ -52,7 +52,7 @@
 	/>
 	<s:textfield label="irrigation - amount (%{irrigationamountType.unit})" name="irrigationamount" value="%{irrigationamount}" rows="1" cols="10"/>
 	<s:textfield label="irrigation frequency (%{irrigationfrequencyType.unit})" name="irrigationfrequency" value="%{irrigationfrequency}" rows="1" cols="10"/>
-	<s:select label="irrigation origin"
+	<s:select label="Irrigation origin"
  	  name="irrigationorigin"
           multiple="false"
 	  list="%{irrigationoriginValueList}"
@@ -60,7 +60,7 @@
           listValue="valueType"
           emptyOption="true"
 	/>
-	<s:select label="soil type"
+	<s:select label="Soil type"
           value="%{soil}"
  	  name="soil"
           multiple="false"
@@ -70,7 +70,7 @@
           emptyOption="true"
 	/>
 
-	<s:select label="symptom"
+	<s:select label="Symptom"
  	  name="symptom"
           multiple="true"
 	  list="%{symptomValueList}"
@@ -89,7 +89,7 @@
           emptyOption="true"
 	/>
 
-        <s:select label="overall appearance"
+        <s:select label="Overall appearance"
 	  emptyOption="true"
  	  name="overallappearance"
           multiple="false"
@@ -99,96 +99,134 @@
           emptyOption="true"
 	/>
 
-	<s:checkboxlist label="leafdiscoloration"
+	<s:select label="Discoloration of affected leaves"
+	  emptyOption="true"
  	  name="leafdiscoloration"
+          multiple="false"
 	  list="%{leafdiscolorationValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 
-	<s:checkboxlist label="leafappearance"
+	<s:select label="Appearance of leaves"
+	  emptyOption="true"
  	  name="leafappearance"
+          multiple="true"
 	  list="%{leafappearanceValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 	
-	<s:checkboxlist label="leafsymptom"
+	<s:select label="Main symptoms affecting the leaves"
+	  emptyOption="true"
  	  name="leafsymptom"
+          multiple="true"
 	  list="%{leafsymptomValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 
-	<s:checkboxlist label="seedlingsymptom"
+	<s:select label="Main symptoms affecting seedlings"
+	  emptyOption="true"
  	  name="seedlingsymptom"
+          multiple="true"
 	  list="%{seedlingsymptomValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 	
-	<s:checkboxlist label="rootsymptom"
+	<s:select label="Main symptoms affecting roots"
+	  emptyOption="true"
  	  name="rootsymptom"
+          multiple="true"
 	  list="%{rootsymptomValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 
-	<s:checkboxlist label="lesioncolour"
+	<s:select label="Colour of lesions"
+	  emptyOption="true"
  	  name="lesioncolour"
+          multiple="false"
 	  list="%{lesioncolourValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 
-	<s:checkboxlist label="lesionshape"
+	<s:select label="Shape of lesions"
+	  emptyOption="true"
  	  name="lesionshape"
+          multiple="false"
 	  list="%{lesionshapeValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 
-	<s:checkboxlist label="lesionappearance"
+	<s:select label="Appearance of lesions"
+	  emptyOption="true"
  	  name="lesionappearance"
+          multiple="false"
 	  list="%{lesionappearanceValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 
-	<s:checkboxlist label="odour"
+	<s:select label="Odour"
+	  emptyOption="true"
  	  name="odour"
+          multiple="false"
 	  list="%{odourValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 
-	<s:checkboxlist label="lesionlocation"
+	<s:select label="Location of lesion"
+	  emptyOption="true"
  	  name="lesionlocation"
+          multiple="true"
 	  list="%{lesionlocationValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
-	<s:checkboxlist label="steminternal"
+	<s:select label="Condition inside the stem"
+	  emptyOption="true"
  	  name="steminternal"
+          multiple="true"
 	  list="%{steminternalValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 
-	<s:checkboxlist label="drainage"
+	<s:select label="Drainage"
+	  emptyOption="true"
  	  name="drainage"
+          multiple="false"
 	  list="%{drainageValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
 
-	<s:checkboxlist label="affected part of the plant"
+	<s:select label="Affected part of the plant"
+	  emptyOption="true"
  	  name="affectedpart"
+          multiple="true"
 	  list="%{affectedpartValueList}"
           listKey="valueType"
           listValue="valueType"
+          emptyOption="true"
 	/>
-
 
 	<s:radio label="crop stage"
  	  name="cropstage"
@@ -196,8 +234,10 @@
           listKey="valueType"
           listValue="valueType"
 	/>
-	<s:checkboxlist label="Pest type"
+	<s:select label="Pest type"
+	  emptyOption="true"
  	  name="pesttype"
+          multiple="false"
 	  list="%{pesttypeValueList}"
           listKey="valueType"
           listValue="valueType"
