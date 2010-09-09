@@ -228,8 +228,10 @@
           emptyOption="true"
 	/>
 
-	<s:radio label="crop stage"
+	<s:select label="crop stage"
+	  emptyOption="true"
  	  name="cropstage"
+          multiple="false"
 	  list="%{cropstageValueList}"
           listKey="valueType"
           listValue="valueType"
@@ -242,14 +244,18 @@
           listKey="valueType"
           listValue="valueType"
 	/>
-	<s:radio label="Disease field distribution"
+	<s:select label="Disease field distribution"
+	  emptyOption="true"
  	  name="diseasefielddistribution"
+          multiple="false"
 	  list="%{diseasefielddistributionValueList}"
           listKey="valueType"
           listValue="valueType"
 	/>
-	<s:radio label="Origin of seedlings"
+	<s:select label="Origin of seedlings"
+	  emptyOption="true"
  	  name="seedlingorigin"
+          multiple="false"
 	  list="%{seedlingoriginValueList}"
           listKey="valueType"
           listValue="valueType"
