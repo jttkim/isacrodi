@@ -1,6 +1,7 @@
 <%@include file="components/htmlstart.html" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
+
   <head>
     <title>Isacrodi CDRForm</title>
     <link rel="stylesheet" type="text/css" href="<s:url value="/css/site.css"/>"/>
@@ -29,7 +30,7 @@
 	</td>
 	</tr>
 	<tr><td colspan="2"><h3>Average climate conditions</h3></td></tr>
-	<s:textfield label="monthly precipitation (%{monthlyprecipitationType.unit})" name="monthlyprecipitation" value="%{monthlyprecipitation}" rows="1" cols="10"/>
+	<s:textfield label="monthly precipitation (%{monthlyprecipitationType.unit})" name="monthlyprecipitation" value="%{monthlyprecipitation}" rows="1" cols="10" class="texta"/>
 	<s:textfield label="monthly average humidity (%{monthlyaveragehumidityType.unit})" name="monthlyaveragehumidity" value="%{monthlyaveragehumidity}" rows="1" cols="10"/>
 	<s:textfield label="monthly average temperature (%{monthlyaveragetemperatureType.unit})" name="monthlyaveragetemperature" value="%{monthlyaveragetemperature}" rows="1" cols="10"/>
 	<s:textfield label="altitude (%{altitudeType.unit})" name="altitude" value="%{altitude}"/>
