@@ -25,14 +25,15 @@ public class ImageDescriptor extends Descriptor
   private ImageType imageType;
   private String mimeType;
   private byte[] imageData;
-
+  private String imageFileName;
+ 
   private static final long serialVersionUID = 1;
 
 
   public ImageDescriptor()
   {
     super();
-    this.mimeType = "unkown";
+    this.mimeType = "unknown";
   }
 
 
@@ -53,10 +54,17 @@ public class ImageDescriptor extends Descriptor
     this.readImageData(imageFileName);
   }
 
+ 
 
   public String getMimeType()
   {
     return (this.mimeType);
+  }
+
+
+  public String getImageFileName()
+  {
+    return (this.imageFileName);
   }
 
 

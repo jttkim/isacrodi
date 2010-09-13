@@ -149,6 +149,7 @@ cdr
       file: rhizoctonia01_small.jpg
     }
     plant
+
     {
       mimeType: image/jpeg
       file: rhizoctonia02_small.jpg
