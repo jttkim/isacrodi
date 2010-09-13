@@ -456,7 +456,7 @@ public class CropDisorderRecord implements IsacrodiEntity
       String glue = "";
       for (CategoricalTypeValue categoricalTypeValue : categoricalDescriptor.getCategoricalTypeValueSet())
       {
-	s += String.format("%s%s\n", glue, categoricalTypeValue.getValueType());
+	s += String.format("%s%s", glue, categoricalTypeValue.getValueType());
 	glue = ", ";
       }
       s += "\n";
@@ -466,8 +466,12 @@ public class CropDisorderRecord implements IsacrodiEntity
     for (ImageDescriptor imageDescriptor : this.findImageDescriptorSet())
     {
       ImageType imageType = (ImageType) imageDescriptor.getDescriptorType();
-      s += String.format("    mimeType: %s\n", imageDescriptor.getMimeType());
-      s += String.format("    file: image_%s\n", imageDescriptor.makeFileName());
+      s += String.format("    " + imageType.typeName + "\n");
+      s += "    {\n";
+      s += String.format("      mimeType: %s\n", imageDescriptor.getMimeType());
+      //s += String.format("      file: image_%s\n", imageDescriptor.makeFileName());
+      s += String.format("      file: %s\n", "fig_a_potato_blackleg_plant.png");
+      s += "    }\n";
     }
     s += "  }\n";
     x = "";
@@ -476,7 +480,7 @@ public class CropDisorderRecord implements IsacrodiEntity
       x = this.expertDiagnosedCropDisorder.getScientificName();
     }
     s += String.format("  expertDiagnosis: %s", x);
-    s += "}\n";
+    s += "\n}\n";
     return (s);
   }
 }

@@ -2,6 +2,7 @@ package org.isacrodi.dataimport;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import libsvm.*;
@@ -379,6 +380,13 @@ public class Import
     }
   }
 
+  private static void exportCropDisorderRecordFile()
+  {
+     CropDisorderRecordManager cdrm = null;
+     List<CropDisorderRecord> lcdr = cdrm.findCropDisorderRecordList();
+     for(CropDisorderRecord cdr : lcdr)
+       System.err.println(cdr);
+  }
 
   private static void importFile(String filename) throws IOException, NamingException
   {
@@ -469,9 +477,9 @@ public class Import
       CropDisorderRecordManager cdrm = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
       HashMap<String, FeatureVector> labelledFeatureVectorMap = new HashMap<String, FeatureVector>();
       DummyCDRFeatureExtractor extractor = new DummyCDRFeatureExtractor();
-      List<CropDisorderRecord> cdrList = cdrm.findExpertDiagnosedCropDisorderRecordList();
+      List<CropDisorderRecord> cdrList = cdrm.findCropDisorderRecordList();
       CropDisorderRecord cdro = null;
-
+       
       for (CropDisorderRecord cdr : cdrList)
       {
 	System.err.println(String.format("cdr #%d: crop: %s", cdr.getId().intValue(), cdr.getCrop().getName()));
@@ -479,7 +487,6 @@ public class Import
 	labelledFeatureVectorMap.put(cdr.getExpertDiagnosedCropDisorder().getScientificName(), extractor.extract(cdr));
 	cdro = cdr;
       }
-
       for (String label : labelledFeatureVectorMap.keySet())
       {
 	System.err.println(String.format("%s: %s", label, labelledFeatureVectorMap.get(label).toString()));
@@ -497,7 +504,24 @@ public class Import
 	kludge.concoctDiagnosis(cdrId);
       }
       */
+    } 
+    else if (args[0].equals("-e"))
+    {
+      String filename = args[1];
+      FileWriter out = new FileWriter(filename);
+      InitialContext context = new InitialContext();
+      CropDisorderRecordManager cdrm = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
+      List<CropDisorderRecord> cdrList = cdrm.findCropDisorderRecordList();
+      CropDisorderRecord cdro = null;
+      out.append("isacrodi-cdrs-0.1\n"); 
+      for (CropDisorderRecord cdr : cdrList)
+      {
+	out.append(cdr.fileRepresentation());
+      }
+      out.flush();
+      out.close();
     }
+
     else
     {
       for (String arg : args)
