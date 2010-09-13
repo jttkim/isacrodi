@@ -54,7 +54,7 @@ categoricaltype
 {
   typename: symptom
   description: main symptom of the reported disorder, e.g. wilting, rotting, drying, yellowing
-  valueSet: cankers, calluses, dieback, dwarfing, defoliation, honeydew, soot, necrosis, rot, rust, scab, smut, streak, wilting, drying, lesions
+  valueSet: cankers, calluses, dieback, dwarfing, defoliation, honeydew, soot, necrosis, rot, rust, scab, smut, streak, wilting, drying, lesions, fruitmummification
   multiple: true
 }
 
@@ -78,7 +78,7 @@ categoricaltype
 {
   typename: leafsymptom
   description: main symptoms affecting the leaves
-  valueSet: brittleness, galls, necrosis, white powder, wilting, drying
+  valueSet: brittleness, galls, necrosis, white powder, wilting, drying, mosaic
   multiple: true
 }
 

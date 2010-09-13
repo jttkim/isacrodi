@@ -1,3 +1,4 @@
+MAVEN_OPTS	= -o
 PRODUCTIONTGZ	= isacrodi_production.tgz
 ifeq ($(JBOSS_HOME),)
 JBOSS_HOME	= $(HOME)/hacking/java/jboss/jboss-current
@@ -13,14 +14,14 @@ JBOSS_DEPLOYDIR	= $(JBOSS_HOME)/server/default/deploy
 endif
 
 package :
-	mvn -o clean
-	mvn -o package
+	mvn $(MAVEN_OPTS) clean
+	mvn $(MAVEN_OPTS) package
 
 prod : $(PRODUCTIONTGZ)
 
 doc :
-	mvn -o install
-	mvn -o javadoc:javadoc
+	mvn $(MAVEN_OPTS) install
+	mvn $(MAVEN_OPTS) javadoc:javadoc
 	$(MAKE) -C docs
 
 deploy : package
