@@ -62,15 +62,21 @@ public class ImageDescriptor extends Descriptor
   }
 
 
+  public void setMimeType(String mimeType)
+  {
+    this.mimeType = mimeType;
+  }
+
+
   public String getImageFileName()
   {
     return (this.imageFileName);
   }
 
-
-  public void setMimeType(String mimeType)
+  
+  public void setImageFileName(String imageFileName)
   {
-    this.mimeType = mimeType;
+    this.imageFileName = imageFileName;
   }
 
 
