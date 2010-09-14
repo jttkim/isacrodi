@@ -285,6 +285,7 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
     this.entityManager.persist(cropDisorderRecord);
     if (expertDiagnosedCropDisorderScientificName != null)
     {
+      System.err.println(String.format("updating expert diagnosis of crop disorder record %d to %s", cropDisorderRecord.getId().intValue(), expertDiagnosedCropDisorderScientificName));
       cropDisorderRecord.unlinkExpertDiagnosedCropDisorder();
       if (expertDiagnosedCropDisorderScientificName.length() > 0)
       {

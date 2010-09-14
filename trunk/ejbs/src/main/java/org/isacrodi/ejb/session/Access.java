@@ -43,6 +43,7 @@ public interface Access
   Crop findCrop(String scientificName);
   List<Crop> findCropList();
   CropDisorder findCropDisorder(String scientificName);
+  List<CropDisorder> findCropDisorderList();
   CategoricalType findCategoricalType(Integer id);
   CategoricalType findCategoricalType(String typename);
   NumericType findNumericType(Integer id);

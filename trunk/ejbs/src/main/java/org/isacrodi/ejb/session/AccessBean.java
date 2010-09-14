@@ -221,6 +221,14 @@ public class AccessBean implements Access
   }
 
 
+  public List<CropDisorder> findCropDisorderList()
+  {
+    Query query = this.entityManager.createQuery("SELECT d FROM CropDisorder d");
+    List<CropDisorder> cropDisorderList = genericTypecast(query.getResultList());
+    return (cropDisorderList);
+  }
+
+
   public CropDisorder findCropDisorder(String scientificName)
   {
     Query query = this.entityManager.createQuery("SELECT c FROM CropDisorder c WHERE scientificName = :s");
