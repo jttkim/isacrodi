@@ -58,6 +58,21 @@
       <result name="input">/WEB-INF/views/cropdisorderrecordform.jsp</result>
     </action>
 
+    <action name="editexpertdiagnosis_input" method="input" class="org.isacrodi.struts.EditExpertDiagnosisAction">
+      <result name="success" type="redirectAction">f
+        <param name="actionName">showcropdisorderrecord</param>
+        <param name="cropDisorderRecordId">${cropDisorderRecordId}</param>
+      </result>
+      <result name="input">/WEB-INF/views/expertdiagnosisform.jsp</result>
+    </action>
+    <action name="editexpertdiagnosis" class="org.isacrodi.struts.EditExpertDiagnosisAction">
+      <result name="success" type="redirectAction">f
+        <param name="actionName">showcropdisorderrecord</param>
+        <param name="cropDisorderRecordId">${cropDisorderRecordId}</param>
+      </result>
+      <result name="input">/WEB-INF/views/expertdiagnosisform.jsp</result>
+    </action>
+
     <action name="editnumericdescriptors_input" method="input" class="org.isacrodi.struts.EditNumericDescriptorsAction">
       <result name="success" type="redirectAction">f
         <param name="actionName">showcropdisorderrecord</param>

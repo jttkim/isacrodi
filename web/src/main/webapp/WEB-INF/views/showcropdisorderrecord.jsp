@@ -51,7 +51,7 @@
 
 <p><s:url var="requestdiagnosiswithproviderurl" action="requestdiagnosis"><s:param name="cropDisorderRecordId" value="%{id}"/><s:param name="constructNewDiagnosisProvider" value="%{'true'}"/></s:url><s:a href="%{requestdiagnosiswithproviderurl}">request a computed diagnosis by a new diagnosis provider for this record</s:a></p>
 
-<p><s:url var="editexpertdiagnosisurl" action="editexperttdiagnosis"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{editexpertdiagnosisurl}">enter / edit the expert diagnosis for this record</s:a></p>
+<p><s:url var="editexpertdiagnosisurl" action="editexpertdiagnosis_input"><s:param name="cropDisorderRecordId" value="%{id}"/></s:url><s:a href="%{editexpertdiagnosisurl}">enter / edit the expert diagnosis for this record</s:a></p>
 
 
 <h2>Recommendation</h2>

@@ -70,8 +70,8 @@ public interface CropDisorderRecordManager
    * the properties provided by the record passed in.</p>
    *
    * @param cropDisorderRecord the record containing up to date properties
-   * @param cropScientificName the scientific name of the crop
-   * @param expertDiagnosedCropDisorderScientificName the scientific name of the disorder diagnosed by an expert
+   * @param cropScientificName the scientific name of the crop (may be {@code null})
+   * @param expertDiagnosedCropDisorderScientificName the scientific name of the disorder diagnosed by an expert (may be {@code null})
    */
   void update(CropDisorderRecord cropDisorderRecord, String cropScientificName, String expertDiagnosedCropDisorderScientificName);
 
