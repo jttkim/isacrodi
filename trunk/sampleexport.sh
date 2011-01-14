@@ -11,7 +11,8 @@ function do_run ()
   fi
 }
 
-do_run cp import/target/isacrodi-import.jar sampledata/
+#do_run cp import/target/isacrodi-import.jar sampledata/
 cd sampledata
-do_run java -jar isacrodi-import.jar -e export_cd.txt
-do_run java -jar isacrodi-import.jar export_cd.txt
+#do_run java -jar isacrodi-import.jar -e export_cdr.txt
+#do_run java -jar isacrodi-import.jar export_cdr.txt
+do_run java -jar isacrodi-import.jar -c export_singlecdr.txt 266

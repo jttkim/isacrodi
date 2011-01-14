@@ -85,3 +85,23 @@ disorder
   cropSet: Solanum melongena, Zea mays, Lycopersicon esculentum
 }
 
+disorder
+{
+  name: Fall armyworm 
+  scientificName: Spodoptera frugiperda
+  cropSet: Zea mays
+}
+
+disorder
+{
+  name: White-spotted armyworm
+  scientificName: Spodoptera sunia
+  cropSet: Zea mays
+}
+
+disorder
+{
+  name: Wellow-striped armyworm
+  scientificName: Spodoptera ornithogalli
+  cropSet: Zea mays
+}

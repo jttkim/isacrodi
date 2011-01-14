@@ -95,6 +95,7 @@
       </result>
       <result name="input">/WEB-INF/views/cropdisorderrecordcategoricalsform.jsp</result>
     </action>
+
     <action name="editcategoricaldescriptors" class="org.isacrodi.struts.EditCategoricalDescriptorsAction">
       <result name="success" type="redirectAction">f
         <param name="actionName">showcropdisorderrecord</param>

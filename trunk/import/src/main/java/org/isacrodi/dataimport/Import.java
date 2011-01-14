@@ -522,6 +522,29 @@ public class Import
       out.close();
     }
 
+    else if (args[0].equals("-c"))
+    {
+      String filename = args[1];
+      FileWriter out = new FileWriter(filename);
+      InitialContext context = new InitialContext();
+      CropDisorderRecordManager cdrm = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
+      //List<CropDisorderRecord> cdrList = cdrm.findCropDisorderRecordList();
+      CropDisorderRecord cdro = null;
+      cdro = cdrm.findCropDisorderRecord(Integer.parseInt(args[2]));
+      out.append("isacrodi-cdrs-0.1\n"); 
+      out.append(cdro.fileRepresentation());
+      for 
+
+      /*
+      for (CropDisorderRecord cdr : cdrList)
+      {
+	out.append(cdr.fileRepresentation());
+      }
+      */
+      out.flush();
+      out.close();
+    }
+
     else
     {
       for (String arg : args)

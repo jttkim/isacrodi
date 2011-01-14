@@ -5,8 +5,8 @@ cdr
   crop: Solanum tuberosum
   numericDescriptors
   {
-    monthlyaveragetemperature: 25.6
-    altitude: 2345.6
+    monthlyaveragetemperature: 25.600000
+    altitude: 2345.600000
   }
   categoricalDescriptors
   {
@@ -21,150 +21,202 @@ cdr
       file: fig_a_potato_blackleg_plant.png
     }
   }
-  expertDiagnosis:
+  expertDiagnosis: 
 }
-
 cdr
 {
   user: avc
   crop: Lycopersicon esculentum
   numericDescriptors
   {
-    monthlyaveragetemperature: 22.1
-    altitude: 22.3
+    monthlyaveragetemperature: 22.100000
+    altitude: 22.300000
   }
   categoricalDescriptors
   {
-    soil: sandy
     cropstage: flowering
+    soil: sandy
   }
   imageDescriptors
   {
     fruit
     {
       mimeType: image/jpeg
-      file: fig_g_tomato_anthracnose_fruit.jpg
+      file: fig_a_potato_blackleg_plant.png
     }
   }
-  expertDiagnosis:
+  expertDiagnosis: 
 }
-
 cdr
 {
   user: jpm
   crop: Solanum melongena
   numericDescriptors
   {
-    altitude: 350.0
-    monthlyaveragetemperature: 30.0
-    monthlyaveragehumidity: 40.0
-    monthlyprecipitation: 0.0
-    relativeaffectedarea: 20
-    cropage: 50
+    altitude: 350.000000
+    relativeaffectedarea: 20.000000
+    cropage: 50.000000
+    monthlyaveragetemperature: 30.000000
+    monthlyaveragehumidity: 40.000000
+    monthlyprecipitation: 0.000000
   }
   categoricalDescriptors
   {
-    soil: sandy
     affectedpart: leaves
-    pesttype: flies
-    diseasefielddistribution: borders
-    symptom: honeydew
-    cropstage: vegetative
-    firstsymptomcropstage: vegetative
+    soil: sandy
     irrigationsystem: drip
+    pesttype: flies
+    symptom: honeydew
+    firstsymptomcropstage: vegetative
+    diseasefielddistribution: borders
+    cropstage: vegetative
   }
   imageDescriptors
   {
   }
   expertDiagnosis: Bemisia tabaci
 }
-
 cdr
 {
   user: jpm
   crop: Solanum melongena
   numericDescriptors
   {
-    altitude: 1000
-    monthlyaveragetemperature: 30
-    monthlyaveragehumidity: 50
-    monthlyprecipitation: 50
-    relativeaffectedarea: 40
-    cropage: 30
+    monthlyaveragehumidity: 50.000000
+    monthlyprecipitation: 50.000000
+    altitude: 1000.000000
+    cropage: 30.000000
+    monthlyaveragetemperature: 30.000000
+    relativeaffectedarea: 40.000000
   }
   categoricalDescriptors
   {
-    soil: sandy
-    affectedpart: leaves
     diseasefielddistribution: patchy
-    leafappearance: wrinkling
+    affectedpart: leaves
     cropstage: vegetative
-    firstsymptomcropstage: vegetative
     irrigationsystem: drip
+    leafappearance: wrinkling
+    soil: sandy
+    firstsymptomcropstage: vegetative
   }
   imageDescriptors
   {
   }
   expertDiagnosis: Thrips palmi
 }
-
 cdr
 {
   user: jtk
   crop: Zea mays
   numericDescriptors
   {
-    altitude: 15
-    monthlyaveragetemperature: 38
-    monthlyaveragehumidity: 75
-    monthlyprecipitation: 160
-    cultivatedarea: 25
-    relativeaffectedarea: 60
-    cropage: 100
-    pH: 6.5
-    lesionsize: 20
+    monthlyaveragetemperature: 38.000000
+    pH: 6.500000
+    altitude: 15.000000
+    lesionsize: 20.000000
+    relativeaffectedarea: 60.000000
+    cultivatedarea: 25.000000
+    monthlyprecipitation: 160.000000
+    cropage: 100.000000
+    monthlyaveragehumidity: 75.000000
   }
   categoricalDescriptors
   {
-    soil: clay
-    affectedpart: stem
-    diseasefielddistribution: scattered
-    symptom: lesions
-    cropstage: mature
-    seedlingorigin: international
-    firstsymptomcropstage: vegetative
-    irrigationsystem: rotary
-    irrigationorigin: river
-    lesioncolour: brown
-    lesionshape: round
-    lesionappearance: dry
     odour: absent
+    firstsymptomcropstage: vegetative
     lesionlocation: lower, middle
+    lesionappearance: dry
+    affectedpart: stem
+    lesioncolour: brown
+    seedlingorigin: international
+    irrigationorigin: river
+    cropstage: mature
+    soil: clay
+    irrigationsystem: rotary
+    symptom: lesions
+    lesionshape: round
+    diseasefielddistribution: scattered
   }
   imageDescriptors
   {
     plant
     {
       mimeType: image/jpeg
-      file: rhizoctonia01_small.jpg
-    }
-    plant
-
-    {
-      mimeType: image/jpeg
-      file: rhizoctonia02_small.jpg
+      file: fig_a_potato_blackleg_plant.png
     }
     plant
     {
       mimeType: image/jpeg
-      file: rhizoctonia03_small.jpg
+      file: fig_a_potato_blackleg_plant.png
     }
     plant
     {
       mimeType: image/jpeg
-      file: rhizoctonia04_small.jpg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
     }
   }
   expertDiagnosis: Rhizoctonia
 }
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 25.000000
+    monthlyaveragehumidity: 70.000000
+    monthlyprecipitation: 140.000000
+    relativeaffectedarea: 35.000000
+    cultivatedarea: 10.000000
+    altitude: 10.000000
+    cropage: 100.000000
+  }
+  categoricalDescriptors
+  {
+    pesttype: caterpillars
+    soil: clay
+    cropstage: seedling
+    irrigationorigin: river
+    symptom: defoliation
+    irrigationsystem: rotary
+    lesionappearance: dry
+    lesionlocation: lower
+    overallappearance: healthy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_spodoptera_frugiperda.jpg
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_b_spodoptera_frugiperda.jpg
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_c_spodoptera_frugiperda.jpg
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_d_spodoptera_frugiperda.jpg
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_e_spodoptera_frugiperda.jpg
+    }
 
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
