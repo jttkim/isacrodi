@@ -23,3 +23,9 @@ crop
   name: corn
   scientificName: Zea mays
 }
+
+crop
+{
+  name: cotton
+  scientificName: Gossypium hirsutum
+}

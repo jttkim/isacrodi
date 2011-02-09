@@ -5,8 +5,8 @@ cdr
   crop: Solanum tuberosum
   numericDescriptors
   {
-    monthlyaveragetemperature: 25.600000
     altitude: 2345.600000
+    monthlyaveragetemperature: 25.600000
   }
   categoricalDescriptors
   {
@@ -29,8 +29,8 @@ cdr
   crop: Lycopersicon esculentum
   numericDescriptors
   {
-    monthlyaveragetemperature: 22.100000
     altitude: 22.300000
+    monthlyaveragetemperature: 22.100000
   }
   categoricalDescriptors
   {
@@ -53,22 +53,22 @@ cdr
   crop: Solanum melongena
   numericDescriptors
   {
+    monthlyprecipitation: 0.000000
     altitude: 350.000000
+    monthlyaveragetemperature: 30.000000
     relativeaffectedarea: 20.000000
     cropage: 50.000000
-    monthlyaveragetemperature: 30.000000
     monthlyaveragehumidity: 40.000000
-    monthlyprecipitation: 0.000000
   }
   categoricalDescriptors
   {
-    affectedpart: leaves
     soil: sandy
+    diseasefielddistribution: borders
+    symptom: honeydew
+    affectedpart: leaves
     irrigationsystem: drip
     pesttype: flies
-    symptom: honeydew
     firstsymptomcropstage: vegetative
-    diseasefielddistribution: borders
     cropstage: vegetative
   }
   imageDescriptors
@@ -82,22 +82,22 @@ cdr
   crop: Solanum melongena
   numericDescriptors
   {
-    monthlyaveragehumidity: 50.000000
-    monthlyprecipitation: 50.000000
     altitude: 1000.000000
-    cropage: 30.000000
+    monthlyaveragehumidity: 50.000000
     monthlyaveragetemperature: 30.000000
     relativeaffectedarea: 40.000000
+    monthlyprecipitation: 50.000000
+    cropage: 30.000000
   }
   categoricalDescriptors
   {
-    diseasefielddistribution: patchy
-    affectedpart: leaves
-    cropstage: vegetative
-    irrigationsystem: drip
     leafappearance: wrinkling
     soil: sandy
+    diseasefielddistribution: patchy
+    affectedpart: leaves
     firstsymptomcropstage: vegetative
+    cropstage: vegetative
+    irrigationsystem: drip
   }
   imageDescriptors
   {
@@ -110,32 +110,32 @@ cdr
   crop: Zea mays
   numericDescriptors
   {
+    cultivatedarea: 25.000000
+    lesionsize: 20.000000
+    relativeaffectedarea: 60.000000
+    monthlyaveragehumidity: 75.000000
+    cropage: 100.000000
+    monthlyprecipitation: 160.000000
     monthlyaveragetemperature: 38.000000
     pH: 6.500000
     altitude: 15.000000
-    lesionsize: 20.000000
-    relativeaffectedarea: 60.000000
-    cultivatedarea: 25.000000
-    monthlyprecipitation: 160.000000
-    cropage: 100.000000
-    monthlyaveragehumidity: 75.000000
   }
   categoricalDescriptors
   {
-    odour: absent
-    firstsymptomcropstage: vegetative
-    lesionlocation: lower, middle
-    lesionappearance: dry
-    affectedpart: stem
     lesioncolour: brown
-    seedlingorigin: international
+    lesionappearance: dry
+    odour: absent
     irrigationorigin: river
-    cropstage: mature
-    soil: clay
-    irrigationsystem: rotary
+    seedlingorigin: international
     symptom: lesions
-    lesionshape: round
+    soil: clay
+    firstsymptomcropstage: vegetative
     diseasefielddistribution: scattered
+    lesionshape: round
+    lesionlocation: middle, lower
+    cropstage: mature
+    irrigationsystem: rotary
+    affectedpart: stem
   }
   imageDescriptors
   {
@@ -168,55 +168,602 @@ cdr
   crop: Zea mays
   numericDescriptors
   {
+    altitude: 10.000000
     monthlyaveragetemperature: 25.000000
+    cultivatedarea: 10.000000
+    relativeaffectedarea: 35.000000
+    cropage: 100.000000
     monthlyaveragehumidity: 70.000000
     monthlyprecipitation: 140.000000
-    relativeaffectedarea: 35.000000
-    cultivatedarea: 10.000000
-    altitude: 10.000000
-    cropage: 100.000000
+    pH: 5.500000
   }
   categoricalDescriptors
   {
-    pesttype: caterpillars
-    soil: clay
-    cropstage: seedling
-    irrigationorigin: river
-    symptom: defoliation
-    irrigationsystem: rotary
-    lesionappearance: dry
     lesionlocation: lower
-    overallappearance: healthy
+    affectedpart: stem, fruits, leaves
+    irrigationsystem: rotary
+    symptom: perforation, cut, defoliation
+    lesionappearance: dry
     lesionshape: round
+    leafsymptom: cut, perforation
+    leafappearance: perforation, cut
+    overallappearance: healthy
+    cropstage: seedling
+    soil: clay
   }
   imageDescriptors
   {
     plant
     {
       mimeType: image/jpeg
-      file: fig_a_spodoptera_frugiperda.jpg
+      file: fig_a_potato_blackleg_plant.png
     }
     plant
     {
       mimeType: image/jpeg
-      file: fig_b_spodoptera_frugiperda.jpg
+      file: fig_a_potato_blackleg_plant.png
     }
     plant
     {
       mimeType: image/jpeg
-      file: fig_c_spodoptera_frugiperda.jpg
+      file: fig_a_potato_blackleg_plant.png
     }
     plant
     {
       mimeType: image/jpeg
-      file: fig_d_spodoptera_frugiperda.jpg
+      file: fig_a_potato_blackleg_plant.png
     }
     plant
     {
       mimeType: image/jpeg
-      file: fig_e_spodoptera_frugiperda.jpg
+      file: fig_a_potato_blackleg_plant.png
     }
-
   }
   expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    relativeaffectedarea: 35.000000
+    cultivatedarea: 10.000000
+    monthlyprecipitation: 140.000000
+    altitude: 10.000000
+    pH: 5.500000
+    monthlyaveragehumidity: 70.000000
+    cropage: 100.000000
+    monthlyaveragetemperature: 25.000000
+    pestdensity: 2.000000
+  }
+  categoricalDescriptors
+  {
+    cropstage: seedling
+    irrigationsystem: rotary
+    lesionlocation: middle, lower
+    symptom: perforation, cut
+    overallappearance: healthy
+    leafappearance: perforation, cut
+    lesionshape: round
+    irrigationorigin: river
+    pesttype: worms
+    steminternal: perforation
+    soil: clay
+    lesionappearance: dry
+    leafsymptom: cut, perforation
+    affectedpart: stem, leaves
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Agrotis ipsilon
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyprecipitation: 140.000000
+    pH: 5.500000
+    cultivatedarea: 10.000000
+    cropage: 100.000000
+    monthlyaveragehumidity: 70.000000
+    altitude: 10.000000
+    pestdensity: 0.100000
+    relativeaffectedarea: 35.000000
+    monthlyaveragetemperature: 25.000000
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: middle, top, lower
+    steminternal: perforation
+    overallappearance: healthy
+    lesionshape: round
+    affectedpart: fruits
+    cropstage: flowering
+    irrigationorigin: river
+    irrigationsystem: rotary
+    seedlingorigin: national
+    symptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Helicoverpa zea
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 5.000000
+    monthlyaveragetemperature: 25.000000
+    relativeaffectedarea: 35.000000
+    pH: 5.500000
+    monthlyprecipitation: 75.000000
+    monthlyaveragehumidity: 80.000000
+    altitude: 13.000000
+    cropage: 110.000000
+  }
+  categoricalDescriptors
+  {
+    seedlingorigin: national
+    irrigationorigin: river
+    lesionappearance: dry
+    steminternal: perforation
+    pesttype: worms
+    affectedpart: fruits, leaves, flowers
+    soil: clay
+    symptom: perforation
+    irrigationsystem: rotary
+    lesionshape: round
+    overallappearance: ill
+    leafappearance: perforation
+    cropstage: flowering
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Heliothis virescens
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 28.000000
+    cultivatedarea: 5.000000
+    pH: 5.500000
+    monthlyaveragehumidity: 80.000000
+    relativeaffectedarea: 35.000000
+    cropage: 110.000000
+    altitude: 1.000000
+    monthlyprecipitation: 75.000000
+    pestdensity: 0.500000
+  }
+  categoricalDescriptors
+  {
+    soil: clay
+    pesttype: worms
+    irrigationorigin: river
+    irrigationsystem: rotary
+    leafsymptom: cut
+    lesionlocation: middle, lower
+    symptom: perforation, cut
+    overallappearance: healthy
+    affectedpart: stem, leaves
+    lesionshape: round
+    leafappearance: perforation, cut
+    steminternal: perforation
+    lesionappearance: dry
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Agrotis ipsilon
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 110.000000
+    altitude: 1.000000
+    relativeaffectedarea: 35.000000
+    cultivatedarea: 5.000000
+    pH: 5.500000
+    monthlyaveragehumidity: 40.000000
+    monthlyaveragetemperature: 28.000000
+    monthlyprecipitation: 75.000000
+  }
+  categoricalDescriptors
+  {
+    seedlingorigin: national
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    soil: clay
+    lesionlocation: middle, top, lower
+    pesttype: worms
+    leafsymptom: perforation
+    overallappearance: healthy
+    steminternal: perforation
+    irrigationorigin: river
+    leafappearance: perforation
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Helicoverpa zea
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 5.000000
+    altitude: 1.000000
+    monthlyaveragetemperature: 28.000000
+    cropage: 110.000000
+    pH: 5.500000
+    pestdensity: 15.000000
+    monthlyprecipitation: 75.000000
+    monthlyaveragehumidity: 80.000000
+    relativeaffectedarea: 35.000000
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    overallappearance: ill
+    irrigationorigin: river
+    lesionshape: round
+    lesionappearance: dry
+    affectedpart: leaves
+    pesttype: worms
+    lesionlocation: middle, top, lower
+    leafappearance: cut
+    irrigationsystem: rotary
+    cropstage: vegetative
+    symptom: cut, defoliation
+    soil: clay
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Alabama argillacea
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyprecipitation: 75.000000
+    monthlyaveragehumidity: 80.000000
+    pH: 5.500000
+    relativeaffectedarea: 35.000000
+    altitude: 1.000000
+    cultivatedarea: 5.000000
+    cropage: 110.000000
+    monthlyaveragetemperature: 28.000000
+  }
+  categoricalDescriptors
+  {
+    irrigationorigin: river
+    soil: clay
+    lesionshape: round
+    leafappearance: perforation, cut
+    lesionappearance: dry
+    irrigationsystem: rotary
+    symptom: cut, defoliation
+    leafsymptom: cut, perforation
+    cropstage: seedling
+    affectedpart: leaves
+    pesttype: worms
+    overallappearance: healthy
+    lesionlocation: middle, top, lower
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Trichoplusia ni, Pseudoplusia includens
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 110.000000
+    relativeaffectedarea: 35.000000
+    cultivatedarea: 5.000000
+    monthlyaveragetemperature: 28.000000
+    altitude: 1.000000
+    pestdensity: 1500.000000
+    monthlyaveragehumidity: 70.000000
+    monthlyprecipitation: 0.300000
+    pH: 5.500000
+  }
+  categoricalDescriptors
+  {
+    lesionappearance: dry
+    irrigationsystem: rotary
+    overallappearance: ill
+    symptom: perforation
+    pesttype: borers
+    lesionlocation: middle, top, lower
+    cropstage: flowering
+    irrigationorigin: river
+    lesionshape: round
+    seedlingorigin: national
+    affectedpart: fruits
+    soil: clay
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 5.500000
+    cultivatedarea: 5.000000
+    cropage: 110.000000
+    relativeaffectedarea: 35.000000
+    monthlyprecipitation: 75.000000
+    monthlyaveragetemperature: 28.000000
+    monthlyaveragehumidity: 80.000000
+    altitude: 1.000000
+  }
+  categoricalDescriptors
+  {
+    pesttype: worms
+    seedlingorigin: national
+    symptom: perforation, cut
+    lesionappearance: dry
+    affectedpart: fruits
+    soil: clay
+    irrigationorigin: river
+    irrigationsystem: rotary
+    overallappearance: healthy
+    steminternal: perforation
+    lesionlocation: middle, top, lower
+    lesionshape: round
+    cropstage: flowering
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Sacadodes pyralis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+  }
+  categoricalDescriptors
+  {
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: 
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+  }
+  categoricalDescriptors
+  {
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: 
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+  }
+  categoricalDescriptors
+  {
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: 
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 80.000000
+    cropage: 110.000000
+    monthlyaveragetemperature: 28.000000
+    pH: 5.500000
+    cultivatedarea: 5.000000
+    altitude: 1.000000
+    relativeaffectedarea: 35.000000
+    pestdensity: 20.000000
+    monthlyprecipitation: 75.000000
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    leafappearance: curling
+    irrigationsystem: rotary
+    steminternal: necrotic
+    lesionappearance: wet
+    soil: clay
+    lesionlocation: middle, top, lower
+    irrigationorigin: river
+    cropstage: seedling
+    affectedpart: fruits, leaves
+    lesioncolour: black
+    symptom: wilting
+    pesttype: aphids
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Bemisia tabaci
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 1.000000
+    cropage: 110.000000
+    monthlyaveragetemperature: 28.000000
+    cultivatedarea: 5.000000
+    monthlyprecipitation: 75.000000
+    relativeaffectedarea: 35.000000
+    monthlyaveragehumidity: 80.000000
+    pH: 5.500000
+  }
+  categoricalDescriptors
+  {
+    seedlingorigin: national
+    lesioncolour: black
+    overallappearance: ill
+    irrigationsystem: rotary
+    symptom: soot
+    affectedpart: leaves
+    irrigationorigin: river
+    lesionappearance: wet
+    pesttype: aphids
+    leafappearance: curling
+    cropstage: seedling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 35.000000
+    monthlyaveragehumidity: 80.000000
+    cultivatedarea: 5.000000
+    cropage: 110.000000
+    monthlyaveragetemperature: 28.000000
+    monthlyprecipitation: 75.000000
+    altitude: 1.000000
+    pH: 5.500000
+  }
+  categoricalDescriptors
+  {
+    seedlingorigin: national
+    irrigationorigin: river
+    steminternal: perforation
+    affectedpart: leaves
+    symptom: drying, defoliation
+    lesionlocation: middle, top, lower
+    lesionshape: round
+    irrigationsystem: rotary
+    lesionappearance: wet
+    soil: clay
+    leafsymptom: drying
+    overallappearance: ill
+    cropstage: seedling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Tetranychus urticae
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 5.000000
+    monthlyaveragehumidity: 30.000000
+    altitude: 1.000000
+    relativeaffectedarea: 35.000000
+    pH: 5.500000
+    monthlyprecipitation: 75.000000
+    monthlyaveragetemperature: 28.000000
+    pestdensity: 7.000000
+    cropage: 110.000000
+  }
+  categoricalDescriptors
+  {
+    irrigationorigin: river
+    symptom: perforation
+    cropstage: flowering
+    affectedpart: fruits
+    lesionlocation: middle, top, lower
+    steminternal: perforation
+    soil: clay
+    lesionappearance: dry
+    pesttype: worms
+    irrigationsystem: rotary
+    overallappearance: healthy
+    lesionshape: round
+    seedlingorigin: national
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 28.000000
+    cultivatedarea: 5.000000
+    relativeaffectedarea: 35.000000
+    monthlyaveragehumidity: 80.000000
+    cropage: 110.000000
+    monthlyprecipitation: 75.000000
+    altitude: 1.000000
+    pH: 5.500000
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    overallappearance: healthy
+    irrigationorigin: river
+    affectedpart: fruits
+    soil: clay
+    cropstage: flowering
+    lesionlocation: middle, top, lower
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Dysdercus sp.
 }

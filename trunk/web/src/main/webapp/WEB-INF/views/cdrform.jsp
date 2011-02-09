@@ -39,7 +39,7 @@
 	<s:textfield label="cultivated area (%{cultivatedareaType.unit})" name="cultivatedarea" value="%{cultivatedarea}" rows="1" cols="10"/>
 	<s:textfield label="crop age (%{cropageType.unit})" name="cropage" value="%{cropage}" rows="1" cols="10"/>
 	<s:textfield label="relative affected area (%{relativeaffectedareaType.unit})" name="relativeaffectedarea" value="%{relativeaffectedarea}" rows="1" cols="10"/>
-	<s:textfield label="pH (%{phType.unit})" name="ph" value="%{ph}" rows="1" cols="10"/>
+	<s:textfield label="pH (%{phType.unit})" name="pH" value="%{pH}" rows="1" cols="10"/>
 	<s:textfield label="pest density (%{pestdensityType.unit})" name="pestdensity" value="%{pestdensity}" rows="1" cols="10"/>
 
 	<s:select label="Irrigation system"

@@ -15,4 +15,4 @@ function do_run ()
 cd sampledata
 #do_run java -jar isacrodi-import.jar -e export_cdr.txt
 #do_run java -jar isacrodi-import.jar export_cdr.txt
-do_run java -jar isacrodi-import.jar -c export_singlecdr.txt 266
+do_run java -jar isacrodi-import.jar -c export_singlecdr.txt 287

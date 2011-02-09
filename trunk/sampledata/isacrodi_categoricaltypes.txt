@@ -54,7 +54,7 @@ categoricaltype
 {
   typename: symptom
   description: main symptom of the reported disorder, e.g. wilting, rotting, drying, yellowing
-  valueSet: cankers, calluses, dieback, dwarfing, defoliation, honeydew, soot, necrosis, rot, rust, scab, smut, streak, wilting, drying, lesions, fruitmummification
+  valueSet: cankers, calluses, dieback, dwarfing, defoliation, honeydew, soot, necrosis, rot, rust, scab, smut, streak, wilting, drying, lesions, fruitmummification, perforation, cut
   multiple: true
 }
 
@@ -70,7 +70,7 @@ categoricaltype
 {
   typename: leafappearance
   description: appearance of leaves
-  valueSet: blotches, curling, rot, rust, scab, smut, streaks, wrinkling, lesions, scarring
+  valueSet: blotches, curling, rot, rust, scab, smut, streaks, wrinkling, lesions, scarring, perforation, cut
   multiple: true
 }
 
@@ -78,7 +78,7 @@ categoricaltype
 {
   typename: leafsymptom
   description: main symptoms affecting the leaves
-  valueSet: brittleness, galls, necrosis, white powder, wilting, drying, mosaic
+  valueSet: brittleness, galls, necrosis, white powder, wilting, drying, mosaic, perforation, cut
   multiple: true
 }
 
@@ -86,7 +86,7 @@ categoricaltype
 {
   typename: seedlingsymptom
   description: main symptoms affecting seedlings
-  valueSet: damping off, necrosis, rot, rust, scab, smut, wilting
+  valueSet: damping off, necrosis, rot, rust, scab, smut, wilting, perforation
   multiple: true
 }
 
@@ -190,7 +190,7 @@ categoricaltype
 {
   typename: steminternal
   description: condition inside the stem / branches, determined by a transversal (length-wise) cut of a stem
-  valueSet: normal, necrotic, black
+  valueSet: normal, necrotic, black, perforation
   multiple: true
 }
 
