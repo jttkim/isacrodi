@@ -41,14 +41,12 @@ disorder
   cropSet: Lycopersicon esculentum
 }
 
-
 disorder
 {
   name: rhizoctonia
   scientificName: Rhizoctonia
   cropSet: Zea mays
 }
-
 
 disorder
 {
@@ -105,3 +103,103 @@ disorder
   scientificName: Spodoptera ornithogalli
   cropSet: Zea mays
 }
+
+disorder
+{
+  name: black cutworm
+  scientificName: Agrotis ipsilon
+  cropSet: Zea mays
+}
+
+disorder
+{
+  name: Corn earworm
+  scientificName: Helicoverpa zea
+  cropSet: Zea mays
+}
+
+disorder
+{
+  name: Tobacco budworm
+  scientificName: Heliothis virescens
+  cropSet: Gossypium hirsutum
+}
+
+disorder
+{
+  name: Cotton earworm
+  scientificName: Pest Helicoverpa zea
+  cropSet: Gossypium hirsutum
+
+}
+
+disorder
+{
+  name: Cotton leafworm
+  scientificName: Alabama argillacea
+  cropSet: Gossypium hirsutum
+}
+
+disorder
+{
+  name: Cabbage Looper
+  scientificName: Trichoplusia ni, Pseudoplusia includens
+  cropSet: Gossypium hirsutum
+}
+
+disorder
+{
+  name: boll weevil
+  scientificName: Anthonomus grandis
+  cropSet: Gossypium hirsutum
+}
+
+disorder
+{
+  name: South American Boll-worm of Cotton
+  scientificName: Sacadodes pyralis
+  cropSet: Gossypium hirsutum
+}
+
+disorder
+{
+  name: Cotton whitefly
+  scientificName: Bemisia tabaci
+  cropSet: Gossypium hirsutum
+}
+
+disorder
+{
+  name: Cotton aphid
+  scientificName: Aphis gossyppi
+  cropSet: Gossypium hirsutum
+}
+
+disorder
+{
+  name: Cotton spider mite
+  scientificName: Tetranychus urticae
+  cropSet: Gossypium hirsutum
+}
+
+disorder
+{
+  name: Pink bollworm
+  scientificName: Pectinophora gossypiella
+  cropSet: Gossypium hirsutum
+}
+
+disorder
+{
+  name: Cotton stainer
+  scientificName: Dysdercus sp.
+  cropSet: Gossypium hirsutum
+}
+
+disorder
+{
+  name: Cotton lace bug
+  scientificName: Corythucha gossypii
+  cropSet: Gossypium hirsutum
+}
+

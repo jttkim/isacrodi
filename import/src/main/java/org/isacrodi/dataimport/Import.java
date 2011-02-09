@@ -1,13 +1,16 @@
 package org.isacrodi.dataimport;
 
+import java.util.Random;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import libsvm.*;
+import java.io.*;
 
 import java.util.List;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.naming.InitialContext;
@@ -524,23 +527,41 @@ public class Import
 
     else if (args[0].equals("-c"))
     {
+      int cdrid = Integer.parseInt(args[2]);
+      Scanner input = new Scanner( System.in );
+      Random generator = new Random();
       String filename = args[1];
       FileWriter out = new FileWriter(filename);
       InitialContext context = new InitialContext();
       CropDisorderRecordManager cdrm = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
-      //List<CropDisorderRecord> cdrList = cdrm.findCropDisorderRecordList();
       CropDisorderRecord cdro = null;
-      cdro = cdrm.findCropDisorderRecord(Integer.parseInt(args[2]));
-      out.append("isacrodi-cdrs-0.1\n"); 
-      out.append(cdro.fileRepresentation());
-      for 
+      //cdro = cdrm.findCropDisorderRecord(Integer.parseInt(args[2]));
 
-      /*
-      for (CropDisorderRecord cdr : cdrList)
+      out.append("isacrodi-cdrs-0.1\n"); 
+      while (cdrid != 0) 
       {
-	out.append(cdr.fileRepresentation());
-      }
-      */
+        cdro = cdrm.findCropDisorderRecord(cdrid);
+        HashMap hm = new HashMap();
+        for (NumericDescriptor numericDescriptor : cdro.findNumericDescriptorSet())
+        {
+          System.out.println(numericDescriptor.getDescriptorType().getTypeName() + " " + numericDescriptor.getNumericValue());
+          hm.put(numericDescriptor.getDescriptorType().getTypeName(), input.nextDouble());
+        }
+
+        CropDisorderRecord cdrcopy = null;
+        for (int j = 0; j <= 3; j++) 
+        {
+          cdrcopy = cdro;
+          for (NumericDescriptor numericDescriptor : cdrcopy.findNumericDescriptorSet())
+          {
+	    double dummy = generator.nextDouble() * ((Double) hm.get(numericDescriptor.getDescriptorType().getTypeName()) - numericDescriptor.getNumericValue()) + numericDescriptor.getNumericValue();
+            numericDescriptor.setNumericValue(dummy);
+          }
+          out.append(cdrocopy.fileRepresentation());
+        }
+        System.out.println("Type cdr id: ");
+	cdrid = input.nextInt();
+      }	
       out.flush();
       out.close();
     }
