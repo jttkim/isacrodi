@@ -130,7 +130,6 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
 
 
 
-
   public void requestDiagnosis(int cropDisorderRecordId, boolean constructNewDiagnosisProvider)
   {
     // FIXME: should check for existing diagnosis and recommendation and delete these first

@@ -20,6 +20,9 @@ do_run java -jar isacrodi-import.jar isacrodi_disorders.txt
 do_run java -jar isacrodi-import.jar isacrodi_numerictypes.txt
 do_run java -jar isacrodi-import.jar isacrodi_categoricaltypes.txt
 do_run java -jar isacrodi-import.jar isacrodi_imagetypes.txt
-do_run java -jar isacrodi-import.jar isacrodi_cdrs.txt
+#do_run java -jar isacrodi-import.jar isacrodi_cdrs.bk
+do_run java -jar isacrodi-import.jar export_289.txt
+do_run java -jar isacrodi-import.jar export_314.txt
+do_run java -jar isacrodi-import.jar export_338.txt
 do_run java -jar isacrodi-import.jar isacrodi_procedures.txt
 

@@ -49,15 +49,38 @@ public class CategoricalSvmNodeComponentMapper extends AbstractSvmNodeComponentM
 
 
   /**
+   * Determine what states are not mapped.
+   *
+   * @param stateNameSet the set of names of the states to be checked
+   */
+  public Map<String, Integer> getUnmappedStates(Set<String> stateNameSet)
+  {
+    Map<String, Integer> unmappedStates = new HashMap<String, Integer>();
+    int i = 0;
+
+    for (String stateName : stateNameSet)
+    {
+      if (!this.stateIndexMap.containsKey(stateName))
+      {
+        unmappedStates.put(stateName, i);
+	i++;
+      }
+    }
+    return (unmappedStates);
+  }
+
+
+  /**
    * Add a state with a given index.
    *
    * @param stateName the name of the state
    * @param index the index to be associated with that state
    *
-   * @throws IllegalArgumentException if the state name is alrady taken
+   * @throws IllegalArgumentException if the state name is already taken
    */
   public void addState(String stateName, Integer index)
   {
+    //System.err.println(stateName);
     if (this.stateIndexMap.containsKey(stateName))
     {
       throw new IllegalArgumentException(String.format("state \"%s\" already mapped", stateName));
