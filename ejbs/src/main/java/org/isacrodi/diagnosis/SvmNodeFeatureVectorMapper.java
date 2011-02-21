@@ -64,9 +64,12 @@ public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[
       CategoricalSvmNodeComponentMapper categoricalSvmNodeComponentMapper = (CategoricalSvmNodeComponentMapper) componentMapper;
       if (!categoricalSvmNodeComponentMapper.hasAllStates(categoricalFeature.getStateSet()))
       {
+        
 	// FIXME: using index -1 to try and trigger exceptions if index designation is forgotten or fails -- should really set a proper NA value
-	for (String stateName : categoricalFeature.getStateSet())
+	//for (String stateName : categoricalFeature.getStateSet())
+	for (String stateName : categoricalSvmNodeComponentMapper.getUnmappedStates(categoricalFeature.getStateSet()).keySet())
 	{
+          //System.err.println("Second ME " + stateName);
 	  categoricalSvmNodeComponentMapper.addState(stateName, -1);
 	}
       }
@@ -104,11 +107,14 @@ public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[
   public SvmNodeFeatureVectorMapper(Collection<FeatureVector> featureVectorCollection)
   {
     this();
+    int i = 1;
     Map<String, AbstractSvmNodeComponentMapper> componentMapperMap = new HashMap<String, AbstractSvmNodeComponentMapper>();
     for (FeatureVector featureVector : featureVectorCollection)
     {
+      //System.err.println("Vector " + i);
       for (String featureName : featureVector.keySet())
       {
+        //System.err.println("FROM ME " + featureName);
 	AbstractFeature feature = featureVector.get(featureName);
 	AbstractSvmNodeComponentMapper componentMapper = componentMapperMap.get(featureName);
 	if (componentMapper == null)
@@ -118,6 +124,7 @@ public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[
 	}
 	updateComponentMapper(feature, componentMapper);
       }
+      i++;
     }
     this.componentMapperList = new ArrayList<AbstractSvmNodeComponentMapper>(componentMapperMap.values());
     this.designateIndexes();

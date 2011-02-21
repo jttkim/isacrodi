@@ -527,8 +527,9 @@ public class Import
 
     else if (args[0].equals("-c"))
     {
-      int cdrid = Integer.parseInt(args[2]);
       Scanner input = new Scanner( System.in );
+      System.out.println("Type cdr id: ");
+      int cdrid = input.nextInt();
       Random generator = new Random();
       String filename = args[1];
       FileWriter out = new FileWriter(filename);
@@ -540,26 +541,33 @@ public class Import
       out.append("isacrodi-cdrs-0.1\n"); 
       while (cdrid != 0) 
       {
+        double min = 0.0;
+        double max = 0.0;
         cdro = cdrm.findCropDisorderRecord(cdrid);
-        HashMap hm = new HashMap();
+        HashMap hmax = new HashMap();
+        HashMap hmin = new HashMap();
         for (NumericDescriptor numericDescriptor : cdro.findNumericDescriptorSet())
         {
           System.out.println(numericDescriptor.getDescriptorType().getTypeName() + " " + numericDescriptor.getNumericValue());
-          hm.put(numericDescriptor.getDescriptorType().getTypeName(), input.nextDouble());
+          hmax.put(numericDescriptor.getDescriptorType().getTypeName(), input.nextDouble());
+          hmin.put(numericDescriptor.getDescriptorType().getTypeName(), numericDescriptor.getNumericValue());
         }
 
-        CropDisorderRecord cdrcopy = null;
-        for (int j = 0; j <= 3; j++) 
+        for (int j = 0; j <= 100; j++) 
         {
-          cdrcopy = cdro;
+          CropDisorderRecord cdrcopy = null;
+	  cdrcopy = cdro;
           for (NumericDescriptor numericDescriptor : cdrcopy.findNumericDescriptorSet())
           {
-	    double dummy = generator.nextDouble() * ((Double) hm.get(numericDescriptor.getDescriptorType().getTypeName()) - numericDescriptor.getNumericValue()) + numericDescriptor.getNumericValue();
+	    min = (Double) hmin.get(numericDescriptor.getDescriptorType().getTypeName());
+	    max = (Double) hmax.get(numericDescriptor.getDescriptorType().getTypeName());
+
+	    double dummy = min + (double)(Math.random() * (max - min));
             numericDescriptor.setNumericValue(dummy);
           }
-          out.append(cdrocopy.fileRepresentation());
+          out.append(cdrcopy.fileRepresentation());
         }
-        System.out.println("Type cdr id: ");
+        System.out.println("Type cdr id:  ");
 	cdrid = input.nextInt();
       }	
       out.flush();
