@@ -554,51 +554,6 @@ cdr
   crop: Gossypium hirsutum
   numericDescriptors
   {
-  }
-  categoricalDescriptors
-  {
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis: 
-}
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-  }
-  categoricalDescriptors
-  {
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis: 
-}
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-  }
-  categoricalDescriptors
-  {
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis: 
-}
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
     monthlyaveragehumidity: 80.000000
     cropage: 110.000000
     monthlyaveragetemperature: 28.000000
@@ -761,9 +716,42 @@ cdr
     soil: clay
     cropstage: flowering
     lesionlocation: middle, top, lower
+    pesttype: chinchs
   }
   imageDescriptors
   {
   }
   expertDiagnosis: Dysdercus sp.
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 5.500000
+    cropage: 110.000000
+    altitude: 1.000000
+    monthlyprecipitation: 75.000000
+    monthlyaveragetemperature: 28.000000
+    monthlyaveragehumidity: 80.000000
+    relativeaffectedarea: 35.000000
+    cultivatedarea: 5.000000
+  }
+  categoricalDescriptors
+  {
+    cropstage: seedling
+    lesionlocation: middle, top, lower
+    irrigationorigin: river
+    affectedpart: leaves
+    soil: clay
+    irrigationsystem: rotary
+    overallappearance: healthy
+    steminternal: perforation
+    pesttype: chinchs
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Corythucha gossypii
 }
