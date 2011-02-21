@@ -28,7 +28,7 @@ categoricaltype
 {
   typename: pesttype
   description: type of visible pests, such as aphids, beetles, caterpillars, moths, worms, ants, flies, borers etc.
-  valueSet: aphids, beetles, caterpillars, moths, worms, ants, flies, borers, leaf miners
+  valueSet: aphids, beetles, caterpillars, moths, worms, ants, flies, borers, leaf miners, chinchs, mites
   multiple: false
 }
 
