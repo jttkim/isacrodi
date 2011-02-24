@@ -34,6 +34,14 @@ categoricaltype
 
 categoricaltype
 {
+  typename: peststagedamage
+  description: Pest stage most prone to cause plant damage
+  valueSet: larvae, nymph, adult
+  multiple: true
+}
+
+categoricaltype
+{
   typename: diseasefielddistribution
   description: distribution of affected plants on the field, e.g. scattered, patchy, compact region, borders
   valueSet: scattered, patchy, compact region, borders

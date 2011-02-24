@@ -79,6 +79,14 @@ numerictype
 
 numerictype
 {
+  typename: damagelevel
+  unit: percentage
+  description: Percentage of plants affected by the pest
+}
+
+
+numerictype
+{
   typename: lesionsize
   unit: millimetres
   description: size of lesions
