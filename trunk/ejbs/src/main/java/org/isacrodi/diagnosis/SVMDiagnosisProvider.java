@@ -30,10 +30,10 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   private static final long serialVersionUID = 1;
 
   // from Hsu et.al. "A Practical Guide to Support Vector Classification"
-  private static double GAMMA_MIN = Math.pow(2.0, -6);
+  private static double GAMMA_MIN = Math.pow(2.0, -15);
   private static double GAMMA_MAX = Math.pow(2.0, 4);
-  private static double C_MIN = Math.pow(1.0, 4);
-  private static double C_MAX = Math.pow(1.5, 14);
+  private static double C_MIN = Math.pow(2.0, -5);
+  private static double C_MAX = Math.pow(2.0, 16);
 
 
   public SVMDiagnosisProvider()
@@ -139,10 +139,12 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
 	  j++;
 	}
       }
+      /*
       for (int i = 0; i < numTrainingSamples; i++)
       {
-	// System.err.println(String.format("%d: label: %f, sample: %s", i, trainingLabel[i], sparseVectorString(trainingSample[i])));
+	System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: trainingsample %d: label: %f, sample: %s", i, trainingLabel[i], sparseVectorString(trainingSample[i])));
       }
+      */
       svm_problem svmproblem = new svm_problem();
       svmproblem.x = trainingSample;
       svmproblem.y = trainingLabel;
@@ -151,14 +153,15 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       for (int i = iMin; i < iMax; i++)
       {
 	// System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: sample %d / %d, label = %f, %s", i, numSamples, label[i], sparseVectorString(sample[i])));
-	if (svm.svm_predict(m, sample[i]) != label[i])
+	double predictedLabel = svm.svm_predict(m, sample[i]);
+	if (predictedLabel != label[i])
 	{
 	  numErrors++;
-	  System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: sample %d misclassified", i));
+	  System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: sample %d: expected %f, predicted %f: misclassified", i, label[i], predictedLabel));
 	}
 	else
 	{
-	  System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: sample %d correctly classified", i));
+	  System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: sample %d: expected %f, predicted %f: correctly classified", i, label[i], predictedLabel));
 	}
       }
       testSetLower = testSetUpper;
@@ -199,10 +202,14 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
      
     for (double gamma = GAMMA_MIN; gamma <= GAMMA_MAX; gamma *= 2.0)
     {
+      svmparameter.gamma = gamma;
       for (double c = C_MIN; c <= C_MAX; c *= 2.0)
       {
-	// FIXME: 5-fold cross validation hard coded
+	svmparameter.C = c;
 	double crossvalidationError = crossvalidate(10, label, sample, svmparameter);
+	System.err.println(String.format("SVMDiagnosisProvider.selectModel: current: gamma = %e, c = %e, xvalError = %e", gamma, c, crossvalidationError));
+	System.err.println(String.format("SVMDiagnosisProvider.selectModel: best: gamma = %e, c = %e, xvalError = %e", bestGamma, bestC, bestCrossvalidationError));
+	// FIXME: 5-fold cross validation hard coded
 	if (crossvalidationError < bestCrossvalidationError)
 	{
 	  bestCrossvalidationError = crossvalidationError;
