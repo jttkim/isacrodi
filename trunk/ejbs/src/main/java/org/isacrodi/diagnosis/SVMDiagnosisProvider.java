@@ -30,7 +30,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   private static final long serialVersionUID = 1;
 
   // from Hsu et.al. "A Practical Guide to Support Vector Classification"
-  private static double GAMMA_MIN = Math.pow(2.0, -15);
+  private static double GAMMA_MIN = Math.pow(2.0, -6);
   private static double GAMMA_MAX = Math.pow(2.0, 4);
   private static double C_MIN = Math.pow(1.0, 4);
   private static double C_MAX = Math.pow(1.5, 14);
@@ -196,16 +196,13 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     double bestGamma = GAMMA_MIN;
     double bestC = C_MIN;
     double bestCrossvalidationError = 1.0;
-    
-    
-    System.err.println(String.format("SvmDiagnosisProvider.selectModel: GammaMin = %f, GammaMax = %f", GAMMA_MIN,GAMMA_MAX));
+     
     for (double gamma = GAMMA_MIN; gamma <= GAMMA_MAX; gamma *= 2.0)
     {
       for (double c = C_MIN; c <= C_MAX; c *= 2.0)
       {
 	// FIXME: 5-fold cross validation hard coded
-	double crossvalidationError = crossvalidate(5, label, sample, svmparameter);
-        System.err.println(String.format("SvmDiagnosisProvider.selectModel: c = %f, bestC = %f", c, bestC));
+	double crossvalidationError = crossvalidate(10, label, sample, svmparameter);
 	if (crossvalidationError < bestCrossvalidationError)
 	{
 	  bestCrossvalidationError = crossvalidationError;
@@ -214,6 +211,8 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
 	}
       }
     }
+    
+
     System.err.println(String.format("SvmDiagnosisProvider.selectModel: bestGamma = %f, bestC = %f", bestGamma, bestC));
     svmparameter.probability = 1;
     svmparameter.C = bestC;
@@ -260,14 +259,23 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       featureVectorCollection.add(featureVector);
       label[i] = (double) disorderIndex;
       sample[i] = this.svmNodeFeatureVectorMapper.map(featureVector);
-      //System.err.println(String.format("SVMDiagnosisProvider.train: featureVector = %s", featureVector.toString()));
-      //System.err.println(String.format("SVMDiagnosisProvider.train: svm_node vector = %s", sparseVectorString(sample[i])));
-      //System.err.println(String.format("SVMDiagnosisProvider.train: svn_node vector length: %d", sample[i].length));
+      System.err.println(String.format("SVMDiagnosisProvider.train: featureVector = %s", featureVector.toString()));
+      System.err.println(String.format("SVMDiagnosisProvider.train: svm_node vector = %s", sparseVectorString(sample[i])));
+      System.err.println(String.format("SVMDiagnosisProvider.train: svn_node vector length: %d", sample[i].length));
       i++;
     }
-    //System.err.println(this.svmNodeFeatureVectorMapper.toString());
-    dumpSamples("/home/jtk/tmp/sampledump.txt", sample, label);
+    System.err.println(this.svmNodeFeatureVectorMapper.toString());
+    dumpSamples("sampledump.txt", sample, label);
     this.model = this.selectModel(label, sample);
+    try 
+    {
+      svm.svm_save_model("modeldummycdr.txt", this.model);
+    }
+    catch (Exception e)
+    {
+      System.err.println("savemodel: " + e);
+    }
+
   }
 
 
