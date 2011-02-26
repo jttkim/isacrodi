@@ -79,7 +79,7 @@ numerictype
 
 numerictype
 {
-  typename: damagelevel
+  typename: plantaffected
   unit: percentage
   description: Percentage of plants affected by the pest
 }

@@ -536,7 +536,6 @@ public class Import
       InitialContext context = new InitialContext();
       CropDisorderRecordManager cdrm = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
       CropDisorderRecord cdro = null;
-      //cdro = cdrm.findCropDisorderRecord(Integer.parseInt(args[2]));
 
       out.append("isacrodi-cdrs-0.1\n"); 
       while (cdrid != 0) 
@@ -553,7 +552,7 @@ public class Import
           hmin.put(numericDescriptor.getDescriptorType().getTypeName(), numericDescriptor.getNumericValue());
         }
 
-        for (int j = 0; j <= 100; j++) 
+        for (int j = 0; j <= 20; j++) 
         {
           CropDisorderRecord cdrcopy = null;
 	  cdrcopy = cdro;
