@@ -34,10 +34,10 @@ categoricaltype
 
 categoricaltype
 {
-  typename: peststagedamage
+  typename: peststage
   description: Pest stage most prone to cause plant damage
   valueSet: larvae, nymph, adult
-  multiple: true
+  multiple: false
 }
 
 categoricaltype
@@ -62,7 +62,7 @@ categoricaltype
 {
   typename: symptom
   description: main symptom of the reported disorder, e.g. wilting, rotting, drying, yellowing
-  valueSet: cankers, calluses, dieback, dwarfing, defoliation, honeydew, soot, necrosis, rot, rust, scab, smut, streak, wilting, drying, lesions, fruitmummification, perforation, cut
+  valueSet: cankers, calluses, dieback, dwarfing, defoliation, honeydew, soot, necrosis, rot, rust, scab, smut, streak, wilting, drying, lesions, fruitmummification, perforation, cut, galls, munching, discoloration, eggs, excrements
   multiple: true
 }
 
@@ -86,7 +86,7 @@ categoricaltype
 {
   typename: leafsymptom
   description: main symptoms affecting the leaves
-  valueSet: brittleness, galls, necrosis, white powder, wilting, drying, mosaic, perforation, cut
+  valueSet: brittleness, galls, necrosis, white powder, wilting, drying, mosaic, perforation, cut, soot, spot
   multiple: true
 }
 
@@ -94,7 +94,7 @@ categoricaltype
 {
   typename: seedlingsymptom
   description: main symptoms affecting seedlings
-  valueSet: damping off, necrosis, rot, rust, scab, smut, wilting, perforation
+  valueSet: damping off, necrosis, rot, rust, scab, smut, wilting, perforation, dwarfing
   multiple: true
 }
 
@@ -198,7 +198,7 @@ categoricaltype
 {
   typename: steminternal
   description: condition inside the stem / branches, determined by a transversal (length-wise) cut of a stem
-  valueSet: normal, necrotic, black, perforation
+  valueSet: normal, necrotic, black, perforation, scrap, munching
   multiple: true
 }
 

@@ -28,6 +28,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   private Double altitude;
   private Double monthlyaveragetemperature;
   private Double monthlyaveragehumidity;
+  private Double plantaffected;
   private Double monthlyprecipitation;
   private Double cultivatedarea;
   private Double cropage;
@@ -45,9 +46,9 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   private String[] affectedpart;
   private String cropstage;
   private String pesttype;
+  private String peststage;
   private String diseasefielddistribution;
   private String seedlingorigin;
-  // New batch
   private String overallappearance;
   private String leafdiscoloration;
   private String[] leafappearance;
@@ -65,6 +66,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   private NumericType altitudeType;
   private NumericType monthlyaveragetemperatureType;
   private NumericType monthlyaveragehumidityType;
+  private NumericType plantaffectedType;
   private NumericType monthlyprecipitationType;
   private NumericType cultivatedareaType;
   private NumericType cropageType;
@@ -80,6 +82,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.altitude = null;
     this.monthlyaveragetemperature = null;
     this.monthlyaveragehumidity = null;
+    this.plantaffected = null;
     this.monthlyprecipitation = null;
     this.cultivatedarea = null;
     this.cropage = null;
@@ -93,6 +96,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.altitudeType = this.access.findNumericType("altitude");
     this.monthlyaveragetemperatureType = this.access.findNumericType("monthlyaveragetemperature");
     this.monthlyaveragehumidityType = this.access.findNumericType("monthlyaveragehumidity");
+    this.plantaffectedType = this.access.findNumericType("plantaffected");
     this.monthlyprecipitationType = this.access.findNumericType("monthlyprecipitation");
     this.cultivatedareaType = this.access.findNumericType("cultivatedarea");
     this.cropageType = this.access.findNumericType("cropage");
@@ -126,6 +130,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.altitude = getNumericValueNullSafe(numericDescriptorMap, "altitude");
     this.monthlyaveragetemperature = getNumericValueNullSafe(numericDescriptorMap, "monthlyaveragetemperature");
     this.monthlyaveragehumidity = getNumericValueNullSafe(numericDescriptorMap, "monthlyaveragehumidity");
+    this.plantaffected = getNumericValueNullSafe(numericDescriptorMap, "plantaffected");
     this.monthlyprecipitation = getNumericValueNullSafe(numericDescriptorMap, "monthlyprecipitation");
     this.cultivatedarea = getNumericValueNullSafe(numericDescriptorMap, "cultivatedarea");
     this.cropage = getNumericValueNullSafe(numericDescriptorMap, "cropage");
@@ -205,6 +210,15 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.drainage = getCategoricalValueNullSafe(categoricalDescriptorMap, "drainage");
     this.overallappearance = getCategoricalValueNullSafe(categoricalDescriptorMap, "overallappearance");
     this.leafdiscoloration = getCategoricalValueNullSafe(categoricalDescriptorMap, "leafdiscoloration");
+    this.irrigationsystem = getCategoricalValueNullSafe(categoricalDescriptorMap, "irrigationsystem");
+    this.irrigationorigin = getCategoricalValueNullSafe(categoricalDescriptorMap, "irrigationorigin");
+    this.firstsymptomcropstage = getCategoricalValueNullSafe(categoricalDescriptorMap, "firstsymptomcropstage");
+    //this.affectedpart = getCategoricalValueNullSafe(categoricalDescriptorMap, "affectedpart");
+    this.cropstage = getCategoricalValueNullSafe(categoricalDescriptorMap, "cropstage");
+    this.pesttype = getCategoricalValueNullSafe(categoricalDescriptorMap, "pesttype");
+    this.peststage = getCategoricalValueNullSafe(categoricalDescriptorMap, "peststage");
+    this.diseasefielddistribution = getCategoricalValueNullSafe(categoricalDescriptorMap, "diseasefielddistribution");
+    this.seedlingorigin = getCategoricalValueNullSafe(categoricalDescriptorMap, "seedlingorigin");
   }
 
 
@@ -216,21 +230,6 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
       this.prepareNumericMap();
       // New batch
       this.prepareCategoricalMap();
-      /*
-      this.prepareCategoricalMap("overallappearance");
-      this.prepareCategoricalMap("leafdiscoloration");
-      this.prepareCategoricalMap("leafappearance");
-      this.prepareCategoricalMap("leafsymptom");
-      this.prepareCategoricalMap("seedlingsymptom");
-      this.prepareCategoricalMap("rootsymptom");
-      this.prepareCategoricalMap("lesioncolour");
-      this.prepareCategoricalMap("lesionshape");
-      this.prepareCategoricalMap("lesionappearance");
-      this.prepareCategoricalMap("odour");
-      this.prepareCategoricalMap("lesionlocation");
-      this.prepareCategoricalMap("steminternal");
-      this.prepareCategoricalMap("drainage");
-      */
     }
   }
 
@@ -248,6 +247,11 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   public NumericType getMonthlyaveragehumidityType()
   {
     return (this.monthlyaveragehumidityType);
+  }
+
+  public NumericType getPlantaffectedType()
+  {
+    return (this.plantaffectedType);
   }
 
   public NumericType getMonthlyprecipitationType()
@@ -360,6 +364,12 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   public List<CategoricalTypeValue> getSoilValueList()
   {
     List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("soil");
+    return(categoricalTypeValueList);
+  }
+
+  public List<CategoricalTypeValue> getPeststageValueList()
+  {
+    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("peststage");
     return(categoricalTypeValueList);
   }
 
@@ -532,6 +542,18 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
+  public Double getPlantaffected()
+  {
+    return(this.plantaffected);
+  }
+
+
+  public void setPlantaffected(Double plantaffected)
+  {
+    this.plantaffected = plantaffected;
+  }
+
+
   public Double getMonthlyprecipitation()
   {
     return (this.monthlyprecipitation);
@@ -641,6 +663,18 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   public void setSoil(String soil)
   {
     this.soil = soil;
+  }
+
+
+  public String getPeststage()
+  {
+    return (this.peststage);
+  }
+
+
+  public void setPeststage(String peststage)
+  {
+    this.peststage = peststage;
   }
 
 
@@ -968,6 +1002,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "irrigationsystem", this.irrigationsystem);
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "irrigationorigin", this.irrigationorigin);
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "soil", this.soil);
+    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "peststage", this.peststage);
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "symptom", this.symptom);
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "firstsymptomcropstage", this.firstsymptomcropstage);
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "affectedpart", this.affectedpart);
@@ -993,6 +1028,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.addNumericDescriptorToMap(numericDescriptorMap, this.altitudeType.getId(), this.altitude);
     this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyaveragetemperatureType.getId(), this.monthlyaveragetemperature);
     this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyaveragehumidityType.getId(), this.monthlyaveragehumidity);
+    this.addNumericDescriptorToMap(numericDescriptorMap, this.plantaffectedType.getId(), this.plantaffected);
     this.addNumericDescriptorToMap(numericDescriptorMap, this.monthlyprecipitationType.getId(), this.monthlyprecipitation);
     this.addNumericDescriptorToMap(numericDescriptorMap, this.cultivatedareaType.getId(), this.cultivatedarea);
     this.addNumericDescriptorToMap(numericDescriptorMap, this.cropageType.getId(), this.cropage);

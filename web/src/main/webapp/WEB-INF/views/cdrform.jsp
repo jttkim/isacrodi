@@ -245,6 +245,17 @@
           listKey="valueType"
           listValue="valueType"
 	/>
+
+	<s:select label="Pest stage"
+	  emptyOption="true"
+ 	  name="peststage"
+          multiple="false"
+	  list="%{peststageValueList}"
+          listKey="valueType"
+          listValue="valueType"
+	/>
+
+	<s:textfield label="plant affected by pest (%{plantaffectedType.unit})" name="plantaffected" value="%{plantaffected}" rows="1" cols="10"/>
 	<s:select label="Disease field distribution"
 	  emptyOption="true"
  	  name="diseasefielddistribution"
