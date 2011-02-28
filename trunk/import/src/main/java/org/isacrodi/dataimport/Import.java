@@ -471,43 +471,6 @@ public class Import
       Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
       kludge.makeRandomExpertDiagnosedCDRs(rndseed, numNumericTypes, numCrops, numCropDisorders, numCDRs, numDisorderAssociations, numericDescriptorPercentage, stddevBetween, stddevWithin);
     }
-    else if (args[0].equals("-x"))
-    {
-      /* jtk: inactivated experimental code -- parsing of feature vector mapper no longer necessary
-      String model_filename = "ejbs/src/test/java/org/isacrodi/diagnosis/isacrodi_model";
-      String parse_filename = "ejbs/src/test/java/org/isacrodi/diagnosis/isacrodi_feature_mapper_v1.txt";
-      InitialContext context = new InitialContext();
-      CropDisorderRecordManager cdrm = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
-      HashMap<String, FeatureVector> labelledFeatureVectorMap = new HashMap<String, FeatureVector>();
-      DummyCDRFeatureExtractor extractor = new DummyCDRFeatureExtractor();
-      List<CropDisorderRecord> cdrList = cdrm.findCropDisorderRecordList();
-      CropDisorderRecord cdro = null;
-       
-      for (CropDisorderRecord cdr : cdrList)
-      {
-	System.err.println(String.format("cdr #%d: crop: %s", cdr.getId().intValue(), cdr.getCrop().getName()));
-	System.err.println("  " + cdr.getExpertDiagnosedCropDisorder().getScientificName());
-	labelledFeatureVectorMap.put(cdr.getExpertDiagnosedCropDisorder().getScientificName(), extractor.extract(cdr));
-	cdro = cdr;
-      }
-      for (String label : labelledFeatureVectorMap.keySet())
-      {
-	System.err.println(String.format("%s: %s", label, labelledFeatureVectorMap.get(label).toString()));
-      }
-
-      SVMDiagnosisProvider svmdp = new SVMDiagnosisProvider(model_filename, parse_filename);
-      svmdp.train(cdrList);
-
-      Diagnosis diagnosis = svmdp.diagnose(cdrm.findCropDisorderRecord(Integer.parseInt(args[1])));
-      Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
-
-      for (int i = 1; i < args.length; i++)
-      {
-	Integer cdrId = new Integer(Integer.parseInt(args[i]));
-	kludge.concoctDiagnosis(cdrId);
-      }
-      */
-    } 
     else if (args[0].equals("-e"))
     {
       String filename = args[1];
@@ -545,12 +508,58 @@ public class Import
         cdro = cdrm.findCropDisorderRecord(cdrid);
         HashMap hmax = new HashMap();
         HashMap hmin = new HashMap();
+	String soil[] = null;
+	String cropstage[] = null;
+	String peststage[] = null;
+	String firstsymptomcropstage[] = null;
+
         for (NumericDescriptor numericDescriptor : cdro.findNumericDescriptorSet())
         {
           System.out.println(numericDescriptor.getDescriptorType().getTypeName() + " " + numericDescriptor.getNumericValue());
           hmax.put(numericDescriptor.getDescriptorType().getTypeName(), input.nextDouble());
           hmin.put(numericDescriptor.getDescriptorType().getTypeName(), numericDescriptor.getNumericValue());
         }
+
+        for (CategoricalDescriptor categoricalDescriptor : cdro.findCategoricalDescriptorSet())
+	{
+	  if (categoricalDescriptor.getDescriptorType().getTypeName().equals("soil"))
+	  {
+            System.out.println("How many values can soil have? ");
+	    int j = input.nextInt();
+	    soil = new String[j]; 
+            System.out.println("Type values ");
+	    for(int i = 0; i < j; i++)
+	      soil[i] = input.next();
+	  }
+	  if (categoricalDescriptor.getDescriptorType().getTypeName().equals("cropstage"))
+	  {
+            System.out.println("How many values can crop stage have? ");
+	    int j = input.nextInt();
+	    cropstage = new String[j]; 
+            System.out.println("Type values ");
+	    for(int i = 0; i < j; i++)
+	      cropstage[i] = input.next();
+	  }
+	  if (categoricalDescriptor.getDescriptorType().getTypeName().equals("firstsymptomcropstage"))
+	  {
+            System.out.println("How many values can crop stage have? ");
+	    int j = input.nextInt();
+	    firstsymptomcropstage = new String[j]; 
+            System.out.println("Type values ");
+	    for(int i = 0; i < j; i++)
+	      firstsymptomcropstage[i] = input.next();
+	  }
+	  if (categoricalDescriptor.getDescriptorType().getTypeName().equals("peststage"))
+	  {
+            System.out.println("How many values can pest stage have? ");
+	    int j = input.nextInt();
+	    peststage = new String[j]; 
+            System.out.println("Type values ");
+	    for(int i = 0; i < j; i++)
+	      peststage[i] = input.next();
+	  }
+	}
+
 
         for (int j = 0; j <= 20; j++) 
         {
@@ -563,6 +572,34 @@ public class Import
 
 	    double dummy = min + (double)(Math.random() * (max - min));
             numericDescriptor.setNumericValue(dummy);
+          }
+
+          for (CategoricalDescriptor categoricalDescriptor : cdrcopy.findCategoricalDescriptorSet())
+          {
+	    if (categoricalDescriptor.getDescriptorType().getTypeName().equals("soil"))
+	    {
+	      int dummy = 0 + (int)(Math.random() * (soil.length - 0));
+	      for(CategoricalTypeValue categoricaltype : categoricalDescriptor.getCategoricalTypeValueSet())
+	        categoricaltype.setValueType(soil[dummy]);
+	    }
+	    if (categoricalDescriptor.getDescriptorType().getTypeName().equals("cropstage"))
+	    {
+	      int dummy = 0 + (int)(Math.random() * (cropstage.length - 0));
+	      for(CategoricalTypeValue categoricaltype : categoricalDescriptor.getCategoricalTypeValueSet())
+	        categoricaltype.setValueType(cropstage[dummy]);
+	    }
+	    if (categoricalDescriptor.getDescriptorType().getTypeName().equals("peststage"))
+	    {
+	      int dummy = 0 + (int)(Math.random() * (peststage.length - 0));
+	      for(CategoricalTypeValue categoricaltype : categoricalDescriptor.getCategoricalTypeValueSet())
+	        categoricaltype.setValueType(peststage[dummy]);
+	    }
+	    if (categoricalDescriptor.getDescriptorType().getTypeName().equals("firstsymptomcropstage"))
+	    {
+	      int dummy = 0 + (int)(Math.random() * (firstsymptomcropstage.length - 0));
+	      for(CategoricalTypeValue categoricaltype : categoricalDescriptor.getCategoricalTypeValueSet())
+	        categoricaltype.setValueType(firstsymptomcropstage[dummy]);
+	    }
           }
           out.append(cdrcopy.fileRepresentation());
         }

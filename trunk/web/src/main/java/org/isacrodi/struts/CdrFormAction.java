@@ -197,6 +197,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     Map <String, CategoricalDescriptor> categoricalDescriptorMap = this.cropDisorderRecord.findCategoricalDescriptorMap();
     this.soil = getCategoricalValueNullSafe(categoricalDescriptorMap, "soil");
     this.symptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "symptom");
+    this.affectedpart = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "affectedpart");
     this.leafappearance = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "leafappearance");
     this.leafsymptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "leafsymptom");
     this.seedlingsymptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "seedlingsymptom");
@@ -213,7 +214,6 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.irrigationsystem = getCategoricalValueNullSafe(categoricalDescriptorMap, "irrigationsystem");
     this.irrigationorigin = getCategoricalValueNullSafe(categoricalDescriptorMap, "irrigationorigin");
     this.firstsymptomcropstage = getCategoricalValueNullSafe(categoricalDescriptorMap, "firstsymptomcropstage");
-    //this.affectedpart = getCategoricalValueNullSafe(categoricalDescriptorMap, "affectedpart");
     this.cropstage = getCategoricalValueNullSafe(categoricalDescriptorMap, "cropstage");
     this.pesttype = getCategoricalValueNullSafe(categoricalDescriptorMap, "pesttype");
     this.peststage = getCategoricalValueNullSafe(categoricalDescriptorMap, "peststage");
@@ -696,7 +696,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
-  public void setFirstsymptomcropstage(String fisrtsymptomcropstage)
+  public void setFirstsymptomcropstage(String firstsymptomcropstage)
   {
     this.firstsymptomcropstage = firstsymptomcropstage;
   }
