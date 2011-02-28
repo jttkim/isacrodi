@@ -101,7 +101,7 @@ disorder
 {
   name: Wellow-striped armyworm
   scientificName: Spodoptera ornithogalli
-  cropSet: Zea mays
+  cropSet: Zea mays, Gossypium hirsutum
 }
 
 disorder
