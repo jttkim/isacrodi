@@ -1,0 +1,841 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 44.943914
+    cropage: 115.061142
+    monthlyprecipitation: 95.033685
+    monthlyaveragehumidity: 40.622341
+    pH: 6.852797
+    monthlyaveragetemperature: 33.926240
+    plantaffected: 5.000000
+    cultivatedarea: 61.378046
+    altitude: 2.276748
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: fruiting
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: sandy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 59.830526
+    cropage: 113.268837
+    monthlyprecipitation: 77.612494
+    monthlyaveragehumidity: 38.591019
+    pH: 6.019448
+    monthlyaveragetemperature: 32.171505
+    plantaffected: 5.000000
+    cultivatedarea: 69.780176
+    altitude: 16.790666
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: flowering
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: sandy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 55.833888
+    cropage: 117.440225
+    monthlyprecipitation: 96.176176
+    monthlyaveragehumidity: 42.702024
+    pH: 6.884408
+    monthlyaveragetemperature: 28.733583
+    plantaffected: 5.000000
+    cultivatedarea: 44.688408
+    altitude: 23.691283
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: fruiting
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: clay
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 37.253255
+    cropage: 118.193725
+    monthlyprecipitation: 83.428695
+    monthlyaveragehumidity: 39.722099
+    pH: 6.979125
+    monthlyaveragetemperature: 30.393798
+    plantaffected: 5.000000
+    cultivatedarea: 38.358528
+    altitude: 29.852481
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: fruiting
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: loamy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 38.661990
+    cropage: 113.793866
+    monthlyprecipitation: 86.825372
+    monthlyaveragehumidity: 44.523149
+    pH: 6.763207
+    monthlyaveragetemperature: 29.759377
+    plantaffected: 5.000000
+    cultivatedarea: 79.274697
+    altitude: 16.408263
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: fruiting
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: loamy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 52.622467
+    cropage: 116.984916
+    monthlyprecipitation: 96.316979
+    monthlyaveragehumidity: 42.594687
+    pH: 6.409362
+    monthlyaveragetemperature: 29.848245
+    plantaffected: 5.000000
+    cultivatedarea: 25.465575
+    altitude: 57.697555
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: fruiting
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: sandy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 46.763922
+    cropage: 111.175717
+    monthlyprecipitation: 106.226593
+    monthlyaveragehumidity: 30.149238
+    pH: 6.118939
+    monthlyaveragetemperature: 30.303839
+    plantaffected: 5.000000
+    cultivatedarea: 62.819579
+    altitude: 28.189125
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: fruiting
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: sandy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 40.158298
+    cropage: 111.717433
+    monthlyprecipitation: 84.543149
+    monthlyaveragehumidity: 39.979433
+    pH: 6.449258
+    monthlyaveragetemperature: 29.797178
+    plantaffected: 5.000000
+    cultivatedarea: 15.622459
+    altitude: 35.377825
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: flowering
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: loamy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 37.553925
+    cropage: 112.074784
+    monthlyprecipitation: 107.081918
+    monthlyaveragehumidity: 42.957821
+    pH: 6.368245
+    monthlyaveragetemperature: 28.426616
+    plantaffected: 5.000000
+    cultivatedarea: 62.744115
+    altitude: 41.634222
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: mature
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: clay
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 44.035930
+    cropage: 118.324839
+    monthlyprecipitation: 85.069584
+    monthlyaveragehumidity: 30.151042
+    pH: 6.495297
+    monthlyaveragetemperature: 34.086192
+    plantaffected: 5.000000
+    cultivatedarea: 62.324466
+    altitude: 36.575556
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: mature
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: clay
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 48.388988
+    cropage: 118.791439
+    monthlyprecipitation: 96.271006
+    monthlyaveragehumidity: 49.593570
+    pH: 5.565679
+    monthlyaveragetemperature: 28.926232
+    plantaffected: 5.000000
+    cultivatedarea: 77.730813
+    altitude: 27.694209
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: mature
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: clay
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 41.765307
+    cropage: 112.497816
+    monthlyprecipitation: 91.000054
+    monthlyaveragehumidity: 37.664771
+    pH: 6.621155
+    monthlyaveragetemperature: 31.275431
+    plantaffected: 5.000000
+    cultivatedarea: 8.152040
+    altitude: 48.795835
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: fruiting
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: clay
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 55.990789
+    cropage: 110.348237
+    monthlyprecipitation: 83.914953
+    monthlyaveragehumidity: 37.755981
+    pH: 5.935959
+    monthlyaveragetemperature: 33.598251
+    plantaffected: 5.000000
+    cultivatedarea: 10.270136
+    altitude: 44.156649
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: mature
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: loamy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 51.866714
+    cropage: 114.978967
+    monthlyprecipitation: 82.259615
+    monthlyaveragehumidity: 40.708859
+    pH: 6.864863
+    monthlyaveragetemperature: 28.606977
+    plantaffected: 5.000000
+    cultivatedarea: 15.208562
+    altitude: 31.679622
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: mature
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: loamy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 44.394076
+    cropage: 118.590499
+    monthlyprecipitation: 104.999664
+    monthlyaveragehumidity: 31.746785
+    pH: 5.630976
+    monthlyaveragetemperature: 29.181615
+    plantaffected: 5.000000
+    cultivatedarea: 38.743118
+    altitude: 41.512536
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: flowering
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: sandy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 50.823155
+    cropage: 115.921492
+    monthlyprecipitation: 109.641587
+    monthlyaveragehumidity: 48.889732
+    pH: 6.763557
+    monthlyaveragetemperature: 28.936069
+    plantaffected: 5.000000
+    cultivatedarea: 76.807321
+    altitude: 55.464608
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: mature
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: clay
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 51.531815
+    cropage: 111.078897
+    monthlyprecipitation: 103.395297
+    monthlyaveragehumidity: 36.909280
+    pH: 6.760491
+    monthlyaveragetemperature: 30.534462
+    plantaffected: 5.000000
+    cultivatedarea: 23.505035
+    altitude: 33.829109
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: flowering
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: loamy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 37.791429
+    cropage: 110.020439
+    monthlyprecipitation: 94.926828
+    monthlyaveragehumidity: 39.701290
+    pH: 5.872923
+    monthlyaveragetemperature: 32.151335
+    plantaffected: 5.000000
+    cultivatedarea: 6.422817
+    altitude: 57.170965
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: mature
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: sandy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 52.677777
+    cropage: 114.011038
+    monthlyprecipitation: 86.384747
+    monthlyaveragehumidity: 30.673828
+    pH: 5.828889
+    monthlyaveragetemperature: 28.993779
+    plantaffected: 5.000000
+    cultivatedarea: 59.418352
+    altitude: 28.883255
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: flowering
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: loamy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 54.523532
+    cropage: 115.853703
+    monthlyprecipitation: 82.510055
+    monthlyaveragehumidity: 35.699184
+    pH: 5.693556
+    monthlyaveragetemperature: 33.787904
+    plantaffected: 5.000000
+    cultivatedarea: 19.545597
+    altitude: 39.545056
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: mature
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: sandy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pestdensity: 7.000000
+    relativeaffectedarea: 45.046334
+    cropage: 118.731318
+    monthlyprecipitation: 78.746702
+    monthlyaveragehumidity: 43.880768
+    pH: 5.872033
+    monthlyaveragetemperature: 30.567611
+    plantaffected: 5.000000
+    cultivatedarea: 67.297890
+    altitude: 14.843991
+  }
+  categoricalDescriptors
+  {
+    affectedpart: fruits
+    overallappearance: healthy
+    symptom: perforation
+    lesionappearance: dry
+    steminternal: perforation
+    cropstage: fruiting
+    pesttype: worms
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    lesionlocation: top, middle, lower
+    irrigationorigin: river
+    seedlingorigin: national
+    irrigationsystem: rotary
+    soil: loamy
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}

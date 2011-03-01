@@ -542,7 +542,7 @@ public class Import
 	  }
 	  if (categoricalDescriptor.getDescriptorType().getTypeName().equals("firstsymptomcropstage"))
 	  {
-            System.out.println("How many values can crop stage have? ");
+            System.out.println("How many values can firstsymptomcropstage stage have? ");
 	    int j = input.nextInt();
 	    firstsymptomcropstage = new String[j]; 
             System.out.println("Type values ");
