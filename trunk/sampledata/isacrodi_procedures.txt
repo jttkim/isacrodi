@@ -42,7 +42,7 @@ procedure
   toxicologicalClass: IV
   description: apply Azadirachta indica, renders insects sterile and interferes with their digestive system
   incompatibleProcedureSet: 
-  disorderSet: Bemisia tabaci, Thrips palmi
+  disorderSet: Bemisia tabaci, Thrips palmi, Spodoptera frugiperda, Agrotis ipsilon, Helicoverpa zea, Alabama argillacea, Trichoplusia ni, Aphis gossyppi, Tetranychus urticae, Pectinophora gossypiella, Corythucha gossypii
 }
 
 procedure
@@ -96,7 +96,7 @@ procedure
   toxicologicalClass: III
   description: insecticides containing carbaryl as active ingredient (Carbaryl, Sevin)
   incompatibleProcedureSet: 
-  disorderSet: Thrips palmi
+  disorderSet: Thrips palmi, Spodoptera frugiperda, Agrotis ipsilon, Helicoverpa zea, Alabama argillacea, Trichoplusia ni, Anthonomus grandis, Sacadodes pyralis, Aphis gossyppi, Tetranychus urticae, Pectinophora gossypiella, Corythucha gossypii
 }
 
 procedure
@@ -105,7 +105,7 @@ procedure
   toxicologicalClass: III
   description: insecticides containing imidaclopid as active ingredient (Confidor, Provado)
   incompatibleProcedureSet: 
-  disorderSet: Thrips palmi, Bemisia tabaci
+  disorderSet: Thrips palmi, Bemisia tabaci, Spodoptera frugiperda, Agrotis ipsilon, Helicoverpa zea, Alabama argillacea, Trichoplusia ni, Anthonomus grandis, Sacadodes pyralis, Aphis gossyppi, Tetranychus urticae, Pectinophora gossypiella, Dysdercus sp, Corythucha gossypii 
 }
 
 procedure
@@ -123,7 +123,53 @@ procedure
   toxicologicalClass: III
   description: insecticides containing thiametoxan as active ingredient (Actara)
   incompatibleProcedureSet: 
-  disorderSet: Thrips palmi, Bemisia tabaci
+  disorderSet: Thrips palmi, Bemisia tabaci, Spodoptera frugiperda, Agrotis ipsilon, Helicoverpa zea, Alabama argillacea, Trichoplusia ni, Anthonomus grandis, Sacadodes pyralis, Aphis gossyppi, Tetranychus urticae, Pectinophora gossypiella, Dysdercus sp, Corythucha gossypii 
+}
+
+procedure
+{
+  name: cipermetrina
+  toxicologicalClass: II
+  description: insecticies containing cipermetrina as active ingredient
+  incompatibleProcedureSet:
+  disorderSet: Agrotis ipsilon 
+}
+
+
+procedure
+{
+  name: lambdacialotrina
+  toxicologicalClass: II
+  description: insecticies containing lambdacialotrina as active ingredient
+  incompatibleProcedureSet:
+  disorderSet: Agrotis ipsilon
+}
+
+procedure
+{
+  name: clorpirifos
+  toxicologicalClass: III
+  description: insecticies containing cipermetrina as active ingredient
+  incompatibleProcedureSet:
+  disorderSet: Agrotis ipsilon, Spodoptera frugiperda, Helicoverpa zea, Alabama argillacea, Trichoplusia ni, Anthonomus grandis, Sacadodes pyralis, Aphis gossyppi, Tetranychus urticae, Pectinophora gossypiella, Dysdercus sp, Corythucha gossypii 
+}
+
+procedure
+{
+  name: flubendiamide
+  toxicologicalClass: III
+  description: insecticies containing flubendiamide as active ingredient
+  incompatibleProcedureSet:
+  disorderSet: Agrotis ipsilon, Spodoptera frugiperda, Helicoverpa zea, Alabama argillacea, Trichoplusia ni, Anthonomus grandis, Sacadodes pyralis, Aphis gossyppi, Tetranychus urticae, Pectinophora gossypiella, Dysdercus sp, Corythucha gossypii 
+}
+
+procedure
+{
+  name: methomyl
+  toxicologicalClass: II
+  description: insecticies containing methomyl as active ingredient
+  incompatibleProcedureSet:
+  disorderSet: Agrotis ipsilon
 }
 
 procedure
@@ -150,7 +196,52 @@ procedure
   toxicologicalClass:
   description: Chrysoperla externa (or other Chrysoperla species) predatory insect for biological control
   incompatibleProcedureSet: 
-  disorderSet: Bemisia tabaci
+  disorderSet: Bemisia tabaci, Aphis gossyppi
+}
+
+procedure
+{
+  name: apanteles
+  toxicologicalClass:
+  description: Apanteles sp.. Application of 3000 parasitoids, for biological control
+  incompatibleProcedureSet: 
+  disorderSet: Bemisia tabaci, Agrotis ipsilon, Trichoplusia ni 
+}
+
+procedure
+{
+  name: telenomus
+  toxicologicalClass:
+  description: Telenomus sp, apply 100.000 jls/m2, predatory insect for biological control
+  incompatibleProcedureSet: 
+  disorderSet: Spodoptera frugiperda
+}
+
+procedure
+{
+  name: cotesia
+  toxicologicalClass:
+  description: Cotesia sp, apply 100.000 jls/m2, predatory insect for biological control
+  incompatibleProcedureSet: 
+  disorderSet: Spodoptera frugiperda
+}
+
+procedure
+{
+  name: bt
+  toxicologicalClass:
+  description: Bacillus thuringiensis with Cry1F gene, apply according to commercial provider of seeds, for biological control
+  incompatibleProcedureSet: 
+  disorderSet: Spodoptera frugiperda, Agrotis ipsilon, Alabama argillacea, Helicoverpa zea, Trichoplusia ni, Sacadodes pyralis, Pectinophora gossypiella 
+}
+
+procedure
+{
+  name: beauveria
+  toxicologicalClass:
+  description: Beauveria bassiana, Metharhizium anisopliae
+  incompatibleProcedureSet: 
+  disorderSet: Anthonomus grandis, Tetranychus urticae 
 }
 
 procedure
@@ -159,7 +250,7 @@ procedure
   toxicologicalClass:
   description: treat seeds with trichoderma
   incompatibleProcedureSet:
-  disorderSet: Rhizoctonia, Fusarium sp
+  disorderSet: Rhizoctonia, Fusarium sp, Helicoverpa zea, Alabama argillacea, Trichoplusia ni, Sacadodes pyralis
 }
 
 procedure

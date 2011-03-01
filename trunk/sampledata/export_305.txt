@@ -1,0 +1,1345 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 101.024612
+    monthlyaveragetemperature: 34.436089
+    altitude: 247.935249
+    pH: 5.978175
+    monthlyaveragehumidity: 79.912057
+    plantaffected: 15.000000
+    cultivatedarea: 49.256636
+    relativeaffectedarea: 38.393703
+    monthlyprecipitation: 245.639488
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: flowering
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 115.885641
+    monthlyaveragetemperature: 30.904621
+    altitude: 318.862651
+    pH: 5.734619
+    monthlyaveragehumidity: 87.366165
+    plantaffected: 15.000000
+    cultivatedarea: 49.714867
+    relativeaffectedarea: 42.658837
+    monthlyprecipitation: 277.169246
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: seedling
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 111.156413
+    monthlyaveragetemperature: 33.647078
+    altitude: 358.727562
+    pH: 5.523747
+    monthlyaveragehumidity: 87.786352
+    plantaffected: 15.000000
+    cultivatedarea: 36.744505
+    relativeaffectedarea: 54.524745
+    monthlyprecipitation: 232.293050
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: seedling
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 101.341435
+    monthlyaveragetemperature: 27.059333
+    altitude: 89.182805
+    pH: 5.507756
+    monthlyaveragehumidity: 81.808739
+    plantaffected: 15.000000
+    cultivatedarea: 98.436984
+    relativeaffectedarea: 35.731367
+    monthlyprecipitation: 223.341126
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: vegetative
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 106.722522
+    monthlyaveragetemperature: 25.773347
+    altitude: 60.127517
+    pH: 5.933304
+    monthlyaveragehumidity: 73.204904
+    plantaffected: 15.000000
+    cultivatedarea: 31.709844
+    relativeaffectedarea: 45.600293
+    monthlyprecipitation: 217.602265
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: vegetative
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 116.007732
+    monthlyaveragetemperature: 32.808575
+    altitude: 49.664394
+    pH: 6.246505
+    monthlyaveragehumidity: 81.209036
+    plantaffected: 15.000000
+    cultivatedarea: 35.122328
+    relativeaffectedarea: 45.197106
+    monthlyprecipitation: 232.845791
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: mature
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 100.285494
+    monthlyaveragetemperature: 34.165105
+    altitude: 115.740281
+    pH: 6.325420
+    monthlyaveragehumidity: 82.198471
+    plantaffected: 15.000000
+    cultivatedarea: 67.251463
+    relativeaffectedarea: 49.895011
+    monthlyprecipitation: 297.400333
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: vegetative
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 116.072490
+    monthlyaveragetemperature: 26.697372
+    altitude: 320.667115
+    pH: 5.671056
+    monthlyaveragehumidity: 88.948813
+    plantaffected: 15.000000
+    cultivatedarea: 74.983122
+    relativeaffectedarea: 50.466288
+    monthlyprecipitation: 234.769982
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: mature
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 110.802068
+    monthlyaveragetemperature: 28.302069
+    altitude: 416.358909
+    pH: 6.384647
+    monthlyaveragehumidity: 84.448513
+    plantaffected: 15.000000
+    cultivatedarea: 77.266717
+    relativeaffectedarea: 52.167900
+    monthlyprecipitation: 287.391179
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: mature
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 110.085535
+    monthlyaveragetemperature: 33.736826
+    altitude: 285.477863
+    pH: 6.217462
+    monthlyaveragehumidity: 73.920911
+    plantaffected: 15.000000
+    cultivatedarea: 60.550418
+    relativeaffectedarea: 54.086469
+    monthlyprecipitation: 146.904241
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: vegetative
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 111.881157
+    monthlyaveragetemperature: 27.082586
+    altitude: 187.582700
+    pH: 6.151110
+    monthlyaveragehumidity: 83.967756
+    plantaffected: 15.000000
+    cultivatedarea: 99.056214
+    relativeaffectedarea: 57.604763
+    monthlyprecipitation: 210.527720
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: vegetative
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 100.752802
+    monthlyaveragetemperature: 28.076015
+    altitude: 325.677849
+    pH: 5.927219
+    monthlyaveragehumidity: 80.989016
+    plantaffected: 15.000000
+    cultivatedarea: 97.118035
+    relativeaffectedarea: 39.065692
+    monthlyprecipitation: 241.714799
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: flowering
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 107.057902
+    monthlyaveragetemperature: 34.444716
+    altitude: 432.726747
+    pH: 5.946131
+    monthlyaveragehumidity: 74.665614
+    plantaffected: 15.000000
+    cultivatedarea: 80.261920
+    relativeaffectedarea: 58.672505
+    monthlyprecipitation: 143.629032
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: fruiting
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 117.933291
+    monthlyaveragetemperature: 34.244655
+    altitude: 104.904409
+    pH: 5.968093
+    monthlyaveragehumidity: 72.021122
+    plantaffected: 15.000000
+    cultivatedarea: 98.361490
+    relativeaffectedarea: 42.798295
+    monthlyprecipitation: 262.226730
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: mature
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 114.843274
+    monthlyaveragetemperature: 29.352431
+    altitude: 444.941094
+    pH: 6.456549
+    monthlyaveragehumidity: 77.344161
+    plantaffected: 15.000000
+    cultivatedarea: 12.602479
+    relativeaffectedarea: 56.275265
+    monthlyprecipitation: 171.086441
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: fruiting
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 112.627561
+    monthlyaveragetemperature: 25.547951
+    altitude: 478.427162
+    pH: 6.280627
+    monthlyaveragehumidity: 89.319933
+    plantaffected: 15.000000
+    cultivatedarea: 48.385456
+    relativeaffectedarea: 39.464579
+    monthlyprecipitation: 162.937901
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: flowering
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 118.357153
+    monthlyaveragetemperature: 26.694573
+    altitude: 368.894485
+    pH: 5.921133
+    monthlyaveragehumidity: 75.998482
+    plantaffected: 15.000000
+    cultivatedarea: 54.826528
+    relativeaffectedarea: 45.332188
+    monthlyprecipitation: 168.997255
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: fruiting
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 103.517260
+    monthlyaveragetemperature: 27.661009
+    altitude: 271.025446
+    pH: 6.379953
+    monthlyaveragehumidity: 71.531008
+    plantaffected: 15.000000
+    cultivatedarea: 56.425303
+    relativeaffectedarea: 43.686269
+    monthlyprecipitation: 244.462909
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: mature
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 118.116294
+    monthlyaveragetemperature: 30.513362
+    altitude: 46.117701
+    pH: 6.320211
+    monthlyaveragehumidity: 70.158900
+    plantaffected: 15.000000
+    cultivatedarea: 52.938721
+    relativeaffectedarea: 48.316679
+    monthlyprecipitation: 195.399627
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: fruiting
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 102.243580
+    monthlyaveragetemperature: 27.776138
+    altitude: 497.658398
+    pH: 5.815022
+    monthlyaveragehumidity: 73.107415
+    plantaffected: 15.000000
+    cultivatedarea: 38.015533
+    relativeaffectedarea: 48.276242
+    monthlyprecipitation: 215.172342
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: flowering
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    cropage: 117.827981
+    monthlyaveragetemperature: 30.743946
+    altitude: 207.669130
+    pH: 6.669053
+    monthlyaveragehumidity: 72.837313
+    plantaffected: 15.000000
+    cultivatedarea: 11.136150
+    relativeaffectedarea: 59.681707
+    monthlyprecipitation: 247.868448
+  }
+  categoricalDescriptors
+  {
+    steminternal: perforation
+    lesionshape: round
+    cropstage: vegetative
+    affectedpart: fruits, stem, leaves
+    irrigationsystem: rotary
+    symptom: perforation, defoliation, munching, cut, excrements
+    pesttype: worms
+    peststage: larvae
+    leafsymptom: cut, perforation
+    soil: clay
+    leafappearance: cut, perforation
+    firstsymptomcropstage: vegetative
+    overallappearance: healthy
+    lesionappearance: dry
+    lesionlocation: top, lower, middle
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}

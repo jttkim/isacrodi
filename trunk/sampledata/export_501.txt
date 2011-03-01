@@ -1,0 +1,841 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 56.282713
+    monthlyaveragehumidity: 86.665273
+    monthlyprecipitation: 118.861466
+    plantaffected: 10.000000
+    pH: 6.467861
+    altitude: 34.774502
+    cultivatedarea: 82.566949
+    monthlyaveragetemperature: 28.533341
+    cropage: 110.466459
+    pestdensity: 1976.297336
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: adult
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: clay
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 37.160836
+    monthlyaveragehumidity: 80.574101
+    monthlyprecipitation: 3.311247
+    plantaffected: 10.000000
+    pH: 6.447932
+    altitude: 42.683510
+    cultivatedarea: 21.982858
+    monthlyaveragetemperature: 31.128588
+    cropage: 118.808021
+    pestdensity: 2306.610594
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: loamy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 54.606193
+    monthlyaveragehumidity: 72.754934
+    monthlyprecipitation: 30.145536
+    plantaffected: 10.000000
+    pH: 6.711783
+    altitude: 40.006626
+    cultivatedarea: 10.637971
+    monthlyaveragetemperature: 28.451323
+    cropage: 111.726919
+    pestdensity: 2170.425244
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: loamy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 54.481233
+    monthlyaveragehumidity: 82.245164
+    monthlyprecipitation: 33.232565
+    plantaffected: 10.000000
+    pH: 6.994999
+    altitude: 8.108381
+    cultivatedarea: 38.389675
+    monthlyaveragetemperature: 28.308356
+    cropage: 119.265071
+    pestdensity: 2406.723696
+  }
+  categoricalDescriptors
+  {
+    cropstage: mature
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: clay
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 51.924386
+    monthlyaveragehumidity: 76.798123
+    monthlyprecipitation: 18.365431
+    plantaffected: 10.000000
+    pH: 6.113781
+    altitude: 56.542305
+    cultivatedarea: 66.459676
+    monthlyaveragetemperature: 34.183125
+    cropage: 116.417161
+    pestdensity: 2249.670294
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: adult
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: clay
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 38.653182
+    monthlyaveragehumidity: 74.426546
+    monthlyprecipitation: 19.523926
+    plantaffected: 10.000000
+    pH: 6.160730
+    altitude: 47.920263
+    cultivatedarea: 14.964333
+    monthlyaveragetemperature: 30.191478
+    cropage: 118.766692
+    pestdensity: 2026.953706
+  }
+  categoricalDescriptors
+  {
+    cropstage: mature
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: loamy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 48.812832
+    monthlyaveragehumidity: 88.223059
+    monthlyprecipitation: 40.598867
+    plantaffected: 10.000000
+    pH: 5.805556
+    altitude: 6.731702
+    cultivatedarea: 91.259780
+    monthlyaveragetemperature: 32.335824
+    cropage: 110.138753
+    pestdensity: 1529.669141
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: adult
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: loamy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 41.367727
+    monthlyaveragehumidity: 75.091508
+    monthlyprecipitation: 76.149135
+    plantaffected: 10.000000
+    pH: 6.472692
+    altitude: 38.638181
+    cultivatedarea: 62.515450
+    monthlyaveragetemperature: 28.084327
+    cropage: 117.463572
+    pestdensity: 1776.026973
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: clay
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 36.848751
+    monthlyaveragehumidity: 75.429530
+    monthlyprecipitation: 27.448304
+    plantaffected: 10.000000
+    pH: 6.909812
+    altitude: 56.009835
+    cultivatedarea: 49.664086
+    monthlyaveragetemperature: 30.284953
+    cropage: 119.436422
+    pestdensity: 1722.492724
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: clay
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 51.492069
+    monthlyaveragehumidity: 85.806842
+    monthlyprecipitation: 42.480104
+    plantaffected: 10.000000
+    pH: 6.202078
+    altitude: 32.404031
+    cultivatedarea: 40.720674
+    monthlyaveragetemperature: 34.102893
+    cropage: 110.981089
+    pestdensity: 2342.620711
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: clay
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 39.471391
+    monthlyaveragehumidity: 71.320308
+    monthlyprecipitation: 34.346341
+    plantaffected: 10.000000
+    pH: 5.583192
+    altitude: 53.335142
+    cultivatedarea: 25.544497
+    monthlyaveragetemperature: 28.797137
+    cropage: 112.915352
+    pestdensity: 2260.097551
+  }
+  categoricalDescriptors
+  {
+    cropstage: mature
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: loamy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 56.618616
+    monthlyaveragehumidity: 85.548715
+    monthlyprecipitation: 25.195765
+    plantaffected: 10.000000
+    pH: 5.785345
+    altitude: 2.085887
+    cultivatedarea: 81.394103
+    monthlyaveragetemperature: 29.308874
+    cropage: 117.735970
+    pestdensity: 1949.496767
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: loamy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 36.127081
+    monthlyaveragehumidity: 81.787368
+    monthlyprecipitation: 86.832151
+    plantaffected: 10.000000
+    pH: 5.753061
+    altitude: 37.268986
+    cultivatedarea: 71.628314
+    monthlyaveragetemperature: 33.980028
+    cropage: 116.964482
+    pestdensity: 2113.967271
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: sandy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 55.664141
+    monthlyaveragehumidity: 83.362900
+    monthlyprecipitation: 134.081180
+    plantaffected: 10.000000
+    pH: 5.550794
+    altitude: 44.682188
+    cultivatedarea: 87.499918
+    monthlyaveragetemperature: 30.741980
+    cropage: 111.119421
+    pestdensity: 1718.422087
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: sandy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 42.809161
+    monthlyaveragehumidity: 88.097127
+    monthlyprecipitation: 31.831254
+    plantaffected: 10.000000
+    pH: 6.958664
+    altitude: 21.295049
+    cultivatedarea: 24.112816
+    monthlyaveragetemperature: 29.377795
+    cropage: 119.919703
+    pestdensity: 1851.514094
+  }
+  categoricalDescriptors
+  {
+    cropstage: mature
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: sandy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 39.049664
+    monthlyaveragehumidity: 73.128069
+    monthlyprecipitation: 114.507481
+    plantaffected: 10.000000
+    pH: 5.695530
+    altitude: 5.562740
+    cultivatedarea: 39.036585
+    monthlyaveragetemperature: 31.359587
+    cropage: 111.811290
+    pestdensity: 1958.418546
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: clay
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 40.779755
+    monthlyaveragehumidity: 72.966581
+    monthlyprecipitation: 37.012171
+    plantaffected: 10.000000
+    pH: 6.312198
+    altitude: 36.046842
+    cultivatedarea: 21.141484
+    monthlyaveragetemperature: 33.267739
+    cropage: 119.096604
+    pestdensity: 2424.693510
+  }
+  categoricalDescriptors
+  {
+    cropstage: mature
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: adult
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: clay
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 50.965307
+    monthlyaveragehumidity: 73.465978
+    monthlyprecipitation: 33.591157
+    plantaffected: 10.000000
+    pH: 6.071050
+    altitude: 46.417429
+    cultivatedarea: 89.606560
+    monthlyaveragetemperature: 32.210318
+    cropage: 117.804321
+    pestdensity: 2191.642655
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: adult
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: loamy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 53.780858
+    monthlyaveragehumidity: 85.844851
+    monthlyprecipitation: 28.962942
+    plantaffected: 10.000000
+    pH: 5.590884
+    altitude: 1.462165
+    cultivatedarea: 60.516799
+    monthlyaveragetemperature: 30.357168
+    cropage: 111.655585
+    pestdensity: 2284.917603
+  }
+  categoricalDescriptors
+  {
+    cropstage: mature
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: adult
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: sandy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 48.541730
+    monthlyaveragehumidity: 72.502505
+    monthlyprecipitation: 74.327203
+    plantaffected: 10.000000
+    pH: 6.589124
+    altitude: 35.899699
+    cultivatedarea: 66.582939
+    monthlyaveragetemperature: 34.889781
+    cropage: 112.969487
+    pestdensity: 2376.703479
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: nymph
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: sandy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 47.406452
+    monthlyaveragehumidity: 75.512339
+    monthlyprecipitation: 83.728079
+    plantaffected: 10.000000
+    pH: 6.357438
+    altitude: 36.515176
+    cultivatedarea: 47.449308
+    monthlyaveragetemperature: 28.129458
+    cropage: 112.732873
+    pestdensity: 1860.735479
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    lesionappearance: dry
+    irrigationorigin: river
+    peststage: adult
+    irrigationsystem: rotary
+    pesttype: borers
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    steminternal: perforation
+    lesionlocation: top, middle, lower
+    seedlingorigin: national
+    soil: loamy
+    symptom: excrements, perforation
+    overallappearance: ill
+    lesionshape: round
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}

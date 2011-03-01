@@ -1,0 +1,44 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 58.111215
+    altitude: 37.543209
+    monthlyprecipitation: 90.139592
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 30.112847
+    cropage: 119.925050
+    monthlyaveragehumidity: 83.490531
+    cultivatedarea: 14.904321
+    pH: 6.949808
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: sandy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: adult
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}

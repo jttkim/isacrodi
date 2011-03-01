@@ -1,0 +1,904 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 47.895592
+    altitude: 37.855327
+    monthlyprecipitation: 108.891175
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 34.294391
+    cropage: 116.683587
+    monthlyaveragehumidity: 88.268133
+    cultivatedarea: 84.142318
+    pH: 5.876227
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: clay
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: adult
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 51.113329
+    altitude: 18.053733
+    monthlyprecipitation: 85.813729
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 32.506050
+    cropage: 119.249691
+    monthlyaveragehumidity: 83.061225
+    cultivatedarea: 21.439148
+    pH: 5.636178
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: clay
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: adult
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 46.598671
+    altitude: 39.666521
+    monthlyprecipitation: 98.494444
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 29.837575
+    cropage: 113.609061
+    monthlyaveragehumidity: 82.360987
+    cultivatedarea: 79.062115
+    pH: 6.802363
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: loamy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 37.630576
+    altitude: 58.008102
+    monthlyprecipitation: 77.938371
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 28.464033
+    cropage: 112.272871
+    monthlyaveragehumidity: 85.801544
+    cultivatedarea: 62.857363
+    pH: 6.106687
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: sandy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: seedling
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 45.665789
+    altitude: 43.526263
+    monthlyprecipitation: 103.749844
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 30.791249
+    cropage: 117.972170
+    monthlyaveragehumidity: 86.536347
+    cultivatedarea: 60.593133
+    pH: 6.318303
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: clay
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: seedling
+    peststage: adult
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 57.441161
+    altitude: 54.742168
+    monthlyprecipitation: 90.383160
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 28.666530
+    cropage: 114.995187
+    monthlyaveragehumidity: 89.479886
+    cultivatedarea: 12.597025
+    pH: 6.114948
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: clay
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: seedling
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 42.462014
+    altitude: 9.708881
+    monthlyprecipitation: 84.230965
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 28.851070
+    cropage: 118.702892
+    monthlyaveragehumidity: 87.894040
+    cultivatedarea: 42.130905
+    pH: 6.957750
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: clay
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: seedling
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 57.527568
+    altitude: 59.090527
+    monthlyprecipitation: 88.878656
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 30.202481
+    cropage: 115.084476
+    monthlyaveragehumidity: 82.386556
+    cultivatedarea: 35.788489
+    pH: 5.822935
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: sandy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: adult
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 53.323875
+    altitude: 42.970328
+    monthlyprecipitation: 100.048919
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 28.069204
+    cropage: 115.468642
+    monthlyaveragehumidity: 83.684250
+    cultivatedarea: 38.561435
+    pH: 6.967498
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: loamy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: seedling
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 44.047450
+    altitude: 47.576004
+    monthlyprecipitation: 80.676356
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 31.182914
+    cropage: 112.139514
+    monthlyaveragehumidity: 89.341609
+    cultivatedarea: 50.949277
+    pH: 5.572271
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: sandy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 47.635702
+    altitude: 16.186612
+    monthlyprecipitation: 93.363030
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 31.102779
+    cropage: 117.287354
+    monthlyaveragehumidity: 80.234101
+    cultivatedarea: 70.747659
+    pH: 6.240866
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: loamy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 39.110380
+    altitude: 57.124043
+    monthlyprecipitation: 96.035419
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 34.887955
+    cropage: 111.652079
+    monthlyaveragehumidity: 87.365276
+    cultivatedarea: 46.184734
+    pH: 6.307004
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: loamy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: adult
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 41.844343
+    altitude: 43.664359
+    monthlyprecipitation: 89.091490
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 34.513580
+    cropage: 110.194551
+    monthlyaveragehumidity: 87.927063
+    cultivatedarea: 32.276105
+    pH: 6.636590
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: clay
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: seedling
+    peststage: adult
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 58.179347
+    altitude: 43.371879
+    monthlyprecipitation: 78.186455
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 31.021485
+    cropage: 111.658769
+    monthlyaveragehumidity: 84.241192
+    cultivatedarea: 30.029372
+    pH: 6.514829
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: sandy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: seedling
+    peststage: adult
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 59.485093
+    altitude: 25.975311
+    monthlyprecipitation: 95.563743
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 30.360257
+    cropage: 116.099040
+    monthlyaveragehumidity: 86.076797
+    cultivatedarea: 15.501398
+    pH: 6.642703
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: loamy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 45.141744
+    altitude: 21.445927
+    monthlyprecipitation: 85.313167
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 33.972628
+    cropage: 114.751915
+    monthlyaveragehumidity: 88.755007
+    cultivatedarea: 96.912631
+    pH: 6.645437
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: sandy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 53.049653
+    altitude: 40.224068
+    monthlyprecipitation: 92.980888
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 33.302638
+    cropage: 119.540951
+    monthlyaveragehumidity: 84.700365
+    cultivatedarea: 81.728402
+    pH: 6.267437
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: loamy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: seedling
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 57.371600
+    altitude: 17.031408
+    monthlyprecipitation: 88.826094
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 33.708259
+    cropage: 111.105267
+    monthlyaveragehumidity: 89.975719
+    cultivatedarea: 27.538634
+    pH: 6.153222
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: loamy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 41.316278
+    altitude: 6.843558
+    monthlyprecipitation: 103.898262
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 32.040974
+    cropage: 111.448180
+    monthlyaveragehumidity: 89.272758
+    cultivatedarea: 78.180180
+    pH: 6.205600
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: sandy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: nymph
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 54.706513
+    altitude: 48.505057
+    monthlyprecipitation: 89.168642
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 30.227200
+    cropage: 114.941236
+    monthlyaveragehumidity: 87.997317
+    cultivatedarea: 18.909721
+    pH: 6.463618
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: loamy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: adult
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 58.111215
+    altitude: 37.543209
+    monthlyprecipitation: 90.139592
+    plantaffected: 20.000000
+    monthlyaveragetemperature: 30.112847
+    cropage: 119.925050
+    monthlyaveragehumidity: 83.490531
+    cultivatedarea: 14.904321
+    pH: 6.949808
+  }
+  categoricalDescriptors
+  {
+    seedlingsymptom: dwarfing
+    soil: sandy
+    overallappearance: ill
+    lesioncolour: black
+    leafsymptom: soot
+    lesionlocation: middle, lower, top
+    irrigationorigin: river
+    firstsymptomcropstage: seedling
+    affectedpart: leaves
+    steminternal: black
+    symptom: honeydew, soot
+    pesttype: aphids
+    irrigationsystem: rotary
+    seedlingorigin: national
+    diseasefielddistribution: borders
+    cropstage: vegetative
+    peststage: adult
+    lesionappearance: wet
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
