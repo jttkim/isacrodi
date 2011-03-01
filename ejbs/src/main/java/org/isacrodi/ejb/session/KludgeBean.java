@@ -18,71 +18,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.isacrodi.util.SampleableList;
+
 import org.isacrodi.ejb.entity.*;
 
 import static org.javamisc.Util.genericTypecast;
-
-
-/**
- * An ArrayList that supports drawing of random samples.
- */
-class SamplableList<T> extends ArrayList<T>
-{
-  public SamplableList()
-  {
-    super();
-  }
-
-
-  public SamplableList(Collection<? extends T> c)
-  {
-    this();
-    for (T e : c)
-    {
-      this.add(e);
-    }
-  }
-
-
-  public T randomSample(Random rng)
-  {
-    if (this.size() == 0)
-    {
-      return (null);
-    }
-    else
-    {
-      return (this.get(rng.nextInt(this.size())));
-    }
-  }
-
-
-  public List<T> randomSampleList(Random rng, int numSamples)
-  {
-    if (this.size() < numSamples)
-    {
-      throw new RuntimeException(String.format("request of %d samples from a list of %d elements", numSamples, this.size()));
-    }
-    int[] index = new int[this.size()];
-    for (int i = 0; i < this.size(); i++)
-    {
-      index[i] = i;
-    }
-    for (int i = 0; i < this.size(); i++)
-    {
-      int j = rng.nextInt(this.size());
-      int tmp = index[i];
-      index[i] = index[j];
-      index[j] = tmp;
-    }
-    ArrayList<T> l = new ArrayList<T>();
-    for (int i = 0; i < numSamples; i++)
-    {
-      l.add(this.get(index[i]));
-    }
-    return (l);
-  }
-}
 
 
 @Stateless
@@ -112,21 +52,21 @@ public class KludgeBean implements Kludge
     Random rng = new Random(rndseed);
     IsacrodiUser rndUser = new IsacrodiUser("Dummy", "Random", "rnduser", IsacrodiUser.hash("rnd"), "random@generator.org");
     this.entityManager.persist(rndUser);
-    SamplableList<NumericType> numericTypeList = new SamplableList<NumericType>();
+    SampleableList<NumericType> numericTypeList = new SampleableList<NumericType>();
     for (int i = 0; i < numNumericTypes; i++)
     {
       NumericType numericType = new NumericType(String.format("rndNT_%03d", i));
       this.entityManager.persist(numericType);
       numericTypeList.add(numericType);
     }
-    SamplableList<Crop> cropList = new SamplableList<Crop>();
+    SampleableList<Crop> cropList = new SampleableList<Crop>();
     for (int i = 0; i < numCrops; i++)
     {
       Crop crop = new Crop(String.format("rndCrop_%03d", i), String.format("Yerba randomica_%03d", i));
       this.entityManager.persist(crop);
       cropList.add(crop);
     }
-    SamplableList<CropDisorder> cropDisorderList = new SamplableList<CropDisorder>();
+    SampleableList<CropDisorder> cropDisorderList = new SampleableList<CropDisorder>();
     HashMap<String, HashMap<String, Double>> disorderCharacteristicsMap = new HashMap<String, HashMap<String, Double>>();
     for (int i = 0; i < numCropDisorders; i++)
     {
@@ -156,7 +96,7 @@ public class KludgeBean implements Kludge
         crop.linkCropDisorder(cropDisorder);
       }
     }
-    SamplableList<CropDisorderRecord> cropDisorderRecordList = new SamplableList<CropDisorderRecord>();
+    SampleableList<CropDisorderRecord> cropDisorderRecordList = new SampleableList<CropDisorderRecord>();
     for (int i = 0; i < numCDRs; i++)
     {
       CropDisorderRecord cdr = new CropDisorderRecord();
@@ -164,7 +104,7 @@ public class KludgeBean implements Kludge
       this.entityManager.persist(cdr);
       cdr.linkCrop(cropList.randomSample(rng));
       Crop crop = cdr.getCrop();
-      SamplableList<CropDisorder> dList = new SamplableList<CropDisorder>(crop.getCropDisorderSet());
+      SampleableList<CropDisorder> dList = new SampleableList<CropDisorder>(crop.getCropDisorderSet());
       String cdrDescription = String.format("dummy cdr #%d\n", i);
       if (dList.size() > 0)
       {
