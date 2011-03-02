@@ -134,8 +134,19 @@ public class ImageDescriptor extends Descriptor
   }
 
 
+  public String fileRepresentation()
+  {
+    String s = String.format("%s\n", this.descriptorType.getTypeName());
+    s += "    {\n";
+    s += String.format("      mimeType: %s\n", this.mimeType);
+    s += String.format("      file: %s\n", this.imageFileName);
+    s += "    }";
+    return (s);
+  }
+
+
   public String toString()
   {
-    return (String.format("ImageDescriptor(id = %s, mimeType = %s)", Util.safeStr(this.id), Util.safeStr(this.mimeType)));
+    return (String.format("ImageDescriptor(id = %s, mimeType = %s, file = %s)", Util.safeStr(this.id), Util.safeStr(this.mimeType), Util.safeStr(this.imageFileName)));
   }
 }

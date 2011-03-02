@@ -141,4 +141,10 @@ public class Recommendation implements IsacrodiEntity
     }
     return (String.format("Recommendation(id = %s, cdrId = %s)", Util.safeStr(this.id), Util.safeStr(cdrId)));
   }
+
+
+  public String fileRepresentation()
+  {
+    return (String.format("no file representation: %s", this.toString()));
+  }
 }

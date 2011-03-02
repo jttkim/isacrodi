@@ -85,4 +85,30 @@ public class CategoricalDescriptor extends Descriptor
     this.categoricalTypeValueSet.clear();
     super.unlink();
   }
+
+
+  public String fileRepresentation()
+  {
+    String s = String.format("%s: ", this.descriptorType.getTypeName());
+    String glue = "";
+    for (CategoricalTypeValue categoricalTypeValue : this.categoricalTypeValueSet)
+    {
+      s += String.format("%s%s", glue, categoricalTypeValue.getValueType());
+      glue = ", ";
+    }
+    return (s);
+  }
+
+
+  public String toString()
+  {
+    String v = "{";
+    String glue = "";
+    for (CategoricalTypeValue c : this.categoricalTypeValueSet)
+    {
+      v += String.format("%s%s", glue, c.getValueType());
+    }
+    v += "}";
+    return (String.format("CategoricalDescriptor(%s, %s)", this.descriptorType.getTypeName(), v));
+  }
 }

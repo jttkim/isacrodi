@@ -281,6 +281,20 @@ public class MemoryDB implements Access, UserHandler
   }
 
 
+  public List<CategoricalType> findCategoricalTypeList()
+  {
+    List<CategoricalType> categoricalTypeList = new ArrayList<CategoricalType>();
+    for (DescriptorType descriptorType : this.descriptorTypeMap.values())
+    {
+      if (descriptorType instanceof CategoricalType)
+      {
+	categoricalTypeList.add((CategoricalType) descriptorType);
+      }
+    }
+    return (categoricalTypeList);
+  }
+
+
   public CategoricalType findCategoricalType(Integer id)
   {
     return ((CategoricalType) this.descriptorTypeMap.get(id));
@@ -294,23 +308,63 @@ public class MemoryDB implements Access, UserHandler
   }
 
 
+  public List<NumericType> findNumericTypeList()
+  {
+    List<NumericType> numericTypeList = new ArrayList<NumericType>();
+    for (DescriptorType descriptorType : this.descriptorTypeMap.values())
+    {
+      if (descriptorType instanceof NumericType)
+      {
+	numericTypeList.add((NumericType) descriptorType);
+      }
+    }
+    return (numericTypeList);
+  }
+
+
   public NumericType findNumericType(Integer id)
   {
     return ((NumericType) this.descriptorTypeMap.get(id));
   }
 
 
-  public NumericType findNumericType(String name)
+  public NumericType findNumericType(String typename)
   {
     Map<String, DescriptorType> typeNameDescriptorTypeMap = this.makeTypeNameDescriptorTypeMap();
-    return ((NumericType) typeNameDescriptorTypeMap.get(name));
+    return ((NumericType) typeNameDescriptorTypeMap.get(typename));
   }
 
 
-  public ImageType findImageType(String name)
+  public List<ImageType> findImageTypeList()
+  {
+    List<ImageType> imageTypeList = new ArrayList<ImageType>();
+    for (DescriptorType descriptorType : this.descriptorTypeMap.values())
+    {
+      if (descriptorType instanceof ImageType)
+      {
+	imageTypeList.add((ImageType) descriptorType);
+      }
+    }
+    return (imageTypeList);
+  }
+
+
+  public ImageType findImageType(Integer id)
+  {
+    return ((ImageType) this.descriptorTypeMap.get(id));
+  }
+
+
+  public ImageType findImageType(String typename)
   {
     Map<String, DescriptorType> typeNameDescriptorTypeMap = this.makeTypeNameDescriptorTypeMap();
-    return ((ImageType) typeNameDescriptorTypeMap.get(name));
+    return ((ImageType) typeNameDescriptorTypeMap.get(typename));
+  }
+
+
+  public List<Procedure> findProcedureList()
+  {
+    return (new ArrayList<Procedure>(this.procedureMap.values()));
   }
 
 
@@ -344,7 +398,8 @@ public class MemoryDB implements Access, UserHandler
 
   public List<CategoricalTypeValue> findCategoricalTypeValueList(String typename)
   {
-    return (new ArrayList<CategoricalTypeValue>(this.categoricalTypeValueMap.values()));
+    CategoricalType categoricalType = this.findCategoricalType(typename);
+    return (new ArrayList<CategoricalTypeValue>(categoricalType.getCategoricalTypeValueSet()));
   }
 
 

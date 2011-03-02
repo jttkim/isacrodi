@@ -245,6 +245,14 @@ public class AccessBean implements Access
   }
 
 
+  public List<CategoricalType> findCategoricalTypeList()
+  {
+    Query query = this.entityManager.createQuery("SELECT d FROM CategoricalType d");
+    List<CategoricalType> categoricalTypeList = genericTypecast(query.getResultList());
+    return (categoricalTypeList);
+  }
+
+
   public CategoricalType findCategoricalType(Integer id)
   {
     return (this.entityManager.find(CategoricalType.class, id));
@@ -285,6 +293,7 @@ public class AccessBean implements Access
 	}
       }
       // FIXME: this condition deals with the null reference case but is this the adequate way of doing that?
+      // any reason for cloning the categoricalTypeValue like that, rather than simply returning it?
       if (categoricalTypeValue != null)
       {
 	HashSet<CategoricalDescriptor> h = new HashSet<CategoricalDescriptor>();
@@ -344,6 +353,14 @@ public class AccessBean implements Access
   }
 
 
+  public List<NumericType> findNumericTypeList()
+  {
+    Query query = this.entityManager.createQuery("SELECT d FROM NumericType d");
+    List<NumericType> numericTypeList = genericTypecast(query.getResultList());
+    return (numericTypeList);
+  }
+
+
   public NumericType findNumericType(Integer id)
   {
     return (this.entityManager.find(NumericType.class, id));
@@ -366,6 +383,20 @@ public class AccessBean implements Access
   }
 
 
+  public List<ImageType> findImageTypeList()
+  {
+    Query query = this.entityManager.createQuery("SELECT d FROM ImageType d");
+    List<ImageType> imageTypeList = genericTypecast(query.getResultList());
+    return (imageTypeList);
+  }
+
+
+  public ImageType findImageType(Integer id)
+  {
+    return (this.entityManager.find(ImageType.class, id));
+  }
+
+
   public ImageType findImageType(String typename)
   {
     Query query = this.entityManager.createQuery("SELECT n FROM ImageType n WHERE typename = :s");
@@ -379,6 +410,14 @@ public class AccessBean implements Access
     {
       return (null);
     }
+  }
+
+
+  public List<Procedure> findProcedureList()
+  {
+    Query query = this.entityManager.createQuery("SELECT d FROM Procedure d");
+    List<Procedure> procedureList = genericTypecast(query.getResultList());
+    return (procedureList);
   }
 
 
@@ -467,6 +506,7 @@ public class AccessBean implements Access
       w.println(cropDisorderRecord.fileRepresentation());
       for (ImageDescriptor imageDescriptor : cropDisorderRecord.findImageDescriptorSet())
       {
+	// FIXME: not certain that this file name matches that generated in the CDR file representation -- and unsure how to handle this
 	String imageFileName = String.format("%s_%s", basename, imageDescriptor.makeFileName());
 	FileOutputStream imageOutputStream = new FileOutputStream(new File(imageFileName));
 	imageOutputStream.write(imageDescriptor.getImageData());

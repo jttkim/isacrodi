@@ -12,6 +12,8 @@ import java.util.Random;
 
 import org.isacrodi.util.SampleableList;
 
+import org.isacrodi.ejb.session.Access;
+
 import org.isacrodi.util.io.*;
 
 import org.isacrodi.ejb.entity.*;
@@ -92,12 +94,14 @@ class RangedNumericDescriptor extends RangedDescriptor
 
 class RangedCategoricalDescriptor extends RangedDescriptor
 {
+  private CategoricalType categoricalType;
   private SampleableList<String> valueRange;
 
 
   public RangedCategoricalDescriptor(String descriptorTypeName)
   {
     super(descriptorTypeName);
+    this.categoricalType = null;
     this.valueRange = new SampleableList<String>();
   }
 
@@ -120,10 +124,71 @@ class RangedCategoricalDescriptor extends RangedDescriptor
   }
 
 
+  public CategoricalType getCategoricalType()
+  {
+    return (this.categoricalType);
+  }
+
+
+  public void setCategoricalType(CategoricalType categoricalType)
+  {
+    this.categoricalType = categoricalType;
+  }
+
+
+  public void resolve(Access access)
+  {
+    List<CategoricalType> categoricalTypeList = access.findCategoricalTypeList();
+    // FIXME: linear search
+    for (CategoricalType categoricalType : categoricalTypeList)
+    {
+      if (this.descriptorTypeName.equals(categoricalType.getTypeName()))
+      {
+	for (String value : this.valueRange)
+	{
+	  if (categoricalType.findCategoricalTypeValue(value) == null)
+	  {
+	    throw new RuntimeException(String.format("categorical type \"%s\" has no value \"%s\"", this.descriptorTypeName, value));
+	  }
+	}
+	this.categoricalType = categoricalType;
+	return;
+      }
+    }
+    throw new RuntimeException(String.format("failed to resolve categorical type \"%s\"", this.descriptorTypeName));
+  }
+
+
   public String randomDescriptorString(Random rng)
   {
     // FIXME: generates single valued descriptor specs only
-    return (String.format("%s: %s", this.descriptorTypeName, this.valueRange.randomSample(rng)));
+    boolean multivalue = false;
+    if (this.categoricalType != null)
+    {
+      // System.err.println(String.format("categorical descriptor \"%s\" has type \"%s\"", this.descriptorTypeName, this.categoricalType.getTypeName()));
+      multivalue = categoricalType.getMultivalue();
+    }
+    // System.err.println(String.format("categorical descriptor \"%s\": multiple = %b", this.descriptorTypeName, multivalue));
+    String s = String.format("%s: ", this.descriptorTypeName);
+    int numValues = 0;
+    if (multivalue)
+    {
+      String glue = "";
+      for (String value : this.valueRange)
+      {
+	if (rng.nextDouble() < 0.5)
+	{
+	  s += String.format("%s%s", glue, value);
+	  numValues++;
+	  glue = ", ";
+	}
+      }
+    }
+    if (numValues == 0)
+    {
+      s += this.valueRange.randomSample(rng);
+    }
+    return (s);
   }
 }
 
@@ -254,6 +319,19 @@ public class RangedCropDisorderRecord
   public void addRangedDescriptor(RangedDescriptor rangedDescriptor)
   {
     this.rangedDescriptorList.add(rangedDescriptor);
+  }
+
+
+  public void resolve(Access access)
+  {
+    for (RangedDescriptor rangedDescriptor : this.rangedDescriptorList)
+    {
+      if (rangedDescriptor instanceof RangedCategoricalDescriptor)
+      {
+	RangedCategoricalDescriptor rangedCategoricalDescriptor = (RangedCategoricalDescriptor) rangedDescriptor;
+	rangedCategoricalDescriptor.resolve(access);
+      }
+    }
   }
 
 

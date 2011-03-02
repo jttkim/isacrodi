@@ -65,5 +65,5 @@ public class ImageType extends DescriptorType
     s += String.format("  description: %s\n", x);
     s += "}\n";
     return (s);
-  }
+  }  
 }

@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Version;
 import javax.persistence.Column;
 
+import org.javamisc.Util;
+
 
 @Entity
 public class CategoricalTypeValue implements IsacrodiEntity
@@ -155,5 +157,17 @@ public class CategoricalTypeValue implements IsacrodiEntity
       categoricalDescriptor.getCategoricalTypeValueSet().remove(this);
     }
     this.categoricalDescriptorSet.clear();
+  }
+
+
+  public String toString()
+  {
+    return (String.format("CategoricalTypeValue(id = %s, value = %s)", Util.safeStr(this.id), Util.safeStr(this.valueType)));
+  }
+
+
+  public String fileRepresentation()
+  {
+    return (String.format("no file representation: %s", this.toString()));
   }
 }

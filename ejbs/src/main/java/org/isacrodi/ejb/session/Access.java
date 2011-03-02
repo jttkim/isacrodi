@@ -44,14 +44,27 @@ public interface Access
   List<Crop> findCropList();
   CropDisorder findCropDisorder(String scientificName);
   List<CropDisorder> findCropDisorderList();
+  List<CategoricalType> findCategoricalTypeList();
   CategoricalType findCategoricalType(Integer id);
   CategoricalType findCategoricalType(String typename);
+  List<NumericType> findNumericTypeList();
   NumericType findNumericType(Integer id);
-  NumericType findNumericType(String name);
-  ImageType findImageType(String name);
+  NumericType findNumericType(String typename);
+  List<ImageType> findImageTypeList();
+  ImageType findImageType(Integer id);
+  ImageType findImageType(String typename);
+  List<Procedure> findProcedureList();
   Procedure findProcedure(Integer id);
   Procedure findProcedure(String procedureName);
+  // @Deprecated
   CategoricalTypeValue findCategoricalTypeValue(String categoricalTypeName, String categoricalTypeValueName);
+  /**
+   * Find the list of values that are possible for a categorical type
+   * specified by a name.
+   *
+   * <p>Should better use {@link findCategoricalType(String)} and work
+   * with the values contained in the return value.</p>
+   */
   @Deprecated
   List<CategoricalTypeValue> findCategoricalTypeValueList(String typename);
   void dumpEntities(String basename) throws IOException;

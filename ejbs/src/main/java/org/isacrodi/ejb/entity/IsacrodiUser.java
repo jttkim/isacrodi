@@ -239,8 +239,27 @@ public class IsacrodiUser implements IsacrodiEntity
   }
 
 
+  /**
+   * Note: password hashes are represented as
+   * <code>md5:<var>hashvalue</var></code>, this is currently not
+   * supported by parsers.
+   */
   public String toString()
   {
     return (String.format("IsacrodiUser(id = %s, lastname = %s, firstname = %s, username = %s)", Util.safeStr(this.id), Util.safeStr(this.lastname), Util.safeStr(this.firstname), Util.safeStr(this.username)));
+  }
+
+
+  public String fileRepresentation()
+  {
+    String s = String.format("%s,", this.lastname);
+    if (this.firstname != null)
+    {
+      s += this.firstname;
+    }
+    s += String.format(",%s", this.username);
+    s += String.format(",md5:%s", this.passwordHash);
+    s += String.format(",%s", this.email);
+    return (s);
   }
 }

@@ -446,32 +446,19 @@ public class CropDisorderRecord implements IsacrodiEntity
     s += "  numericDescriptors\n  {\n";
     for (NumericDescriptor numericDescriptor : this.findNumericDescriptorSet())
     {
-      s += String.format("    %s: %f\n", numericDescriptor.getDescriptorType().getTypeName(), numericDescriptor.getNumericValue());
+      s += String.format("    %s\n", numericDescriptor.fileRepresentation());
     }
     s += "  }\n";
     s += "  categoricalDescriptors\n  {\n";
     for (CategoricalDescriptor categoricalDescriptor : this.findCategoricalDescriptorSet())
     {
-      s += String.format("    %s: ", categoricalDescriptor.getDescriptorType().getTypeName());
-      String glue = "";
-      for (CategoricalTypeValue categoricalTypeValue : categoricalDescriptor.getCategoricalTypeValueSet())
-      {
-	s += String.format("%s%s", glue, categoricalTypeValue.getValueType());
-	glue = ", ";
-      }
-      s += "\n";
+      s += String.format("    %s\n", categoricalDescriptor.fileRepresentation());
     }
     s += "  }\n";
     s += "  imageDescriptors\n  {\n";
     for (ImageDescriptor imageDescriptor : this.findImageDescriptorSet())
     {
-      ImageType imageType = (ImageType) imageDescriptor.getDescriptorType();
-      s += String.format("    " + imageType.typeName + "\n");
-      s += "    {\n";
-      s += String.format("      mimeType: %s\n", imageDescriptor.getMimeType());
-      //s += String.format("      file: image_%s\n", imageDescriptor.makeFileName());
-      s += String.format("      file: %s\n", "fig_a_potato_blackleg_plant.png");
-      s += "    }\n";
+      s += String.format("    %s\n", imageDescriptor.fileRepresentation());
     }
     s += "  }\n";
     x = "";
