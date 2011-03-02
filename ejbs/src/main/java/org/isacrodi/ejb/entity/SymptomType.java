@@ -11,6 +11,7 @@ import java.util.Set;
  * Set symptom type
  */
 @Entity
+@Deprecated
 public class SymptomType implements IsacrodiEntity
 {
   private Integer id;

@@ -36,6 +36,14 @@ public class CategoricalTypeValue implements IsacrodiEntity
   }
 
 
+  public CategoricalTypeValue(Integer id, CategoricalType categoricalType, String valueType)
+  {
+    this(valueType);
+    this.id = id;
+    this.categoricalType = categoricalType;
+  }
+
+
   @Id
   @GeneratedValue
   public Integer getId()
