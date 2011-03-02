@@ -1,0 +1,341 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 5.327195476758227000e+01
+    monthlyaveragehumidity: 8.410080811492202000e+01
+    monthlyprecipitation: 8.227001944584009000e+01
+    cropage: 1.133271705595951200e+02
+    monthlyaveragetemperature: 3.477429136596884000e+01
+    altitude: 1.360913753679916700e+00
+    pH: 6.945557195534811000e+00
+    cultivatedarea: 9.428721193428143000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: middle
+    soil: clay
+    cropstage: fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Dysdercus sp.
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 4.766209068315588000e+01
+    monthlyaveragehumidity: 8.115967088032657000e+01
+    monthlyprecipitation: 1.019687558027712300e+02
+    cropage: 1.165989270869342000e+02
+    monthlyaveragetemperature: 2.909722823398892200e+01
+    altitude: 2.331392067394226300e+01
+    pH: 5.709644024355627000e+00
+    cultivatedarea: 7.102005806223673000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: top
+    soil: clay
+    cropstage: flowering
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Dysdercus sp.
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 4.704320753938995400e+01
+    monthlyaveragehumidity: 8.544554808893673000e+01
+    monthlyprecipitation: 9.519850914809967000e+01
+    cropage: 1.120491354575856200e+02
+    monthlyaveragetemperature: 3.236354667442166000e+01
+    altitude: 1.189771832639897000e+01
+    pH: 5.516026616473344000e+00
+    cultivatedarea: 2.029911572031171000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: middle
+    soil: loamy
+    cropstage: fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Dysdercus sp.
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 4.044005312269212000e+01
+    monthlyaveragehumidity: 8.432006879893540000e+01
+    monthlyprecipitation: 8.316045281629667000e+01
+    cropage: 1.188990875165537800e+02
+    monthlyaveragetemperature: 2.826828825323492800e+01
+    altitude: 3.595037538791338000e+01
+    pH: 6.482760404694124000e+00
+    cultivatedarea: 1.638470901889801500e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: middle
+    soil: loamy
+    cropstage: fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Dysdercus sp.
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 4.334025527936674400e+01
+    monthlyaveragehumidity: 8.443212450317269000e+01
+    monthlyprecipitation: 9.264474483466009000e+01
+    cropage: 1.199898081476792800e+02
+    monthlyaveragetemperature: 3.241283404745998000e+01
+    altitude: 5.466545809975243000e+01
+    pH: 6.261489874104922000e+00
+    cultivatedarea: 5.168786452835319500e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: top
+    soil: loamy
+    cropstage: flowering
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Dysdercus sp.
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 3.931622052285013000e+01
+    monthlyaveragehumidity: 8.548952516930656000e+01
+    monthlyprecipitation: 9.444139337307865000e+01
+    cropage: 1.158781582890133300e+02
+    monthlyaveragetemperature: 3.352433460484567000e+01
+    altitude: 4.224139072363435000e+01
+    pH: 5.806953328308528000e+00
+    cultivatedarea: 2.921639787348249000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: top
+    soil: sandy
+    cropstage: flowering
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Dysdercus sp.
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 3.907758818470786400e+01
+    monthlyaveragehumidity: 8.637497429859407000e+01
+    monthlyprecipitation: 7.530661460615560000e+01
+    cropage: 1.163118988831152500e+02
+    monthlyaveragetemperature: 2.945584585329835600e+01
+    altitude: 5.294107980951550000e+01
+    pH: 6.560566339080948000e+00
+    cultivatedarea: 7.372030639050124000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: top
+    soil: sandy
+    cropstage: fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Dysdercus sp.
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 3.809178071257310400e+01
+    monthlyaveragehumidity: 8.616951386746290000e+01
+    monthlyprecipitation: 9.186518243412094000e+01
+    cropage: 1.109975028132571600e+02
+    monthlyaveragetemperature: 3.232002122903002600e+01
+    altitude: 2.659102004118865000e+00
+    pH: 6.387158658931957000e+00
+    cultivatedarea: 1.193747192031517700e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: middle
+    soil: sandy
+    cropstage: fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Dysdercus sp.
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 4.384558206926186600e+01
+    monthlyaveragehumidity: 8.598632488274657000e+01
+    monthlyprecipitation: 8.522326939746890000e+01
+    cropage: 1.187644265332448300e+02
+    monthlyaveragetemperature: 3.320974734095235400e+01
+    altitude: 2.597073100311107300e+01
+    pH: 6.063712313114588000e+00
+    cultivatedarea: 3.077286589159800200e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: top
+    soil: clay
+    cropstage: fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Dysdercus sp.
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 5.754809889355752000e+01
+    monthlyaveragehumidity: 8.062488459912777000e+01
+    monthlyprecipitation: 1.017337170861132400e+02
+    cropage: 1.142770008141825900e+02
+    monthlyaveragetemperature: 3.499428401553415600e+01
+    altitude: 4.652206334438951000e+00
+    pH: 6.379480947989403000e+00
+    cultivatedarea: 5.889284173585198000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: top
+    soil: sandy
+    cropstage: fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Dysdercus sp.
+}
+

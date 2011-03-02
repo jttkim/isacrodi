@@ -1,0 +1,40 @@
+isacrodi-rangedcdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 110.000000 -- 120
+    pH: 5.500000 -- 7
+    monthlyprecipitation: 11.3 -- 100 
+    plantaffected: 5.000000 -- 5
+    altitude: 1.000000 -- 60
+    monthlyaveragetemperature: 26.000000 -- 35
+    relativeaffectedarea: 35.000000 -- 60
+    cultivatedarea: 5.000000 -- 100
+    monthlyaveragehumidity: 73.000000 -- 90
+  }
+  categoricalDescriptors
+  {
+    firstsymptomcropstage: vegetative
+    lesionappearance: dry
+    irrigationsystem: rotary
+    lesionshape: round
+    peststage: larvae
+    irrigationorigin: river
+    cropstage: seedling, vegetative, flowering, fruiting, mature
+    symptom: munching, cut, perforation, defoliation
+    pesttype: worms
+    soil: clay, sandy, loamy
+    overallappearance: healthy
+    affectedpart: leaves, stem, fruits
+    steminternal: perforation
+    leafappearance: perforation, cut
+    lesionlocation: lower, top, middle
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Spodoptera frugiperda
+}

@@ -1,0 +1,41 @@
+isacrodi-rangedcdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 5.500000 -- 7
+    cropage: 110.000000 -- 120
+    pestdensity: 1500.000000 -- 2500
+    altitude: 1.000000 -- 60 
+    monthlyaveragetemperature: 28.000000 -- 35
+    cultivatedarea: 5.000000 -- 100
+    plantaffected: 10.000000 -- 10
+    monthlyprecipitation: 0.300000 -- 135
+    monthlyaveragehumidity: 70.000000 -- 90
+    relativeaffectedarea: 35.000000 -- 60
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    overallappearance: ill
+    firstsymptomcropstage: flowering
+    pesttype: borers
+    lesionappearance: dry
+    symptom: perforation, excrements
+    soil: clay, sandy, loamy
+    cropstage: flowering, fruiting, mature
+    lesionlocation: lower, top, middle
+    steminternal: perforation
+    irrigationorigin: river
+    affectedpart: fruits
+    peststage: nymph, adult
+    lesionshape: round
+    seedlingorigin: national
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}

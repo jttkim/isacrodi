@@ -1,0 +1,421 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 3.311614733492303500e+01
+    monthlyaveragehumidity: 8.410080811492202000e+01
+    pestdensity: 1.603857420654858500e+01
+    monthlyprecipitation: 8.664509695858290000e+01
+    pH: 6.951633864136181000e+00
+    plantaffected: 4.000000000000000000e+01
+    relativeaffectedarea: 5.909261992558019500e+01
+    cultivatedarea: 9.428721193428143000e+01
+    altitude: 5.688450014212844000e+01
+    cropage: 1.193708214889596900e+02
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: mature
+    irrigationsystem: rotary
+    irrigationorigin: river
+    peststage: larvae
+    symptom: cut
+    soil: sandy
+    pesttype: worms
+    lesionlocation: lower
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrap
+    leafappearance: cut
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Alabama argillacea
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 3.064741431724739000e+01
+    monthlyaveragehumidity: 8.139762682903750000e+01
+    pestdensity: 1.847473989801246000e+01
+    monthlyprecipitation: 1.031829720015799800e+02
+    pH: 5.507537763988679000e+00
+    plantaffected: 4.000000000000000000e+01
+    relativeaffectedarea: 5.359961215593292000e+01
+    cultivatedarea: 1.849215680551298400e+01
+    altitude: 2.942196979296028000e+01
+    cropage: 1.154455480889367300e+02
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: mature
+    irrigationsystem: rotary
+    irrigationorigin: river
+    peststage: larvae
+    symptom: cut
+    soil: sandy
+    pesttype: worms
+    lesionlocation: top
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrap
+    leafappearance: cut
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Alabama argillacea
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 3.481683806943090000e+01
+    monthlyaveragehumidity: 8.245426553581295000e+01
+    pestdensity: 1.697260453147111000e+01
+    monthlyprecipitation: 8.261607437176897000e+01
+    pH: 6.148010319840308000e+00
+    plantaffected: 4.000000000000000000e+01
+    relativeaffectedarea: 5.724771879138443000e+01
+    cultivatedarea: 8.641054865331164000e+00
+    altitude: 3.595037538791338000e+01
+    cropage: 1.165517360312941700e+02
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: mature
+    irrigationsystem: rotary
+    irrigationorigin: river
+    peststage: larvae
+    symptom: defoliation
+    soil: loamy
+    pesttype: worms
+    lesionlocation: lower
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrap
+    leafappearance: cut
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Alabama argillacea
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 3.152894896693201700e+01
+    monthlyaveragehumidity: 8.998980814767928000e+01
+    pestdensity: 1.815202431961427000e+01
+    monthlyprecipitation: 1.068354412456158400e+02
+    pH: 6.261489874104922000e+00
+    plantaffected: 4.000000000000000000e+01
+    relativeaffectedarea: 4.571960446865502000e+01
+    cultivatedarea: 3.426882694480558000e+01
+    altitude: 4.332202169571139000e+01
+    cropage: 1.196241459273374700e+02
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: flowering
+    irrigationsystem: rotary
+    irrigationorigin: river
+    peststage: larvae
+    symptom: defoliation
+    soil: clay
+    pesttype: worms
+    lesionlocation: middle
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrap
+    leafappearance: cut
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Alabama argillacea
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 2.978436615909871000e+01
+    monthlyaveragehumidity: 8.777916359519529000e+01
+    pestdensity: 1.612511193004188000e+01
+    monthlyprecipitation: 1.094086114691796000e+02
+    pH: 6.705427909023141000e+00
+    plantaffected: 4.000000000000000000e+01
+    relativeaffectedarea: 3.907758818470786400e+01
+    cultivatedarea: 6.556225583664360000e+01
+    altitude: 1.516864621805168700e+00
+    cropage: 1.163118988831152500e+02
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: mature
+    irrigationsystem: rotary
+    irrigationorigin: river
+    peststage: larvae
+    symptom: defoliation
+    soil: sandy
+    pesttype: worms
+    lesionlocation: top
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrap
+    leafappearance: cut
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Alabama argillacea
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 3.376786612817211600e+01
+    monthlyaveragehumidity: 8.123671228502924000e+01
+    pestdensity: 1.808475693373144800e+01
+    monthlyprecipitation: 9.186518243412094000e+01
+    pH: 5.649625421988574000e+00
+    plantaffected: 4.000000000000000000e+01
+    relativeaffectedarea: 3.570300932377918000e+01
+    cultivatedarea: 6.118671506569062000e+01
+    altitude: 5.308535192616794500e+00
+    cropage: 1.107404792727334500e+02
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: fruiting
+    irrigationsystem: rotary
+    irrigationorigin: river
+    peststage: larvae
+    symptom: cut
+    soil: sandy
+    pesttype: worms
+    lesionlocation: middle
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrap
+    leafappearance: cut
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Alabama argillacea
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 3.320974734095235400e+01
+    monthlyaveragehumidity: 8.423232728866290000e+01
+    pestdensity: 1.687904104371529400e+01
+    monthlyprecipitation: 8.449526638111506000e+01
+    pH: 6.594735893402650000e+00
+    plantaffected: 4.000000000000000000e+01
+    relativeaffectedarea: 3.609256745742062000e+01
+    cultivatedarea: 4.848151739198344000e+01
+    altitude: 5.188453553093148000e+01
+    cropage: 1.190192395574230000e+02
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: fruiting
+    irrigationsystem: rotary
+    irrigationorigin: river
+    peststage: larvae
+    symptom: defoliation
+    soil: sandy
+    pesttype: worms
+    lesionlocation: top
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrap
+    leafappearance: cut
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Alabama argillacea
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 3.435096833082735000e+01
+    monthlyaveragehumidity: 8.246485631302309000e+01
+    pestdensity: 1.624244383543656400e+01
+    monthlyprecipitation: 9.974004171627375000e+01
+    pH: 6.006581390895955000e+00
+    plantaffected: 4.000000000000000000e+01
+    relativeaffectedarea: 4.288556966143707400e+01
+    cultivatedarea: 7.324852334348227000e+00
+    altitude: 2.760950165431152200e+01
+    cropage: 1.136913431550132700e+02
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: vegetative
+    irrigationsystem: rotary
+    irrigationorigin: river
+    peststage: larvae
+    symptom: defoliation
+    soil: loamy
+    pesttype: worms
+    lesionlocation: lower
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrap
+    leafappearance: cut
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Alabama argillacea
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 2.877342897392240000e+01
+    monthlyaveragehumidity: 8.774604109458923000e+01
+    pestdensity: 1.653241394052670000e+01
+    monthlyprecipitation: 1.058209534426260600e+02
+    pH: 6.445602161177486500e+00
+    plantaffected: 4.000000000000000000e+01
+    relativeaffectedarea: 3.991723502276936000e+01
+    cultivatedarea: 7.669139329980133000e+01
+    altitude: 1.030020621465058800e+01
+    cropage: 1.104217868395172400e+02
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: vegetative
+    irrigationsystem: rotary
+    irrigationorigin: river
+    peststage: larvae
+    symptom: cut
+    soil: clay
+    pesttype: worms
+    lesionlocation: lower
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrap
+    leafappearance: cut
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Alabama argillacea
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 3.098510133186600000e+01
+    monthlyaveragehumidity: 8.400557161313097000e+01
+    pestdensity: 1.871880773806751000e+01
+    monthlyprecipitation: 8.778570082246162000e+01
+    pH: 6.645632348607734000e+00
+    plantaffected: 4.000000000000000000e+01
+    relativeaffectedarea: 4.781797058456007000e+01
+    cultivatedarea: 5.047420785962646000e+01
+    altitude: 8.738959974371571000e+00
+    cropage: 1.103179647698528900e+02
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: flowering
+    irrigationsystem: rotary
+    irrigationorigin: river
+    peststage: larvae
+    symptom: cut
+    soil: clay
+    pesttype: worms
+    lesionlocation: lower
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrap
+    leafappearance: cut
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Alabama argillacea
+}
+

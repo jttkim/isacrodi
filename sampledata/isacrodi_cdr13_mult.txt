@@ -1,0 +1,411 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 7.443342811681264000e+01
+    cropage: 1.141008081149220200e+02
+    monthlyaveragetemperature: 2.945400388916802000e+01
+    monthlyprecipitation: 8.664509695858290000e+01
+    pH: 6.951633864136181000e+00
+    pestdensity: 2.000000000000000000e+01
+    monthlyaveragehumidity: 8.963704797023208000e+01
+    altitude: 5.645205793813268000e+01
+    relativeaffectedarea: 5.867987294157984500e+01
+    plantaffected: 9.685410744479850000e+00
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: middle
+    lesionappearance: wet
+    peststage: adult
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: seedling
+    overallappearance: healthy
+    soil: clay
+    affectedpart: leaves
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Bemisia tabaci
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 7.735909582568993000e+01
+    cropage: 1.162397253721598800e+02
+    monthlyaveragetemperature: 3.415484075046533000e+01
+    monthlyprecipitation: 9.075764422391313000e+01
+    pH: 5.507278800123003000e+00
+    pestdensity: 2.000000000000000000e+01
+    monthlyaveragehumidity: 8.023418065070875000e+01
+    altitude: 4.259558730392664000e+01
+    relativeaffectedarea: 4.187574873929035000e+01
+    plantaffected: 5.376938994568199000e+00
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: middle
+    lesionappearance: wet
+    peststage: nymph
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: vegetative
+    overallappearance: healthy
+    soil: sandy
+    affectedpart: leaves
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Bemisia tabaci
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 5.633772115446067000e+01
+    cropage: 1.197383400991870000e+02
+    monthlyaveragetemperature: 2.971798587506907000e+01
+    monthlyprecipitation: 8.880823172029775000e+01
+    pH: 5.826403187361527000e+00
+    pestdensity: 2.000000000000000000e+01
+    monthlyaveragehumidity: 8.233155794751333000e+01
+    altitude: 5.350461634766724500e+01
+    relativeaffectedarea: 3.595817233298189000e+01
+    plantaffected: 7.961896219314694000e+00
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: middle
+    lesionappearance: wet
+    peststage: adult
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: mature
+    overallappearance: healthy
+    soil: clay
+    affectedpart: fruits
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Bemisia tabaci
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 3.261955867864465000e+01
+    cropage: 1.105144836759769300e+02
+    monthlyaveragetemperature: 2.928478136648037400e+01
+    monthlyprecipitation: 9.729045438862101000e+01
+    pH: 5.916905982261539500e+00
+    pestdensity: 2.000000000000000000e+01
+    monthlyaveragehumidity: 8.265789560846257000e+01
+    altitude: 7.883547817144787500e+00
+    relativeaffectedarea: 3.842076171491030600e+01
+    plantaffected: 7.730447032848179000e+00
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: middle
+    lesionappearance: wet
+    peststage: nymph
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: vegetative
+    overallappearance: healthy
+    soil: clay
+    affectedpart: fruits
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Bemisia tabaci
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 7.140562913127565000e+01
+    cropage: 1.120463555220568600e+02
+    monthlyaveragetemperature: 2.978436615909871000e+01
+    monthlyprecipitation: 1.022270725831834700e+02
+    pH: 5.837533579012563000e+00
+    pestdensity: 2.000000000000000000e+01
+    monthlyaveragehumidity: 8.803618606015426000e+01
+    altitude: 5.034258191762339000e+01
+    relativeaffectedarea: 3.907758818470786400e+01
+    plantaffected: 8.187487149297032000e+00
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: middle
+    lesionappearance: wet
+    peststage: adult
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: flowering
+    overallappearance: healthy
+    soil: sandy
+    affectedpart: leaves
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Bemisia tabaci
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 1.826331190106856000e+01
+    cropage: 1.159657880232594500e+02
+    monthlyaveragetemperature: 3.463082117986479600e+01
+    monthlyprecipitation: 9.282854615641375000e+01
+    pH: 6.481473511836336000e+00
+    pestdensity: 2.000000000000000000e+01
+    monthlyaveragehumidity: 8.265903161462401000e+01
+    altitude: 4.743505335027083000e+00
+    relativeaffectedarea: 4.977174499188377000e+01
+    plantaffected: 6.420045837122135000e+00
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: top
+    lesionappearance: wet
+    peststage: adult
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: flowering
+    overallappearance: healthy
+    soil: clay
+    affectedpart: leaves
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Bemisia tabaci
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 6.187008638609242400e+01
+    cropage: 1.129209341135625400e+02
+    monthlyaveragetemperature: 3.413509857327138500e+01
+    monthlyprecipitation: 1.010487367047617500e+02
+    pH: 6.134849093299434000e+00
+    pestdensity: 2.000000000000000000e+01
+    monthlyaveragehumidity: 8.271293325174716000e+01
+    altitude: 4.405961180717087400e+01
+    relativeaffectedarea: 5.716861055928290000e+01
+    plantaffected: 5.218513491484123000e+00
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: top
+    lesionappearance: wet
+    peststage: nymph
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: vegetative
+    overallappearance: healthy
+    soil: sandy
+    affectedpart: fruits
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Bemisia tabaci
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 6.489476622194736000e+01
+    cropage: 1.155280792068381700e+02
+    monthlyaveragetemperature: 3.180393371930989200e+01
+    monthlyprecipitation: 8.205991516642037000e+01
+    pH: 6.996099939491279000e+00
+    pestdensity: 2.000000000000000000e+01
+    monthlyaveragehumidity: 8.875990147990858000e+01
+    altitude: 5.138893684633872000e+01
+    relativeaffectedarea: 5.444279209052588400e+01
+    plantaffected: 6.082033314959911500e+00
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: lower
+    lesionappearance: wet
+    peststage: adult
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: seedling
+    overallappearance: healthy
+    soil: loamy
+    affectedpart: fruits
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Bemisia tabaci
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 7.562011416270022000e+01
+    cropage: 1.192910261042753500e+02
+    monthlyaveragetemperature: 3.212925470629307000e+01
+    monthlyprecipitation: 9.754043005842433000e+01
+    pH: 5.665734780126228000e+00
+    pestdensity: 2.000000000000000000e+01
+    monthlyaveragehumidity: 8.306482788105340000e+01
+    altitude: 5.295532151756966000e+01
+    relativeaffectedarea: 5.076003601962478000e+01
+    plantaffected: 9.644468566622773000e+00
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: lower
+    lesionappearance: wet
+    peststage: nymph
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: seedling
+    overallappearance: healthy
+    soil: sandy
+    affectedpart: leaves
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Bemisia tabaci
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 8.076849046949508000e+01
+    cropage: 1.152703593716127800e+02
+    monthlyaveragetemperature: 3.092344780588776500e+01
+    monthlyprecipitation: 1.051174041382605800e+02
+    pH: 6.906511301393278000e+00
+    pestdensity: 2.000000000000000000e+01
+    monthlyaveragehumidity: 8.062786649819635000e+01
+    altitude: 3.328621720601676000e+01
+    relativeaffectedarea: 3.688518940052200000e+01
+    plantaffected: 8.255723291834382000e+00
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: top
+    lesionappearance: wet
+    peststage: nymph
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: mature
+    overallappearance: healthy
+    soil: loamy
+    affectedpart: fruits
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Bemisia tabaci
+}
+
