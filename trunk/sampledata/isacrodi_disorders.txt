@@ -87,7 +87,7 @@ disorder
 {
   name: Fall armyworm 
   scientificName: Spodoptera frugiperda
-  cropSet: Zea mays
+  cropSet: Zea mays, Gossypium hirsutum
 }
 
 disorder

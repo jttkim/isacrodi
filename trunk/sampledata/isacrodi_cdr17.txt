@@ -1,0 +1,34 @@
+isacrodi-rangedcdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 35.000000 -- 60
+    monthlyaveragehumidity: 80.000000 -- 90
+    monthlyprecipitation: 75.000000 -- 110
+    cropage: 110.000000 -- 120
+    monthlyaveragetemperature: 28.000000 -- 35
+    altitude: 1.000000 -- 60
+    pH: 5.500000 -- 7
+    cultivatedarea: 5.000000 -- 100
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower, top, middle
+    soil: clay, sandy, loamy
+    cropstage: flowering, fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    peststage: adult
+    irrigationsystem: rotary
+    firstsymptomcropstage: flowering
+    irrigationorigin: river
+    affectedpart: fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Dysdercus sp.
+}

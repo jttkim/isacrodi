@@ -1,0 +1,41 @@
+isacrodi-rangedcdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 5.000000 -- 100
+    cropage: 110.000000 -- 120
+    monthlyaveragetemperature: 28.000000 -- 35
+    monthlyprecipitation: 75.000000 -- 110
+    pH: 5.500000 -- 7
+    pestdensity: 20.000000 -- 20
+    monthlyaveragehumidity: 80.000000 -- 90
+    altitude: 1.000000 -- 60
+    relativeaffectedarea: 35.000000 -- 60
+    plantaffected: 5.000000 -- 10
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    irrigationsystem: rotary
+    symptom: honeydew
+    leafappearance: curling
+    lesionlocation: lower, top, middle
+    lesionappearance: wet
+    peststage: nymph, adult
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: seedling, vegetative, flowering, fruiting, mature
+    overallappearance: healthy
+    soil: clay, sandy, loamy
+    affectedpart: leaves, fruits
+    irrigationorigin: river
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Bemisia tabaci
+}

@@ -1,0 +1,41 @@
+isacrodi-rangedcdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 5.000000 -- 100
+    monthlyaveragetemperature: 28.000000 -- 35
+    pH: 5.500000 -- 7
+    plantaffected: 5.000000 -- 5
+    altitude: 1.000000 -- 60
+    relativeaffectedarea: 35.000000 -- 60
+    monthlyaveragehumidity: 80.000000 -- 90
+    monthlyprecipitation: 75.000000 -- 110
+    cropage: 110.000000 -- 120
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: seedling, vegetative, flowering, fruiting, mature
+    leafsymptom: perforation, cut
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: munching, cut, defoliation
+    peststage: larvae
+    leafappearance: perforation, cut
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: lower, top, middle
+    pesttype: worms
+    soil: clay, sandy, loamy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Trichoplusia ni, Pseudoplusia includens
+}

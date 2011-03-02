@@ -1,0 +1,41 @@
+isacrodi-rangedcdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    relativeaffectedarea: 35.000000 -- 60
+    altitude: 1.000000 -- 60
+    monthlyprecipitation: 75.000000 -- 110
+    plantaffected: 10.000000 -- 10
+    cultivatedarea: 5.000000 -- 100
+    monthlyaveragetemperature: 28.000000 -- 35
+    monthlyaveragehumidity: 80.000000 -- 90
+    cropage: 110.000000 -- 120
+    pH: 5.500000 -- 7
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower, top, middle
+    lesionshape: round
+    leafsymptom: drying, spot
+    symptom: defoliation, drying
+    irrigationorigin: river
+    cropstage: seedling, vegetative, flowering, fruiting, mature
+    steminternal: perforation
+    seedlingorigin: national
+    soil: clay, sandy, loamy
+    lesionappearance: dry
+    pesttype: mites
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    peststage: nymph, adult
+    affectedpart: leaves
+    overallappearance: ill
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Tetranychus urticae
+}

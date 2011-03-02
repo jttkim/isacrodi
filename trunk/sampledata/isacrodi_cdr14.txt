@@ -1,0 +1,44 @@
+isacrodi-rangedcdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 1.000000 -- 60
+    cropage: 110.000000 -- 120
+    monthlyprecipitation: 75.000000 -- 110
+    relativeaffectedarea: 35.000000 -- 60
+    monthlyaveragetemperature: 28.000000 -- 35
+    plantaffected: 20.000000 -- 20
+    pH: 5.500000 -- 7
+    monthlyaveragehumidity: 80.000000 -- 90
+    cultivatedarea: 5.000000 -- 100
+  }
+  categoricalDescriptors
+  {
+    seedlingorigin: national
+    lesionappearance: wet
+    lesionlocation: lower, top, middle
+    soil: clay, sandy, loamy
+    symptom: soot, honeydew
+    firstsymptomcropstage: seedling
+    cropstage: seedling, vegetative
+    peststage: nymph, adult
+    lesioncolour: black
+    irrigationsystem: rotary
+    diseasefielddistribution: borders
+    steminternal: black
+    overallappearance: ill
+    pesttype: aphids
+    affectedpart: leaves
+    leafsymptom: soot
+    irrigationorigin: river
+    seedlingsymptom: dwarfing
+    leafappearance: curling
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}

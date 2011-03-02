@@ -1,0 +1,41 @@
+isacrodi-rangedcdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 5.500000 -- 7
+    monthlyaveragehumidity: 40.000000 -- 60
+    relativeaffectedarea: 35.000000 -- 60
+    altitude: 1.000000 -- 60
+    plantaffected: 30.000000 -- 30
+    cultivatedarea: 5.000000 -- 100
+    monthlyprecipitation: 75.000000 -- 110
+    cropage: 110.000000 -- 120
+    monthlyaveragetemperature: 28.000000 -- 35
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering, fruiting
+    irrigationorigin: river
+    lesionlocation: lower, top, middle
+    irrigationsystem: rotary
+    overallappearance: healthy
+    leafappearance: perforation
+    seedlingorigin: national
+    affectedpart: fruits
+    lesionshape: round
+    soil: clay, sandy, loamy
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    peststage: larvae
+    steminternal: perforation
+    pesttype: worms
+    symptom: perforation
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Helicoverpa zea
+}

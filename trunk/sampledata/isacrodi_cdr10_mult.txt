@@ -1,0 +1,411 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 7.443342811681264000e+01
+    monthlyaveragetemperature: 3.087056568044541300e+01
+    pH: 5.811572261964575000e+00
+    plantaffected: 5.000000000000000000e+00
+    altitude: 5.809759865602312000e+01
+    relativeaffectedarea: 3.515292955664403000e+01
+    monthlyaveragehumidity: 8.963704797023208000e+01
+    monthlyprecipitation: 1.078952886073668400e+02
+    cropage: 1.194719491766319400e+02
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: mature
+    leafsymptom: perforation
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: cut
+    peststage: larvae
+    leafappearance: perforation
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: top
+    pesttype: worms
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Trichoplusia ni, Pseudoplusia includens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 1.989095460413539500e+01
+    monthlyaveragetemperature: 3.064741431724739000e+01
+    pH: 5.709644024355627000e+00
+    plantaffected: 5.000000000000000000e+00
+    altitude: 4.850843851694911000e+01
+    relativeaffectedarea: 3.512562939981132000e+01
+    monthlyaveragehumidity: 8.523135155788333000e+01
+    monthlyprecipitation: 1.010394570183060800e+02
+    cropage: 1.114202270321592600e+02
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: seedling
+    leafsymptom: cut
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: munching
+    peststage: larvae
+    leafappearance: perforation
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: lower
+    pesttype: worms
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Trichoplusia ni, Pseudoplusia includens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 2.191521043053160000e+01
+    monthlyaveragetemperature: 3.178277945348657600e+01
+    pH: 6.960751014878050000e+00
+    plantaffected: 5.000000000000000000e+00
+    altitude: 2.427673347135908300e+01
+    relativeaffectedarea: 4.044005312269212000e+01
+    monthlyaveragehumidity: 8.432006879893540000e+01
+    monthlyprecipitation: 8.316045281629667000e+01
+    cropage: 1.188990875165537800e+02
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: seedling
+    leafsymptom: cut
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: defoliation
+    peststage: larvae
+    leafappearance: cut
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: lower
+    pesttype: worms
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Trichoplusia ni, Pseudoplusia includens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 4.901822981910020000e+01
+    monthlyaveragetemperature: 3.033527147822268700e+01
+    pH: 6.164818675475903000e+00
+    plantaffected: 5.000000000000000000e+00
+    altitude: 5.993986807130780000e+01
+    relativeaffectedarea: 5.076012159807135000e+01
+    monthlyaveragehumidity: 8.909584035589025000e+01
+    monthlyprecipitation: 9.276809706244819000e+01
+    cropage: 1.149145120556161300e+02
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: fruiting
+    leafsymptom: perforation
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: defoliation
+    peststage: larvae
+    leafappearance: perforation
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: top
+    pesttype: worms
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Trichoplusia ni, Pseudoplusia includens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 6.084250374562668000e+01
+    monthlyaveragetemperature: 3.352433460484567000e+01
+    pH: 6.548509933651720500e+00
+    plantaffected: 5.000000000000000000e+00
+    altitude: 1.603965762668912700e+01
+    relativeaffectedarea: 5.444790898798820000e+01
+    monthlyaveragehumidity: 8.225022386008375000e+01
+    monthlyprecipitation: 1.094086114691796000e+02
+    cropage: 1.180361860601542600e+02
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: seedling
+    leafsymptom: perforation
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: munching
+    peststage: larvae
+    leafappearance: perforation
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: lower
+    pesttype: worms
+    soil: loamy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Trichoplusia ni, Pseudoplusia includens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 7.372030639050124000e+01
+    monthlyaveragetemperature: 3.156645043769258400e+01
+    pH: 6.980653207144449000e+00
+    plantaffected: 5.000000000000000000e+00
+    altitude: 4.292391173375173000e+01
+    relativeaffectedarea: 5.559952188632899000e+01
+    monthlyaveragehumidity: 8.123671228502924000e+01
+    monthlyprecipitation: 9.659329853612014000e+01
+    cropage: 1.148186235526059800e+02
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: mature
+    leafsymptom: cut
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: cut
+    peststage: larvae
+    leafappearance: perforation
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: top
+    pesttype: worms
+    soil: clay
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Trichoplusia ni, Pseudoplusia includens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 6.237845032993888600e+01
+    monthlyaveragetemperature: 3.394748564909993000e+01
+    pH: 6.030734924155712000e+00
+    plantaffected: 5.000000000000000000e+00
+    altitude: 1.823351127001899700e+01
+    relativeaffectedarea: 5.691106633311208000e+01
+    monthlyaveragehumidity: 8.744249620136050000e+01
+    monthlyprecipitation: 8.981314551032013000e+01
+    cropage: 1.137580820874306000e+02
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: flowering
+    leafsymptom: cut
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: cut
+    peststage: larvae
+    leafappearance: cut
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: top
+    pesttype: worms
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Trichoplusia ni, Pseudoplusia includens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 7.756294637659310000e+01
+    monthlyaveragetemperature: 3.099390056992781000e+01
+    pH: 6.998775146185890000e+00
+    plantaffected: 5.000000000000000000e+00
+    altitude: 3.559291728758315500e+01
+    relativeaffectedarea: 4.918232677259262400e+01
+    monthlyaveragehumidity: 8.662025961305378000e+01
+    monthlyprecipitation: 1.067548416541367500e+02
+    cropage: 1.124648563130230900e+02
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: flowering
+    leafsymptom: cut
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: munching
+    peststage: larvae
+    leafappearance: perforation
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: lower
+    pesttype: worms
+    soil: loamy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Trichoplusia ni, Pseudoplusia includens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 4.906458716767238600e+01
+    monthlyaveragetemperature: 2.924069898269065600e+01
+    pH: 6.514184731788053000e+00
+    plantaffected: 5.000000000000000000e+00
+    altitude: 4.485880774315066000e+01
+    relativeaffectedarea: 5.822756526068836000e+01
+    monthlyaveragehumidity: 8.589893529470439000e+01
+    monthlyprecipitation: 9.754043005842433000e+01
+    cropage: 1.111048985341748500e+02
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: fruiting
+    leafsymptom: perforation
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: munching
+    peststage: larvae
+    leafappearance: perforation
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: middle
+    pesttype: worms
+    soil: loamy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Trichoplusia ni, Pseudoplusia includens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cultivatedarea: 9.006974975413778000e+00
+    monthlyaveragetemperature: 3.065036012752426000e+01
+    pH: 6.679913868672712000e+00
+    plantaffected: 5.000000000000000000e+00
+    altitude: 7.506143079045708000e+00
+    relativeaffectedarea: 5.405332674348203000e+01
+    monthlyaveragehumidity: 8.030068835878900000e+01
+    monthlyprecipitation: 8.608210176404422000e+01
+    cropage: 1.166707335319629700e+02
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: fruiting
+    leafsymptom: perforation
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    irrigationsystem: rotary
+    affectedpart: leaves
+    steminternal: munching
+    symptom: cut
+    peststage: larvae
+    leafappearance: perforation
+    lesionshape: round
+    irrigationorigin: river
+    lesionlocation: top
+    pesttype: worms
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Trichoplusia ni, Pseudoplusia includens
+}
+

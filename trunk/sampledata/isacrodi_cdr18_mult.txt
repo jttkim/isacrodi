@@ -1,0 +1,371 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 6.596317286054936000e+00
+    cultivatedarea: 4.395767709175916000e+01
+    altitude: 1.325517563727330700e+01
+    monthlyaveragetemperature: 3.032901939171657800e+01
+    monthlyprecipitation: 1.088714568298442200e+02
+    cropage: 1.100611718226576100e+02
+    plantaffected: 3.000000000000000000e+01
+    monthlyaveragehumidity: 8.939865388781910000e+01
+    relativeaffectedarea: 5.867987294157984500e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower
+    irrigationorigin: river
+    soil: loamy
+    steminternal: perforation
+    irrigationsystem: rotary
+    peststage: nymph
+    affectedpart: leaves
+    symptom: discoloration
+    cropstage: fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Corythucha gossypii
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 6.655803820118766000e+00
+    cultivatedarea: 6.768980732587490000e+01
+    altitude: 1.024806654362093000e+01
+    monthlyaveragetemperature: 3.064741431724739000e+01
+    monthlyprecipitation: 7.989169390163129000e+01
+    cropage: 1.169494797960249200e+02
+    plantaffected: 3.000000000000000000e+01
+    monthlyaveragehumidity: 8.005025175992452000e+01
+    relativeaffectedarea: 4.807837889470832000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: top
+    irrigationorigin: river
+    soil: sandy
+    steminternal: perforation
+    irrigationsystem: rotary
+    peststage: nymph
+    affectedpart: leaves
+    symptom: excrements
+    cropstage: fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Corythucha gossypii
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 6.435045715947499000e+00
+    cultivatedarea: 2.254717357640511800e+01
+    altitude: 1.630380247951501000e+00
+    monthlyaveragetemperature: 2.912730326360191700e+01
+    monthlyprecipitation: 8.123191963230111000e+01
+    cropage: 1.154039706478379700e+02
+    plantaffected: 3.000000000000000000e+01
+    monthlyaveragehumidity: 8.245426553581295000e+01
+    relativeaffectedarea: 4.486302265735554000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower
+    irrigationorigin: river
+    soil: loamy
+    steminternal: perforation
+    irrigationsystem: rotary
+    peststage: nymph
+    affectedpart: leaves
+    symptom: discoloration
+    cropstage: mature
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Corythucha gossypii
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 6.482760404694124000e+00
+    cultivatedarea: 1.638470901889801500e+01
+    altitude: 3.949612570686123500e+01
+    monthlyaveragetemperature: 3.489025960468506000e+01
+    monthlyprecipitation: 8.223581275761775000e+01
+    cropage: 1.137464950029397000e+02
+    plantaffected: 3.000000000000000000e+01
+    monthlyaveragehumidity: 8.333610211174670000e+01
+    relativeaffectedarea: 4.608031125793172600e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower
+    irrigationorigin: river
+    soil: sandy
+    steminternal: perforation
+    irrigationsystem: rotary
+    peststage: nymph
+    affectedpart: leaves
+    symptom: discoloration
+    cropstage: flowering
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Corythucha gossypii
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 6.143176268119301000e+00
+    cultivatedarea: 3.426882694480558000e+01
+    altitude: 4.332202169571139000e+01
+    monthlyaveragetemperature: 3.473690214913623000e+01
+    monthlyprecipitation: 8.233224567122475000e+01
+    cropage: 1.117264882091400600e+02
+    plantaffected: 3.000000000000000000e+01
+    monthlyaveragehumidity: 8.555468382087962000e+01
+    relativeaffectedarea: 4.969539572253333400e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower
+    irrigationorigin: river
+    soil: sandy
+    steminternal: perforation
+    irrigationsystem: rotary
+    peststage: nymph
+    affectedpart: leaves
+    symptom: excrements
+    cropstage: mature
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Corythucha gossypii
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 6.974654777250555000e+00
+    cultivatedarea: 8.134376757146556000e+01
+    altitude: 5.034258191762339000e+01
+    monthlyaveragetemperature: 2.914172469171820300e+01
+    monthlyprecipitation: 9.731241004507922000e+01
+    cropage: 1.100876041731873200e+02
+    plantaffected: 3.000000000000000000e+01
+    monthlyaveragehumidity: 8.207977979042623000e+01
+    relativeaffectedarea: 5.700893212267606000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: middle
+    irrigationorigin: river
+    soil: sandy
+    steminternal: perforation
+    irrigationsystem: rotary
+    peststage: nymph
+    affectedpart: leaves
+    symptom: discoloration
+    cropstage: seedling
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Corythucha gossypii
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 6.735971313179739000e+00
+    cultivatedarea: 1.674876670777780000e+01
+    altitude: 3.740013181803110600e+01
+    monthlyaveragetemperature: 3.137303648682418700e+01
+    monthlyprecipitation: 7.849125984640007000e+01
+    cropage: 1.161714588986143200e+02
+    plantaffected: 3.000000000000000000e+01
+    monthlyaveragehumidity: 8.591439105954638000e+01
+    relativeaffectedarea: 3.682565050534610000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: middle
+    irrigationorigin: river
+    soil: clay
+    steminternal: perforation
+    irrigationsystem: rotary
+    peststage: nymph
+    affectedpart: leaves
+    symptom: discoloration
+    cropstage: flowering
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Corythucha gossypii
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 6.397948732411986000e+00
+    cultivatedarea: 3.274887407884415000e+01
+    altitude: 5.271011654614451000e+01
+    monthlyaveragetemperature: 3.320974734095235400e+01
+    monthlyprecipitation: 8.981314551032013000e+01
+    cropage: 1.137580820874306000e+02
+    plantaffected: 3.000000000000000000e+01
+    monthlyaveragehumidity: 8.729823928935099000e+01
+    relativeaffectedarea: 5.716861055928290000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: top
+    irrigationorigin: river
+    soil: sandy
+    steminternal: perforation
+    irrigationsystem: rotary
+    peststage: nymph
+    affectedpart: leaves
+    symptom: discoloration
+    cropstage: mature
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Corythucha gossypii
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 6.141550122127388000e+00
+    cultivatedarea: 9.992242592510640000e+01
+    altitude: 4.652206334438951000e+00
+    monthlyaveragetemperature: 3.210424442395055000e+01
+    monthlyprecipitation: 9.485525748162968000e+01
+    cropage: 1.166202596130537800e+02
+    plantaffected: 3.000000000000000000e+01
+    monthlyaveragehumidity: 8.246485631302309000e+01
+    relativeaffectedarea: 4.121221917718282000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: middle
+    irrigationorigin: river
+    soil: clay
+    steminternal: perforation
+    irrigationsystem: rotary
+    peststage: nymph
+    affectedpart: leaves
+    symptom: excrements
+    cropstage: fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Corythucha gossypii
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    pH: 6.053701473251991000e+00
+    cultivatedarea: 4.906458716767238600e+01
+    altitude: 1.145731999696410400e+01
+    monthlyaveragetemperature: 3.273286208167757400e+01
+    monthlyprecipitation: 1.000450369746975500e+02
+    cropage: 1.174336962276526600e+02
+    plantaffected: 3.000000000000000000e+01
+    monthlyaveragehumidity: 8.589893529470439000e+01
+    relativeaffectedarea: 5.110030718458881400e+01
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower
+    irrigationorigin: river
+    soil: loamy
+    steminternal: perforation
+    irrigationsystem: rotary
+    peststage: nymph
+    affectedpart: leaves
+    symptom: discoloration
+    cropstage: vegetative
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Corythucha gossypii
+}
+
