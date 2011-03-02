@@ -24,6 +24,7 @@ import java.util.*;
 
 // FIXME: wildcard import
 import org.isacrodi.diagnosis.*;
+import org.isacrodi.util.io.*;
 
 import org.isacrodi.ejb.entity.*;
 import org.isacrodi.ejb.session.UserHandler;
@@ -36,7 +37,7 @@ import org.isacrodi.ejb.io.Import;
 
 // FIXME: exceptions thrown by this class are a haphazard mess, util should provide exceptions for scanning and parsing
 
-public class Import
+public class Main
 {
   // FIXME: unused?
   private static final String[] headerUser = {"lastname", "firstname", "username", "password", "email"};
@@ -102,31 +103,31 @@ public class Import
     }
     else if (magic.equals("isacrodi-crop-0.1"))
     {
-      importCropFile(in, access);
+      Import.importCropFile(in, access);
     }
     else if (magic.equals("isacrodi-disorders-0.1"))
     {
-      importDisorderFile(in, access);
+      Import.importDisorderFile(in, access);
     }
     else if (magic.equals("isacrodi-categoricaltypes-0.1"))
     {
-      importCategoricalTypeFile(in, access);
+      Import.importCategoricalTypeFile(in, access);
     }
     else if (magic.equals("isacrodi-numerictypes-0.1"))
     {
-      importNumericTypeFile(in, access);
+      Import.importNumericTypeFile(in, access);
     }
     else if (magic.equals("isacrodi-imagetypes-0.1"))
     {
-      importImageTypeFile(in, access);
+      Import.importImageTypeFile(in, access);
     }
     else if (magic.equals("isacrodi-cdrs-0.1"))
     {
-      importCropDisorderRecordFile(in, access);
+      Import.importCropDisorderRecordFile(in, access);
     }
     else if (magic.equals("isacrodi-procedures-0.1"))
     {
-      importProcedureFile(in, access);
+      Import.importProcedureFile(in, access);
     }
     else
     {

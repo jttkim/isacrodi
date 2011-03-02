@@ -104,7 +104,7 @@
 	      </artifactSet -->
 	      <transformers>
 	        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-		  <mainClass>org.isacrodi.dataimport.Import</mainClass>
+		  <mainClass>org.isacrodi.dataimport.Main</mainClass>
 		  <manifestEntries>
 		    <!-- FIXME: quite unsatisfactory having to feed jars into the classpath like this - can't these be pulled from the system dependencies...??  -->
 		    <Class-Path>${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/common/lib/hibernate-core.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
@@ -122,7 +122,7 @@
 	  <archive>
 	    <manifestEntries>
 	      <Class-Path>${project.parent.basedir}/util/target/isacrodi-util.jar ${project.parent.basedir}/ejbs/target/isacrodi-ejb.jar ${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/common/lib/hibernate-core.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
-	      <Main-Class>org.isacrodi.dataimport.Import</Main-Class>
+	      <Main-Class>org.isacrodi.dataimport.Main</Main-Class>
 	    </manifestEntries>
 	    <!- manifest>
               <addClasspath>true</addClasspath>
