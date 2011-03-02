@@ -24,7 +24,7 @@ public interface Access
 {
   void insert(Crop crop);
   void insert(CropDisorder cropDisorder, String[] cropScientificNameSet);
-  void insert(Procedure procedure, String[] incompatibleProcedureNameSet, String[] CropDisorderScientificNameSet);
+  void insert(Procedure procedure, String[] incompatibleProcedureNameSet, String[] cropDisorderScientificNameSet);
   void insert(CategoricalType categoricalType, String[] valueString);
   void insert(NumericType numericType);
   void insert(ImageType imageType);
@@ -37,7 +37,7 @@ public interface Access
    * @param username the Isacrodi username
    * @param cropScientificname the crop's scientific name
    * @param descriptorSet set of descriptors (may be {@code null})
-   * @param expertDiagnosisName the scientific name of the disorder diagnosed by an expert
+   * @param expertDiagnosisName the scientific name of the disorder diagnosed by an expert (may be {@code null})
    */
   Integer insert(String username, String cropScientificName, Set<Descriptor> descriptorSet, String expertDiagnosisName);
   Crop findCrop(String scientificName);

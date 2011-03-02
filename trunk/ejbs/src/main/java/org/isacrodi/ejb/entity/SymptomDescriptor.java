@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
   * Set symptom descriptor
   */
 @Entity
+@Deprecated
 public class SymptomDescriptor extends Descriptor
 {
   //FIXME: Change double for String to test classifier
