@@ -31,4 +31,13 @@ public interface IsacrodiEntity extends Serializable
    */
   // idea: use boolean return value to indicate success of unlink operation?
   void unlink();
+
+
+  /*
+   * Produce a string suitable save the entity into a file.
+   *
+   * <p>Associations are represented by suitable external identifiers,
+   * such as (scientific) names.</p>
+  String fileRepresentation();
+   */
 }

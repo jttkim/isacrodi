@@ -18,6 +18,7 @@ import org.javamisc.csv.CsvTable;
 
 import org.isacrodi.util.io.SimpleScanner;
 import org.isacrodi.util.io.Token;
+import org.isacrodi.util.io.Token;
 
 import org.isacrodi.ejb.session.UserHandler;
 import org.isacrodi.ejb.session.Access;
@@ -31,6 +32,11 @@ import org.isacrodi.ejb.entity.*;
 
 public class Import
 {
+  private Import()
+  {
+  }
+
+
   public static void importCropFile(BufferedReader in, Access access) throws IOException
   {
     Token cropToken = new Token(Token.TokenType.BLOCKIDENTIFIER, "crop");
@@ -152,7 +158,7 @@ public class Import
       }
       scanner.nextToken(Token.TokenType.SYMBOL, "{");
       String typename = scanner.nextToken(Token.TokenType.NAMEVALUE, "typename").getValue().trim();
-      System.err.println(String.format("importing categorical type \"%s\"", typename));
+      // System.err.println(String.format("importing categorical type \"%s\"", typename));
       String description = scanner.nextToken(Token.TokenType.NAMEVALUE, "description").getValue().trim();
       String valueSetString = scanner.nextToken(Token.TokenType.NAMEVALUE, "valueSet").getValue().trim();
       String multipleString = scanner.nextToken(Token.TokenType.NAMEVALUE, "multiple").getValue().trim();
@@ -171,6 +177,7 @@ public class Import
 	CategoricalType categoricalType = new CategoricalType(typename);
 	categoricalType.setDescription(description);
 	categoricalType.setMultivalue("true".equals(multipleString));
+	// System.err.println(String.format("  multivalue: string = \"%s\", boolean = %b", multipleString, categoricalType.getMultivalue()));
 	access.insert(categoricalType, valueString);
       }
     }
@@ -353,6 +360,73 @@ public class Import
 	throw new IllegalStateException("no cdr token");
       }
       importCropDisorderBlock(scanner, access);
+    }
+  }
+
+
+  public static void importUser(UserHandler userHandler, String lastname, String firstname, String username, String password, String email)
+  {
+    if (userHandler.findUser(username) != null)
+    {
+      System.err.println(String.format("user \"%s\" already exists", username));
+      return;
+    }
+    IsacrodiUser user = new IsacrodiUser(lastname, firstname, username, IsacrodiUser.hash(password), email);
+    userHandler.insertUser(user);
+  }
+
+
+  public static void importUserFile(CsvTable csvTable, UserHandler userHandler) throws IOException
+  {
+    while (csvTable.next())
+    {
+      importUser(userHandler, csvTable.getString("lastname"), csvTable.getString("firstname"), csvTable.getString("username"), csvTable.getString("password"), csvTable.getString("email"));
+    }
+  }
+
+
+  public static void importFile(String filename, Access access, UserHandler userHandler) throws IOException
+  {
+    BufferedReader in = new BufferedReader(new FileReader(filename));
+    String magic = in.readLine();
+    if (magic.equals("isacrodi-users-0.1"))
+    {
+      CsvTable csvTable = new CsvTable(new CsvReader(in));
+      String[] header= csvTable.getColumnNameList();
+      System.err.println(String.format("%s: user file", filename));
+      importUserFile(csvTable, userHandler);
+    }
+    else if (magic.equals("isacrodi-crop-0.1"))
+    {
+      importCropFile(in, access);
+    }
+    else if (magic.equals("isacrodi-disorders-0.1"))
+    {
+      importDisorderFile(in, access);
+    }
+    else if (magic.equals("isacrodi-categoricaltypes-0.1"))
+    {
+      importCategoricalTypeFile(in, access);
+    }
+    else if (magic.equals("isacrodi-numerictypes-0.1"))
+    {
+      importNumericTypeFile(in, access);
+    }
+    else if (magic.equals("isacrodi-imagetypes-0.1"))
+    {
+      importImageTypeFile(in, access);
+    }
+    else if (magic.equals("isacrodi-cdrs-0.1"))
+    {
+      importCropDisorderRecordFile(in, access);
+    }
+    else if (magic.equals("isacrodi-procedures-0.1"))
+    {
+      importProcedureFile(in, access);
+    }
+    else
+    {
+      throw new IOException(String.format("cannot identify table type of %s: unknown magic \"%s\"", filename, magic));
     }
   }
 }

@@ -17,6 +17,11 @@ import org.isacrodi.ejb.session.Access;
 import org.isacrodi.ejb.session.Kludge;
 import org.javamisc.jee.entitycrud.EntityAccess;
 
+import org.isacrodi.ejb.session.Access;
+
+import org.isacrodi.ejb.io.Import;
+import org.isacrodi.ejb.io.MemoryDB;
+
 import org.isacrodi.ejb.entity.*;
 
 import org.isacrodi.diagnosis.DiagnosisProvider;
@@ -60,11 +65,17 @@ public class Main
   }
 
 
-  private static void generateCdrs(String infileName, String outfileName, int rndseed, int numCdrs) throws IOException
+  private static void generateCdrs(String infileName, String categoricalDescriptorTypeFileName, String outfileName, int rndseed, int numCdrs) throws IOException
   {
     Random rng = new Random(rndseed);
     BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(infileName)));
+    MemoryDB memoryDB = new MemoryDB();
+    Import.importFile(categoricalDescriptorTypeFileName, memoryDB, memoryDB);
     List<RangedCropDisorderRecord> rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
+    for (RangedCropDisorderRecord  rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      rangedCropDisorderRecord.resolve(memoryDB);
+    }
     PrintStream out = System.out;
     if (outfileName != null)
     {
@@ -92,7 +103,7 @@ public class Main
     System.out.println("  diagnosischeck");
     System.out.println("  featuremappercheck");
     System.out.println("  dump <basename>");
-    System.out.println("  cdrgen <infile> <outfile> <rndseed> <numcdrs>");
+    System.out.println("  cdrgen <infile> <categoricaldescriptortypefile> <rndseed> <numcdrs> <outfile>");
   }
 
 
@@ -124,14 +135,15 @@ public class Main
     else if ("cdrgen".equals(command))
     {
       String infileName = args[1];
-      int rndseed = Integer.parseInt(args[2]);
-      int numCdrs = Integer.parseInt(args[3]);
+      String categoricalDescriptorTypeFileName = args[2];
+      int rndseed = Integer.parseInt(args[3]);
+      int numCdrs = Integer.parseInt(args[4]);
       String outfileName = null;
-      if (args.length > 4)
+      if (args.length > 5)
       {
-	outfileName = args[4];
+	outfileName = args[5];
       }
-      generateCdrs(infileName, outfileName, rndseed, numCdrs);
+      generateCdrs(infileName, categoricalDescriptorTypeFileName, outfileName, rndseed, numCdrs);
     }
     else
     {

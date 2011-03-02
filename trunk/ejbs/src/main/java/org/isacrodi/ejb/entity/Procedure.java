@@ -283,4 +283,32 @@ public class Procedure implements IsacrodiEntity
   {
     return (String.format("Procedure(id = %s, name = %s, description = %s, toxicologicalClass = %s)", Util.safeStr(this.id), Util.safeStr(this.name), Util.safeStr(this.description), Util.safeStr(this.toxicologicalClass)));
   }
+
+
+  public String fileRepresentation()
+  {
+    String s = "procefure\n";
+    s += "{\n";
+    s += String.format("  name: %s\n", Util.safeStr(this.name));
+    s += String.format("  toxicologicalClass: %s\n", Util.safeStr(this.toxicologicalClass));
+    s += String.format("  description: %s\n", Util.safeStr(this.description));
+    s += "  incompatibleProcedureSet: ";
+    String glue = "";
+    for (Procedure incompatibleProcedure : this.incompatibleProcedureSet)
+    {
+      s += String.format("%s%s", glue, incompatibleProcedure.getName());
+      glue = ", ";
+    }
+    s += "\n";
+    s += "  incompatibleProcedureSet: ";
+    glue = "";
+    for (CropDisorder cropDisorder : this.cropDisorderSet)
+    {
+      s += String.format("%s%s", glue, cropDisorder.getScientificName());
+      glue = ", ";
+    }
+    s += "\n";
+    s += "}\n";
+    return (s);
+  }
 }

@@ -99,6 +99,20 @@ public class CategoricalType extends DescriptorType
   }
 
 
+  public CategoricalTypeValue findCategoricalTypeValue(String value)
+  {
+    // FIXME: linear search -- hopefully ok as sets of values should be small
+    for (CategoricalTypeValue categoricalTypeValue : this.categoricalTypeValueSet)
+    {
+      if (value.equals(categoricalTypeValue.getValueType()))
+      {
+	return (categoricalTypeValue);
+      }
+    }
+    return (null);
+  }
+
+
   public String fileRepresentation()
   {
     String x;

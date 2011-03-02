@@ -52,4 +52,10 @@ public class NumericDescriptor extends Descriptor
   {
     return (String.format("NumericDescriptor(%s, %g)", this.descriptorType.getTypeName(), this.numericValue));
   }
+
+
+  public String fileRepresentation()
+  {
+    return(String.format("%s: %f\n", this.descriptorType.getTypeName(), this.numericValue));
+  }
 }

@@ -42,29 +42,6 @@ public class Main
   // FIXME: unused?
   private static final String[] headerUser = {"lastname", "firstname", "username", "password", "email"};
 
-  public static void importUser(UserHandler userHandler, String lastname, String firstname, String username, String password, String email)
-  {
-    if (userHandler.findUser(username) != null)
-    {
-      System.err.println(String.format("user \"%s\" already exists", username));
-      return;
-    }
-    IsacrodiUser user = new IsacrodiUser(lastname, firstname, username, IsacrodiUser.hash(password), email);
-    userHandler.insertUser(user);
-  }
-
-
-  // FIXME: should really not look up handler in this method
-  public static void importUserFile(CsvTable csvTable) throws IOException, NamingException
-  {
-    InitialContext context = new InitialContext();
-    UserHandler userHandler = (UserHandler) context.lookup("isacrodi/UserHandlerBean/remote");
-    while (csvTable.next())
-    {
-      importUser(userHandler, csvTable.getString("lastname"), csvTable.getString("firstname"), csvTable.getString("username"), csvTable.getString("password"), csvTable.getString("email"));
-    }
-  }
-
 
   public static void exportCropDisorderRecordFile()
   {
@@ -73,65 +50,6 @@ public class Main
     for(CropDisorderRecord cdr : lcdr)
     {
       System.err.println(cdr);
-    }
-  }
-
-
-  private static void importFile(String filename) throws IOException, NamingException
-  {
-    InitialContext context = new InitialContext();
-    Access access = (Access) context.lookup("isacrodi/AccessBean/remote");
-    BufferedReader in = new BufferedReader(new FileReader(filename));
-    /*
-    JSONTokener jsonTokener = new JSONTokener(new FileReader(filename));
-    JSONObject jsonObject = new JSONObject(jsonTokener);
-    if (jsonObject.length() != 1)
-    {
-      throw new IllegalArgumentException(String.format("top level JSON object has %d pairs, expected 1", jsonObject.length()));
-    }
-    Iterator<String> i = (Iterator<String>) jsonObject.keys();
-    String contentKey = i.next();
-    */
-
-    String magic = in.readLine();
-    if (magic.equals("isacrodi-users-0.1"))
-    {
-      CsvTable csvTable = new CsvTable(new CsvReader(in));
-      String[] header= csvTable.getColumnNameList();
-      System.err.println(String.format("%s: user file", filename));
-      importUserFile(csvTable);
-    }
-    else if (magic.equals("isacrodi-crop-0.1"))
-    {
-      Import.importCropFile(in, access);
-    }
-    else if (magic.equals("isacrodi-disorders-0.1"))
-    {
-      Import.importDisorderFile(in, access);
-    }
-    else if (magic.equals("isacrodi-categoricaltypes-0.1"))
-    {
-      Import.importCategoricalTypeFile(in, access);
-    }
-    else if (magic.equals("isacrodi-numerictypes-0.1"))
-    {
-      Import.importNumericTypeFile(in, access);
-    }
-    else if (magic.equals("isacrodi-imagetypes-0.1"))
-    {
-      Import.importImageTypeFile(in, access);
-    }
-    else if (magic.equals("isacrodi-cdrs-0.1"))
-    {
-      Import.importCropDisorderRecordFile(in, access);
-    }
-    else if (magic.equals("isacrodi-procedures-0.1"))
-    {
-      Import.importProcedureFile(in, access);
-    }
-    else
-    {
-      throw new IOException(String.format("cannot identify table type of %s: unknown magic \"%s\"", filename, magic));
     }
   }
 
@@ -298,9 +216,12 @@ public class Main
 
     else
     {
+      InitialContext context = new InitialContext();
+      UserHandler userHandler = (UserHandler) context.lookup("isacrodi/UserHandlerBean/remote");
+      Access access = (Access) context.lookup("isacrodi/AccessBean/remote");
       for (String arg : args)
       {
-	importFile(arg);
+	Import.importFile(arg, access, userHandler);
       }
     }
   }
