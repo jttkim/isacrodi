@@ -1,0 +1,651 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 8.462293872039811000e+01
+    pH: 6.852171436045081000e+00
+    cropage: 1.099364518686178100e+02
+    monthlyprecipitation: 2.977403093177922500e+02
+    relativeaffectedarea: 5.642810110864216000e+01
+    monthlyaveragetemperature: 3.487420833898427000e+01
+    plantaffected: 1.500000000000000000e+01
+    cultivatedarea: 1.673144453210016300e+01
+    altitude: 3.741472819626157000e+02
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    symptom: cut, defoliation, excrements
+    firstsymptomcropstage: vegetative
+    soil: clay
+    cropstage: vegetative
+    pesttype: worms
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionappearance: dry
+    leafappearance: perforation, cut
+    lesionlocation: top
+    affectedpart: fruits
+    overallappearance: healthy
+    leafsymptom: perforation
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 8.377990768558055000e+01
+    pH: 6.696485720812490000e+00
+    cropage: 1.024744843917393100e+02
+    monthlyprecipitation: 1.572119238495275200e+02
+    relativeaffectedarea: 3.581909479488104600e+01
+    monthlyaveragetemperature: 3.432662647178741000e+01
+    plantaffected: 1.500000000000000000e+01
+    cultivatedarea: 5.989667837580268000e+01
+    altitude: 1.213609025292204800e+02
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    symptom: cut, defoliation, excrements
+    firstsymptomcropstage: vegetative
+    soil: clay
+    cropstage: seedling
+    pesttype: worms
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionappearance: dry
+    leafappearance: perforation
+    lesionlocation: lower
+    affectedpart: leaves, fruits
+    overallappearance: healthy
+    leafsymptom: perforation
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 7.596379117867329000e+01
+    pH: 6.431170625926949000e+00
+    cropage: 1.174443374539485600e+02
+    monthlyprecipitation: 2.903176424629565400e+02
+    relativeaffectedarea: 4.109283225274323000e+01
+    monthlyaveragetemperature: 3.303451693960687400e+01
+    plantaffected: 1.500000000000000000e+01
+    cultivatedarea: 9.271621572997802000e+01
+    altitude: 3.367016314181676000e+02
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    symptom: excrements
+    firstsymptomcropstage: vegetative
+    soil: clay
+    cropstage: seedling
+    pesttype: worms
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionappearance: dry
+    leafappearance: cut
+    lesionlocation: top
+    affectedpart: fruits
+    overallappearance: healthy
+    leafsymptom: cut
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 8.837171989211070000e+01
+    pH: 6.262020216633763000e+00
+    cropage: 1.179033308821677700e+02
+    monthlyprecipitation: 1.572032464180400000e+02
+    relativeaffectedarea: 4.297296795963499000e+01
+    monthlyaveragetemperature: 3.250394446908399000e+01
+    plantaffected: 1.500000000000000000e+01
+    cultivatedarea: 6.142061209179082000e+01
+    altitude: 4.785206635720373000e+02
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    symptom: defoliation, excrements
+    firstsymptomcropstage: vegetative
+    soil: clay
+    cropstage: vegetative
+    pesttype: worms
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionappearance: dry
+    leafappearance: perforation, cut
+    lesionlocation: lower, top, middle
+    affectedpart: leaves
+    overallappearance: healthy
+    leafsymptom: perforation
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 7.319751079324188000e+01
+    pH: 5.834327018390441000e+00
+    cropage: 1.111900413792355400e+02
+    monthlyprecipitation: 2.307571408837785000e+02
+    relativeaffectedarea: 4.494200782346326000e+01
+    monthlyaveragetemperature: 3.111857258388296500e+01
+    plantaffected: 1.500000000000000000e+01
+    cultivatedarea: 4.837165352392793000e+01
+    altitude: 1.785282912710730000e+02
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    symptom: cut, perforation, defoliation, excrements
+    firstsymptomcropstage: vegetative
+    soil: clay
+    cropstage: vegetative
+    pesttype: worms
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionappearance: dry
+    leafappearance: cut
+    lesionlocation: lower
+    affectedpart: leaves
+    overallappearance: healthy
+    leafsymptom: cut
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 7.701546206828847000e+01
+    pH: 5.611242080547228000e+00
+    cropage: 1.147332403428148400e+02
+    monthlyprecipitation: 2.728090155510757300e+02
+    relativeaffectedarea: 4.963339448735998600e+01
+    monthlyaveragetemperature: 3.048517408080405400e+01
+    plantaffected: 1.500000000000000000e+01
+    cultivatedarea: 6.723241236214618000e+01
+    altitude: 1.758851641270063600e+02
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    symptom: cut, defoliation, excrements
+    firstsymptomcropstage: vegetative
+    soil: clay
+    cropstage: fruiting
+    pesttype: worms
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionappearance: dry
+    leafappearance: perforation, cut
+    lesionlocation: top, middle
+    affectedpart: leaves, stem
+    overallappearance: healthy
+    leafsymptom: cut
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 7.770834952778524000e+01
+    pH: 5.952421998439263000e+00
+    cropage: 1.083668492597551400e+02
+    monthlyprecipitation: 2.922004491061818500e+02
+    relativeaffectedarea: 4.746968570657094000e+01
+    monthlyaveragetemperature: 2.538784233173605600e+01
+    plantaffected: 1.500000000000000000e+01
+    cultivatedarea: 4.379469312806502000e+01
+    altitude: 1.407398198242295800e+02
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    symptom: cut, perforation, defoliation
+    firstsymptomcropstage: vegetative
+    soil: clay
+    cropstage: mature
+    pesttype: worms
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionappearance: dry
+    leafappearance: perforation, cut
+    lesionlocation: top, middle
+    affectedpart: leaves, stem
+    overallappearance: healthy
+    leafsymptom: perforation
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 7.875432350214002000e+01
+    pH: 5.872492985582848000e+00
+    cropage: 1.033354407852160800e+02
+    monthlyprecipitation: 1.843519519579372500e+02
+    relativeaffectedarea: 4.934919866560241500e+01
+    monthlyaveragetemperature: 3.373523621026903000e+01
+    plantaffected: 1.500000000000000000e+01
+    cultivatedarea: 8.786104517064301000e+01
+    altitude: 3.093042660809111300e+02
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    symptom: munching, defoliation, excrements
+    firstsymptomcropstage: vegetative
+    soil: clay
+    cropstage: seedling
+    pesttype: worms
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionappearance: dry
+    leafappearance: perforation, cut
+    lesionlocation: top
+    affectedpart: stem, fruits
+    overallappearance: healthy
+    leafsymptom: cut
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 8.701703941186082000e+01
+    pH: 5.500573555928991000e+00
+    cropage: 1.185704474689720500e+02
+    monthlyprecipitation: 2.914592441326429000e+02
+    relativeaffectedarea: 3.537232808344314000e+01
+    monthlyaveragetemperature: 3.074367361727157500e+01
+    plantaffected: 1.500000000000000000e+01
+    cultivatedarea: 7.330462653736281000e+01
+    altitude: 2.149342921458640500e+02
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    symptom: munching, defoliation, excrements
+    firstsymptomcropstage: vegetative
+    soil: clay
+    cropstage: seedling
+    pesttype: worms
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionappearance: dry
+    leafappearance: perforation
+    lesionlocation: top
+    affectedpart: leaves, stem
+    overallappearance: healthy
+    leafsymptom: cut
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 8.844416683554421000e+01
+    pH: 6.125395712108537000e+00
+    cropage: 1.169935081527251000e+02
+    monthlyprecipitation: 2.594473101689566000e+02
+    relativeaffectedarea: 5.247303227578047600e+01
+    monthlyaveragetemperature: 2.626067225213189400e+01
+    plantaffected: 1.500000000000000000e+01
+    cultivatedarea: 1.964081009516680300e+01
+    altitude: 1.823661722956685200e+02
+  }
+  categoricalDescriptors
+  {
+    irrigationsystem: rotary
+    symptom: cut, perforation, defoliation, excrements
+    firstsymptomcropstage: vegetative
+    soil: clay
+    cropstage: vegetative
+    pesttype: worms
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionappearance: dry
+    leafappearance: perforation
+    lesionlocation: top, middle
+    affectedpart: fruits
+    overallappearance: healthy
+    leafsymptom: cut
+  }
+  imageDescriptors
+  {
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+    plant
+    {
+      mimeType: image/jpeg
+      file: fig_a_potato_blackleg_plant.png
+    }
+  }
+  expertDiagnosis:
+}
+

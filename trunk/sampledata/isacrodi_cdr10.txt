@@ -6,36 +6,35 @@ cdr
   numericDescriptors
   {
     cultivatedarea: 5.000000 -- 100
-    monthlyaveragetemperature: 28.000000 -- 35
-    pH: 5.500000 -- 7
-    plantaffected: 5.000000 -- 5
-    altitude: 1.000000 -- 60
-    relativeaffectedarea: 35.000000 -- 60
-    monthlyaveragehumidity: 80.000000 -- 90
-    monthlyprecipitation: 75.000000 -- 110
     cropage: 110.000000 -- 120
+    plantaffected: 5.000000 -- 5
+    relativeaffectedarea: 35.000000 -- 60
+    pH: 5.500000 -- 7
+    monthlyaveragehumidity: 80.000000 -- 90
+    altitude: 1.000000 -- 60
+    monthlyaveragetemperature: 28.000000 -- 35
+    monthlyprecipitation: 75.000000 -- 110
   }
   categoricalDescriptors
   {
+    cropstage: flowering, fruiting, mature
     overallappearance: healthy
-    cropstage: seedling, vegetative, flowering, fruiting, mature
-    leafsymptom: perforation, cut
+    affectedpart: fruits
     lesionappearance: dry
-    firstsymptomcropstage: vegetative
-    irrigationsystem: rotary
-    affectedpart: leaves
-    steminternal: munching
-    symptom: munching, cut, defoliation
-    peststage: larvae
-    leafappearance: perforation, cut
-    lesionshape: round
+    seedlingorigin: national
     irrigationorigin: river
+    firstsymptomcropstage: flowering
+    peststage: larvae
+    steminternal: perforation
     lesionlocation: lower, top, middle
+    symptom: cut, perforation, excrements
+    lesionshape: round
     pesttype: worms
     soil: clay, sandy, loamy
+    irrigationsystem: rotary
   }
   imageDescriptors
   {
   }
-  expertDiagnosis: Trichoplusia ni, Pseudoplusia includens
+  expertDiagnosis: Sacadodes pyralis
 }

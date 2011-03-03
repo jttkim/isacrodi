@@ -1,0 +1,411 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 4.736390599293557000e+01
+    pH: 6.852171436045081000e+00
+    cropage: 1.149682259343089000e+02
+    monthlyaveragetemperature: 3.485876933236201600e+01
+    monthlyaveragehumidity: 8.857124044345686000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 4.070394825933544000e+01
+    monthlyprecipitation: 7.761778398470562000e+01
+    cultivatedarea: 7.559998323764998000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: cut, perforation, defoliation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: flowers, leaves
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 4.253480076690621600e+01
+    pH: 6.529889999702014000e+00
+    cropage: 1.102654899073981300e+02
+    monthlyaveragetemperature: 3.232839334720656400e+01
+    monthlyaveragehumidity: 8.728520763506890000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 4.850522592576487000e+01
+    monthlyprecipitation: 7.537210470930259000e+01
+    cultivatedarea: 8.344794117241472000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: fruiting
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: cut, perforation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: flowers, leaves
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: loamy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 5.624585485541226000e+01
+    pH: 6.309258912900250000e+00
+    cropage: 1.141868624720838500e+02
+    monthlyaveragetemperature: 2.928763421904731600e+01
+    monthlyaveragehumidity: 8.722599359695377000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 4.669679632909994000e+01
+    monthlyprecipitation: 1.030025127292590700e+02
+    cultivatedarea: 2.722495332834931500e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: flowering
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: defoliation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: leaves
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 3.798002149891503600e+01
+    pH: 5.501448719799566500e+00
+    cropage: 1.194964400809499100e+02
+    monthlyaveragetemperature: 2.860114240223362700e+01
+    monthlyaveragehumidity: 8.629696383731490000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 4.728952719679196500e+01
+    monthlyprecipitation: 1.068483809702891300e+02
+    cultivatedarea: 3.183386521403818700e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: fruiting
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: perforation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: leaves, fruits
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: clay
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 3.985298631460188000e+01
+    pH: 6.934246929302155000e+00
+    cropage: 1.103981162219064500e+02
+    monthlyaveragetemperature: 3.350820822610073400e+01
+    monthlyaveragehumidity: 8.950747339486207000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 3.735271764074189000e+01
+    monthlyprecipitation: 1.010250860706689000e+02
+    cultivatedarea: 8.103335241865834000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: cut, perforation, defoliation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: flowers
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: clay
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 3.965991013460993000e+01
+    pH: 6.096520469407795000e+00
+    cropage: 1.161185725838829700e+02
+    monthlyaveragetemperature: 3.306125817376713000e+01
+    monthlyaveragehumidity: 8.426351705821422000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 5.169476290263256000e+01
+    monthlyprecipitation: 8.870637411836297000e+01
+    cultivatedarea: 6.923877864497457000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: flowering
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: cut, perforation, defoliation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: flowers
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: clay
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 3.936817166217929000e+01
+    pH: 6.616973810832690500e+00
+    cropage: 1.124920528159697600e+02
+    monthlyaveragetemperature: 2.991896496328136000e+01
+    monthlyaveragehumidity: 8.436347316751808000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 4.790484837641410000e+01
+    monthlyprecipitation: 8.271482764479681000e+01
+    cultivatedarea: 1.834754158877590800e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: perforation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: fruits
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 5.388754543258839000e+01
+    pH: 5.771456185501474000e+00
+    cropage: 1.119183642262323800e+02
+    monthlyaveragetemperature: 2.613453389664751000e+01
+    monthlyaveragehumidity: 8.001946779389140000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 3.851718138535329000e+01
+    monthlyprecipitation: 7.563301318089178000e+01
+    cultivatedarea: 3.147067050061614800e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: flowering
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: cut, perforation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: flowers
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: loamy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 3.149957858125206700e+01
+    pH: 5.909022540093742000e+00
+    cropage: 1.108225918351680800e+02
+    monthlyaveragetemperature: 2.677231968725597300e+01
+    monthlyaveragehumidity: 8.905933514092123000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 5.552327182859182000e+01
+    monthlyprecipitation: 8.070508198819898000e+01
+    cultivatedarea: 1.750277715543479000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: flowering
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: perforation, defoliation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: fruiting
+    affectedpart: flowers
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 3.250702490413194000e+01
+    pH: 5.680969971017813000e+00
+    cropage: 1.115206593441045000e+02
+    monthlyaveragetemperature: 2.590098135319007000e+01
+    monthlyaveragehumidity: 8.920078805147091000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 5.088445232785542000e+01
+    monthlyprecipitation: 9.409078709643651000e+01
+    cultivatedarea: 8.787243712067314000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: flowering
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: perforation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: flowers, fruits
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:
+}
+

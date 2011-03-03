@@ -18,8 +18,8 @@ cdr
   }
   categoricalDescriptors
   {
-    leafappearance: perforation
-    lesionlocation: middle
+    leafappearance: perforation, cut
+    lesionlocation: lower
     leafsymptom: perforation
     irrigationsystem: rotary
     pesttype: worms
@@ -28,9 +28,95 @@ cdr
     irrigationorigin: river
     peststage: larvae
     overallappearance: healthy
-    affectedpart: stem
+    affectedpart: leaves, stem
     lesionshape: round
     soil: clay
+    lesionappearance: dry
+    firstsymptomcropstage: seedling
+    symptom: perforation, galls
+    seedlingsymptom: galls
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Agrotis ipsilon
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    plantaffected: 4.000000000000000000e+01
+    monthlyaveragehumidity: 8.246727621263332000e+01
+    cropage: 1.036941418055589700e+02
+    altitude: 1.523536138129212800e+01
+    cultivatedarea: 2.449389910345320200e+01
+    pH: 5.767082269955762000e+00
+    pestdensity: 2.000000000000000000e+00
+    relativeaffectedarea: 5.934585024796750500e+01
+    monthlyaveragetemperature: 2.745426553581295800e+01
+    monthlyprecipitation: 2.031233450070755000e+02
+  }
+  categoricalDescriptors
+  {
+    leafappearance: perforation, cut
+    lesionlocation: lower
+    leafsymptom: perforation
+    irrigationsystem: rotary
+    pesttype: worms
+    cropstage: seedling
+    steminternal: perforation
+    irrigationorigin: river
+    peststage: larvae
+    overallappearance: healthy
+    affectedpart: leaves, stem
+    lesionshape: round
+    soil: clay
+    lesionappearance: dry
+    firstsymptomcropstage: seedling
+    symptom: cut, perforation
+    seedlingsymptom: galls
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Agrotis ipsilon
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    plantaffected: 4.000000000000000000e+01
+    monthlyaveragehumidity: 7.531579121692515000e+01
+    cropage: 1.023334060397101000e+02
+    altitude: 7.704692961224205000e+01
+    cultivatedarea: 5.914804659126722000e+01
+    pH: 6.241929120475380000e+00
+    pestdensity: 2.000000000000000000e+00
+    relativeaffectedarea: 4.397486477071376000e+01
+    monthlyaveragetemperature: 2.742478334143050000e+01
+    monthlyprecipitation: 2.681851304899892600e+02
+  }
+  categoricalDescriptors
+  {
+    leafappearance: perforation
+    lesionlocation: middle
+    leafsymptom: perforation
+    irrigationsystem: rotary
+    pesttype: worms
+    cropstage: vegetative
+    steminternal: perforation
+    irrigationorigin: river
+    peststage: larvae
+    overallappearance: healthy
+    affectedpart: leaves
+    lesionshape: round
+    soil: sandy
     lesionappearance: dry
     firstsymptomcropstage: seedling
     symptom: cut
@@ -49,110 +135,24 @@ cdr
   numericDescriptors
   {
     plantaffected: 4.000000000000000000e+01
-    monthlyaveragehumidity: 8.758525928704380000e+01
-    cropage: 1.090043681279503600e+02
-    altitude: 1.237774137351414000e+01
-    cultivatedarea: 8.670282076421626000e+01
-    pH: 5.535127097606312000e+00
+    monthlyaveragehumidity: 7.279227618969864000e+01
+    cropage: 1.119315760465189100e+02
+    altitude: 4.741574825905356600e+02
+    cultivatedarea: 5.584483297363534000e+01
+    pH: 6.481473511836336000e+00
     pestdensity: 2.000000000000000000e+00
-    relativeaffectedarea: 4.187574873929035000e+01
-    monthlyaveragetemperature: 2.575387798913640000e+01
-    monthlyprecipitation: 2.376946463038927400e+02
-  }
-  categoricalDescriptors
-  {
-    leafappearance: cut
-    lesionlocation: lower
-    leafsymptom: perforation
-    irrigationsystem: rotary
-    pesttype: worms
-    cropstage: seedling
-    steminternal: perforation
-    irrigationorigin: river
-    peststage: larvae
-    overallappearance: healthy
-    affectedpart: leaves
-    lesionshape: round
-    soil: loamy
-    lesionappearance: dry
-    firstsymptomcropstage: seedling
-    symptom: perforation
-    seedlingsymptom: galls
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Agrotis ipsilon
-}
-
-cdr
-{
-  user: avc
-  crop: Zea mays
-  numericDescriptors
-  {
-    plantaffected: 4.000000000000000000e+01
-    monthlyaveragehumidity: 7.789041812588444000e+01
-    cropage: 1.043520424981537000e+02
-    altitude: 2.216833711478341800e+02
-    cultivatedarea: 3.098402152762001000e+01
-    pH: 6.834863127483065000e+00
-    pestdensity: 2.000000000000000000e+00
-    relativeaffectedarea: 4.980948109657346400e+01
-    monthlyaveragetemperature: 3.155173603129416200e+01
-    monthlyprecipitation: 1.591742467686703400e+02
-  }
-  categoricalDescriptors
-  {
-    leafappearance: cut
-    lesionlocation: middle
-    leafsymptom: cut
-    irrigationsystem: rotary
-    pesttype: worms
-    cropstage: seedling
-    steminternal: perforation
-    irrigationorigin: river
-    peststage: larvae
-    overallappearance: healthy
-    affectedpart: leaves
-    lesionshape: round
-    soil: clay
-    lesionappearance: dry
-    firstsymptomcropstage: seedling
-    symptom: perforation
-    seedlingsymptom: galls
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Agrotis ipsilon
-}
-
-cdr
-{
-  user: avc
-  crop: Zea mays
-  numericDescriptors
-  {
-    plantaffected: 4.000000000000000000e+01
-    monthlyaveragehumidity: 7.555874643015386000e+01
-    cropage: 1.068182997428357300e+02
-    altitude: 1.402368848146661300e+02
-    cultivatedarea: 2.050032717869544000e+01
-    pH: 5.705245702894619000e+00
-    pestdensity: 2.000000000000000000e+00
-    relativeaffectedarea: 4.736548534125633000e+01
-    monthlyaveragetemperature: 2.515384379170726700e+01
-    monthlyprecipitation: 1.974391345325680300e+02
+    relativeaffectedarea: 4.164757903656002000e+01
+    monthlyaveragetemperature: 2.563449242966560600e+01
+    monthlyprecipitation: 2.345391679480561600e+02
   }
   categoricalDescriptors
   {
     leafappearance: perforation
-    lesionlocation: middle
+    lesionlocation: lower, middle
     leafsymptom: cut
     irrigationsystem: rotary
     pesttype: worms
-    cropstage: vegetative
+    cropstage: seedling
     steminternal: perforation
     irrigationorigin: river
     peststage: larvae
@@ -178,20 +178,149 @@ cdr
   numericDescriptors
   {
     plantaffected: 4.000000000000000000e+01
-    monthlyaveragehumidity: 8.966206369667407000e+01
-    cropage: 1.160723721203085400e+02
-    altitude: 4.197943244006010600e+02
-    cultivatedarea: 2.467931746494832000e+01
-    pH: 6.456246144789110000e+00
+    monthlyaveragehumidity: 8.724899509523101000e+01
+    cropage: 1.180384791148460300e+02
+    altitude: 4.061934535726060000e+01
+    cultivatedarea: 7.874384393571978000e+01
+    pH: 6.141550122127388000e+00
     pestdensity: 2.000000000000000000e+00
-    relativeaffectedarea: 5.077974720778812000e+01
-    monthlyaveragetemperature: 2.707977979042622600e+01
-    monthlyprecipitation: 2.808571655851268000e+02
+    relativeaffectedarea: 3.654754505696566000e+01
+    monthlyaveragetemperature: 3.086320631992934700e+01
+    monthlyprecipitation: 2.307668913445928000e+02
   }
   categoricalDescriptors
   {
-    leafappearance: cut
+    leafappearance: perforation
     lesionlocation: middle
+    leafsymptom: perforation
+    irrigationsystem: rotary
+    pesttype: worms
+    cropstage: seedling
+    steminternal: perforation
+    irrigationorigin: river
+    peststage: larvae
+    overallappearance: healthy
+    affectedpart: leaves, stem
+    lesionshape: round
+    soil: loamy
+    lesionappearance: dry
+    firstsymptomcropstage: seedling
+    symptom: galls
+    seedlingsymptom: galls
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Agrotis ipsilon
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    plantaffected: 4.000000000000000000e+01
+    monthlyaveragehumidity: 7.612965576210680000e+01
+    cropage: 1.176119733957863200e+02
+    altitude: 3.188967059846457300e+02
+    cultivatedarea: 9.360043419920990000e+01
+    pH: 5.795034101366162000e+00
+    pestdensity: 2.000000000000000000e+00
+    relativeaffectedarea: 3.894076534519092500e+01
+    monthlyaveragetemperature: 2.542178683951724000e+01
+    monthlyprecipitation: 2.005796600576974000e+02
+  }
+  categoricalDescriptors
+  {
+    leafappearance: perforation
+    lesionlocation: lower
+    leafsymptom: perforation
+    irrigationsystem: rotary
+    pesttype: worms
+    cropstage: seedling
+    steminternal: perforation
+    irrigationorigin: river
+    peststage: larvae
+    overallappearance: healthy
+    affectedpart: stem
+    lesionshape: round
+    soil: sandy
+    lesionappearance: dry
+    firstsymptomcropstage: seedling
+    symptom: cut, perforation, galls
+    seedlingsymptom: galls
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Agrotis ipsilon
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    plantaffected: 4.000000000000000000e+01
+    monthlyaveragehumidity: 7.055852689984462000e+01
+    cropage: 1.154338615481122500e+02
+    altitude: 2.818979284683530300e+02
+    cultivatedarea: 9.692156031261548000e+01
+    pH: 6.670487923304135000e+00
+    pestdensity: 2.000000000000000000e+00
+    relativeaffectedarea: 5.372600880646033000e+01
+    monthlyaveragetemperature: 3.156749997056634500e+01
+    monthlyprecipitation: 2.439841500665722800e+02
+  }
+  categoricalDescriptors
+  {
+    leafappearance: perforation
+    lesionlocation: lower, middle
+    leafsymptom: perforation, cut
+    irrigationsystem: rotary
+    pesttype: worms
+    cropstage: vegetative
+    steminternal: perforation
+    irrigationorigin: river
+    peststage: larvae
+    overallappearance: healthy
+    affectedpart: leaves, stem
+    lesionshape: round
+    soil: clay
+    lesionappearance: dry
+    firstsymptomcropstage: seedling
+    symptom: perforation
+    seedlingsymptom: galls
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Agrotis ipsilon
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    plantaffected: 4.000000000000000000e+01
+    monthlyaveragehumidity: 8.714254085358402000e+01
+    cropage: 1.161415273104832700e+02
+    altitude: 2.004773451189314200e+02
+    cultivatedarea: 3.387218149278551500e+01
+    pH: 5.548559280101390000e+00
+    pestdensity: 2.000000000000000000e+00
+    relativeaffectedarea: 3.685903440745276000e+01
+    monthlyaveragetemperature: 3.109141081433683000e+01
+    monthlyprecipitation: 1.685859775056272600e+02
+  }
+  categoricalDescriptors
+  {
+    leafappearance: perforation
+    lesionlocation: lower, middle
     leafsymptom: cut
     irrigationsystem: rotary
     pesttype: worms
@@ -205,49 +334,6 @@ cdr
     soil: clay
     lesionappearance: dry
     firstsymptomcropstage: seedling
-    symptom: cut
-    seedlingsymptom: galls
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Agrotis ipsilon
-}
-
-cdr
-{
-  user: avc
-  crop: Zea mays
-  numericDescriptors
-  {
-    plantaffected: 4.000000000000000000e+01
-    monthlyaveragehumidity: 7.531806322924801000e+01
-    cropage: 1.012689848593312100e+02
-    altitude: 2.995262018409219400e+02
-    cultivatedarea: 3.556082506819842600e+01
-    pH: 6.288687089227722000e+00
-    pestdensity: 2.000000000000000000e+00
-    relativeaffectedarea: 4.202172133324124600e+01
-    monthlyaveragetemperature: 3.142382357716584500e+01
-    monthlyprecipitation: 1.965342702960579000e+02
-  }
-  categoricalDescriptors
-  {
-    leafappearance: perforation
-    lesionlocation: middle
-    leafsymptom: perforation
-    irrigationsystem: rotary
-    pesttype: worms
-    cropstage: vegetative
-    steminternal: perforation
-    irrigationorigin: river
-    peststage: larvae
-    overallappearance: healthy
-    affectedpart: stem
-    lesionshape: round
-    soil: loamy
-    lesionappearance: dry
-    firstsymptomcropstage: seedling
     symptom: galls
     seedlingsymptom: galls
   }
@@ -264,15 +350,15 @@ cdr
   numericDescriptors
   {
     plantaffected: 4.000000000000000000e+01
-    monthlyaveragehumidity: 8.459647857870199000e+01
-    cropage: 1.177348884474263100e+02
-    altitude: 3.141432216544411200e+01
-    cultivatedarea: 5.119301647661589000e+01
-    pH: 6.793674632142325000e+00
+    monthlyaveragehumidity: 7.627908004659398000e+01
+    cropage: 1.000153799973766700e+02
+    altitude: 6.190863571466324000e+01
+    cultivatedarea: 9.851164444238583000e+01
+    pH: 6.401547051576916000e+00
     pestdensity: 2.000000000000000000e+00
-    relativeaffectedarea: 3.656221149781942000e+01
-    monthlyaveragetemperature: 3.263820488174664500e+01
-    monthlyprecipitation: 2.084320130269213700e+02
+    relativeaffectedarea: 3.972024908497133600e+01
+    monthlyaveragetemperature: 2.966575256785813500e+01
+    monthlyprecipitation: 1.721125872605041400e+02
   }
   categoricalDescriptors
   {
@@ -281,60 +367,17 @@ cdr
     leafsymptom: perforation
     irrigationsystem: rotary
     pesttype: worms
-    cropstage: vegetative
+    cropstage: seedling
     steminternal: perforation
     irrigationorigin: river
     peststage: larvae
     overallappearance: healthy
-    affectedpart: stem
-    lesionshape: round
-    soil: loamy
-    lesionappearance: dry
-    firstsymptomcropstage: seedling
-    symptom: perforation
-    seedlingsymptom: galls
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Agrotis ipsilon
-}
-
-cdr
-{
-  user: avc
-  crop: Zea mays
-  numericDescriptors
-  {
-    plantaffected: 4.000000000000000000e+01
-    monthlyaveragehumidity: 8.555423367242071000e+01
-    cropage: 1.043281332598396500e+02
-    altitude: 4.406493646203181000e+02
-    cultivatedarea: 8.496133879707403000e+01
-    pH: 5.897295781280122000e+00
-    pestdensity: 2.000000000000000000e+00
-    relativeaffectedarea: 3.827670282767814000e+01
-    monthlyaveragetemperature: 2.542046527208732700e+01
-    monthlyprecipitation: 2.718870275391876000e+02
-  }
-  categoricalDescriptors
-  {
-    leafappearance: cut
-    lesionlocation: middle
-    leafsymptom: cut
-    irrigationsystem: rotary
-    pesttype: worms
-    cropstage: vegetative
-    steminternal: perforation
-    irrigationorigin: river
-    peststage: larvae
-    overallappearance: healthy
-    affectedpart: stem
+    affectedpart: leaves
     lesionshape: round
     soil: clay
     lesionappearance: dry
     firstsymptomcropstage: seedling
-    symptom: galls
+    symptom: cut, perforation
     seedlingsymptom: galls
   }
   imageDescriptors
@@ -350,21 +393,21 @@ cdr
   numericDescriptors
   {
     plantaffected: 4.000000000000000000e+01
-    monthlyaveragehumidity: 8.857787426649110000e+01
-    cropage: 1.039337880182155000e+02
-    altitude: 3.797766601779227000e+02
-    cultivatedarea: 2.418675524268734000e+01
-    pH: 5.563268025927586000e+00
+    monthlyaveragehumidity: 8.495719614546675000e+01
+    cropage: 1.075972617347410500e+02
+    altitude: 6.277513796200550000e+01
+    cultivatedarea: 7.894294923195260000e+01
+    pH: 5.813172427671444000e+00
     pestdensity: 2.000000000000000000e+00
-    relativeaffectedarea: 5.466523114454520000e+01
-    monthlyaveragetemperature: 3.212752167766094000e+01
-    monthlyprecipitation: 1.576437778414799000e+02
+    relativeaffectedarea: 3.568934726481877000e+01
+    monthlyaveragetemperature: 3.246923177052498000e+01
+    monthlyprecipitation: 2.418121421350035700e+02
   }
   categoricalDescriptors
   {
     leafappearance: cut
-    lesionlocation: middle
-    leafsymptom: perforation
+    lesionlocation: lower
+    leafsymptom: cut
     irrigationsystem: rotary
     pesttype: worms
     cropstage: vegetative
@@ -378,49 +421,6 @@ cdr
     lesionappearance: dry
     firstsymptomcropstage: seedling
     symptom: perforation
-    seedlingsymptom: galls
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Agrotis ipsilon
-}
-
-cdr
-{
-  user: avc
-  crop: Zea mays
-  numericDescriptors
-  {
-    plantaffected: 4.000000000000000000e+01
-    monthlyaveragehumidity: 8.717729494354690000e+01
-    cropage: 1.157721941109525800e+02
-    altitude: 1.391692033816459400e+01
-    cultivatedarea: 1.369388197156314600e+01
-    pH: 6.174527364472820000e+00
-    pestdensity: 2.000000000000000000e+00
-    relativeaffectedarea: 5.869619597460168600e+01
-    monthlyaveragetemperature: 2.873645481138680300e+01
-    monthlyprecipitation: 1.444682151987569500e+02
-  }
-  categoricalDescriptors
-  {
-    leafappearance: cut
-    lesionlocation: middle
-    leafsymptom: cut
-    irrigationsystem: rotary
-    pesttype: worms
-    cropstage: vegetative
-    steminternal: perforation
-    irrigationorigin: river
-    peststage: larvae
-    overallappearance: healthy
-    affectedpart: stem
-    lesionshape: round
-    soil: loamy
-    lesionappearance: dry
-    firstsymptomcropstage: seedling
-    symptom: galls
     seedlingsymptom: galls
   }
   imageDescriptors

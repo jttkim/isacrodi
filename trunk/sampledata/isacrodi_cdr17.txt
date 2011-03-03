@@ -5,30 +5,36 @@ cdr
   crop: Gossypium hirsutum
   numericDescriptors
   {
-    relativeaffectedarea: 35.000000 -- 60
-    monthlyaveragehumidity: 80.000000 -- 90
-    monthlyprecipitation: 75.000000 -- 110
     cropage: 110.000000 -- 120
-    monthlyaveragetemperature: 28.000000 -- 35
-    altitude: 1.000000 -- 60
     pH: 5.500000 -- 7
+    monthlyprecipitation: 11.3 -- 100 
+    plantaffected: 5.000000 -- 5
+    altitude: 1.000000 -- 60
+    monthlyaveragetemperature: 26.000000 -- 35
+    relativeaffectedarea: 35.000000 -- 60
     cultivatedarea: 5.000000 -- 100
+    monthlyaveragehumidity: 73.000000 -- 90
   }
   categoricalDescriptors
   {
-    lesionlocation: lower, top, middle
-    soil: clay, sandy, loamy
-    cropstage: flowering, fruiting
-    overallappearance: healthy
-    pesttype: chinchs
-    peststage: adult
+    firstsymptomcropstage: vegetative
+    lesionappearance: dry
     irrigationsystem: rotary
-    firstsymptomcropstage: flowering
+    lesionshape: round
+    peststage: larvae
     irrigationorigin: river
-    affectedpart: fruits
+    cropstage: seedling, vegetative, flowering, fruiting, mature
+    symptom: munching, cut, perforation, defoliation
+    pesttype: worms
+    soil: clay, sandy, loamy
+    overallappearance: healthy
+    affectedpart: leaves, stem, fruits
+    steminternal: perforation
+    leafappearance: perforation, cut
+    lesionlocation: lower, top, middle
   }
   imageDescriptors
   {
   }
-  expertDiagnosis: Dysdercus sp.
+  expertDiagnosis: Spodoptera frugiperda
 }
