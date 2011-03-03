@@ -84,11 +84,7 @@ public class Import
 	System.err.println(String.format("crop disorder \"%s\" already exists", scientificName));
 	continue;
       }
-      String[] csSplit = cropSet.getValue().split(",");
-      for (int i = 0; i < csSplit.length; i++)
-      {
-	csSplit[i] = csSplit[i].trim();
-      }
+      String[] csSplit = Util.splitTrim(cropSet.getValue(), ",");
       CropDisorder cropDisorder = new CropDisorder(nameToken.getValue().trim(), scientificName);
       access.insert(cropDisorder, csSplit);
     }
@@ -118,16 +114,8 @@ public class Import
 	System.err.println(String.format("procedure \"%s\" already exists", procedureName));
 	continue;
       }
-      String[] icSplit = incompatibleProcSetToken.getValue().split(",");
-      for (int i = 0; i < icSplit.length; i++)
-      {
-	icSplit[i] = icSplit[i].trim();
-      }
-      String[] dsSplit = disorderSetToken.getValue().split(",");
-      for (int i = 0; i < dsSplit.length; i++)
-      {
-	dsSplit[i] = dsSplit[i].trim();
-      }
+      String[] icSplit = Util.splitTrim(incompatibleProcSetToken.getValue(), ",");
+      String[] dsSplit = Util.splitTrim(disorderSetToken.getValue(), ",");
       /*
       for (String s : icSplit)
       {
@@ -169,11 +157,7 @@ public class Import
       }
       else
       {
-	String[] valueString = valueSetString.split(",");
-	for (int i = 0; i < valueString.length; i++)
-	{
-	  valueString[i] = valueString[i].trim();
-	}
+	String[] valueString = Util.splitTrim(valueSetString, ",");
 	CategoricalType categoricalType = new CategoricalType(typename);
 	categoricalType.setDescription(description);
 	categoricalType.setMultivalue("true".equals(multipleString));
