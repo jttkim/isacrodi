@@ -1,6 +1,7 @@
 package org.isacrodi.ejb.io;
 
 import java.io.IOException;
+import java.io.PrintStream;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -72,6 +73,21 @@ public class MemoryDB implements Access, UserHandler
     this.isacrodiUserMap = new HashMap<Integer, IsacrodiUser>();
     this.procedureMap = new HashMap<Integer, Procedure>();
     this.recommendationMap = new HashMap<Integer, Recommendation>();
+  }
+
+
+  public void printSummary(PrintStream out)
+  {
+    out.println(String.format("%5d crops", this.cropMap.size()));
+    out.println(String.format("%5d crop disorders", this.cropDisorderMap.size()));
+    out.println(String.format("%5d categorical type values", this.categoricalTypeValueMap.size()));
+    out.println(String.format("%5d descriptors", this.descriptorMap.size()));
+    out.println(String.format("%5d crop disorder records", this.cropDisorderRecordMap.size()));
+    out.println(String.format("%5d diagnoses", this.diagnosisMap.size()));
+    out.println(String.format("%5d disorder scores", this.disorderScoreMap.size()));
+    out.println(String.format("%5d users", this.isacrodiUserMap.size()));
+    out.println(String.format("%5d procedures", this.procedureMap.size()));
+    out.println(String.format("%5d recommendations", this.recommendationMap.size()));
   }
 
 
@@ -147,6 +163,12 @@ public class MemoryDB implements Access, UserHandler
   }
 
 
+  /**
+   * Find a seet of crop disorders based on their scientific names.
+   *
+   * <p>Quirks compatibility with {@code AccessBean}: unknonw crop
+   * disorders are silently ignored.</p>
+   */
   private Set<CropDisorder> findCropDisorderSet(String[] cropDisorderScientificNameSet)
   {
     Map<String, CropDisorder> scientificNameCropDisorderMap = this.makeScientificNameCropDisorderMap();
@@ -154,16 +176,27 @@ public class MemoryDB implements Access, UserHandler
     for (String scientificName : cropDisorderScientificNameSet)
     {
       CropDisorder cropDisorder = scientificNameCropDisorderMap.get(scientificName);
-      if (cropDisorder == null)
+      if (cropDisorder != null)
       {
-	throw new RuntimeException(String.format("no crop disorder \"%s\"", scientificName));
+	cropDisorderSet.add(cropDisorder);
       }
-      cropDisorderSet.add(cropDisorder);
+      else
+      {
+	System.err.println(String.format("MemoryDB.findCropDisorderSet: ignoring unknown crop disorder \"%s\"", scientificName));
+      }
     }
     return (cropDisorderSet);
   }
 
 
+  /**
+   * Find a set of procedures based on their names.
+   *
+   * <p>Quirks compatibility: Unknown procedures are silently ignored,
+   * this matches the way that {@link
+   * org.isacrodi.ejb.session.access.insert(Procedure)} operates
+   * (working around forward references when reading from a file).</p>
+   */
   private Set<Procedure> findProcedureSet(String[] procedureNameSet)
   {
     Map<String, Procedure> nameProcedureMap = this.makeNameProcedureMap();
@@ -171,11 +204,14 @@ public class MemoryDB implements Access, UserHandler
     for (String name : procedureNameSet)
     {
       Procedure procedure = nameProcedureMap.get(name);
-      if (procedure == null)
+      if (procedure != null)
       {
-	throw new RuntimeException(String.format("no procedure \"%s\"", name));
+	procedureSet.add(procedure);
       }
-      procedureSet.add(procedure);
+      else
+      {
+	System.err.println(String.format("MemoryDB.findProcedureSet: ignoring unknown procedure \"%s\"", name));
+      }
     }
     return (procedureSet);
   }
@@ -199,6 +235,7 @@ public class MemoryDB implements Access, UserHandler
 
   public void insert(Procedure procedure, String[] incompatibleProcedureNameSet, String[] cropDisorderScientificNameSet)
   {
+    System.err.println(String.format("importing procedure %s", procedure.getName()));
     Set<Procedure> incompatibleProcedureSet = this.findProcedureSet(incompatibleProcedureNameSet);
     Set<CropDisorder> cropDisorderSet = this.findCropDisorderSet(cropDisorderScientificNameSet);
     procedure.setId(new Integer(this.nextId++));

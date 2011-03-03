@@ -96,6 +96,54 @@ public class Main
   }
 
 
+  private static void testSvmDiagnosisProvider(String configFileName) throws IOException
+  {
+    MemoryDB memoryDB = new MemoryDB();
+    int numTrainingsamples = 0;
+    int numTestsamples = 0;
+    BufferedReader configIn = new BufferedReader(new InputStreamReader(new FileInputStream(configFileName)));
+    List<RangedCropDisorderRecord> rangedCropDisorderRecordList;
+    for (String line = configIn.readLine(); !"".equals(line.trim()); line = configIn.readLine())
+    {
+      String[] w = line.split(":");
+      if (w.length != 2)
+      {
+	throw new RuntimeException(String.format("malformed config line: %s", line));
+      }
+      if ("rangedcdrs".equals(w[0]))
+      {
+	BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(w[1].trim())));
+	rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
+	for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+	{
+	  IsacrodiUser isacrodiUser = new IsacrodiUser("testsvm", "testsvm", rangedCropDisorderRecord.getIsacrodiUserName(), "", "");
+	  memoryDB.insertUser(isacrodiUser);
+	  System.err.println("created user: " + isacrodiUser.toString());
+	}
+      }
+      else if ("numTrainingsamples".equals(w[0]))
+      {
+	numTrainingsamples = Integer.parseInt(w[1].trim());
+      }
+      else if ("numTestsamples".equals(w[0]))
+      {
+	numTestsamples = Integer.parseInt(w[1].trim());
+      }
+      else
+      {
+	throw new RuntimeException(String.format("unknown config parameter: %s", line));
+      }
+    }
+    System.err.println(String.format("%d test samples, %d training samples", numTestsamples, numTrainingsamples));
+    for (String line = configIn.readLine(); line != null; line = configIn.readLine())
+    {
+      System.err.println(String.format("importing: %s", line));
+      Import.importFile(line, memoryDB, memoryDB);
+    }
+    memoryDB.printSummary(System.err);
+  }
+
+
   private static void usage()
   {
     System.out.println("usage: cmdtool <command> [parameters ...]");
@@ -144,6 +192,10 @@ public class Main
 	outfileName = args[5];
       }
       generateCdrs(infileName, categoricalDescriptorTypeFileName, outfileName, rndseed, numCdrs);
+    }
+    else if ("testsvm".equals(command))
+    {
+      testSvmDiagnosisProvider(args[1]);
     }
     else
     {

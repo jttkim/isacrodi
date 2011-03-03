@@ -227,9 +227,27 @@ class RangedImageDescriptor extends RangedDescriptor
 }
 
 
+/**
+ * Template for generating crop disorder records based on ranges for
+ * descriptor values.
+ *
+ * <p>Limitations:
+ * <ul>
+ * <li>Multiple values for categorical descriptors are generated
+ *     only if the ranged CDR was resolved againsta categorical types.
+ *     This is because otherwise the ranged CDR has no way of telling
+ *     whether or not to generate multiple values.</li>
+ * <li>When multiple values are generated, they are drawn equiprobably from
+ *     power set of the range.</li>
+ * <li>Generated CDRs always have all descriptors specified in the ranged CDR,
+ *     in other words, no missing data is generated.</li>
+ * <li>Numeric values are drawn from a uniform distribution over the range,
+ *     so if ranges do not overlap, perfect class separation is possible.</li>
+ * </ul>
+ * </p>
+ */
 public class RangedCropDisorderRecord
 {
-  private String name;
   private String description;
   private List<RangedDescriptor> rangedDescriptorList;
   private String isacrodiUserName;
@@ -241,18 +259,6 @@ public class RangedCropDisorderRecord
   {
     super();
     this.rangedDescriptorList = new ArrayList<RangedDescriptor>();
-  }
-
-
-  public String getName()
-  {
-    return (this.name);
-  }
-
-
-  public void setName(String name)
-  {
-    this.name = name;
   }
 
 
@@ -491,6 +497,7 @@ public class RangedCropDisorderRecord
    * <li><code>DOUBLE</code> is a string acceptable to <code>java.lang.Double.parseDouble</code></li>
    * </ul>
    * <p>The specification given here may be imprecise regarding required newlines.</p>
+   *
    * @param in the buffered reader to parse from
    * @return a list of ranged crop disorder records
    */
