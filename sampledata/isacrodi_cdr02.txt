@@ -1,0 +1,43 @@
+isacrodi-rangedcdrs-0.1
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    plantaffected: 40.000000 -- 40
+    monthlyaveragehumidity: 70.000000 -- 90
+    cropage: 100.000000 -- 120
+    altitude: 10.000000 -- 500
+    cultivatedarea: 10.000000 -- 100
+    pH: 5.500000 -- 7
+    pestdensity: 2.000000 -- 2
+    relativeaffectedarea: 35.000000 -- 60
+    monthlyaveragetemperature: 25.000000 -- 35
+    monthlyprecipitation: 140.000000 -- 300
+  }
+  categoricalDescriptors
+  {
+    leafappearance: perforation, cut
+    lesionlocation: lower, middle
+    leafsymptom: perforation, cut
+    irrigationsystem: rotary
+    pesttype: worms
+    cropstage: seedling, vegetative
+    steminternal: perforation
+    irrigationorigin: river
+    peststage: larvae
+    overallappearance: healthy
+    affectedpart: leaves, stem
+    lesionshape: round
+    soil: clay, sandy, loamy
+    lesionappearance: dry
+    firstsymptomcropstage: seedling
+    symptom: cut, perforation, galls
+    seedlingsymptom: galls
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Agrotis ipsilon
+}

@@ -1,0 +1,421 @@
+isacrodi-cdrs-0.1
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    pH: 6.596317286054936000e+00
+    relativeaffectedarea: 4.525202028730504400e+01
+    monthlyaveragetemperature: 2.707714841309717000e+01
+    cropage: 1.066543411191902200e+02
+    monthlyprecipitation: 2.948409455078593000e+02
+    monthlyaveragehumidity: 7.012234364531523000e+01
+    pestdensity: 1.000000000000000000e-01
+    altitude: 4.705340405031358000e+02
+    cultivatedarea: 9.524754258968744000e+01
+    plantaffected: 5.000000000000000000e+00
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    steminternal: perforation
+    leafappearance: perforation
+    peststage: larvae
+    irrigationorigin: river
+    seedlingorigin: national
+    lesionshape: round
+    soil: sandy
+    lesionlocation: top
+    overallappearance: healthy
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Helicoverpa zea
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    pH: 5.713034054823889000e+00
+    relativeaffectedarea: 4.704320753938995400e+01
+    monthlyaveragetemperature: 3.044554808893673600e+01
+    cropage: 1.115420052274855300e+02
+    monthlyprecipitation: 1.727861673213698500e+02
+    monthlyaveragehumidity: 8.246727621263332000e+01
+    pestdensity: 1.000000000000000000e-01
+    altitude: 1.523536138129212800e+01
+    cultivatedarea: 2.449389910345320200e+01
+    plantaffected: 5.000000000000000000e+00
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    steminternal: perforation
+    leafappearance: perforation
+    peststage: larvae
+    irrigationorigin: river
+    seedlingorigin: national
+    lesionshape: round
+    soil: loamy
+    lesionlocation: lower, top
+    overallappearance: healthy
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Helicoverpa zea
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    pH: 5.810106261040761000e+00
+    relativeaffectedarea: 4.436623750734925400e+01
+    monthlyaveragetemperature: 2.963349787569475800e+01
+    cropage: 1.066722042234934000e+02
+    monthlyprecipitation: 2.109139920507630600e+02
+    monthlyaveragehumidity: 8.008271133409147000e+01
+    pestdensity: 1.000000000000000000e-01
+    altitude: 3.188983833221984000e+02
+    cultivatedarea: 9.186256320301219000e+01
+    plantaffected: 5.000000000000000000e+00
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    steminternal: perforation
+    leafappearance: perforation
+    peststage: larvae
+    irrigationorigin: river
+    seedlingorigin: national
+    lesionshape: round
+    soil: sandy
+    lesionlocation: lower, top
+    overallappearance: healthy
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Helicoverpa zea
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    pH: 6.666874539279291000e+00
+    relativeaffectedarea: 4.062555965020938000e+01
+    monthlyaveragetemperature: 3.483103184833703400e+01
+    cropage: 1.160723721203085400e+02
+    monthlyprecipitation: 2.738103916410126000e+02
+    monthlyaveragehumidity: 7.326207054776630000e+01
+    pestdensity: 1.000000000000000000e-01
+    altitude: 1.429260448617851900e+01
+    cultivatedarea: 6.680708994803723000e+01
+    plantaffected: 5.000000000000000000e+00
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    steminternal: perforation
+    leafappearance: perforation
+    peststage: larvae
+    irrigationorigin: river
+    seedlingorigin: national
+    lesionshape: round
+    soil: sandy
+    lesionlocation: lower
+    overallappearance: healthy
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Helicoverpa zea
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    pH: 6.288687089227722000e+00
+    relativeaffectedarea: 4.147480267064569000e+01
+    monthlyaveragetemperature: 2.780868853329649700e+01
+    cropage: 1.128476471543316800e+02
+    monthlyprecipitation: 1.965342702960579000e+02
+    monthlyaveragehumidity: 7.309949989606166000e+01
+    pestdensity: 1.000000000000000000e-01
+    altitude: 2.861038923759747000e+02
+    cultivatedarea: 3.174449989629398400e+01
+    plantaffected: 5.000000000000000000e+00
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    steminternal: perforation
+    leafappearance: perforation
+    peststage: larvae
+    irrigationorigin: river
+    seedlingorigin: national
+    lesionshape: round
+    soil: sandy
+    lesionlocation: top, middle
+    overallappearance: healthy
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Helicoverpa zea
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    pH: 6.445706835083380000e+00
+    relativeaffectedarea: 4.882019801709542000e+01
+    monthlyaveragetemperature: 3.043419102758556200e+01
+    cropage: 1.040342372379545000e+02
+    monthlyprecipitation: 2.995839935457363500e+02
+    monthlyaveragehumidity: 8.418041594281458000e+01
+    pestdensity: 1.000000000000000000e-01
+    altitude: 4.284843907577284000e+02
+    cultivatedarea: 7.999405152589317000e+01
+    plantaffected: 5.000000000000000000e+00
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    steminternal: perforation
+    leafappearance: perforation
+    peststage: larvae
+    irrigationorigin: river
+    seedlingorigin: national
+    lesionshape: round
+    soil: sandy
+    lesionlocation: lower
+    overallappearance: healthy
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Helicoverpa zea
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    pH: 6.820898004683974000e+00
+    relativeaffectedarea: 5.076003601962478000e+01
+    monthlyaveragetemperature: 3.428893713324555000e+01
+    cropage: 1.039337880182155000e+02
+    monthlyprecipitation: 2.607433992417707000e+02
+    monthlyaveragehumidity: 7.315261227615274000e+01
+    pestdensity: 1.000000000000000000e-01
+    altitude: 1.955252089266982400e+02
+    cultivatedarea: 8.079483212036273000e+01
+    plantaffected: 5.000000000000000000e+00
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    steminternal: perforation
+    leafappearance: perforation
+    peststage: larvae
+    irrigationorigin: river
+    seedlingorigin: national
+    lesionshape: round
+    soil: clay
+    lesionlocation: lower, top
+    overallappearance: healthy
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Helicoverpa zea
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    pH: 6.174527364472820000e+00
+    relativeaffectedarea: 4.169744636547610400e+01
+    monthlyaveragetemperature: 3.447847838984067400e+01
+    cropage: 1.074729096227736100e+02
+    monthlyprecipitation: 1.444682151987569500e+02
+    monthlyaveragehumidity: 8.543386154811225000e+01
+    pestdensity: 1.000000000000000000e-01
+    altitude: 4.832396061464621000e+02
+    cultivatedarea: 8.022927539824812000e+01
+    plantaffected: 5.000000000000000000e+00
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    steminternal: perforation
+    leafappearance: perforation
+    peststage: larvae
+    irrigationorigin: river
+    seedlingorigin: national
+    lesionshape: round
+    soil: loamy
+    lesionlocation: lower, top, middle
+    overallappearance: healthy
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Helicoverpa zea
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    pH: 6.402871954090086000e+00
+    relativeaffectedarea: 5.094867240136750000e+01
+    monthlyaveragetemperature: 2.803367144759031500e+01
+    cropage: 1.013079404225773900e+02
+    monthlyprecipitation: 2.900848801972128000e+02
+    monthlyaveragehumidity: 7.532833414654797000e+01
+    pestdensity: 1.000000000000000000e-01
+    altitude: 1.589484544055420700e+02
+    cultivatedarea: 4.347464621378784000e+01
+    plantaffected: 5.000000000000000000e+00
+  }
+  categoricalDescriptors
+  {
+    cropstage: fruiting
+    steminternal: perforation
+    leafappearance: perforation
+    peststage: larvae
+    irrigationorigin: river
+    seedlingorigin: national
+    lesionshape: round
+    soil: clay
+    lesionlocation: lower, middle
+    overallappearance: healthy
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Helicoverpa zea
+}
+
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    pH: 5.842203253389203000e+00
+    relativeaffectedarea: 3.918999989998899000e+01
+    monthlyaveragetemperature: 3.094631132987114300e+01
+    cropage: 1.161977965796772000e+02
+    monthlyprecipitation: 2.223886625357692000e+02
+    monthlyaveragehumidity: 7.697962775443112000e+01
+    pestdensity: 1.000000000000000000e-01
+    altitude: 3.070332000596496300e+02
+    cultivatedarea: 7.133738159447913000e+01
+    plantaffected: 5.000000000000000000e+00
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering
+    steminternal: perforation
+    leafappearance: perforation
+    peststage: larvae
+    irrigationorigin: river
+    seedlingorigin: national
+    lesionshape: round
+    soil: clay
+    lesionlocation: lower
+    overallappearance: healthy
+    irrigationsystem: rotary
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Helicoverpa zea
+}
+

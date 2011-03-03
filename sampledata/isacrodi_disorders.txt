@@ -108,7 +108,7 @@ disorder
 {
   name: black cutworm
   scientificName: Agrotis ipsilon
-  cropSet: Zea mays
+  cropSet: Zea mays, Gossypium hirsutum
 }
 
 disorder

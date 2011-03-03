@@ -23,16 +23,16 @@ cdr
     cropstage: seedling
     soil: loamy
     firstsymptomcropstage: seedling
-    leafappearance: perforation
+    leafappearance: cut
     affectedpart: stem
     irrigationsystem: rotary
     pesttype: worms
-    symptom: galls
+    symptom: cut
     irrigationorigin: river
     steminternal: perforation
     peststage: larvae
     lesionappearance: dry
-    lesionlocation: lower
+    lesionlocation: lower, middle
     overallappearance: healthy
   }
   imageDescriptors
@@ -47,16 +47,16 @@ cdr
   crop: Gossypium hirsutum
   numericDescriptors
   {
-    cropage: 1.137820204532105500e+02
-    cultivatedarea: 1.827745487585636000e+01
-    monthlyaveragetemperature: 3.286463585721744000e+01
-    monthlyaveragehumidity: 8.805227771473713000e+01
-    monthlyprecipitation: 7.517588115973584000e+01
-    plantaffected: 1.023135155788333000e+01
-    altitude: 4.489508468800168000e+01
+    cropage: 1.161059153939933000e+02
+    cultivatedarea: 9.571842319468837000e+01
+    monthlyaveragetemperature: 2.991848366504232000e+01
+    monthlyaveragehumidity: 8.190202209125565000e+01
+    monthlyprecipitation: 7.504545018634131000e+01
+    plantaffected: 1.183526503459264700e+01
+    altitude: 2.968931535639219600e+01
     pestdensity: 5.000000000000000000e-01
-    pH: 6.222592452363397000e+00
-    relativeaffectedarea: 4.861387022234184500e+01
+    pH: 5.689862489115462000e+00
+    relativeaffectedarea: 3.825521761381125400e+01
   }
   categoricalDescriptors
   {
@@ -75,48 +75,6 @@ cdr
     peststage: larvae
     lesionappearance: dry
     lesionlocation: middle
-    overallappearance: healthy
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Agrotis ipsilon
-}
-
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-    cropage: 1.197383400991870000e+02
-    cultivatedarea: 2.831552259022308200e+01
-    monthlyaveragetemperature: 3.076164634405955300e+01
-    monthlyaveragehumidity: 8.217602124907685000e+01
-    monthlyprecipitation: 9.012024079627388000e+01
-    plantaffected: 7.331557947513334000e+00
-    altitude: 5.350461634766724500e+01
-    pestdensity: 5.000000000000000000e-01
-    pH: 6.388568865794408000e+00
-    relativeaffectedarea: 5.137934007823541500e+01
-  }
-  categoricalDescriptors
-  {
-    lesionshape: round
-    leafsymptom: cut
-    cropstage: seedling
-    soil: loamy
-    firstsymptomcropstage: seedling
-    leafappearance: cut
-    affectedpart: leaves
-    irrigationsystem: rotary
-    pesttype: worms
-    symptom: perforation
-    irrigationorigin: river
-    steminternal: perforation
-    peststage: larvae
-    lesionappearance: dry
-    lesionlocation: lower
     overallappearance: healthy
   }
   imageDescriptors
@@ -147,49 +105,7 @@ cdr
     lesionshape: round
     leafsymptom: cut
     cropstage: seedling
-    soil: clay
-    firstsymptomcropstage: seedling
-    leafappearance: cut
-    affectedpart: stem
-    irrigationsystem: rotary
-    pesttype: worms
-    symptom: cut
-    irrigationorigin: river
-    steminternal: perforation
-    peststage: larvae
-    lesionappearance: dry
-    lesionlocation: lower
-    overallappearance: healthy
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Agrotis ipsilon
-}
-
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-    cropage: 1.125490945129981500e+02
-    cultivatedarea: 7.890205415435514000e+01
-    monthlyaveragetemperature: 2.957515670205862800e+01
-    monthlyaveragehumidity: 8.983103184833703000e+01
-    monthlyprecipitation: 1.031266512105399500e+02
-    plantaffected: 1.336314947756328700e+01
-    altitude: 1.062310811591056700e+01
-    pestdensity: 5.000000000000000000e-01
-    pH: 5.513140625978098000e+00
-    relativeaffectedarea: 5.077974720778812000e+01
-  }
-  categoricalDescriptors
-  {
-    lesionshape: round
-    leafsymptom: cut
-    cropstage: seedling
-    soil: clay
+    soil: loamy
     firstsymptomcropstage: seedling
     leafappearance: cut
     affectedpart: stem
@@ -200,7 +116,7 @@ cdr
     steminternal: perforation
     peststage: larvae
     lesionappearance: dry
-    lesionlocation: middle
+    lesionlocation: lower, middle
     overallappearance: healthy
   }
   imageDescriptors
@@ -215,16 +131,16 @@ cdr
   crop: Gossypium hirsutum
   numericDescriptors
   {
-    cropage: 1.182398087545316000e+02
-    cultivatedarea: 1.674876670777780000e+01
-    monthlyaveragetemperature: 3.231865970722403000e+01
-    monthlyaveragehumidity: 8.481862355260598000e+01
-    monthlyprecipitation: 7.849125984640007000e+01
-    plantaffected: 1.117145889861431800e+01
-    altitude: 2.659102004118865000e+00
+    cropage: 1.163118988831152500e+02
+    cultivatedarea: 2.475790800904914000e+01
+    monthlyaveragetemperature: 3.416250099434929400e+01
+    monthlyaveragehumidity: 8.707044226053965000e+01
+    monthlyprecipitation: 1.003180076175530900e+02
+    plantaffected: 1.009492919670369200e+01
+    altitude: 5.923902614768169000e+01
     pestdensity: 5.000000000000000000e-01
-    pH: 5.609539030320766000e+00
-    relativeaffectedarea: 3.685119818183364500e+01
+    pH: 6.565862162722501000e+00
+    relativeaffectedarea: 5.559952188632899000e+01
   }
   categoricalDescriptors
   {
@@ -234,15 +150,15 @@ cdr
     soil: clay
     firstsymptomcropstage: seedling
     leafappearance: perforation
-    affectedpart: stem
+    affectedpart: leaves
     irrigationsystem: rotary
     pesttype: worms
-    symptom: galls
+    symptom: cut, galls
     irrigationorigin: river
     steminternal: perforation
     peststage: larvae
     lesionappearance: dry
-    lesionlocation: middle
+    lesionlocation: lower, middle
     overallappearance: healthy
   }
   imageDescriptors
@@ -273,49 +189,7 @@ cdr
     lesionshape: round
     leafsymptom: cut
     cropstage: seedling
-    soil: clay
-    firstsymptomcropstage: seedling
-    leafappearance: cut
-    affectedpart: stem
-    irrigationsystem: rotary
-    pesttype: worms
-    symptom: galls
-    irrigationorigin: river
-    steminternal: perforation
-    peststage: larvae
-    lesionappearance: dry
-    lesionlocation: middle
-    overallappearance: healthy
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Agrotis ipsilon
-}
-
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-    cropage: 1.190728119011819200e+02
-    cultivatedarea: 2.841613497371936000e+01
-    monthlyaveragetemperature: 2.973942136961119000e+01
-    monthlyaveragehumidity: 8.706858334750679000e+01
-    monthlyprecipitation: 8.682023245423896000e+01
-    plantaffected: 1.107335078960756300e+01
-    altitude: 1.960994440099149000e+01
-    pestdensity: 5.000000000000000000e-01
-    pH: 6.176512753923174000e+00
-    relativeaffectedarea: 4.422835788753318000e+01
-  }
-  categoricalDescriptors
-  {
-    lesionshape: round
-    leafsymptom: cut
-    cropstage: seedling
-    soil: clay
+    soil: loamy
     firstsymptomcropstage: seedling
     leafappearance: cut
     affectedpart: stem
@@ -341,16 +215,184 @@ cdr
   crop: Gossypium hirsutum
   numericDescriptors
   {
-    cropage: 1.111048985341748500e+02
-    cultivatedarea: 7.858739039859776000e+01
-    monthlyaveragetemperature: 3.014537951673738000e+01
-    monthlyaveragehumidity: 8.880598669789316000e+01
-    monthlyprecipitation: 9.706405042747470000e+01
-    plantaffected: 1.428893713324554500e+01
-    altitude: 1.260467465373570000e+01
+    cropage: 1.146383775965971000e+02
+    cultivatedarea: 2.183805762223033800e+01
+    monthlyaveragetemperature: 3.273286208167757400e+01
+    monthlyaveragehumidity: 8.715572484991358000e+01
+    monthlyprecipitation: 1.010179367967843000e+02
+    plantaffected: 1.429102610427534400e+01
+    altitude: 3.580371823875589000e+01
     pestdensity: 5.000000000000000000e-01
-    pH: 5.736445920711455000e+00
-    relativeaffectedarea: 3.605446709879310000e+01
+    pH: 5.665734780126228000e+00
+    relativeaffectedarea: 5.436510273647309000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionshape: round
+    leafsymptom: cut
+    cropstage: seedling
+    soil: sandy
+    firstsymptomcropstage: seedling
+    leafappearance: cut
+    affectedpart: leaves, stem
+    irrigationsystem: rotary
+    pesttype: worms
+    symptom: cut, galls
+    irrigationorigin: river
+    steminternal: perforation
+    peststage: larvae
+    lesionappearance: dry
+    lesionlocation: lower
+    overallappearance: healthy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Agrotis ipsilon
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 1.106278664981963500e+02
+    cultivatedarea: 5.698628194189138400e+01
+    monthlyaveragetemperature: 2.852785303214616000e+01
+    monthlyaveragehumidity: 8.651144658366877000e+01
+    monthlyprecipitation: 1.050602661512070600e+02
+    plantaffected: 1.288609705547628800e+01
+    altitude: 1.471629183574920700e+00
+    pestdensity: 5.000000000000000000e-01
+    pH: 6.174527364472820000e+00
+    relativeaffectedarea: 4.169744636547610400e+01
+  }
+  categoricalDescriptors
+  {
+    lesionshape: round
+    leafsymptom: cut
+    cropstage: seedling
+    soil: clay
+    firstsymptomcropstage: seedling
+    leafappearance: cut
+    affectedpart: stem
+    irrigationsystem: rotary
+    pesttype: worms
+    symptom: galls
+    irrigationorigin: river
+    steminternal: perforation
+    peststage: larvae
+    lesionappearance: dry
+    lesionlocation: lower, middle
+    overallappearance: healthy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Agrotis ipsilon
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 1.124227614275862100e+02
+    cultivatedarea: 2.169168567750976000e+01
+    monthlyaveragetemperature: 3.111355804172880500e+01
+    monthlyaveragehumidity: 8.829691223349200000e+01
+    monthlyprecipitation: 9.606701226210201000e+01
+    plantaffected: 1.137946896054700100e+01
+    altitude: 1.889866154078285700e+01
+    pestdensity: 5.000000000000000000e-01
+    pH: 6.907045751848870000e+00
+    relativeaffectedarea: 4.166041768318496000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionshape: round
+    leafsymptom: cut
+    cropstage: seedling
+    soil: sandy
+    firstsymptomcropstage: seedling
+    leafappearance: perforation, cut
+    affectedpart: leaves
+    irrigationsystem: rotary
+    pesttype: worms
+    symptom: cut, perforation
+    irrigationorigin: river
+    steminternal: perforation
+    peststage: larvae
+    lesionappearance: dry
+    lesionlocation: lower, middle
+    overallappearance: healthy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Agrotis ipsilon
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 1.109743533058480600e+02
+    cultivatedarea: 2.451083208133090700e+01
+    monthlyaveragetemperature: 3.076291685064435000e+01
+    monthlyaveragehumidity: 8.337934994617568000e+01
+    monthlyprecipitation: 1.041829363755307200e+02
+    plantaffected: 8.882611172635725000e+00
+    altitude: 4.128771882638188400e+01
+    pestdensity: 5.000000000000000000e-01
+    pH: 5.608055888254722000e+00
+    relativeaffectedarea: 5.930039893147590000e+01
+  }
+  categoricalDescriptors
+  {
+    lesionshape: round
+    leafsymptom: cut
+    cropstage: seedling
+    soil: clay
+    firstsymptomcropstage: seedling
+    leafappearance: cut
+    affectedpart: leaves
+    irrigationsystem: rotary
+    pesttype: worms
+    symptom: perforation
+    irrigationorigin: river
+    steminternal: perforation
+    peststage: larvae
+    lesionappearance: dry
+    lesionlocation: middle
+    overallappearance: healthy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Agrotis ipsilon
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 1.131531501628136300e+02
+    cultivatedarea: 7.113072381382703000e+01
+    monthlyaveragetemperature: 2.866414183610398300e+01
+    monthlyaveragehumidity: 8.958808055015898000e+01
+    monthlyprecipitation: 7.953871561163390000e+01
+    plantaffected: 5.235986181210720000e+00
+    altitude: 5.998528632529298000e+00
+    pestdensity: 5.000000000000000000e-01
+    pH: 6.204930399256439000e+00
+    relativeaffectedarea: 5.549205972998752000e+01
   }
   categoricalDescriptors
   {
@@ -363,54 +405,12 @@ cdr
     affectedpart: leaves
     irrigationsystem: rotary
     pesttype: worms
-    symptom: cut
+    symptom: cut, perforation
     irrigationorigin: river
     steminternal: perforation
     peststage: larvae
     lesionappearance: dry
-    lesionlocation: middle
-    overallappearance: healthy
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Agrotis ipsilon
-}
-
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-    cropage: 1.142644304740943000e+02
-    cultivatedarea: 4.305293032474414600e+01
-    monthlyaveragetemperature: 3.320633083329451600e+01
-    monthlyaveragehumidity: 8.365305737784618000e+01
-    monthlyprecipitation: 1.017314214675137800e+02
-    plantaffected: 8.226691910455337000e+00
-    altitude: 3.125041057956178000e+01
-    pestdensity: 5.000000000000000000e-01
-    pH: 5.696753219687412000e+00
-    relativeaffectedarea: 3.579491192463223000e+01
-  }
-  categoricalDescriptors
-  {
-    lesionshape: round
-    leafsymptom: cut
-    cropstage: seedling
-    soil: loamy
-    firstsymptomcropstage: seedling
-    leafappearance: perforation
-    affectedpart: stem
-    irrigationsystem: rotary
-    pesttype: worms
-    symptom: perforation
-    irrigationorigin: river
-    steminternal: perforation
-    peststage: larvae
-    lesionappearance: dry
-    lesionlocation: middle
+    lesionlocation: lower
     overallappearance: healthy
   }
   imageDescriptors

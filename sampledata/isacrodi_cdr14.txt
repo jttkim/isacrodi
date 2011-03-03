@@ -5,40 +5,37 @@ cdr
   crop: Gossypium hirsutum
   numericDescriptors
   {
-    altitude: 1.000000 -- 60
-    cropage: 110.000000 -- 120
-    monthlyprecipitation: 75.000000 -- 110
-    relativeaffectedarea: 35.000000 -- 60
-    monthlyaveragetemperature: 28.000000 -- 35
-    plantaffected: 20.000000 -- 20
+    monthlyaveragehumidity: 30.000000 -- 50
     pH: 5.500000 -- 7
-    monthlyaveragehumidity: 80.000000 -- 90
+    relativeaffectedarea: 35.000000 -- 60
     cultivatedarea: 5.000000 -- 100
+    monthlyaveragetemperature: 28.000000 -- 35
+    altitude: 1.000000 -- 60
+    monthlyprecipitation: 75.000000 -- 110
+    cropage: 110.000000 -- 120
+    plantaffected: 5.000000 -- 5
+    pestdensity: 7.000000 -- 7
   }
   categoricalDescriptors
   {
-    seedlingorigin: national
-    lesionappearance: wet
-    lesionlocation: lower, top, middle
-    soil: clay, sandy, loamy
-    symptom: soot, honeydew
-    firstsymptomcropstage: seedling
-    cropstage: seedling, vegetative
-    peststage: nymph, adult
-    lesioncolour: black
     irrigationsystem: rotary
-    diseasefielddistribution: borders
-    steminternal: black
-    overallappearance: ill
-    pesttype: aphids
-    affectedpart: leaves
-    leafsymptom: soot
+    lesionappearance: dry
+    overallappearance: healthy
+    steminternal: perforation
+    pesttype: worms
+    symptom: perforation
     irrigationorigin: river
-    seedlingsymptom: dwarfing
-    leafappearance: curling
+    cropstage: flowering, fruiting, mature
+    seedlingorigin: national
+    lesionlocation: lower, top, middle
+    lesionshape: round
+    peststage: larvae
+    affectedpart: fruits
+    soil: clay, sandy, loamy
+    firstsymptomcropstage: vegetative
   }
   imageDescriptors
   {
   }
-  expertDiagnosis: Aphis gossyppi
+  expertDiagnosis: Pectinophora gossypiella
 }

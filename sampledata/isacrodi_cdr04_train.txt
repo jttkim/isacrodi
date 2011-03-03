@@ -23,7 +23,48 @@ cdr
     peststage: larvae
     leafappearance: perforation
     irrigationsystem: rotary
-    symptom: defoliation
+    symptom: cut
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: leaves, fruits
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Heliothis virescens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 4.613546785228055000e+01
+    pH: 5.912544924357421000e+00
+    cropage: 1.107538779891364000e+02
+    monthlyaveragetemperature: 3.110591539399329600e+01
+    monthlyaveragehumidity: 8.954930770470403000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 3.975505522813913000e+01
+    monthlyprecipitation: 7.504545018634131000e+01
+    cultivatedarea: 6.993501782863015000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: fruiting
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: cut, perforation, defoliation
     lesionshape: round
     lesionlocation: top
     steminternal: perforation
@@ -46,15 +87,56 @@ cdr
   crop: Gossypium hirsutum
   numericDescriptors
   {
-    altitude: 2.036710385678277300e+01
-    pH: 6.067303067981583000e+00
-    cropage: 1.113976268290375000e+02
-    monthlyaveragetemperature: 3.194947979602491700e+01
-    monthlyaveragehumidity: 8.805227771473713000e+01
+    altitude: 2.271666284594384400e+01
+    pH: 6.061974250440955000e+00
+    cropage: 1.146334978756947600e+02
+    monthlyaveragetemperature: 2.833610211174669800e+01
+    monthlyaveragehumidity: 8.443212450317269000e+01
     plantaffected: 1.500000000000000000e+01
-    relativeaffectedarea: 4.807837889470832000e+01
-    monthlyprecipitation: 1.010394570183060800e+02
-    cultivatedarea: 1.849215680551298400e+01
+    relativeaffectedarea: 5.997452036919822000e+01
+    monthlyprecipitation: 9.706417023729989000e+01
+    cultivatedarea: 9.141048338095730000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: flowering
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: perforation, defoliation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: flowers
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Heliothis virescens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 2.119544155263978000e+01
+    pH: 6.549387365201932000e+00
+    cropage: 1.192897185390619400e+02
+    monthlyaveragetemperature: 3.238958877866193000e+01
+    monthlyaveragehumidity: 8.090146558927052000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 4.301961087016777000e+01
+    monthlyprecipitation: 9.790491062539289000e+01
+    cultivatedarea: 4.042296439048509000e+01
   }
   categoricalDescriptors
   {
@@ -64,12 +146,12 @@ cdr
     peststage: larvae
     leafappearance: perforation
     irrigationsystem: rotary
-    symptom: defoliation
+    symptom: cut, perforation
     lesionshape: round
     lesionlocation: top
     steminternal: perforation
     cropstage: flowering
-    affectedpart: flowers
+    affectedpart: flowers, leaves
     irrigationorigin: river
     pesttype: worms
     lesionappearance: dry
@@ -87,15 +169,97 @@ cdr
   crop: Gossypium hirsutum
   numericDescriptors
   {
-    altitude: 2.136857779194721400e+01
-    pH: 6.310595597175695000e+00
-    cropage: 1.197383400991870000e+02
-    monthlyaveragetemperature: 2.745426553581295800e+01
-    monthlyaveragehumidity: 8.394520906294221000e+01
+    altitude: 2.517262902081388600e+01
+    pH: 5.921303279994475000e+00
+    cropage: 1.164238235771658500e+02
+    monthlyaveragetemperature: 2.853339189350362000e+01
+    monthlyaveragehumidity: 8.154974994803084000e+01
     plantaffected: 1.500000000000000000e+01
-    relativeaffectedarea: 4.580017199733848000e+01
-    monthlyprecipitation: 8.316045281629667000e+01
-    cultivatedarea: 8.954133140726083000e+01
+    relativeaffectedarea: 4.908693328448850000e+01
+    monthlyprecipitation: 8.345619440411433000e+01
+    cultivatedarea: 6.710277918905788000e+00
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: fruiting
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: perforation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: flowers, fruits
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: loamy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Heliothis virescens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 4.055706970366793500e+01
+    pH: 6.350939606355558000e+00
+    cropage: 1.166202596130537800e+02
+    monthlyaveragetemperature: 3.407281190118193000e+01
+    monthlyaveragehumidity: 8.246485631302309000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 5.267145836876696000e+01
+    monthlyprecipitation: 8.682023245423896000e+01
+    cultivatedarea: 6.269683250127185000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: fruiting
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: perforation, defoliation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: fruiting
+    affectedpart: leaves
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: loamy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Heliothis virescens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 3.036519060475926700e+01
+    pH: 6.332566058536479000e+00
+    cropage: 1.187795251900985000e+02
+    monthlyaveragetemperature: 2.755962651292179000e+01
+    monthlyaveragehumidity: 8.241335573161105000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 4.912538080611187000e+01
+    monthlyprecipitation: 7.674524176912492000e+01
+    cultivatedarea: 9.014982488321446000e+01
   }
   categoricalDescriptors
   {
@@ -106,6 +270,88 @@ cdr
     leafappearance: perforation
     irrigationsystem: rotary
     symptom: defoliation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: fruiting
+    affectedpart: flowers, fruits
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: sandy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Heliothis virescens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 3.388946072148083000e+01
+    pH: 6.537281817522224000e+00
+    cropage: 1.171907568534680500e+02
+    monthlyaveragetemperature: 3.277950272380208000e+01
+    monthlyaveragehumidity: 8.288100716049865000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 5.915634876705523500e+01
+    monthlyprecipitation: 1.098783208029178400e+02
+    cultivatedarea: 2.771511145110971000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: flowering
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: cut, defoliation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: flowering
+    affectedpart: flowers, leaves, fruits
+    irrigationorigin: river
+    pesttype: worms
+    lesionappearance: dry
+    soil: loamy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis:Heliothis virescens
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 4.298350411457090600e+01
+    pH: 5.955050717138548000e+00
+    cropage: 1.106539702112887000e+02
+    monthlyaveragetemperature: 3.438030501232580000e+01
+    monthlyaveragehumidity: 8.266416707327399000e+01
+    plantaffected: 1.500000000000000000e+01
+    relativeaffectedarea: 4.259941093905827000e+01
+    monthlyprecipitation: 8.801791797202860000e+01
+    cultivatedarea: 8.642706905452413000e+01
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    seedlingorigin: national
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    leafappearance: perforation
+    irrigationsystem: rotary
+    symptom: cut, perforation, defoliation
     lesionshape: round
     lesionlocation: top
     steminternal: perforation
@@ -128,56 +374,15 @@ cdr
   crop: Gossypium hirsutum
   numericDescriptors
   {
-    altitude: 3.477744001576536400e+01
-    pH: 6.000415316762004500e+00
-    cropage: 1.144321245031726900e+02
-    monthlyaveragetemperature: 3.004135566704574000e+01
-    monthlyaveragehumidity: 8.998980814767928000e+01
+    altitude: 3.155101314004063000e+01
+    pH: 6.006902491926352000e+00
+    cropage: 1.183379818215802000e+02
+    monthlyaveragetemperature: 2.888261117263572700e+01
+    monthlyaveragehumidity: 8.682842691972574000e+01
     plantaffected: 1.500000000000000000e+01
-    relativeaffectedarea: 5.773960088972561000e+01
-    monthlyprecipitation: 9.276809706244819000e+01
-    cultivatedarea: 5.168786452835319500e+01
-  }
-  categoricalDescriptors
-  {
-    overallappearance: ill
-    seedlingorigin: national
-    firstsymptomcropstage: fruiting
-    peststage: larvae
-    leafappearance: perforation
-    irrigationsystem: rotary
-    symptom: cut
-    lesionshape: round
-    lesionlocation: top
-    steminternal: perforation
-    cropstage: flowering
-    affectedpart: flowers
-    irrigationorigin: river
-    pesttype: worms
-    lesionappearance: dry
-    soil: sandy
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Heliothis virescens
-}
-
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-    altitude: 4.062734395836267000e+01
-    pH: 6.683785986752643500e+00
-    cropage: 1.169900662243448000e+02
-    monthlyaveragetemperature: 2.704635552205685700e+01
-    monthlyaveragehumidity: 8.254909451299815000e+01
-    plantaffected: 1.500000000000000000e+01
-    relativeaffectedarea: 4.062555965020938000e+01
-    monthlyprecipitation: 1.094086114691796000e+02
-    cultivatedarea: 8.134376757146556000e+01
+    relativeaffectedarea: 3.680093147091202600e+01
+    monthlyprecipitation: 1.090205585040662600e+02
+    cultivatedarea: 6.784778029405496000e+01
   }
   categoricalDescriptors
   {
@@ -187,217 +392,12 @@ cdr
     peststage: larvae
     leafappearance: perforation
     irrigationsystem: rotary
-    symptom: defoliation
+    symptom: cut, perforation, defoliation
     lesionshape: round
     lesionlocation: top
     steminternal: perforation
     cropstage: flowering
-    affectedpart: flowers
-    irrigationorigin: river
-    pesttype: worms
-    lesionappearance: dry
-    soil: loamy
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Heliothis virescens
-}
-
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-    altitude: 4.699846737214272000e+01
-    pH: 6.264239379505554000e+00
-    cropage: 1.198710213809630000e+02
-    monthlyaveragetemperature: 2.653246232816261000e+01
-    monthlyaveragehumidity: 8.710574775148335000e+01
-    plantaffected: 1.500000000000000000e+01
-    relativeaffectedarea: 3.809178071257310400e+01
-    monthlyprecipitation: 9.659329853612014000e+01
-    cultivatedarea: 5.077692374975682600e+01
-  }
-  categoricalDescriptors
-  {
-    overallappearance: ill
-    seedlingorigin: national
-    firstsymptomcropstage: flowering
-    peststage: larvae
-    leafappearance: perforation
-    irrigationsystem: rotary
-    symptom: defoliation
-    lesionshape: round
-    lesionlocation: top
-    steminternal: perforation
-    cropstage: flowering
-    affectedpart: leaves
-    irrigationorigin: river
-    pesttype: worms
-    lesionappearance: dry
-    soil: clay
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Heliothis virescens
-}
-
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-    altitude: 4.138723332112766000e+01
-    pH: 6.774461210521414000e+00
-    cropage: 1.135382328277047500e+02
-    monthlyaveragetemperature: 3.098632488274657200e+01
-    monthlyaveragehumidity: 8.292093411356254000e+01
-    plantaffected: 1.500000000000000000e+01
-    relativeaffectedarea: 5.360624050340125000e+01
-    monthlyprecipitation: 8.981314551032013000e+01
-    cultivatedarea: 4.070177983059058000e+01
-  }
-  categoricalDescriptors
-  {
-    overallappearance: ill
-    seedlingorigin: national
-    firstsymptomcropstage: flowering
-    peststage: larvae
-    leafappearance: perforation
-    irrigationsystem: rotary
-    symptom: perforation
-    lesionshape: round
-    lesionlocation: top
-    steminternal: perforation
-    cropstage: fruiting
-    affectedpart: fruits
-    irrigationorigin: river
-    pesttype: worms
-    lesionappearance: dry
-    soil: sandy
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Heliothis virescens
-}
-
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-    altitude: 4.889956294420921500e+01
-    pH: 6.141550122127388000e+00
-    cropage: 1.199918343079059300e+02
-    monthlyaveragetemperature: 2.561901802278626400e+01
-    monthlyaveragehumidity: 8.586320631992935000e+01
-    plantaffected: 1.500000000000000000e+01
-    relativeaffectedarea: 5.155064903263444000e+01
-    monthlyprecipitation: 1.067548416541367500e+02
-    cultivatedarea: 2.841613497371936000e+01
-  }
-  categoricalDescriptors
-  {
-    overallappearance: ill
-    seedlingorigin: national
-    firstsymptomcropstage: fruiting
-    peststage: larvae
-    leafappearance: perforation
-    irrigationsystem: rotary
-    symptom: defoliation
-    lesionshape: round
-    lesionlocation: top
-    steminternal: perforation
-    cropstage: flowering
-    affectedpart: flowers
-    irrigationorigin: river
-    pesttype: worms
-    lesionappearance: dry
-    soil: loamy
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Heliothis virescens
-}
-
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-    altitude: 3.480037470400634000e+01
-    pH: 5.765864067719426000e+00
-    cropage: 1.167612315452536800e+02
-    monthlyaveragetemperature: 3.215572484991359000e+01
-    monthlyaveragehumidity: 8.743369622765266000e+01
-    plantaffected: 1.500000000000000000e+01
-    relativeaffectedarea: 4.974733823676097000e+01
-    monthlyprecipitation: 9.754043005842433000e+01
-    cultivatedarea: 1.549653607466111400e+01
-  }
-  categoricalDescriptors
-  {
-    overallappearance: ill
-    seedlingorigin: national
-    firstsymptomcropstage: flowering
-    peststage: larvae
-    leafappearance: perforation
-    irrigationsystem: rotary
-    symptom: perforation
-    lesionshape: round
-    lesionlocation: top
-    steminternal: perforation
-    cropstage: flowering
-    affectedpart: leaves
-    irrigationorigin: river
-    pesttype: worms
-    lesionappearance: dry
-    soil: loamy
-  }
-  imageDescriptors
-  {
-  }
-  expertDiagnosis:Heliothis virescens
-}
-
-cdr
-{
-  user: avc
-  crop: Gossypium hirsutum
-  numericDescriptors
-  {
-    altitude: 1.498239814573102700e+01
-    pH: 6.067934313040913000e+00
-    cropage: 1.178660924578180800e+02
-    monthlyaveragetemperature: 3.212752167766094000e+01
-    monthlyaveragehumidity: 8.110273611509250000e+01
-    plantaffected: 1.500000000000000000e+01
-    relativeaffectedarea: 3.575172089697249000e+01
-    monthlyprecipitation: 8.608210176404422000e+01
-    cultivatedarea: 6.837196855364813000e+01
-  }
-  categoricalDescriptors
-  {
-    overallappearance: ill
-    seedlingorigin: national
-    firstsymptomcropstage: fruiting
-    peststage: larvae
-    leafappearance: perforation
-    irrigationsystem: rotary
-    symptom: cut
-    lesionshape: round
-    lesionlocation: top
-    steminternal: perforation
-    cropstage: flowering
-    affectedpart: fruits
+    affectedpart: flowers, leaves
     irrigationorigin: river
     pesttype: worms
     lesionappearance: dry
