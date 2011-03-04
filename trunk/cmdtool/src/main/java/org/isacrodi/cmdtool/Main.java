@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.PrintStream;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.naming.NamingException;
@@ -25,6 +26,7 @@ import org.isacrodi.ejb.io.MemoryDB;
 import org.isacrodi.ejb.entity.*;
 
 import org.isacrodi.diagnosis.DiagnosisProvider;
+import org.isacrodi.diagnosis.SVMDiagnosisProvider;
 
 
 
@@ -65,12 +67,13 @@ public class Main
   }
 
 
-  private static void generateCdrs(String infileName, String categoricalDescriptorTypeFileName, String outfileName, int rndseed, int numCdrs) throws IOException
+  private static void generateCdrs(String infileName, String categoricalDescriptorTypeFileName, String numericDescriptorTypeFileName, String outfileName, int rndseed, int numCdrs) throws IOException
   {
     Random rng = new Random(rndseed);
     BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(infileName)));
     MemoryDB memoryDB = new MemoryDB();
     Import.importFile(categoricalDescriptorTypeFileName, memoryDB, memoryDB);
+    Import.importFile(numericDescriptorTypeFileName, memoryDB, memoryDB);
     List<RangedCropDisorderRecord> rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
     for (RangedCropDisorderRecord  rangedCropDisorderRecord : rangedCropDisorderRecordList)
     {
@@ -101,8 +104,10 @@ public class Main
     MemoryDB memoryDB = new MemoryDB();
     int numTrainingsamples = 0;
     int numTestsamples = 0;
+    int rndseed = -1;
+    String testResultFile = null;
     BufferedReader configIn = new BufferedReader(new InputStreamReader(new FileInputStream(configFileName)));
-    List<RangedCropDisorderRecord> rangedCropDisorderRecordList;
+    List<RangedCropDisorderRecord> rangedCropDisorderRecordList = null;
     for (String line = configIn.readLine(); !"".equals(line.trim()); line = configIn.readLine())
     {
       String[] w = line.split(":");
@@ -116,9 +121,12 @@ public class Main
 	rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
 	for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
 	{
-	  IsacrodiUser isacrodiUser = new IsacrodiUser("testsvm", "testsvm", rangedCropDisorderRecord.getIsacrodiUserName(), "", "");
-	  memoryDB.insertUser(isacrodiUser);
-	  System.err.println("created user: " + isacrodiUser.toString());
+	  if (memoryDB.findUser(rangedCropDisorderRecord.getIsacrodiUserName()) == null)
+	  {
+	    IsacrodiUser isacrodiUser = new IsacrodiUser("testsvm", "testsvm", rangedCropDisorderRecord.getIsacrodiUserName(), "", "");
+	    memoryDB.insertUser(isacrodiUser);
+	    System.err.println("created user: " + isacrodiUser.toString());
+	  }
 	}
       }
       else if ("numTrainingsamples".equals(w[0]))
@@ -128,6 +136,14 @@ public class Main
       else if ("numTestsamples".equals(w[0]))
       {
 	numTestsamples = Integer.parseInt(w[1].trim());
+      }
+      else if ("rndseed".equals(w[0]))
+      {
+	rndseed = Integer.parseInt(w[1].trim());
+      }
+      else if ("testResultFile".equals(w[0]))
+      {
+	testResultFile = w[1].trim();
       }
       else
       {
@@ -141,6 +157,43 @@ public class Main
       Import.importFile(line, memoryDB, memoryDB);
     }
     memoryDB.printSummary(System.err);
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      rangedCropDisorderRecord.resolve(memoryDB);
+    }
+    if (rndseed == -1)
+    {
+      throw new RuntimeException("no random seed");
+    }
+    Random rng = new Random(rndseed);
+    List<CropDisorderRecord> trainingList = new ArrayList<CropDisorderRecord>();
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      for (int i = 0; i < numTrainingsamples; i++)
+      {
+	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB));
+      }
+    }
+    List<CropDisorderRecord> testList = new ArrayList<CropDisorderRecord>();
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      for (int i = 0; i < numTestsamples; i++)
+      {
+	testList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB));
+      }
+    }
+    SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
+    svmDiagnosisProvider.train(trainingList);
+    PrintStream testResultOut = new PrintStream(testResultFile);
+    testResultOut.println("expertDiagnosis\tcomputedDiagnosis");
+    for (CropDisorderRecord cropDisorderRecord : testList)
+    {
+      Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
+      DisorderScore highestScore = diagnosis.highestDisorderScore();
+      CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
+      testResultOut.println(String.format("%s\t%s", cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosedCropDisorder.getScientificName()));
+    }
+    testResultOut.close();
   }
 
 
@@ -151,7 +204,7 @@ public class Main
     System.out.println("  diagnosischeck");
     System.out.println("  featuremappercheck");
     System.out.println("  dump <basename>");
-    System.out.println("  cdrgen <infile> <categoricaldescriptortypefile> <rndseed> <numcdrs> <outfile>");
+    System.out.println("  cdrgen <infile> <categoricaltypefile> <numerictypefile> <rndseed> <numcdrs> <outfile>");
   }
 
 
@@ -184,14 +237,15 @@ public class Main
     {
       String infileName = args[1];
       String categoricalDescriptorTypeFileName = args[2];
-      int rndseed = Integer.parseInt(args[3]);
-      int numCdrs = Integer.parseInt(args[4]);
+      String numericDescriptorTypeFileName = args[3];
+      int rndseed = Integer.parseInt(args[4]);
+      int numCdrs = Integer.parseInt(args[5]);
       String outfileName = null;
-      if (args.length > 5)
+      if (args.length > 6)
       {
-	outfileName = args[5];
+	outfileName = args[6];
       }
-      generateCdrs(infileName, categoricalDescriptorTypeFileName, outfileName, rndseed, numCdrs);
+      generateCdrs(infileName, categoricalDescriptorTypeFileName, numericDescriptorTypeFileName, outfileName, rndseed, numCdrs);
     }
     else if ("testsvm".equals(command))
     {

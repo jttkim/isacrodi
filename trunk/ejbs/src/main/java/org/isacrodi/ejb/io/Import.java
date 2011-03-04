@@ -128,7 +128,7 @@ public class Import
       */
       Procedure procedure = new Procedure(procedureName, descriptionToken.getValue().trim());
       procedure.setToxicologicalClass(toxicologicalClassToken.getValue().trim());
-      System.err.println(String.format("new procedure: %s", procedure.toString()));
+      // System.err.println(String.format("new procedure: %s", procedure.toString()));
       access.insert(procedure, icSplit, dsSplit);
     }
   }

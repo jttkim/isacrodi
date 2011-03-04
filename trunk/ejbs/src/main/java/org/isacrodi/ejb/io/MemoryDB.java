@@ -81,6 +81,7 @@ public class MemoryDB implements Access, UserHandler
     out.println(String.format("%5d crops", this.cropMap.size()));
     out.println(String.format("%5d crop disorders", this.cropDisorderMap.size()));
     out.println(String.format("%5d categorical type values", this.categoricalTypeValueMap.size()));
+    out.println(String.format("%5d descriptor types", this.descriptorTypeMap.size()));
     out.println(String.format("%5d descriptors", this.descriptorMap.size()));
     out.println(String.format("%5d crop disorder records", this.cropDisorderRecordMap.size()));
     out.println(String.format("%5d diagnoses", this.diagnosisMap.size()));
@@ -315,6 +316,12 @@ public class MemoryDB implements Access, UserHandler
   public List<CropDisorder> findCropDisorderList()
   {
     return (new ArrayList<CropDisorder>(this.cropDisorderMap.values()));
+  }
+
+
+  public List<DescriptorType> findDescriptorTypeList()
+  {
+    return (new ArrayList<DescriptorType>(this.descriptorTypeMap.values()));
   }
 
 
