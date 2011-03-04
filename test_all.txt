@@ -1,0 +1,13 @@
+rangedcdrs: rangedcdrs_all.txt
+numTrainingsamples: 20
+numTestsamples: 10
+testResultFile: testresults_all.txt
+rndseed: 1
+
+sampledata/isacrodi_users.txt
+sampledata/isacrodi_crops.txt
+sampledata/isacrodi_disorders.txt
+sampledata/isacrodi_numerictypes.txt
+sampledata/isacrodi_categoricaltypes.txt
+sampledata/isacrodi_imagetypes.txt
+sampledata/isacrodi_procedures.txt
