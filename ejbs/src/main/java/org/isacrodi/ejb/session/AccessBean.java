@@ -245,6 +245,14 @@ public class AccessBean implements Access
   }
 
 
+  public List<DescriptorType> findDescriptorTypeList()
+  {
+    Query query = this.entityManager.createQuery("SELECT d FROM DescriptorType d");
+    List<DescriptorType> descriptorTypeList = genericTypecast(query.getResultList());
+    return (descriptorTypeList);
+  }
+
+
   public List<CategoricalType> findCategoricalTypeList()
   {
     Query query = this.entityManager.createQuery("SELECT d FROM CategoricalType d");

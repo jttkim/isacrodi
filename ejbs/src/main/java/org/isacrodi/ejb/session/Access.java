@@ -44,6 +44,7 @@ public interface Access
   List<Crop> findCropList();
   CropDisorder findCropDisorder(String scientificName);
   List<CropDisorder> findCropDisorderList();
+  List<DescriptorType> findDescriptorTypeList();
   List<CategoricalType> findCategoricalTypeList();
   CategoricalType findCategoricalType(Integer id);
   CategoricalType findCategoricalType(String typename);

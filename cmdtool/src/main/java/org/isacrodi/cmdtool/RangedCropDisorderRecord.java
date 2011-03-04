@@ -14,6 +14,8 @@ import org.isacrodi.util.SampleableList;
 
 import org.isacrodi.ejb.session.Access;
 
+import org.isacrodi.ejb.io.MemoryDB;
+
 import org.isacrodi.util.io.*;
 
 import org.isacrodi.ejb.entity.*;
@@ -22,11 +24,13 @@ import org.isacrodi.ejb.entity.*;
 abstract class RangedDescriptor
 {
   protected String descriptorTypeName;
+  protected DescriptorType descriptorType;
 
 
   public RangedDescriptor(String descriptorTypeName)
   {
     this.descriptorTypeName = descriptorTypeName;
+    this.descriptorType = null;
   }
 
 
@@ -42,7 +46,26 @@ abstract class RangedDescriptor
   }
 
 
+  public void resolve(Access access)
+  {
+    List<DescriptorType> descriptorTypeList = access.findDescriptorTypeList();
+    // FIXME: linear search
+    for (DescriptorType descriptorType : descriptorTypeList)
+    {
+      if (this.descriptorTypeName.equals(descriptorType.getTypeName()))
+      {
+	this.descriptorType = descriptorType;
+	return;
+      }
+    }
+    throw new RuntimeException(String.format("failed to resolve descriptor type \"%s\"", this.descriptorTypeName));
+  }
+
+
   public abstract String randomDescriptorString(Random rng);
+
+
+  public abstract Descriptor randomDescriptor(Random rng);
 }
 
 
@@ -84,24 +107,37 @@ class RangedNumericDescriptor extends RangedDescriptor
   }
 
 
+  private double makeRandomValue(Random rng)
+  {
+    return (this.minValue + rng.nextDouble() * (this.maxValue - this.minValue));
+  }
+
+
+  public NumericDescriptor randomDescriptor(Random rng)
+  {
+    if (this.descriptorType == null)
+    {
+      throw new RuntimeException(String.format("cannot generate random descriptor: no descriptor type for \"%s\"", this.descriptorTypeName));
+    }
+    return (new NumericDescriptor((NumericType) this.descriptorType, this.makeRandomValue(rng)));
+  }
+
+
   public String randomDescriptorString(Random rng)
   {
-    double randomValue = this.minValue + rng.nextDouble() * (this.maxValue - this.minValue);
-    return (String.format("%s: %1.18e", this.descriptorTypeName, randomValue));
+    return (String.format("%s: %1.18e", this.descriptorTypeName, this.makeRandomValue(rng)));
   }
 }
 
 
 class RangedCategoricalDescriptor extends RangedDescriptor
 {
-  private CategoricalType categoricalType;
   private SampleableList<String> valueRange;
 
 
   public RangedCategoricalDescriptor(String descriptorTypeName)
   {
     super(descriptorTypeName);
-    this.categoricalType = null;
     this.valueRange = new SampleableList<String>();
   }
 
@@ -124,69 +160,73 @@ class RangedCategoricalDescriptor extends RangedDescriptor
   }
 
 
-  public CategoricalType getCategoricalType()
-  {
-    return (this.categoricalType);
-  }
-
-
-  public void setCategoricalType(CategoricalType categoricalType)
-  {
-    this.categoricalType = categoricalType;
-  }
-
-
   public void resolve(Access access)
   {
-    List<CategoricalType> categoricalTypeList = access.findCategoricalTypeList();
-    // FIXME: linear search
-    for (CategoricalType categoricalType : categoricalTypeList)
+    super.resolve(access);
+    CategoricalType categoricalType = (CategoricalType) this.descriptorType;
+    for (String value : this.valueRange)
     {
-      if (this.descriptorTypeName.equals(categoricalType.getTypeName()))
+      if (categoricalType.findCategoricalTypeValue(value) == null)
       {
-	for (String value : this.valueRange)
-	{
-	  if (categoricalType.findCategoricalTypeValue(value) == null)
-	  {
-	    throw new RuntimeException(String.format("categorical type \"%s\" has no value \"%s\"", this.descriptorTypeName, value));
-	  }
-	}
-	this.categoricalType = categoricalType;
-	return;
+	throw new RuntimeException(String.format("categorical type \"%s\" has no value \"%s\"", this.descriptorTypeName, value));
       }
     }
-    throw new RuntimeException(String.format("failed to resolve categorical type \"%s\"", this.descriptorTypeName));
+  }
+
+
+  private String[] makeRandomValue(Random rng)
+  {
+    ArrayList<String> valueList = new ArrayList<String>();
+    CategoricalType categoricalType = (CategoricalType) this.descriptorType;
+    boolean multivalue = false;
+    if (categoricalType != null)
+    {
+      multivalue = categoricalType.getMultivalue();
+    }
+    if (multivalue)
+    {
+      for (String value : this.valueRange)
+      {
+	if (rng.nextDouble() < 0.5)
+	{
+	  valueList.add(value);
+	}
+      }
+    }
+    if (valueList.size() == 0)
+    {
+      valueList.add(this.valueRange.randomSample(rng));
+    }
+    return (valueList.toArray(new String[0]));
+  }
+
+
+  public CategoricalDescriptor randomDescriptor(Random rng)
+  {
+    if (this.descriptorType == null)
+    {
+      throw new RuntimeException(String.format("cannot generate random descriptor: no descriptor type for \"%s\"", this.descriptorTypeName));
+    }
+    String[] valueList = this.makeRandomValue(rng);
+    CategoricalType categoricalType = (CategoricalType) this.descriptorType;
+    HashSet<CategoricalTypeValue> categoricalTypeValueSet = new HashSet<CategoricalTypeValue>();
+    for (String value : valueList)
+    {
+      categoricalTypeValueSet.add(categoricalType.findCategoricalTypeValue(value));
+    }
+    return (new CategoricalDescriptor(categoricalType, categoricalTypeValueSet));
   }
 
 
   public String randomDescriptorString(Random rng)
   {
-    // FIXME: generates single valued descriptor specs only
-    boolean multivalue = false;
-    if (this.categoricalType != null)
-    {
-      // System.err.println(String.format("categorical descriptor \"%s\" has type \"%s\"", this.descriptorTypeName, this.categoricalType.getTypeName()));
-      multivalue = categoricalType.getMultivalue();
-    }
-    // System.err.println(String.format("categorical descriptor \"%s\": multiple = %b", this.descriptorTypeName, multivalue));
     String s = String.format("%s: ", this.descriptorTypeName);
-    int numValues = 0;
-    if (multivalue)
+    String[] valueList = this.makeRandomValue(rng);
+    String glue = "";
+    for (String value : valueList)
     {
-      String glue = "";
-      for (String value : this.valueRange)
-      {
-	if (rng.nextDouble() < 0.5)
-	{
-	  s += String.format("%s%s", glue, value);
-	  numValues++;
-	  glue = ", ";
-	}
-      }
-    }
-    if (numValues == 0)
-    {
-      s += this.valueRange.randomSample(rng);
+      s += String.format("%s%s", glue, value);
+      glue = ", ";
     }
     return (s);
   }
@@ -210,6 +250,20 @@ class RangedImageDescriptor extends RangedDescriptor
     this(descriptorTypeName);
     this.mimeType = mimeType;
     this.imageFileName = imageFileName;
+  }
+
+
+  public ImageDescriptor randomDescriptor(Random rng)
+  {
+    if (this.descriptorType == null)
+    {
+      throw new RuntimeException(String.format("cannot generate random descriptor: no descriptor type for \"%s\"", this.descriptorTypeName));
+    }
+    ImageDescriptor imageDescriptor = new ImageDescriptor();
+    imageDescriptor.setDescriptorType(this.descriptorType);
+    imageDescriptor.setMimeType(this.mimeType);
+    imageDescriptor.setImageFileName(this.imageFileName);
+    return (imageDescriptor);
   }
 
 
@@ -245,6 +299,9 @@ class RangedImageDescriptor extends RangedDescriptor
  *     so if ranges do not overlap, perfect class separation is possible.</li>
  * </ul>
  * </p>
+ * <p><strong>Note:</strong> When the resolve facility is used, the
+ * database populated with generated CDRs must be the one that was
+ * used for resolving as well.</p>
  */
 public class RangedCropDisorderRecord
 {
@@ -332,12 +389,40 @@ public class RangedCropDisorderRecord
   {
     for (RangedDescriptor rangedDescriptor : this.rangedDescriptorList)
     {
-      if (rangedDescriptor instanceof RangedCategoricalDescriptor)
-      {
-	RangedCategoricalDescriptor rangedCategoricalDescriptor = (RangedCategoricalDescriptor) rangedDescriptor;
-	rangedCategoricalDescriptor.resolve(access);
-      }
+      rangedDescriptor.resolve(access);
     }
+  }
+
+
+  public CropDisorderRecord randomCropDisorderRecord(Random rng, MemoryDB memoryDB)
+  {
+    CropDisorderRecord cropDisorderRecord = new CropDisorderRecord();
+    IsacrodiUser isacrodiUser = memoryDB.findUser(this.isacrodiUserName);
+    if (isacrodiUser == null)
+    {
+      throw new RuntimeException(String.format("no isacrodi user \"%s\"", this.isacrodiUserName));
+    }
+    cropDisorderRecord.setIsacrodiUser(isacrodiUser);
+    Crop crop = memoryDB.findCrop(this.cropScientificName);
+    if (crop == null)
+    {
+      throw new RuntimeException(String.format("no crop \"%s\"", this.cropScientificName));
+    }
+    cropDisorderRecord.setDescription(this.description);
+    if (this.expertDiagnosedCropDisorderName != null)
+    {
+      CropDisorder expertDiagnosedCropDisorder = memoryDB.findCropDisorder(this.expertDiagnosedCropDisorderName);
+      if (expertDiagnosedCropDisorder == null)
+      {
+	throw new RuntimeException(String.format("no disorder \"%s\" (specified as expert diagnosis)", this.expertDiagnosedCropDisorderName));
+      }
+      cropDisorderRecord.setExpertDiagnosedCropDisorder(expertDiagnosedCropDisorder);
+    }
+    for (RangedDescriptor rangedDescriptor : this.rangedDescriptorList)
+    {
+      cropDisorderRecord.linkDescriptor(rangedDescriptor.randomDescriptor(rng));
+    }
+    return (cropDisorderRecord);
   }
 
 
