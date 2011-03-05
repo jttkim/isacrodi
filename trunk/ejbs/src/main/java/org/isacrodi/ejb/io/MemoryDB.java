@@ -183,7 +183,7 @@ public class MemoryDB implements Access, UserHandler
       }
       else
       {
-	System.err.println(String.format("MemoryDB.findCropDisorderSet: ignoring unknown crop disorder \"%s\"", scientificName));
+	// System.err.println(String.format("MemoryDB.findCropDisorderSet: ignoring unknown crop disorder \"%s\"", scientificName));
       }
     }
     return (cropDisorderSet);
@@ -211,7 +211,7 @@ public class MemoryDB implements Access, UserHandler
       }
       else
       {
-	System.err.println(String.format("MemoryDB.findProcedureSet: ignoring unknown procedure \"%s\"", name));
+	// System.err.println(String.format("MemoryDB.findProcedureSet: ignoring unknown procedure \"%s\"", name));
       }
     }
     return (procedureSet);
@@ -236,7 +236,7 @@ public class MemoryDB implements Access, UserHandler
 
   public void insert(Procedure procedure, String[] incompatibleProcedureNameSet, String[] cropDisorderScientificNameSet)
   {
-    System.err.println(String.format("importing procedure %s", procedure.getName()));
+    // System.err.println(String.format("importing procedure %s", procedure.getName()));
     Set<Procedure> incompatibleProcedureSet = this.findProcedureSet(incompatibleProcedureNameSet);
     Set<CropDisorder> cropDisorderSet = this.findCropDisorderSet(cropDisorderScientificNameSet);
     procedure.setId(new Integer(this.nextId++));
