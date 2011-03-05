@@ -16,6 +16,8 @@ import java.io.Serializable;
 
 import libsvm.*;
 
+import org.isacrodi.util.io.NullOutputStream;
+
 
 /**
  * Implements Diagnosis Provider Interface
@@ -149,19 +151,38 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       svmproblem.x = trainingSample;
       svmproblem.y = trainingLabel;
       svmproblem.l = svmproblem.y.length;
-      svm_model m = svm.svm_train(svmproblem, svmparameter);
+      svm_model m = null;
+      PrintStream systemOut = System.out;
+      try
+      {
+	System.setOut(new PrintStream(new NullOutputStream()));
+	m = svm.svm_train(svmproblem, svmparameter);
+      }
+      finally
+      {
+	System.setOut(systemOut);
+      }
       for (int i = iMin; i < iMax; i++)
       {
 	// System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: sample %d / %d, label = %f, %s", i, numSamples, label[i], sparseVectorString(sample[i])));
-	double predictedLabel = svm.svm_predict(m, sample[i]);
+	double predictedLabel = -1.0;
+	try
+	{
+	  System.setOut(new PrintStream(new NullOutputStream()));
+	  predictedLabel = svm.svm_predict(m, sample[i]);
+	}
+	finally
+	{
+	  System.setOut(systemOut);
+	}
 	if (predictedLabel != label[i])
 	{
 	  numErrors++;
-	  System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: sample %d: expected %f, predicted %f: misclassified", i, label[i], predictedLabel));
+	  // System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: sample %d: expected %f, predicted %f: misclassified", i, label[i], predictedLabel));
 	}
 	else
 	{
-	  System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: sample %d: expected %f, predicted %f: correctly classified", i, label[i], predictedLabel));
+	  // System.err.println(String.format("SVMDiagnosisProvider.crossvalidate: sample %d: expected %f, predicted %f: correctly classified", i, label[i], predictedLabel));
 	}
       }
       testSetLower = testSetUpper;
@@ -199,7 +220,6 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     double bestGamma = GAMMA_MIN;
     double bestC = C_MIN;
     double bestCrossvalidationError = 1.0;
-     
     for (double gamma = GAMMA_MIN; gamma <= GAMMA_MAX; gamma *= 2.0)
     {
       svmparameter.gamma = gamma;
@@ -207,8 +227,8 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       {
 	svmparameter.C = c;
 	double crossvalidationError = crossvalidate(10, label, sample, svmparameter);
-	System.err.println(String.format("SVMDiagnosisProvider.selectModel: current: gamma = %e, c = %e, xvalError = %e", gamma, c, crossvalidationError));
-	System.err.println(String.format("SVMDiagnosisProvider.selectModel: best: gamma = %e, c = %e, xvalError = %e", bestGamma, bestC, bestCrossvalidationError));
+	// System.err.println(String.format("SVMDiagnosisProvider.selectModel: current: gamma = %e, c = %e, xvalError = %e", gamma, c, crossvalidationError));
+	// System.err.println(String.format("SVMDiagnosisProvider.selectModel: best: gamma = %e, c = %e, xvalError = %e", bestGamma, bestC, bestCrossvalidationError));
 	// FIXME: 5-fold cross validation hard coded
 	if (crossvalidationError < bestCrossvalidationError)
 	{
@@ -218,9 +238,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
 	}
       }
     }
-    
-
-    System.err.println(String.format("SvmDiagnosisProvider.selectModel: bestGamma = %f, bestC = %f", bestGamma, bestC));
+    // System.err.println(String.format("SvmDiagnosisProvider.selectModel: bestGamma = %f, bestC = %f", bestGamma, bestC));
     svmparameter.probability = 1;
     svmparameter.C = bestC;
     svmparameter.gamma = bestGamma;
@@ -228,13 +246,24 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     svmproblem.x = sample;
     svmproblem.y = label;
     svmproblem.l = label.length;
-    return (svm.svm_train(svmproblem, svmparameter));
+    svm_model m = null;
+    PrintStream systemOut = System.out;
+    try
+    {
+      System.setOut(new PrintStream(new NullOutputStream()));
+      m = svm.svm_train(svmproblem, svmparameter);
+    }
+    finally
+    {
+      System.setOut(systemOut);
+    }
+    return (m);
   }
 
 
   public void train(Collection<CropDisorderRecord> labelledCropDisorderRecordSet)
   {
-    System.err.println(String.format("SVMDiagnosisProvider.train: starting, %d labelled CDRs", labelledCropDisorderRecordSet.size()));
+    // System.err.println(String.format("SVMDiagnosisProvider.train: starting, %d labelled CDRs", labelledCropDisorderRecordSet.size()));
     // FIXME: consider defining this mapping as part of the feature vector mappers' responsibilities
     this.disorderIndexMap = new HashMap<CropDisorder, Integer>();
     int maxDisorderIndex = 0;
@@ -266,15 +295,15 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       featureVectorCollection.add(featureVector);
       label[i] = (double) disorderIndex;
       sample[i] = this.svmNodeFeatureVectorMapper.map(featureVector);
-      System.err.println(String.format("SVMDiagnosisProvider.train: featureVector = %s", featureVector.toString()));
-      System.err.println(String.format("SVMDiagnosisProvider.train: svm_node vector = %s", sparseVectorString(sample[i])));
-      System.err.println(String.format("SVMDiagnosisProvider.train: svn_node vector length: %d", sample[i].length));
+      // System.err.println(String.format("SVMDiagnosisProvider.train: featureVector = %s", featureVector.toString()));
+      // System.err.println(String.format("SVMDiagnosisProvider.train: svm_node vector = %s", sparseVectorString(sample[i])));
+      // System.err.println(String.format("SVMDiagnosisProvider.train: svn_node vector length: %d", sample[i].length));
       i++;
     }
-    System.err.println(this.svmNodeFeatureVectorMapper.toString());
+    // System.err.println(this.svmNodeFeatureVectorMapper.toString());
     dumpSamples("sampledump.txt", sample, label);
     this.model = this.selectModel(label, sample);
-    try 
+    try
     {
       svm.svm_save_model("modeldummycdr.txt", this.model);
     }
@@ -296,12 +325,22 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     int[] svmLabels = new int[this.disorderIndexMap.size()];
     svm.svm_get_labels(this.model, svmLabels);
     FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
-    System.out.println("SVMDiagnosisProvider.diagnose: feature vector = " + featureVector.toString());
+    // System.err.println("SVMDiagnosisProvider.diagnose: feature vector = " + featureVector.toString());
     svm_node[] fv = this.svmNodeFeatureVectorMapper.map(featureVector);
-    System.err.println(String.format("SVMDiagnosisProvider.diagnose: fv = %s", sparseVectorString(fv)));
+    // System.err.println(String.format("SVMDiagnosisProvider.diagnose: fv = %s", sparseVectorString(fv)));
     double[] probability = new double[this.disorderIndexMap.size()];
-    double predictedLabel = svm.svm_predict_probability(this.model, fv, probability);
-    System.err.println(String.format("SVMDiagnosisProvider.diagnose: predicted label is %f", predictedLabel));
+    double predictedLabel = -1.0;
+    PrintStream systemOut = System.out;
+    try
+    {
+      System.setOut(new PrintStream(new NullOutputStream()));
+      predictedLabel = svm.svm_predict_probability(this.model, fv, probability);
+    }
+    finally
+    {
+      System.setOut(systemOut);
+    }
+    // System.err.println(String.format("SVMDiagnosisProvider.diagnose: predicted label is %f", predictedLabel));
     Map<Integer, CropDisorder> reverseDisorderIndexMap = this.makeReverseDisorderIndexMap();
     for (int i = 0; i < probability.length; i++)
     {
@@ -309,7 +348,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       CropDisorder cropDisorder = reverseDisorderIndexMap.get(new Integer(disorderIndex));
       // FIXME: problem: how to reattach disorders???
       DisorderScore disorderScore = new DisorderScore(probability[i], cropDisorder);
-      System.err.println(String.format("SVMDiagnosisProvider.diagnose: P(%s) = %f", cropDisorder.getScientificName(), probability[i]));
+      // System.err.println(String.format("SVMDiagnosisProvider.diagnose: P(%s) = %f", cropDisorder.getScientificName(), probability[i]));
       diagnosis.linkDisorderScore(disorderScore);
     }
     diagnosis.linkCropDisorderRecord(cropDisorderRecord);
