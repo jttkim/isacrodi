@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Collections;
 
 import javax.naming.NamingException;
 import javax.naming.InitialContext;
@@ -27,7 +28,90 @@ import org.isacrodi.ejb.entity.*;
 
 import org.isacrodi.diagnosis.DiagnosisProvider;
 import org.isacrodi.diagnosis.SVMDiagnosisProvider;
+import org.isacrodi.diagnosis.AbstractFeature;
+import org.isacrodi.diagnosis.NumericFeature;
+import org.isacrodi.diagnosis.CategoricalFeature;
+import org.isacrodi.diagnosis.FeatureVector;
 
+
+class SvmDiagnosisProviderTester
+{
+  private List<RangedCropDisorderRecord> rangedCropDisorderRecordList;
+  private MemoryDB memoryDB;
+  private Random rng;
+  private PrintStream out;
+  private List<String> descriptorTypeNameList;
+
+
+  public SvmDiagnosisProviderTester(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, MemoryDB memoryDB, Random rng, String testResultFileName) throws IOException
+  {
+    this.rangedCropDisorderRecordList = rangedCropDisorderRecordList;
+    this.descriptorTypeNameList = RangedCropDisorderRecord.findDescriptorTypeNameList(this.rangedCropDisorderRecordList);
+    this.memoryDB = memoryDB;
+    this.rng = rng;
+    this.out = new PrintStream(testResultFileName);
+    this.out.print("testType\texpertDiagnosis\tcomputedDiagnosis");
+    for (String descriptorTypeName : this.descriptorTypeNameList)
+    {
+      this.out.printf("\t%s", descriptorTypeName);
+    }
+    this.out.println();
+  }
+
+
+  public void test(SVMDiagnosisProvider svmDiagnosisProvider, int numTestSamples, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability, String testTypeLabel)
+  {
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : this.rangedCropDisorderRecordList)
+    {
+      for (int i = 0; i < numTestSamples; i++)
+      {
+	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(this.rng, this.memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability);
+
+	Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
+	DisorderScore highestScore = diagnosis.highestDisorderScore();
+	CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
+	this.out.printf("%s\t%s\t%s", testTypeLabel, cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosedCropDisorder.getScientificName());
+	FeatureVector featureVector = svmDiagnosisProvider.extract(cropDisorderRecord);
+	for (String descriptorTypeName : this.descriptorTypeNameList)
+	{
+	  AbstractFeature feature = featureVector.get(descriptorTypeName);
+	  if (feature == null)
+	  {
+	    this.out.print("\t");
+	  }
+	  else
+	  {
+	    if (feature instanceof CategoricalFeature)
+	    {
+	      CategoricalFeature categoricalFeature = (CategoricalFeature) feature;
+	      List<String> stateList = new ArrayList<String>(categoricalFeature.getStateSet());
+	      Collections.sort(stateList);
+	      this.out.print("\t");
+	      String glue = String.format("%s:", descriptorTypeName);
+	      for (String state : stateList)
+	      {
+		this.out.printf("%s%s", glue, state);
+		glue = "_";
+	      }
+	    }
+	    else if (feature instanceof NumericFeature)
+	    {
+	      NumericFeature numericFeature = (NumericFeature) feature;
+	      this.out.printf("\t%f", numericFeature.getValue());
+	    }
+	  }
+	}
+	this.out.println();
+      }
+    }
+  }
+
+
+  public void close()
+  {
+    this.out.close();
+  }
+}
 
 
 public class Main
@@ -96,23 +180,6 @@ public class Main
   }
 
 
-  private static void runSvmDiagnosisProviderTest(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, SVMDiagnosisProvider svmDiagnosisProvider, MemoryDB memoryDB, int numTestSamples, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability, Random rng, PrintStream testResultOut, String testTypeLabel)
-  {
-    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
-    {
-      for (int i = 0; i < numTestSamples; i++)
-      {
-	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability);
-
-	Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
-	DisorderScore highestScore = diagnosis.highestDisorderScore();
-	CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
-	testResultOut.println(String.format("%s\t%s\t%s", testTypeLabel, cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosedCropDisorder.getScientificName()));
-      }
-    }
-  }
-
-
   private static void testSvmDiagnosisProvider(String configFileName) throws IOException
   {
     MemoryDB memoryDB = new MemoryDB();
@@ -161,13 +228,12 @@ public class Main
     SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
     svmDiagnosisProvider.train(trainingList);
     // continue here -- open output file before actually producing output...
-    PrintStream testResultOut = new PrintStream(testResultFileName);
-    testResultOut.println("testType\texpertDiagnosis\tcomputedDiagnosis");
-    runSvmDiagnosisProviderTest(rangedCropDisorderRecordList, svmDiagnosisProvider, memoryDB, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, rng, testResultOut, "standard");
-    runSvmDiagnosisProviderTest(rangedCropDisorderRecordList, svmDiagnosisProvider, memoryDB, numTestSamples, missingDescriptorProbability, 1.0, 1.0, rng, testResultOut, "numericOnly");
-    runSvmDiagnosisProviderTest(rangedCropDisorderRecordList, svmDiagnosisProvider, memoryDB, numTestSamples, 1.0, missingDescriptorProbability, 1.0, rng, testResultOut, "categoricalOnly");
-    runSvmDiagnosisProviderTest(rangedCropDisorderRecordList, svmDiagnosisProvider, memoryDB, numTestSamples, 1.0, 1.0, missingDescriptorProbability, rng, testResultOut, "imageOnly");
-    testResultOut.close();
+    SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, rng, testResultFileName);
+    svmDiagnosisProviderTester.test(svmDiagnosisProvider, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, "standard");
+    svmDiagnosisProviderTester.test(svmDiagnosisProvider, numNumericOnlyTestSamples, missingDescriptorProbability, 1.0, 1.0, "numericOnly");
+    svmDiagnosisProviderTester.test(svmDiagnosisProvider, numCategoricalOnlyTestSamples, 1.0, missingDescriptorProbability, 1.0, "categoricalOnly");
+    svmDiagnosisProviderTester.test(svmDiagnosisProvider, numImageOnlyTestSamples, 1.0, 1.0, missingDescriptorProbability, "imageOnly");
+    svmDiagnosisProviderTester.close();
   }
 
 

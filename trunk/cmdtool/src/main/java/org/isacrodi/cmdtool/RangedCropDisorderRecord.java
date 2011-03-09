@@ -34,7 +34,7 @@ abstract class RangedDescriptor
   }
 
 
-    public String getDescriptorTypeName()
+  public String getDescriptorTypeName()
   {
     return (this.descriptorTypeName);
   }
@@ -555,5 +555,33 @@ public class RangedCropDisorderRecord
       rangedCropDisorderRecordList.add(parseRangedCropDisorderRecord(scanner));
     }
     return (rangedCropDisorderRecordList);
+  }
+
+
+  public List<String> findDescriptorTypeNameList()
+  {
+    List<String> descriptorTypeNameList = new ArrayList<String>();
+    for (RangedDescriptor rangedDescriptor : this.rangedDescriptorList)
+    {
+      descriptorTypeNameList.add(rangedDescriptor.getDescriptorTypeName());
+    }
+    return (descriptorTypeNameList);
+  }
+
+
+  public static List<String> findDescriptorTypeNameList(List<RangedCropDisorderRecord> rangedCropDisorderRecordList)
+  {
+    List<String> descriptorTypeNameList = new ArrayList<String>();
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      for (String descriptorTypeName : rangedCropDisorderRecord.findDescriptorTypeNameList())
+      {
+	if (!descriptorTypeNameList.contains(descriptorTypeName))
+	{
+	  descriptorTypeNameList.add(descriptorTypeName);
+	}
+      }
+    }
+    return (descriptorTypeNameList);
   }
 }

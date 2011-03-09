@@ -325,7 +325,13 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   {
     return (this.svmNodeFeatureVectorMapper);
   }
-  
+
+
+  public FeatureVector extract(CropDisorderRecord cropDisorderRecord)
+  {
+    return (this.cdrFeatureExtractor.extract(cropDisorderRecord));
+  }
+
 
   public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
   {
@@ -336,7 +342,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     Diagnosis diagnosis = new Diagnosis();
     int[] svmLabels = new int[this.disorderIndexMap.size()];
     svm.svm_get_labels(this.model, svmLabels);
-    FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
+    FeatureVector featureVector = this.extract(cropDisorderRecord);
     // System.err.println("SVMDiagnosisProvider.diagnose: feature vector = " + featureVector.toString());
     svm_node[] fv = this.svmNodeFeatureVectorMapper.map(featureVector);
     // System.err.println(String.format("SVMDiagnosisProvider.diagnose: fv = %s", sparseVectorString(fv)));
