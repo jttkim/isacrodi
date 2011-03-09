@@ -104,6 +104,10 @@ public class Main
     MemoryDB memoryDB = new MemoryDB();
     int numTrainingsamples = 0;
     int numTestsamples = 0;
+    int numNumericOnlyTestsamples = 0;
+    int numCategoricalOnlyTestsamples = 0;
+    int numImageOnlyTestsamples = 0;
+    double missingDescriptorProbability = 0.0;
     int rndseed = -1;
     String testResultFile = null;
     BufferedReader configIn = new BufferedReader(new InputStreamReader(new FileInputStream(configFileName)));
@@ -136,6 +140,22 @@ public class Main
       else if ("numTestsamples".equals(w[0]))
       {
 	numTestsamples = Integer.parseInt(w[1].trim());
+      }
+      else if ("numNumericOnlyTestsamples".equals(w[0]))
+      {
+	numNumericOnlyTestsamples = Integer.parseInt(w[1].trim());
+      }
+      else if ("numCategoricalOnlyTestsamples".equals(w[0]))
+      {
+	numCategoricalOnlyTestsamples = Integer.parseInt(w[1].trim());
+      }
+      else if ("numImageOnlyTestsamples".equals(w[0]))
+      {
+	numImageOnlyTestsamples = Integer.parseInt(w[1].trim());
+      }
+      else if ("missingDescriptorProbability".equals(w[0]))
+      {
+	missingDescriptorProbability = Double.parseDouble(w[1].trim());
       }
       else if ("rndseed".equals(w[0]))
       {
@@ -171,7 +191,7 @@ public class Main
     {
       for (int i = 0; i < numTrainingsamples; i++)
       {
-	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB));
+	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability));
       }
     }
     List<CropDisorderRecord> testList = new ArrayList<CropDisorderRecord>();
@@ -179,11 +199,41 @@ public class Main
     {
       for (int i = 0; i < numTestsamples; i++)
       {
-	testList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB));
+	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability);
+
+	Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
+	DisorderScore highestScore = diagnosis.highestDisorderScore();
+	CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
+	testResultOut.println(String.format("%s\t%s", cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosedCropDisorder.getScientificName()));
+      }
+    }
+    List<CropDisorderRecord> testNumericOnlyList = new ArrayList<CropDisorderRecord>();
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      for (int i = 0; i < numTestsamples; i++)
+      {
+	testNumericOnlyList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, missingDescriptorProbability, 1.0, 1.0));
+      }
+    }
+    List<CropDisorderRecord> testCategoricalOnlyList = new ArrayList<CropDisorderRecord>();
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      for (int i = 0; i < numTestsamples; i++)
+      {
+	testCategoricalOnlyList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, 1.0, missingDescriptorProbability, 1.0));
+      }
+    }
+    List<CropDisorderRecord> testImageOnlyList = new ArrayList<CropDisorderRecord>();
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      for (int i = 0; i < numTestsamples; i++)
+      {
+	testImageOnlyList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, 1.0, 1.0, missingDescriptorProbability));
       }
     }
     SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
     svmDiagnosisProvider.train(trainingList);
+    // continue here -- open output file before actually producing output...
     PrintStream testResultOut = new PrintStream(testResultFile);
     testResultOut.println("expertDiagnosis\tcomputedDiagnosis");
     for (CropDisorderRecord cropDisorderRecord : testList)
