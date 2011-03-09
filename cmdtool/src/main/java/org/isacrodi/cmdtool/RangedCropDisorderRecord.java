@@ -394,7 +394,7 @@ public class RangedCropDisorderRecord
   }
 
 
-  public CropDisorderRecord randomCropDisorderRecord(Random rng, MemoryDB memoryDB)
+  public CropDisorderRecord randomCropDisorderRecord(Random rng, MemoryDB memoryDB, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability)
   {
     CropDisorderRecord cropDisorderRecord = new CropDisorderRecord();
     IsacrodiUser isacrodiUser = memoryDB.findUser(this.isacrodiUserName);
@@ -420,7 +420,37 @@ public class RangedCropDisorderRecord
     }
     for (RangedDescriptor rangedDescriptor : this.rangedDescriptorList)
     {
-      cropDisorderRecord.linkDescriptor(rangedDescriptor.randomDescriptor(rng));
+      // FIXME: descriptor types hard wired to numeric, categorical, image
+      Descriptor descriptor = null;
+      if (rangedDescriptor instanceof RangedNumericDescriptor)
+      {
+	if (rng.nextDouble() >= missingNumericDescriptorProbability)
+	{
+	  descriptor = rangedDescriptor.randomDescriptor(rng);
+	}
+      }
+      else if (rangedDescriptor instanceof RangedCategoricalDescriptor)
+      {
+	if (rng.nextDouble() >= missingCategoricalDescriptorProbability)
+	{
+	  descriptor = rangedDescriptor.randomDescriptor(rng);
+	}
+      }
+      else if (rangedDescriptor instanceof RangedImageDescriptor)
+      {
+	if (rng.nextDouble() >= missingImageDescriptorProbability)
+	{
+	  descriptor = rangedDescriptor.randomDescriptor(rng);
+	}
+      }
+      else
+      {
+	throw new RuntimeException("unsupported descriptor type");
+      }
+      if (descriptor != null)
+      {
+	cropDisorderRecord.linkDescriptor(descriptor);
+      }
     }
     return (cropDisorderRecord);
   }
