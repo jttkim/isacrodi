@@ -62,9 +62,6 @@ abstract class RangedDescriptor
   }
 
 
-  public abstract String randomDescriptorString(Random rng);
-
-
   public abstract Descriptor randomDescriptor(Random rng);
 }
 
@@ -120,12 +117,6 @@ class RangedNumericDescriptor extends RangedDescriptor
       throw new RuntimeException(String.format("cannot generate random descriptor: no descriptor type for \"%s\"", this.descriptorTypeName));
     }
     return (new NumericDescriptor((NumericType) this.descriptorType, this.makeRandomValue(rng)));
-  }
-
-
-  public String randomDescriptorString(Random rng)
-  {
-    return (String.format("%s: %1.18e", this.descriptorTypeName, this.makeRandomValue(rng)));
   }
 }
 
@@ -216,20 +207,6 @@ class RangedCategoricalDescriptor extends RangedDescriptor
     }
     return (new CategoricalDescriptor(categoricalType, categoricalTypeValueSet));
   }
-
-
-  public String randomDescriptorString(Random rng)
-  {
-    String s = String.format("%s: ", this.descriptorTypeName);
-    String[] valueList = this.makeRandomValue(rng);
-    String glue = "";
-    for (String value : valueList)
-    {
-      s += String.format("%s%s", glue, value);
-      glue = ", ";
-    }
-    return (s);
-  }
 }
 
 
@@ -253,6 +230,8 @@ class RangedImageDescriptor extends RangedDescriptor
   }
 
 
+  // FIXME: returns itself with no randomisation, as image descriptors cannot really be ranged.
+  // idea: could return images with some probability only -- but where to get the probability from?
   public ImageDescriptor randomDescriptor(Random rng)
   {
     if (this.descriptorType == null)
@@ -264,19 +243,6 @@ class RangedImageDescriptor extends RangedDescriptor
     imageDescriptor.setMimeType(this.mimeType);
     imageDescriptor.setImageFileName(this.imageFileName);
     return (imageDescriptor);
-  }
-
-
-  // FIXME: returns itself with no randomisation, as image descriptors cannot really be ranged.
-  // idea: could return images with some probability only -- but where to get the probability from?
-  public String randomDescriptorString(Random rng)
-  {
-    String s = String.format("%s\n", this.descriptorTypeName);
-    s += "    {\n";
-    s += String.format("      mimeType: %s\n", this.mimeType);
-    s += String.format("      file: %s\n", this.imageFileName);
-    s += "    }";
-    return (s);
   }
 }
 
@@ -453,53 +419,6 @@ public class RangedCropDisorderRecord
       }
     }
     return (cropDisorderRecord);
-  }
-
-
-  public String randomCropDisorderRecordString(Random rng)
-  {
-    String s = "cdr\n";
-    s += "{\n";
-    s += String.format("  user: %s\n", this.isacrodiUserName);
-    s += String.format("  crop: %s\n", this.cropScientificName);
-    s += "  numericDescriptors\n";
-    s += "  {\n";
-    for (RangedDescriptor rangedDescriptor : this.rangedDescriptorList)
-    {
-      if (rangedDescriptor instanceof RangedNumericDescriptor)
-      {
-	s += String.format("    %s\n", rangedDescriptor.randomDescriptorString(rng));
-      }
-    }
-    s += "  }\n";
-    s += "  categoricalDescriptors\n";
-    s += "  {\n";
-    for (RangedDescriptor rangedDescriptor : this.rangedDescriptorList)
-    {
-      if (rangedDescriptor instanceof RangedCategoricalDescriptor)
-      {
-	s += String.format("    %s\n", rangedDescriptor.randomDescriptorString(rng));
-      }
-    }
-    s += "  }\n";
-    s += "  imageDescriptors\n";
-    s += "  {\n";
-    for (RangedDescriptor rangedDescriptor : this.rangedDescriptorList)
-    {
-      if (rangedDescriptor instanceof RangedImageDescriptor)
-      {
-	s += String.format("    %s\n", rangedDescriptor.randomDescriptorString(rng));
-      }
-    }
-    s += "  }\n";
-    s += "  expertDiagnosis:";
-    if (this.expertDiagnosedCropDisorderName != null)
-    {
-      s += this.expertDiagnosedCropDisorderName;
-    }
-    s += "\n";
-    s += "}\n";
-    return (s);
   }
 
 

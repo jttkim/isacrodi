@@ -67,34 +67,48 @@ public class Main
   }
 
 
-  private static void generateCdrs(String infileName, String categoricalDescriptorTypeFileName, String numericDescriptorTypeFileName, String outfileName, int rndseed, int numCdrs) throws IOException
+  private static String parseNamedString(String expectedLabel, BufferedReader in) throws IOException
   {
-    Random rng = new Random(rndseed);
-    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(infileName)));
-    MemoryDB memoryDB = new MemoryDB();
-    Import.importFile(categoricalDescriptorTypeFileName, memoryDB, memoryDB);
-    Import.importFile(numericDescriptorTypeFileName, memoryDB, memoryDB);
-    List<RangedCropDisorderRecord> rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
-    for (RangedCropDisorderRecord  rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    String line = in.readLine();
+    String[] w = line.split(":", 2);
+    if (w.length != 2)
     {
-      rangedCropDisorderRecord.resolve(memoryDB);
+      throw new RuntimeException(String.format("malformed line: %s", line));
     }
-    PrintStream out = System.out;
-    if (outfileName != null)
+    String label = w[0].trim();
+    if (!expectedLabel.equals(label))
     {
-      out = new PrintStream(outfileName);
+      throw new RuntimeException(String.format("expected %s but got %s", expectedLabel, label));
     }
-    out.println("isacrodi-cdrs-0.1");
+    return (w[1].trim());
+  }
+
+
+  private static int parseNamedInt(String expectedLabel, BufferedReader in) throws IOException
+  {
+    return (Integer.parseInt(parseNamedString(expectedLabel, in)));
+  }
+
+
+  private static double parseNamedDouble(String expectedLabel, BufferedReader in) throws IOException
+  {
+    return (Double.parseDouble(parseNamedString(expectedLabel, in)));
+  }
+
+
+  private static void runSvmDiagnosisProviderTest(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, SVMDiagnosisProvider svmDiagnosisProvider, MemoryDB memoryDB, int numTestSamples, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability, Random rng, PrintStream testResultOut, String testTypeLabel)
+  {
     for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
     {
-      for (int i = 0; i < numCdrs; i++)
+      for (int i = 0; i < numTestSamples; i++)
       {
-	out.println(rangedCropDisorderRecord.randomCropDisorderRecordString(rng));
+	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability);
+
+	Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
+	DisorderScore highestScore = diagnosis.highestDisorderScore();
+	CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
+	testResultOut.println(String.format("%s\t%s\t%s", testTypeLabel, cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosedCropDisorder.getScientificName()));
       }
-    }
-    if (outfileName != null)
-    {
-      out.close();
     }
   }
 
@@ -102,147 +116,57 @@ public class Main
   private static void testSvmDiagnosisProvider(String configFileName) throws IOException
   {
     MemoryDB memoryDB = new MemoryDB();
-    int numTrainingsamples = 0;
-    int numTestsamples = 0;
-    int numNumericOnlyTestsamples = 0;
-    int numCategoricalOnlyTestsamples = 0;
-    int numImageOnlyTestsamples = 0;
-    double missingDescriptorProbability = 0.0;
-    int rndseed = -1;
-    String testResultFile = null;
     BufferedReader configIn = new BufferedReader(new InputStreamReader(new FileInputStream(configFileName)));
-    List<RangedCropDisorderRecord> rangedCropDisorderRecordList = null;
-    for (String line = configIn.readLine(); !"".equals(line.trim()); line = configIn.readLine())
+    String rangedCdrFileName = parseNamedString("rangedCdrFile", configIn);
+    int numTrainingSamples = parseNamedInt("numTrainingSamples", configIn);
+    int numTestSamples = parseNamedInt("numTestSamples", configIn);
+    int numNumericOnlyTestSamples = parseNamedInt("numNumericOnlyTestSamples", configIn);
+    int numCategoricalOnlyTestSamples = parseNamedInt("numCategoricalOnlyTestSamples", configIn);
+    int numImageOnlyTestSamples = parseNamedInt("numImageOnlyTestSamples", configIn);
+    double missingDescriptorProbability = parseNamedDouble("missingDescriptorProbability", configIn);
+    String testResultFileName = parseNamedString("testResultFile", configIn);
+    int rndseed = parseNamedInt("rndseed", configIn);
+    if (!"".equals(configIn.readLine()))
     {
-      String[] w = line.split(":");
-      if (w.length != 2)
-      {
-	throw new RuntimeException(String.format("malformed config line: %s", line));
-      }
-      if ("rangedcdrs".equals(w[0]))
-      {
-	BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(w[1].trim())));
-	rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
-	for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
-	{
-	  if (memoryDB.findUser(rangedCropDisorderRecord.getIsacrodiUserName()) == null)
-	  {
-	    IsacrodiUser isacrodiUser = new IsacrodiUser("testsvm", "testsvm", rangedCropDisorderRecord.getIsacrodiUserName(), "", "");
-	    memoryDB.insertUser(isacrodiUser);
-	    System.err.println("created user: " + isacrodiUser.toString());
-	  }
-	}
-      }
-      else if ("numTrainingsamples".equals(w[0]))
-      {
-	numTrainingsamples = Integer.parseInt(w[1].trim());
-      }
-      else if ("numTestsamples".equals(w[0]))
-      {
-	numTestsamples = Integer.parseInt(w[1].trim());
-      }
-      else if ("numNumericOnlyTestsamples".equals(w[0]))
-      {
-	numNumericOnlyTestsamples = Integer.parseInt(w[1].trim());
-      }
-      else if ("numCategoricalOnlyTestsamples".equals(w[0]))
-      {
-	numCategoricalOnlyTestsamples = Integer.parseInt(w[1].trim());
-      }
-      else if ("numImageOnlyTestsamples".equals(w[0]))
-      {
-	numImageOnlyTestsamples = Integer.parseInt(w[1].trim());
-      }
-      else if ("missingDescriptorProbability".equals(w[0]))
-      {
-	missingDescriptorProbability = Double.parseDouble(w[1].trim());
-      }
-      else if ("rndseed".equals(w[0]))
-      {
-	rndseed = Integer.parseInt(w[1].trim());
-      }
-      else if ("testResultFile".equals(w[0]))
-      {
-	testResultFile = w[1].trim();
-      }
-      else
-      {
-	throw new RuntimeException(String.format("unknown config parameter: %s", line));
-      }
+      throw new RuntimeException("no separator line after fixed config block");
     }
-    System.err.println(String.format("%d test samples, %d training samples", numTestsamples, numTrainingsamples));
     for (String line = configIn.readLine(); line != null; line = configIn.readLine())
     {
       System.err.println(String.format("importing: %s", line));
       Import.importFile(line, memoryDB, memoryDB);
     }
-    memoryDB.printSummary(System.err);
+    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(rangedCdrFileName)));
+    List<RangedCropDisorderRecord> rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
+    in.close();
     for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
     {
       rangedCropDisorderRecord.resolve(memoryDB);
+      if (memoryDB.findUser(rangedCropDisorderRecord.getIsacrodiUserName()) == null)
+      {
+	IsacrodiUser isacrodiUser = new IsacrodiUser("testsvm", "testsvm", rangedCropDisorderRecord.getIsacrodiUserName(), "", "");
+	memoryDB.insertUser(isacrodiUser);
+	System.err.println("created user: " + isacrodiUser.toString());
+      }
     }
-    if (rndseed == -1)
-    {
-      throw new RuntimeException("no random seed");
-    }
+    memoryDB.printSummary(System.err);
     Random rng = new Random(rndseed);
     List<CropDisorderRecord> trainingList = new ArrayList<CropDisorderRecord>();
     for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
     {
-      for (int i = 0; i < numTrainingsamples; i++)
+      for (int i = 0; i < numTrainingSamples; i++)
       {
 	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability));
-      }
-    }
-    List<CropDisorderRecord> testList = new ArrayList<CropDisorderRecord>();
-    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
-    {
-      for (int i = 0; i < numTestsamples; i++)
-      {
-	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability);
-
-	Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
-	DisorderScore highestScore = diagnosis.highestDisorderScore();
-	CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
-	testResultOut.println(String.format("%s\t%s", cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosedCropDisorder.getScientificName()));
-      }
-    }
-    List<CropDisorderRecord> testNumericOnlyList = new ArrayList<CropDisorderRecord>();
-    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
-    {
-      for (int i = 0; i < numTestsamples; i++)
-      {
-	testNumericOnlyList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, missingDescriptorProbability, 1.0, 1.0));
-      }
-    }
-    List<CropDisorderRecord> testCategoricalOnlyList = new ArrayList<CropDisorderRecord>();
-    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
-    {
-      for (int i = 0; i < numTestsamples; i++)
-      {
-	testCategoricalOnlyList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, 1.0, missingDescriptorProbability, 1.0));
-      }
-    }
-    List<CropDisorderRecord> testImageOnlyList = new ArrayList<CropDisorderRecord>();
-    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
-    {
-      for (int i = 0; i < numTestsamples; i++)
-      {
-	testImageOnlyList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, 1.0, 1.0, missingDescriptorProbability));
       }
     }
     SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
     svmDiagnosisProvider.train(trainingList);
     // continue here -- open output file before actually producing output...
-    PrintStream testResultOut = new PrintStream(testResultFile);
-    testResultOut.println("expertDiagnosis\tcomputedDiagnosis");
-    for (CropDisorderRecord cropDisorderRecord : testList)
-    {
-      Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
-      DisorderScore highestScore = diagnosis.highestDisorderScore();
-      CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
-      testResultOut.println(String.format("%s\t%s", cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosedCropDisorder.getScientificName()));
-    }
+    PrintStream testResultOut = new PrintStream(testResultFileName);
+    testResultOut.println("testType\texpertDiagnosis\tcomputedDiagnosis");
+    runSvmDiagnosisProviderTest(rangedCropDisorderRecordList, svmDiagnosisProvider, memoryDB, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, rng, testResultOut, "standard");
+    runSvmDiagnosisProviderTest(rangedCropDisorderRecordList, svmDiagnosisProvider, memoryDB, numTestSamples, missingDescriptorProbability, 1.0, 1.0, rng, testResultOut, "numericOnly");
+    runSvmDiagnosisProviderTest(rangedCropDisorderRecordList, svmDiagnosisProvider, memoryDB, numTestSamples, 1.0, missingDescriptorProbability, 1.0, rng, testResultOut, "categoricalOnly");
+    runSvmDiagnosisProviderTest(rangedCropDisorderRecordList, svmDiagnosisProvider, memoryDB, numTestSamples, 1.0, 1.0, missingDescriptorProbability, rng, testResultOut, "imageOnly");
     testResultOut.close();
   }
 
@@ -282,20 +206,6 @@ public class Main
       }
       String basename = args[1];
       dumpEntities(basename);
-    }
-    else if ("cdrgen".equals(command))
-    {
-      String infileName = args[1];
-      String categoricalDescriptorTypeFileName = args[2];
-      String numericDescriptorTypeFileName = args[3];
-      int rndseed = Integer.parseInt(args[4]);
-      int numCdrs = Integer.parseInt(args[5]);
-      String outfileName = null;
-      if (args.length > 6)
-      {
-	outfileName = args[6];
-      }
-      generateCdrs(infileName, categoricalDescriptorTypeFileName, numericDescriptorTypeFileName, outfileName, rndseed, numCdrs);
     }
     else if ("testsvm".equals(command))
     {

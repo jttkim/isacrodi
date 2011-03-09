@@ -315,6 +315,18 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   }
 
 
+  public CDRFeatureExtractor getCdrFeatureExtractor()
+  {
+    return (this.cdrFeatureExtractor);
+  }
+
+
+  public FeatureVectorMapper<svm_node[]> getSvmNodeFeatureVectorMapper()
+  {
+    return (this.svmNodeFeatureVectorMapper);
+  }
+  
+
   public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
   {
     if (this.model == null)
