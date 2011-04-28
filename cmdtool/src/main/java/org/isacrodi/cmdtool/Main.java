@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.PrintStream;
+import jsc.distributions.*;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -39,16 +40,18 @@ class SvmDiagnosisProviderTester
   private List<RangedCropDisorderRecord> rangedCropDisorderRecordList;
   private MemoryDB memoryDB;
   private Random rng;
+  private String distType;
   private PrintStream out;
   private List<String> descriptorTypeNameList;
 
 
-  public SvmDiagnosisProviderTester(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, MemoryDB memoryDB, Random rng, String testResultFileName) throws IOException
+  public SvmDiagnosisProviderTester(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, MemoryDB memoryDB, Random rng, String distType, String testResultFileName) throws IOException
   {
     this.rangedCropDisorderRecordList = rangedCropDisorderRecordList;
     this.descriptorTypeNameList = RangedCropDisorderRecord.findDescriptorTypeNameList(this.rangedCropDisorderRecordList);
     this.memoryDB = memoryDB;
     this.rng = rng;
+    this.distType = distType;
     this.out = new PrintStream(testResultFileName);
     this.out.print("testType\texpertDiagnosis\tcomputedDiagnosis");
     for (String descriptorTypeName : this.descriptorTypeNameList)
@@ -65,7 +68,7 @@ class SvmDiagnosisProviderTester
     {
       for (int i = 0; i < numTestSamples; i++)
       {
-	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(this.rng, this.memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability);
+	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(this.rng, this.distType, this.memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability);
 
 	Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
 	DisorderScore highestScore = diagnosis.highestDisorderScore();
@@ -193,6 +196,7 @@ public class Main
     double missingDescriptorProbability = parseNamedDouble("missingDescriptorProbability", configIn);
     String testResultFileName = parseNamedString("testResultFile", configIn);
     int rndseed = parseNamedInt("rndseed", configIn);
+    String distType;
     if (!"".equals(configIn.readLine()))
     {
       throw new RuntimeException("no separator line after fixed config block");
@@ -215,6 +219,7 @@ public class Main
 	System.err.println("created user: " + isacrodiUser.toString());
       }
     }
+    distType = "uniform";
     memoryDB.printSummary(System.err);
     Random rng = new Random(rndseed);
     List<CropDisorderRecord> trainingList = new ArrayList<CropDisorderRecord>();
@@ -222,13 +227,14 @@ public class Main
     {
       for (int i = 0; i < numTrainingSamples; i++)
       {
-	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability));
+	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, distType, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability));
       }
     }
+    distType = "cauchy";
     SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
     svmDiagnosisProvider.train(trainingList);
     // continue here -- open output file before actually producing output...
-    SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, rng, testResultFileName);
+    SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, rng, distType, testResultFileName);
     svmDiagnosisProviderTester.test(svmDiagnosisProvider, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, "standard");
     svmDiagnosisProviderTester.test(svmDiagnosisProvider, numNumericOnlyTestSamples, missingDescriptorProbability, 1.0, 1.0, "numericOnly");
     svmDiagnosisProviderTester.test(svmDiagnosisProvider, numCategoricalOnlyTestSamples, 1.0, missingDescriptorProbability, 1.0, "categoricalOnly");
@@ -275,7 +281,17 @@ public class Main
     }
     else if ("testsvm".equals(command))
     {
+      System.out.println(args[0]);
       testSvmDiagnosisProvider(args[1]);
+    }
+
+    else if ("testtool".equals(command))
+    {
+      Cauchy cauchy = new Cauchy();
+      cauchy.setSeed(1);
+      System.out.println(cauchy.cdf(10.0));
+      System.out.println(cauchy.random());
+
     }
     else
     {
