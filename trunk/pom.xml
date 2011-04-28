@@ -234,6 +234,12 @@
 	<version>1.0</version>
 	<type>jar</type>
       </dependency>
+      <dependency>
+	<groupId>statistics</groupId>
+	<artifactId>jsc</artifactId>
+	<version>1.0</version>
+	<type>jar</type>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

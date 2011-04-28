@@ -261,6 +261,44 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   }
 
 
+  public void getSVMInputFile(Collection<CropDisorderRecord> labelledCropDisorderRecordSet, String filename)
+  {
+    this.disorderIndexMap = new HashMap<CropDisorder, Integer>();
+    int maxDisorderIndex = 0;
+    Collection<FeatureVector> featureVectorCollection = new HashSet<FeatureVector>();
+    for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
+    {
+      CropDisorder edd = cropDisorderRecord.getExpertDiagnosedCropDisorder();
+      if (edd == null)
+      {
+	throw new RuntimeException("CDR with no expert diagnosis in labelled set");
+      }
+      if (!this.disorderIndexMap.containsKey(edd))
+      {
+	this.disorderIndexMap.put(edd, new Integer(maxDisorderIndex++));
+      }
+      FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
+      featureVectorCollection.add(featureVector);
+    }
+    this.svmNodeFeatureVectorMapper = new SvmNodeFeatureVectorMapper(featureVectorCollection);
+    svm_node[][] sample = new svm_node[labelledCropDisorderRecordSet.size()][];
+    double label[] = new double[labelledCropDisorderRecordSet.size()];
+    int i = 0;
+    for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
+    {
+      CropDisorder edd = cropDisorderRecord.getExpertDiagnosedCropDisorder();
+      int disorderIndex = this.disorderIndexMap.get(edd).intValue();
+      // FIXME: clumsy programming -- duplicate feature vector extraction
+      FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
+      featureVectorCollection.add(featureVector);
+      label[i] = (double) disorderIndex;
+      sample[i] = this.svmNodeFeatureVectorMapper.map(featureVector);
+      i++;
+    }
+    dumpSamples(filename, sample, label);
+  }
+
+
   public void train(Collection<CropDisorderRecord> labelledCropDisorderRecordSet)
   {
     // System.err.println(String.format("SVMDiagnosisProvider.train: starting, %d labelled CDRs", labelledCropDisorderRecordSet.size()));
@@ -303,14 +341,6 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     // System.err.println(this.svmNodeFeatureVectorMapper.toString());
     dumpSamples("sampledump.txt", sample, label);
     this.model = this.selectModel(label, sample);
-    try
-    {
-      svm.svm_save_model("modeldummycdr.txt", this.model);
-    }
-    catch (Exception e)
-    {
-      System.err.println("savemodel: " + e);
-    }
 
   }
 

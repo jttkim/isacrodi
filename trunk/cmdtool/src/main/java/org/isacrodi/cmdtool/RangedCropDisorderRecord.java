@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+import jsc.distributions.*;
 
 import org.isacrodi.util.SampleableList;
 
@@ -62,7 +63,7 @@ abstract class RangedDescriptor
   }
 
 
-  public abstract Descriptor randomDescriptor(Random rng);
+  public abstract Descriptor randomDescriptor(Random rng, String distType);
 }
 
 
@@ -104,19 +105,23 @@ class RangedNumericDescriptor extends RangedDescriptor
   }
 
 
-  private double makeRandomValue(Random rng)
+  private double makeRandomValue(Random rng, String distType)
   {
-    return (this.minValue + rng.nextDouble() * (this.maxValue - this.minValue));
+    if (distType.equals("uniform"))
+      return (this.minValue + rng.nextDouble() * (this.maxValue - this.minValue));
+    else
+      //return Math.tan(Math.PI * (uniform() - 0.5));
+      return (this.minValue + (Math.tan(Math.PI * (rng.nextDouble() - 0.5))) * (this.maxValue - this.minValue));
   }
 
 
-  public NumericDescriptor randomDescriptor(Random rng)
+  public NumericDescriptor randomDescriptor(Random rng, String disType)
   {
     if (this.descriptorType == null)
     {
       throw new RuntimeException(String.format("cannot generate random descriptor: no descriptor type for \"%s\"", this.descriptorTypeName));
     }
-    return (new NumericDescriptor((NumericType) this.descriptorType, this.makeRandomValue(rng)));
+    return (new NumericDescriptor((NumericType) this.descriptorType, this.makeRandomValue(rng, disType)));
   }
 }
 
@@ -165,7 +170,7 @@ class RangedCategoricalDescriptor extends RangedDescriptor
   }
 
 
-  private String[] makeRandomValue(Random rng)
+  private String[] makeRandomValue(Random rng, String distType)
   {
     ArrayList<String> valueList = new ArrayList<String>();
     CategoricalType categoricalType = (CategoricalType) this.descriptorType;
@@ -192,13 +197,13 @@ class RangedCategoricalDescriptor extends RangedDescriptor
   }
 
 
-  public CategoricalDescriptor randomDescriptor(Random rng)
+  public CategoricalDescriptor randomDescriptor(Random rng, String distType)
   {
     if (this.descriptorType == null)
     {
       throw new RuntimeException(String.format("cannot generate random descriptor: no descriptor type for \"%s\"", this.descriptorTypeName));
     }
-    String[] valueList = this.makeRandomValue(rng);
+    String[] valueList = this.makeRandomValue(rng, distType);
     CategoricalType categoricalType = (CategoricalType) this.descriptorType;
     HashSet<CategoricalTypeValue> categoricalTypeValueSet = new HashSet<CategoricalTypeValue>();
     for (String value : valueList)
@@ -232,7 +237,7 @@ class RangedImageDescriptor extends RangedDescriptor
 
   // FIXME: returns itself with no randomisation, as image descriptors cannot really be ranged.
   // idea: could return images with some probability only -- but where to get the probability from?
-  public ImageDescriptor randomDescriptor(Random rng)
+  public ImageDescriptor randomDescriptor(Random rng, String distType)
   {
     if (this.descriptorType == null)
     {
@@ -360,7 +365,7 @@ public class RangedCropDisorderRecord
   }
 
 
-  public CropDisorderRecord randomCropDisorderRecord(Random rng, MemoryDB memoryDB, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability)
+  public CropDisorderRecord randomCropDisorderRecord(Random rng, String distType, MemoryDB memoryDB, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability)
   {
     CropDisorderRecord cropDisorderRecord = new CropDisorderRecord();
     IsacrodiUser isacrodiUser = memoryDB.findUser(this.isacrodiUserName);
@@ -392,21 +397,21 @@ public class RangedCropDisorderRecord
       {
 	if (rng.nextDouble() >= missingNumericDescriptorProbability)
 	{
-	  descriptor = rangedDescriptor.randomDescriptor(rng);
+	  descriptor = rangedDescriptor.randomDescriptor(rng, distType);
 	}
       }
       else if (rangedDescriptor instanceof RangedCategoricalDescriptor)
       {
 	if (rng.nextDouble() >= missingCategoricalDescriptorProbability)
 	{
-	  descriptor = rangedDescriptor.randomDescriptor(rng);
+	  descriptor = rangedDescriptor.randomDescriptor(rng, distType);
 	}
       }
       else if (rangedDescriptor instanceof RangedImageDescriptor)
       {
 	if (rng.nextDouble() >= missingImageDescriptorProbability)
 	{
-	  descriptor = rangedDescriptor.randomDescriptor(rng);
+	  descriptor = rangedDescriptor.randomDescriptor(rng, distType);
 	}
       }
       else
