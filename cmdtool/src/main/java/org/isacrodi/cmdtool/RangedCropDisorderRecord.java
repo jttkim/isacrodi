@@ -63,6 +63,7 @@ abstract class RangedDescriptor
   }
 
 
+  // FIXME: is distType really a parameter here?
   public abstract Descriptor randomDescriptor(Random rng, String distType);
 }
 
@@ -108,10 +109,15 @@ class RangedNumericDescriptor extends RangedDescriptor
   private double makeRandomValue(Random rng, String distType)
   {
     if (distType.equals("uniform"))
+    {
       return (this.minValue + rng.nextDouble() * (this.maxValue - this.minValue));
+    }
     else
+    {
       //return Math.tan(Math.PI * (uniform() - 0.5));
       return (this.minValue + (Math.tan(Math.PI * (rng.nextDouble() - 0.5))) * (this.maxValue - this.minValue));
+    }
+    // FIXME: what if distType is neither "uniform" nor "cauchy"? Use an enum...
   }
 
 
