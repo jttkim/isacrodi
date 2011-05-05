@@ -5,11 +5,12 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.PrintStream;
-import jsc.distributions.*;
+// import jsc.distributions.*;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Collection;
 import java.util.Collections;
 
 import javax.naming.NamingException;
@@ -183,6 +184,18 @@ public class Main
   }
 
 
+  private static void writeCdrFile(String fileName, Collection<CropDisorderRecord> cdrCollection) throws IOException
+  {
+    PrintStream out = new PrintStream(fileName);
+    out.println("isacrodi-cdrs-0.1");
+    for (CropDisorderRecord cdr : cdrCollection)
+    {
+      out.println(cdr.fileRepresentation());
+    }
+    out.close();
+  }
+
+
   private static void testSvmDiagnosisProvider(String configFileName) throws IOException
   {
     MemoryDB memoryDB = new MemoryDB();
@@ -194,6 +207,7 @@ public class Main
     int numCategoricalOnlyTestSamples = parseNamedInt("numCategoricalOnlyTestSamples", configIn);
     int numImageOnlyTestSamples = parseNamedInt("numImageOnlyTestSamples", configIn);
     double missingDescriptorProbability = parseNamedDouble("missingDescriptorProbability", configIn);
+    String trainingCdrFileName = parseNamedString("trainingCdrFile", configIn);
     String testResultFileName = parseNamedString("testResultFile", configIn);
     int rndseed = parseNamedInt("rndseed", configIn);
     String distType;
@@ -214,6 +228,7 @@ public class Main
       rangedCropDisorderRecord.resolve(memoryDB);
       if (memoryDB.findUser(rangedCropDisorderRecord.getIsacrodiUserName()) == null)
       {
+	// FIXME: this seems to rely on insertUser to silently discard multiple insertions of same user
 	IsacrodiUser isacrodiUser = new IsacrodiUser("testsvm", "testsvm", rangedCropDisorderRecord.getIsacrodiUserName(), "", "");
 	memoryDB.insertUser(isacrodiUser);
 	System.err.println("created user: " + isacrodiUser.toString());
@@ -230,10 +245,12 @@ public class Main
 	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, distType, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability));
       }
     }
+    writeCdrFile(trainingCdrFileName, trainingList);
     distType = "cauchy";
     SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
     svmDiagnosisProvider.train(trainingList);
     // continue here -- open output file before actually producing output...
+    // FIXME: should distinguish between missing descriptor probabilities for training and testing
     SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, rng, distType, testResultFileName);
     svmDiagnosisProviderTester.test(svmDiagnosisProvider, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, "standard");
     svmDiagnosisProviderTester.test(svmDiagnosisProvider, numNumericOnlyTestSamples, missingDescriptorProbability, 1.0, 1.0, "numericOnly");
@@ -281,10 +298,10 @@ public class Main
     }
     else if ("testsvm".equals(command))
     {
-      System.out.println(args[0]);
+      // System.out.println(args[0]);
       testSvmDiagnosisProvider(args[1]);
     }
-
+    /*
     else if ("testtool".equals(command))
     {
       Cauchy cauchy = new Cauchy();
@@ -293,6 +310,7 @@ public class Main
       System.out.println(cauchy.random());
 
     }
+    */
     else
     {
       System.err.println(String.format("unknown command \"%s\"", command));
