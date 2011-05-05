@@ -56,6 +56,6 @@ public class NumericDescriptor extends Descriptor
 
   public String fileRepresentation()
   {
-    return(String.format("%s: %f\n", this.descriptorType.getTypeName(), this.numericValue));
+    return(String.format("%s: %f", this.descriptorType.getTypeName(), this.numericValue));
   }
 }

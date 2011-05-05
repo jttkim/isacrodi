@@ -9,7 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
-import jsc.distributions.*;
+// FIXME: seems we don't need this after all...?
+// import jsc.distributions.*;
 
 import org.isacrodi.util.SampleableList;
 
@@ -385,6 +386,7 @@ public class RangedCropDisorderRecord
     {
       throw new RuntimeException(String.format("no crop \"%s\"", this.cropScientificName));
     }
+    cropDisorderRecord.setCrop(crop);
     cropDisorderRecord.setDescription(this.description);
     if (this.expertDiagnosedCropDisorderName != null)
     {
