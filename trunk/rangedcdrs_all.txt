@@ -7,21 +7,18 @@ cdr
   {
     monthlyaveragehumidity: 70.000000 -- 90
     pH: 5.500000 -- 7
-    cropage: 100.000000 -- 120
+    cropage: 15 -- 120
     monthlyprecipitation: 140.000000 -- 300
     relativeaffectedarea: 35.000000 -- 60
     monthlyaveragetemperature: 25.000000 -- 35
     plantaffected: 15.000000 -- 15
-    cultivatedarea: 10.000000 -- 100
     altitude: 10.000000 -- 500
   }
   categoricalDescriptors
   {
-    irrigationsystem: rotary
     symptom: munching, cut, perforation, defoliation, excrements
     firstsymptomcropstage: vegetative
-    soil: clay
-    cropstage: seedling, vegetative, flowering, fruiting, mature
+    cropstage: vegetative, flowering, fruiting, mature
     pesttype: worms
     steminternal: perforation
     peststage: larvae
