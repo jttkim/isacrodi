@@ -4,8 +4,11 @@ numTestSamples: 10
 numNumericOnlyTestSamples: 10
 numCategoricalOnlyTestSamples: 10 
 numImageOnlyTestSamples: 10
-missingDescriptorProbability: 0.6
-testResultFile: testresults_all_p06_t50.txt
+missingDescriptorProbability: none
+trainingCdrFile: dummyTraining.txt
+testResultFile: isacrodiTestingFile
+numericFactor:10
+categoricalFactor:10
 rndseed: 1
 
 sampledata/isacrodi_users.txt
