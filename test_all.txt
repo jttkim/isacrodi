@@ -7,8 +7,8 @@ numImageOnlyTestSamples: 10
 missingDescriptorProbability: none
 trainingCdrFile: dummyTraining.txt
 testResultFile: isacrodiTestingFile
-numericFactor:10
-categoricalFactor:10
+cauchyRangeMagnifier: 2
+categoricalErrorProbability: 0.2
 rndseed: 1
 
 sampledata/isacrodi_users.txt

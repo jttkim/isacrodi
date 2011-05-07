@@ -263,6 +263,7 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
       oldCdr.setDescription(cropDisorderRecord.getDescription());
       cropDisorderRecord = oldCdr;
     }
+    cropDisorderRecord.setDiagnosis(null);
     if (cropScientificName != null)
     {
       cropDisorderRecord.unlinkCrop();
