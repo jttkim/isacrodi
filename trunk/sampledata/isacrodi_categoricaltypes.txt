@@ -36,7 +36,7 @@ categoricaltype
 {
   typename: peststage
   description: Pest stage most prone to cause plant damage
-  valueSet: larvae, nymph, adult
+  valueSet: larvae, nymph, pupa, adult
   multiple: false
 }
 

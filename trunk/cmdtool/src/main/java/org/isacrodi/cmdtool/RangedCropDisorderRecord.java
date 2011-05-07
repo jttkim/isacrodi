@@ -65,6 +65,7 @@ abstract class RangedDescriptor
 
 
   // FIXME: is distType really a parameter here?
+  // FIXME: descriptorFactor has changing semantics. Consider using a configuration object, reconsider design.
   public abstract Descriptor randomDescriptor(Random rng, String distType, double descriptorFactor);
 }
 
@@ -107,28 +108,33 @@ class RangedNumericDescriptor extends RangedDescriptor
   }
 
 
-  private double makeRandomValue(Random rng, String distType, double numericalFactor)
+  private double makeRandomValue(Random rng, String distType, double cauchyRangeMagnifier)
   {
     if (distType.equals("uniform"))
     {
       return (this.minValue + rng.nextDouble() * (this.maxValue - this.minValue));
     }
+    else if (distType.equals("cauchy"))
+    {
+      double centre = (this.minValue + this.maxValue) * 0.5;
+      double range = (this.maxValue - this.minValue) * cauchyRangeMagnifier;
+      return centre + (Math.tan(Math.PI * (rng.nextDouble() - 0.5))) * range;
+    }
     else
     {
-      //return Math.tan(Math.PI * (uniform() - 0.5));
-      return ((this.minValue + this.maxValue) * 0.5 + (Math.tan(Math.PI * (rng.nextDouble() - 0.5))) * (this.maxValue - this.minValue));
+      throw new RuntimeException(String.format("unknown distribution %s", distType));
     }
-    // FIXME: what if distType is neither "uniform" nor "cauchy"? Use an enum...
+    // FIXME: Use an enum rather than strings for distType
   }
 
 
-  public NumericDescriptor randomDescriptor(Random rng, String disType, double numericFactor)
+  public NumericDescriptor randomDescriptor(Random rng, String disType, double cauchyRangeMagnifier)
   {
     if (this.descriptorType == null)
     {
       throw new RuntimeException(String.format("cannot generate random descriptor: no descriptor type for \"%s\"", this.descriptorTypeName));
     }
-    return (new NumericDescriptor((NumericType) this.descriptorType, this.makeRandomValue(rng, disType, numericFactor)));
+    return (new NumericDescriptor((NumericType) this.descriptorType, this.makeRandomValue(rng, disType, cauchyRangeMagnifier)));
   }
 }
 
@@ -177,18 +183,27 @@ class RangedCategoricalDescriptor extends RangedDescriptor
   }
 
 
-  private String[] makeRandomValue(Random rng, String distType, double categoricalFactor)
+  private String[] makeRandomValue(Random rng, String distType, double categoricalErrorProbability)
   {
     ArrayList<String> valueList = new ArrayList<String>();
     CategoricalType categoricalType = (CategoricalType) this.descriptorType;
     boolean multivalue = false;
+    SampleableList<String> range = this.valueRange;    
     if (categoricalType != null)
     {
       multivalue = categoricalType.getMultivalue();
+      if (rng.nextDouble() < categoricalErrorProbability)
+      {
+	range = new SampleableList<String>();
+	for (CategoricalTypeValue ctv : categoricalType.getCategoricalTypeValueSet())
+	{
+	  range.add(ctv.getValueType());
+	}
+      }
     }
     if (multivalue)
     {
-      for (String value : this.valueRange)
+      for (String value : range)
       {
 	if (rng.nextDouble() < 0.5)
 	{
@@ -198,19 +213,19 @@ class RangedCategoricalDescriptor extends RangedDescriptor
     }
     if (valueList.size() == 0)
     {
-      valueList.add(this.valueRange.randomSample(rng));
+      valueList.add(range.randomSample(rng));
     }
     return (valueList.toArray(new String[0]));
   }
 
 
-  public CategoricalDescriptor randomDescriptor(Random rng, String distType, double categoricalFactor)
+  public CategoricalDescriptor randomDescriptor(Random rng, String distType, double categoricalErrorProbability)
   {
     if (this.descriptorType == null)
     {
       throw new RuntimeException(String.format("cannot generate random descriptor: no descriptor type for \"%s\"", this.descriptorTypeName));
     }
-    String[] valueList = this.makeRandomValue(rng, distType, categoricalFactor);
+    String[] valueList = this.makeRandomValue(rng, distType, categoricalErrorProbability);
     CategoricalType categoricalType = (CategoricalType) this.descriptorType;
     HashSet<CategoricalTypeValue> categoricalTypeValueSet = new HashSet<CategoricalTypeValue>();
     for (String value : valueList)
@@ -372,7 +387,7 @@ public class RangedCropDisorderRecord
   }
 
 
-  public CropDisorderRecord randomCropDisorderRecord(Random rng, String distType, double numericFactor, double categoricalFactor, MemoryDB memoryDB, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability)
+  public CropDisorderRecord randomCropDisorderRecord(Random rng, String distType, double cauchyRangeMagnifier, double categoricalErrorProbability, MemoryDB memoryDB, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability)
   {
     CropDisorderRecord cropDisorderRecord = new CropDisorderRecord();
     IsacrodiUser isacrodiUser = memoryDB.findUser(this.isacrodiUserName);
@@ -405,21 +420,21 @@ public class RangedCropDisorderRecord
       {
 	if (rng.nextDouble() >= missingNumericDescriptorProbability)
 	{
-	  descriptor = rangedDescriptor.randomDescriptor(rng, distType, numericFactor);
+	  descriptor = rangedDescriptor.randomDescriptor(rng, distType, cauchyRangeMagnifier);
 	}
       }
       else if (rangedDescriptor instanceof RangedCategoricalDescriptor)
       {
 	if (rng.nextDouble() >= missingCategoricalDescriptorProbability)
 	{
-	  descriptor = rangedDescriptor.randomDescriptor(rng, distType, categoricalFactor);
+	  descriptor = rangedDescriptor.randomDescriptor(rng, distType, categoricalErrorProbability);
 	}
       }
       else if (rangedDescriptor instanceof RangedImageDescriptor)
       {
 	if (rng.nextDouble() >= missingImageDescriptorProbability)
 	{
-	  descriptor = rangedDescriptor.randomDescriptor(rng, distType, numericFactor);
+	  descriptor = rangedDescriptor.randomDescriptor(rng, distType, cauchyRangeMagnifier);
 	}
       }
       else
