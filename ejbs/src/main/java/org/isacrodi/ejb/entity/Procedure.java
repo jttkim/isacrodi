@@ -41,6 +41,7 @@ public class Procedure implements IsacrodiEntity
     this.cropDisorderSet = new HashSet<CropDisorder>();
     this.procedureScoreSet = new HashSet<ProcedureScore>();
     this.incompatibleProcedureSet = new HashSet<Procedure>();
+    System.err.println("Procedure: instantiated");
   }
 
 
@@ -153,15 +154,14 @@ public class Procedure implements IsacrodiEntity
     return (true);
   }
 
-
   @ManyToMany
   public Set<CropDisorder> getCropDisorderSet()
   {
-    return this.cropDisorderSet;
+    return (this.cropDisorderSet);
   }
 
 
-  public void setCropDisorderSet(Set<CropDisorder> cropDisoderSet)
+  public void setCropDisorderSet(Set<CropDisorder> cropDisorderSet)
   {
     this.cropDisorderSet = cropDisorderSet;
   }
@@ -180,7 +180,10 @@ public class Procedure implements IsacrodiEntity
     {
       return (false);
     }
-    return (cropDisorder.getProcedureSet().remove(this));
+    if (!cropDisorder.getProcedureSet().remove(this));
+    {
+      return (false);
+    }
   }
 
 
@@ -264,7 +267,6 @@ public class Procedure implements IsacrodiEntity
     return (this.id.intValue());
   }
   */
-
 
   public boolean compatibleWith(Procedure otherProcedure)
   {

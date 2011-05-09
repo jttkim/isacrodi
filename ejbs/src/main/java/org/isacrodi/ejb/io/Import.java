@@ -114,6 +114,7 @@ public class Import
 	System.err.println(String.format("procedure \"%s\" already exists", procedureName));
 	continue;
       }
+      // FIXME: sloppy coding here, relying on Access to ignore empty strings in incompatible procs and disorders
       String[] icSplit = Util.splitTrim(incompatibleProcSetToken.getValue(), ",");
       String[] dsSplit = Util.splitTrim(disorderSetToken.getValue(), ",");
       /*
