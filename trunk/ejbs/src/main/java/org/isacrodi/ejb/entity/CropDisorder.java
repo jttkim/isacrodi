@@ -297,6 +297,7 @@ public class CropDisorder implements IsacrodiEntity
     this.expertDiagnosedCropDisorderRecordSet.clear();
   }
 
+
   /*
   public int hashCode()
   {
@@ -312,6 +313,10 @@ public class CropDisorder implements IsacrodiEntity
   public boolean equals(Object other)
   {
     System.err.println(String.format("CropDisorder.equals(%s)", other.toString()));
+    if (other == null)
+    {
+      return (false);
+    }
     if (other instanceof CropDisorder)
     {
       CropDisorder otherCropDisorder = (CropDisorder) other;

@@ -442,7 +442,8 @@ public class AccessBean implements Access
     List<Procedure> procedureList = genericTypecast(query.getResultList());
     if (procedureList.size() == 1)
     {
-      return (procedureList.get(0));
+      Procedure procedure = procedureList.get(0);
+      return (procedure);
     }
     else
     {
