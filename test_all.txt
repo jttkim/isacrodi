@@ -1,4 +1,4 @@
-rangedCdrFile: sampledata/rangedcdrs_all.txt
+rangedCdrFile: rangedcdrs_all.txt
 numTrainingSamples: 50
 numTestSamples: 10
 numNumericOnlyTestSamples: 10
