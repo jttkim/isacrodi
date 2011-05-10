@@ -53,7 +53,6 @@ public class Main
     }
   }
 
-
   public static void main(String[] args) throws NamingException, IOException
   {
     if (args.length == 0)
@@ -88,128 +87,6 @@ public class Main
       {
 	out.append(cdr.fileRepresentation());
       }
-      out.flush();
-      out.close();
-    }
-
-    else if (args[0].equals("-c"))
-    {
-      Scanner input = new Scanner( System.in );
-      System.out.println("Type cdr id: ");
-      int cdrid = input.nextInt();
-      Random generator = new Random();
-      String filename = args[1];
-      FileWriter out = new FileWriter(filename);
-      InitialContext context = new InitialContext();
-      CropDisorderRecordManager cdrm = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
-      CropDisorderRecord cdro = null;
-
-      out.append("isacrodi-cdrs-0.1\n"); 
-      while (cdrid != 0) 
-      {
-        double min = 0.0;
-        double max = 0.0;
-        cdro = cdrm.findCropDisorderRecord(cdrid);
-        HashMap hmax = new HashMap();
-        HashMap hmin = new HashMap();
-	String soil[] = null;
-	String cropstage[] = null;
-	String peststage[] = null;
-	String firstsymptomcropstage[] = null;
-
-        for (NumericDescriptor numericDescriptor : cdro.findNumericDescriptorSet())
-        {
-          System.out.println(numericDescriptor.getDescriptorType().getTypeName() + " " + numericDescriptor.getNumericValue());
-          hmax.put(numericDescriptor.getDescriptorType().getTypeName(), input.nextDouble());
-          hmin.put(numericDescriptor.getDescriptorType().getTypeName(), numericDescriptor.getNumericValue());
-        }
-
-        for (CategoricalDescriptor categoricalDescriptor : cdro.findCategoricalDescriptorSet())
-	{
-	  if (categoricalDescriptor.getDescriptorType().getTypeName().equals("soil"))
-	  {
-            System.out.println("How many values can soil have? ");
-	    int j = input.nextInt();
-	    soil = new String[j]; 
-            System.out.println("Type values ");
-	    for(int i = 0; i < j; i++)
-	      soil[i] = input.next();
-	  }
-	  if (categoricalDescriptor.getDescriptorType().getTypeName().equals("cropstage"))
-	  {
-            System.out.println("How many values can crop stage have? ");
-	    int j = input.nextInt();
-	    cropstage = new String[j]; 
-            System.out.println("Type values ");
-	    for(int i = 0; i < j; i++)
-	      cropstage[i] = input.next();
-	  }
-	  if (categoricalDescriptor.getDescriptorType().getTypeName().equals("firstsymptomcropstage"))
-	  {
-            System.out.println("How many values can firstsymptomcropstage stage have? ");
-	    int j = input.nextInt();
-	    firstsymptomcropstage = new String[j]; 
-            System.out.println("Type values ");
-	    for(int i = 0; i < j; i++)
-	      firstsymptomcropstage[i] = input.next();
-	  }
-	  if (categoricalDescriptor.getDescriptorType().getTypeName().equals("peststage"))
-	  {
-            System.out.println("How many values can pest stage have? ");
-	    int j = input.nextInt();
-	    peststage = new String[j]; 
-            System.out.println("Type values ");
-	    for(int i = 0; i < j; i++)
-	      peststage[i] = input.next();
-	  }
-	}
-
-
-        for (int j = 0; j <= 20; j++) 
-        {
-          CropDisorderRecord cdrcopy = null;
-	  cdrcopy = cdro;
-          for (NumericDescriptor numericDescriptor : cdrcopy.findNumericDescriptorSet())
-          {
-	    min = (Double) hmin.get(numericDescriptor.getDescriptorType().getTypeName());
-	    max = (Double) hmax.get(numericDescriptor.getDescriptorType().getTypeName());
-
-	    double dummy = min + (double)(Math.random() * (max - min));
-            numericDescriptor.setNumericValue(dummy);
-          }
-
-          for (CategoricalDescriptor categoricalDescriptor : cdrcopy.findCategoricalDescriptorSet())
-          {
-	    if (categoricalDescriptor.getDescriptorType().getTypeName().equals("soil"))
-	    {
-	      int dummy = 0 + (int)(Math.random() * (soil.length - 0));
-	      for(CategoricalTypeValue categoricaltype : categoricalDescriptor.getCategoricalTypeValueSet())
-	        categoricaltype.setValueType(soil[dummy]);
-	    }
-	    if (categoricalDescriptor.getDescriptorType().getTypeName().equals("cropstage"))
-	    {
-	      int dummy = 0 + (int)(Math.random() * (cropstage.length - 0));
-	      for(CategoricalTypeValue categoricaltype : categoricalDescriptor.getCategoricalTypeValueSet())
-	        categoricaltype.setValueType(cropstage[dummy]);
-	    }
-	    if (categoricalDescriptor.getDescriptorType().getTypeName().equals("peststage"))
-	    {
-	      int dummy = 0 + (int)(Math.random() * (peststage.length - 0));
-	      for(CategoricalTypeValue categoricaltype : categoricalDescriptor.getCategoricalTypeValueSet())
-	        categoricaltype.setValueType(peststage[dummy]);
-	    }
-	    if (categoricalDescriptor.getDescriptorType().getTypeName().equals("firstsymptomcropstage"))
-	    {
-	      int dummy = 0 + (int)(Math.random() * (firstsymptomcropstage.length - 0));
-	      for(CategoricalTypeValue categoricaltype : categoricalDescriptor.getCategoricalTypeValueSet())
-	        categoricaltype.setValueType(firstsymptomcropstage[dummy]);
-	    }
-          }
-          out.append(cdrcopy.fileRepresentation());
-        }
-        System.out.println("Type cdr id:  ");
-	cdrid = input.nextInt();
-      }	
       out.flush();
       out.close();
     }
