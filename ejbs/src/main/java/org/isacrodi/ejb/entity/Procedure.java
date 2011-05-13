@@ -41,7 +41,7 @@ public class Procedure implements IsacrodiEntity
     this.cropDisorderSet = new HashSet<CropDisorder>();
     this.procedureScoreSet = new HashSet<ProcedureScore>();
     this.incompatibleProcedureSet = new HashSet<Procedure>();
-    System.err.println("Procedure: instantiated");
+    // System.err.println("Procedure: instantiated");
   }
 
 

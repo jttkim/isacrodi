@@ -1,10 +1,10 @@
 rangedCdrFile: rangedcdrs_all.txt
 numTrainingSamples: 50
-numTestSamples: 10
-numNumericOnlyTestSamples: 10
-numCategoricalOnlyTestSamples: 10 
+numTestSamples: 1000
+numNumericOnlyTestSamples: 1000
+numCategoricalOnlyTestSamples: 1000
 numImageOnlyTestSamples: 10
-missingDescriptorProbability: none
+missingDescriptorProbability: 0.0
 trainingCdrFile: dummyTraining.txt
 testResultFile: isacrodiTestingFile
 cauchyRangeMagnifier: 2
