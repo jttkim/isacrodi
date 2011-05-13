@@ -36,25 +36,24 @@ import org.isacrodi.diagnosis.CategoricalFeature;
 import org.isacrodi.diagnosis.FeatureVector;
 
 
+// FIXME: sample generation and testing are intermingled in this class
 class SvmDiagnosisProviderTester
 {
   private List<RangedCropDisorderRecord> rangedCropDisorderRecordList;
   private MemoryDB memoryDB;
   private Random rng;
-  private String distType;
   private double cauchyRangeMagnifier;
   private double categoricalErrorProbability;
   private PrintStream out;
   private List<String> descriptorTypeNameList;
 
 
-  public SvmDiagnosisProviderTester(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, MemoryDB memoryDB, Random rng, String distType, double cauchyRangeMagnifier, double categoricalErrorProbability, String testResultFileName) throws IOException
+  public SvmDiagnosisProviderTester(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, MemoryDB memoryDB, Random rng, double cauchyRangeMagnifier, double categoricalErrorProbability, String testResultFileName) throws IOException
   {
     this.rangedCropDisorderRecordList = rangedCropDisorderRecordList;
     this.descriptorTypeNameList = RangedCropDisorderRecord.findDescriptorTypeNameList(this.rangedCropDisorderRecordList);
     this.memoryDB = memoryDB;
     this.rng = rng;
-    this.distType = distType;
     this.cauchyRangeMagnifier = cauchyRangeMagnifier;
     this.categoricalErrorProbability = categoricalErrorProbability;
     this.out = new PrintStream(testResultFileName);
@@ -67,49 +66,54 @@ class SvmDiagnosisProviderTester
   }
 
 
-  public void test(SVMDiagnosisProvider svmDiagnosisProvider, int numTestSamples, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability, String testTypeLabel)
+  public void testSample(SVMDiagnosisProvider svmDiagnosisProvider, CropDisorderRecord cropDisorderRecord, String testTypeLabel)
+  {
+    Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
+    DisorderScore highestScore = diagnosis.highestDisorderScore();
+    CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
+    this.out.printf("%s\t%s\t%s", testTypeLabel, cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosedCropDisorder.getScientificName());
+    FeatureVector featureVector = svmDiagnosisProvider.extract(cropDisorderRecord);
+    for (String descriptorTypeName : this.descriptorTypeNameList)
+    {
+      AbstractFeature feature = featureVector.get(descriptorTypeName);
+      if (feature == null)
+      {
+	this.out.print("\t");
+      }
+      else
+      {
+	if (feature instanceof CategoricalFeature)
+	{
+	  CategoricalFeature categoricalFeature = (CategoricalFeature) feature;
+	  List<String> stateList = new ArrayList<String>(categoricalFeature.getStateSet());
+	  Collections.sort(stateList);
+	  this.out.print("\t");
+	  String glue = String.format("%s:", descriptorTypeName);
+	  for (String state : stateList)
+	  {
+	    this.out.printf("%s%s", glue, state);
+	    glue = "_";
+	  }
+	}
+	else if (feature instanceof NumericFeature)
+	{
+	  NumericFeature numericFeature = (NumericFeature) feature;
+	  this.out.printf("\t%f", numericFeature.getValue());
+	}
+      }
+    }
+    this.out.println();
+  }
+
+
+  public void testCauchySamples(SVMDiagnosisProvider svmDiagnosisProvider, int numTestSamples, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability, String testTypeLabel)
   {
     for (RangedCropDisorderRecord rangedCropDisorderRecord : this.rangedCropDisorderRecordList)
     {
       for (int i = 0; i < numTestSamples; i++)
       {
-	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(this.rng, this.distType, this.cauchyRangeMagnifier, this.categoricalErrorProbability, this.memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability);
-
-	Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
-	DisorderScore highestScore = diagnosis.highestDisorderScore();
-	CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
-	this.out.printf("%s\t%s\t%s", testTypeLabel, cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosedCropDisorder.getScientificName());
-	FeatureVector featureVector = svmDiagnosisProvider.extract(cropDisorderRecord);
-	for (String descriptorTypeName : this.descriptorTypeNameList)
-	{
-	  AbstractFeature feature = featureVector.get(descriptorTypeName);
-	  if (feature == null)
-	  {
-	    this.out.print("\t");
-	  }
-	  else
-	  {
-	    if (feature instanceof CategoricalFeature)
-	    {
-	      CategoricalFeature categoricalFeature = (CategoricalFeature) feature;
-	      List<String> stateList = new ArrayList<String>(categoricalFeature.getStateSet());
-	      Collections.sort(stateList);
-	      this.out.print("\t");
-	      String glue = String.format("%s:", descriptorTypeName);
-	      for (String state : stateList)
-	      {
-		this.out.printf("%s%s", glue, state);
-		glue = "_";
-	      }
-	    }
-	    else if (feature instanceof NumericFeature)
-	    {
-	      NumericFeature numericFeature = (NumericFeature) feature;
-	      this.out.printf("\t%f", numericFeature.getValue());
-	    }
-	  }
-	}
-	this.out.println();
+	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(this.rng, "cauchy", this.cauchyRangeMagnifier, this.categoricalErrorProbability, this.memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability);
+	this.testSample(svmDiagnosisProvider, cropDisorderRecord, testTypeLabel);
       }
     }
   }
@@ -216,7 +220,6 @@ public class Main
     double cauchyRangeMagnifier = parseNamedDouble("cauchyRangeMagnifier", configIn);
     double categoricalErrorProbability = parseNamedDouble("categoricalErrorProbability", configIn);
     int rndseed = parseNamedInt("rndseed", configIn);
-    String distType;
     if (!"".equals(configIn.readLine()))
     {
       throw new RuntimeException("no separator line after fixed config block");
@@ -240,7 +243,6 @@ public class Main
 	System.err.println("created user: " + isacrodiUser.toString());
       }
     }
-    distType = "uniform";
     memoryDB.printSummary(System.err);
     Random rng = new Random(rndseed);
     List<CropDisorderRecord> trainingList = new ArrayList<CropDisorderRecord>();
@@ -248,20 +250,30 @@ public class Main
     {
       for (int i = 0; i < numTrainingSamples; i++)
       {
-	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, distType, cauchyRangeMagnifier, categoricalErrorProbability, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability));
+	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, "uniform", cauchyRangeMagnifier, categoricalErrorProbability, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability));
       }
     }
+    List<String> descriptorTypeNameList = RangedCropDisorderRecord.findDescriptorTypeNameList(rangedCropDisorderRecordList);
     writeCdrFile(trainingCdrFileName, trainingList);
-    distType = "cauchy";
     SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
     svmDiagnosisProvider.train(trainingList);
+    System.err.println("diagnosis provider trained");
     // continue here -- open output file before actually producing output...
     // FIXME: should distinguish between missing descriptor probabilities for training and testing
-    SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, rng, distType, cauchyRangeMagnifier, categoricalErrorProbability, testResultFileName);
-    svmDiagnosisProviderTester.test(svmDiagnosisProvider, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, "standard");
-    svmDiagnosisProviderTester.test(svmDiagnosisProvider, numNumericOnlyTestSamples, missingDescriptorProbability, 1.0, 1.0, "numericOnly");
-    svmDiagnosisProviderTester.test(svmDiagnosisProvider, numCategoricalOnlyTestSamples, 1.0, missingDescriptorProbability, 1.0, "categoricalOnly");
-    svmDiagnosisProviderTester.test(svmDiagnosisProvider, numImageOnlyTestSamples, 1.0, 1.0, missingDescriptorProbability, "imageOnly");
+    SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, rng, cauchyRangeMagnifier, categoricalErrorProbability, testResultFileName);
+    for (CropDisorderRecord cropDisorderRecord : trainingList)
+    {
+      svmDiagnosisProviderTester.testSample(svmDiagnosisProvider, cropDisorderRecord, "training");
+    }
+    System.err.println("diagnosis provider tested on training data");
+    svmDiagnosisProviderTester.testCauchySamples(svmDiagnosisProvider, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, "standard");
+    System.err.println("diagnosis provider tested on standard test data");
+    svmDiagnosisProviderTester.testCauchySamples(svmDiagnosisProvider, numNumericOnlyTestSamples, missingDescriptorProbability, 1.0, 1.0, "numericOnly");
+    System.err.println("diagnosis provider tested on numeric only test data");
+    svmDiagnosisProviderTester.testCauchySamples(svmDiagnosisProvider, numCategoricalOnlyTestSamples, 1.0, missingDescriptorProbability, 1.0, "categoricalOnly");
+    System.err.println("diagnosis provider tested on categorical only test data");
+    svmDiagnosisProviderTester.testCauchySamples(svmDiagnosisProvider, numImageOnlyTestSamples, 1.0, 1.0, missingDescriptorProbability, "imageOnly");
+    System.err.println("diagnosis provider tested on image only test data");
     svmDiagnosisProviderTester.close();
   }
 
