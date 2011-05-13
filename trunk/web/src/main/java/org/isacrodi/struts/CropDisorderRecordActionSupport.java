@@ -168,26 +168,7 @@ public abstract class CropDisorderRecordActionSupport extends IsacrodiActionSupp
       this.LOG.info("CropDisorderRecordActionSupport.getDisorderScoreList: no diagnosis");
       return (null);
     }
-    List<DisorderScore> disorderScoreList = new ArrayList<DisorderScore>(diagnosis.getDisorderScoreSet());
-    Comparator<DisorderScore> comparator = new Comparator<DisorderScore>()
-    {
-      public int compare(DisorderScore ds1, DisorderScore ds2)
-      {
-	if (ds1.getScore() > ds2.getScore())
-	{
-	  return (-1);
-	}
-	else if (ds1.getScore() < ds2.getScore())
-	{
-	  return (1);
-	}
-	else
-	{
-	  return (0);
-	}
-      }
-    };
-    Collections.sort(disorderScoreList, comparator);
+    List<DisorderScore> disorderScoreList = diagnosis.descendingDisorderScoreList();
     this.LOG.info(String.format("CropDisorderRecordActionSupport.getDisorderScoreList: returning sorted list of %d scores", disorderScoreList.size()));
     return (disorderScoreList);
   }

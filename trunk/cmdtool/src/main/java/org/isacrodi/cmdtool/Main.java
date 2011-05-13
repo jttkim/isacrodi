@@ -46,10 +46,12 @@ class SvmDiagnosisProviderTester
   private double categoricalErrorProbability;
   private PrintStream out;
   private List<String> descriptorTypeNameList;
+  private int maxDiagnosedDisorders;
 
 
-  public SvmDiagnosisProviderTester(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, MemoryDB memoryDB, Random rng, double cauchyRangeMagnifier, double categoricalErrorProbability, String testResultFileName) throws IOException
+  public SvmDiagnosisProviderTester(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, MemoryDB memoryDB, int maxDiagnosedDisorders, Random rng, double cauchyRangeMagnifier, double categoricalErrorProbability, String testResultFileName) throws IOException
   {
+    this.maxDiagnosedDisorders = maxDiagnosedDisorders;
     this.rangedCropDisorderRecordList = rangedCropDisorderRecordList;
     this.descriptorTypeNameList = RangedCropDisorderRecord.findDescriptorTypeNameList(this.rangedCropDisorderRecordList);
     this.memoryDB = memoryDB;
@@ -57,7 +59,11 @@ class SvmDiagnosisProviderTester
     this.cauchyRangeMagnifier = cauchyRangeMagnifier;
     this.categoricalErrorProbability = categoricalErrorProbability;
     this.out = new PrintStream(testResultFileName);
-    this.out.print("testType\texpertDiagnosis\tcomputedDiagnosis");
+    this.out.print("testType\texpertDiagnosis");
+    for (int i = 0; i < this.maxDiagnosedDisorders; i++)
+    {
+      this.out.printf("\tcomputedDiagnosis%d\tdiagnosisScore%d", i, i);
+    }
     for (String descriptorTypeName : this.descriptorTypeNameList)
     {
       this.out.printf("\t%s", descriptorTypeName);
@@ -70,8 +76,21 @@ class SvmDiagnosisProviderTester
   {
     Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
     DisorderScore highestScore = diagnosis.highestDisorderScore();
+    List<DisorderScore> disorderScoreList = diagnosis.descendingDisorderScoreList();
     CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
-    this.out.printf("%s\t%s\t%s", testTypeLabel, cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosedCropDisorder.getScientificName());
+    this.out.printf("%s\t%s", testTypeLabel, cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName());
+    for (int i = 0; i < 3; i++)
+    {
+      if (i < disorderScoreList.size())
+      {
+	DisorderScore disorderScore = disorderScoreList.get(i);
+	this.out.printf("\t%s\t%f", disorderScore.getCropDisorder().getScientificName(), disorderScore.getScore());
+      }
+      else
+      {
+	this.out.print("\t\t");
+      }
+    }
     FeatureVector featureVector = svmDiagnosisProvider.extract(cropDisorderRecord);
     for (String descriptorTypeName : this.descriptorTypeNameList)
     {
@@ -260,7 +279,8 @@ public class Main
     System.err.println("diagnosis provider trained");
     // continue here -- open output file before actually producing output...
     // FIXME: should distinguish between missing descriptor probabilities for training and testing
-    SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, rng, cauchyRangeMagnifier, categoricalErrorProbability, testResultFileName);
+    // FIXME: number of disorder scores hard-coded to 3
+    SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, 3, rng, cauchyRangeMagnifier, categoricalErrorProbability, testResultFileName);
     for (CropDisorderRecord cropDisorderRecord : trainingList)
     {
       svmDiagnosisProviderTester.testSample(svmDiagnosisProvider, cropDisorderRecord, "training");
