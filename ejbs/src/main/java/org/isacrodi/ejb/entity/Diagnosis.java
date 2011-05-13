@@ -8,8 +8,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Collections;
 
 import org.javamisc.Util;
 import org.javamisc.jee.entitycrud.CrudConfig;
@@ -141,6 +146,11 @@ public class Diagnosis implements IsacrodiEntity
   }
 
 
+  /**
+   * Retrieve the highest disorder score in this diagnosis.
+   *
+   * @return the highest scored disorder
+   */
   public DisorderScore highestDisorderScore()
   {
     if (this.disorderScoreSet.size() == 0)
@@ -163,6 +173,37 @@ public class Diagnosis implements IsacrodiEntity
       }
     }
     return (highscore);
+  }
+
+
+  /**
+   * Compute a list of disorder scores, sorted in descending order.
+   *
+   * @return the list of disorder scores, in descending order
+   */
+  public List<DisorderScore> descendingDisorderScoreList()
+  {
+    ArrayList<DisorderScore> disorderScoreList = new ArrayList<DisorderScore>(this.disorderScoreSet);
+    Comparator<DisorderScore> comparator = new Comparator<DisorderScore>()
+    {
+      public int compare(DisorderScore ds1, DisorderScore ds2)
+      {
+	if (ds1.getScore() > ds2.getScore())
+	{
+	  return (-1);
+	}
+	else if (ds1.getScore() < ds2.getScore())
+	{
+	  return (1);
+	}
+	else
+	{
+	  return (0);
+	}
+      }
+    };
+    Collections.sort(disorderScoreList, comparator);
+    return (disorderScoreList);
   }
 
 
