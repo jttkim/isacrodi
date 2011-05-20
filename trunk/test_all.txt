@@ -6,8 +6,8 @@ numCategoricalOnlyTestSamples: 1000
 numImageOnlyTestSamples: 10
 missingDescriptorProbability: 0.0
 trainingCdrFile: dummyTraining.txt
-testResultFile: isacrodiTestingFile
-cauchyRangeMagnifier: 2
+testResultFile: isacrodiTestingFile.txt
+cauchyRangeMagnifier: 0.2
 categoricalErrorProbability: 0.2
 rndseed: 1
 

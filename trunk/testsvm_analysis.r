@@ -1,8 +1,8 @@
 # accuracy is the proportion of CDRs in which the computed diagnosis matches the expert diagnosis.
 
-accuracy <- function(d)
+accuracy <- function(d, cname)
 {
-  return(sum(as.character(d[["expertDiagnosis"]]) == as.character(d[["computedDiagnosis"]])) / nrow(d));
+  return(sum(as.character(d[["expertDiagnosis"]]) == as.character(d[[cname]])) / nrow(d));
 }
 
 # Compute a table of accuracy values for all types of tests (training, "standard", numericOnly etc.).
@@ -14,7 +14,7 @@ accuracy <- function(d)
 # stored in permPvalue.
 accuracyStats <- function(d, numPermutationTests = 100)
 {
-  s <- data.frame(missingDescriptorProbability = as.numeric(NA), cauchyRangeMagnifier = as.numeric(NA), categoricalErrorProbability = as.numeric(NA), testType = as.character(NA), accuracy = as.numeric(NA), nullAccuracy = as.numeric(NA), permPvalue = as.numeric(NA));
+  s <- data.frame(missingDescriptorProbability = as.numeric(NA), cauchyRangeMagnifier = as.numeric(NA), categoricalErrorProbability = as.numeric(NA), testType = as.character(NA), accuracy0 = as.numeric(NA), nullAccuracy0 = as.numeric(NA), permPvalue0 = as.numeric(NA), accuracy1 = as.numeric(NA), nullAccuracy1 = as.numeric(NA), permPvalue1 = as.numeric(NA), accuracy2 = as.numeric(NA), nullAccuracy2 = as.numeric(NA), permPvalue2 = as.numeric(NA));
   s[["testType"]] <- "";
   controlParameterList <- c("missingDescriptorProbability", "cauchyRangeMagnifier", "categoricalErrorProbability");
   srow <- 1;
@@ -22,32 +22,38 @@ accuracyStats <- function(d, numPermutationTests = 100)
   {
     aPermSum <- 0.0;
     dtt <- d[d[["testType"]] == testType, ];
-    aReal <- accuracy(dtt);
-    n <- 0;
-    for (i in 1:numPermutationTests)
-    {
-      dttPerm <- dtt;
-      dttPerm[["computedDiagnosis"]] <- sample(dtt[["computedDiagnosis"]]);
-      aPerm <- accuracy(dttPerm);
-      aPermSum <- aPermSum + aPerm;
-      if (aPerm >= aReal)
+    for(cname in colnames(d)[grep("computedDiagnosis", colnames(d))])
+    {  
+      aReal <- accuracy(dtt, cname);
+      n <- 0;
+      for (i in 1:numPermutationTests)
       {
-        n <- n + 1;
+        dttPerm <- dtt;
+        dttPerm[["computedDiagnosis"]] <- sample(dtt[["computedDiagnosis"]]);
+        aPerm <- accuracy(dttPerm, cname);
+        aPermSum <- aPermSum + aPerm;
+        if (aPerm >= aReal)
+        {
+          n <- n + 1;
+        }
+      }
+      for (controlParameter in controlParameterList)
+      {
+        if (!is.null(attr(d, controlParameter)))
+        {
+          s[srow, controlParameter] <- attr(d, controlParameter);
+        }
+      }
+
+      s[srow, "testType"] <- testType;
+      for(j in (0:2))
+      {
+        s[srow, sprintf('accuracy%d',j)] <- aReal;
+        s[srow, sprintf('nullAccuracy%d',j)] <- aPermSum / numPermutationTests;
+        s[srow, sprintf('permPvalue%d',j)] <- n / numPermutationTests;
+      # print(sprintf("%s accuracy: %f (%d / %d)", testType, aReal, n, numPermutationTests));
       }
     }
-    for (controlParameter in controlParameterList)
-    {
-      if (!is.null(attr(d, controlParameter)))
-      {
-        s[srow, controlParameter] <- attr(d, controlParameter);
-      }
-    }
-    s[srow, "testType"] <- testType;
-    s[srow, "accuracy"] <- aReal;
-    s[srow, "accuracy"] <- aReal;
-    s[srow, "nullAccuracy"] <- aPermSum / numPermutationTests;
-    s[srow, "permPvalue"] <- n / numPermutationTests;
-    # print(sprintf("%s accuracy: %f (%d / %d)", testType, aReal, n, numPermutationTests));
     srow <- srow + 1;
   }
   return(s);
@@ -145,28 +151,40 @@ histogramDemo <- function(d, descriptorName, ...)
 }
 
 
-accuracyPlotDemo <- function(a)
+epsdevice <- function(epsFilename)
 {
-  for (testType in as.character(unique(allStats[["testType"]])))
-  {
-    dtmp <- allStats[allStats[["testType"]] == testType, ];
-    par(mfrow = c(2, 2));
-    for (controlParameter in c("missingDescriptorProbability", "cauchyRangeMagnifier", "categoricalErrorProbability"))
-    {
-      plot(dtmp[[controlParameter]], dtmp[["accuracy"]], xlab = controlParameter, ylab = "accuracy");
-    }
-    par(mfrow = c(1, 1));
-    readline(sprintf("%s -- hit return", testType));
-  }
+  postscript(epsFilename, width = 8, height = 6, paper = "special", onefile = FALSE, horizontal = FALSE);
+  par(cex = 1.5);
 }
 
+
+
+accuracyPlotDemo <- function(a)
+{
+  for(i in (0:2))
+  {
+    for (testType in as.character(unique(allStats[["testType"]])))
+    {
+      epsdevice(sprintf("svm_testType_%s_dis%d.eps", testType, j));
+      dtmp <- allStats[allStats[["testType"]] == testType, ];
+      par(mfrow = c(2, 2));
+      for (controlParameter in c("missingDescriptorProbability", "cauchyRangeMagnifier", "categoricalErrorProbability"))
+      {
+        plot(dtmp[[controlParameter]], dtmp[[sprintf('accuracy%s',j)]], xlab = controlParameter, ylab = "accuracy");
+      }
+      par(mfrow = c(1, 1));
+      dev.off();
+      readline(sprintf("%s -- hit return", testType));
+    }
+  }
+}
 
 
 allTables <- readAllDummyCdrtables();
 allStats <- dummyStatsTable(allTables);
 # current reference values
-histogramDemo(allTables[["dummy_mdp050_crm005_cep020_cdrtable.txt"]], cropAge, xlim = c(-100,400));
-accuracyPlotDemo(allTables);
+#histogramDemo(allTables[["dummy_mdp050_crm005_cep020_cdrtable.txt"]], cropAge, xlim = c(-100,400));
+accuracyPlotDemo(allStats);
 # 
 
 # d <- read.table("testsvm_hack_results.txt", header = TRUE, sep = "\t");
