@@ -1,12 +1,14 @@
 package org.isacrodi.diagnosis;
 
+import java.io.Serializable;
+
 import org.isacrodi.ejb.entity.*;
 import org.isacrodi.ejb.session.*;
 
 import libsvm.svm_node;
 
 
-public abstract class AbstractSvmNodeComponentMapper
+public abstract class AbstractSvmNodeComponentMapper implements Serializable
 {
   protected String featureName;
 

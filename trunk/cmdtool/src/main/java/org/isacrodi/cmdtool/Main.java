@@ -5,6 +5,11 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.PrintStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 // import jsc.distributions.*;
 
 import java.util.List;
@@ -223,9 +228,12 @@ public class Main
   }
 
 
-  private static void testSvmDiagnosisProvider(String configFileName) throws IOException
+  private static void testSvmDiagnosisProvider(String configFileName) throws IOException, ClassNotFoundException
   {
     MemoryDB memoryDB = new MemoryDB();
+    File configFile = new File(configFileName);
+    long inputLastModified = configFile.lastModified();
+
     BufferedReader configIn = new BufferedReader(new InputStreamReader(new FileInputStream(configFileName)));
     String rangedCdrFileName = parseNamedString("rangedCdrFile", configIn);
     int numTrainingSamples = parseNamedInt("numTrainingSamples", configIn);
@@ -236,6 +244,7 @@ public class Main
     double missingDescriptorProbability = parseNamedDouble("missingDescriptorProbability", configIn);
     String trainingCdrFileName = parseNamedString("trainingCdrFile", configIn);
     String testResultFileName = parseNamedString("testResultFile", configIn);
+    String diagnosisProviderFileName = parseNamedString("diagnosisProviderFile", configIn);
     double cauchyRangeMagnifier = parseNamedDouble("cauchyRangeMagnifier", configIn);
     double categoricalErrorProbability = parseNamedDouble("categoricalErrorProbability", configIn);
     int rndseed = parseNamedInt("rndseed", configIn);
@@ -246,9 +255,19 @@ public class Main
     for (String line = configIn.readLine(); line != null; line = configIn.readLine())
     {
       System.err.println(String.format("importing: %s", line));
-      Import.importFile(line, memoryDB, memoryDB);
+      File f = new File(line);
+      if (f.lastModified() > inputLastModified)
+      {
+	inputLastModified = f.lastModified();
+      }
+      Import.importFile(f, memoryDB, memoryDB);
     }
-    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(rangedCdrFileName)));
+    File rangedCdrFile = new File(rangedCdrFileName);
+    if (rangedCdrFile.lastModified() > inputLastModified)
+    {
+      inputLastModified = rangedCdrFile.lastModified();
+    }
+    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(rangedCdrFile)));
     List<RangedCropDisorderRecord> rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
     in.close();
     for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
@@ -274,9 +293,25 @@ public class Main
     }
     List<String> descriptorTypeNameList = RangedCropDisorderRecord.findDescriptorTypeNameList(rangedCropDisorderRecordList);
     writeCdrFile(trainingCdrFileName, trainingList);
-    SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
-    svmDiagnosisProvider.train(trainingList);
-    System.err.println("diagnosis provider trained");
+    SVMDiagnosisProvider svmDiagnosisProvider;
+    File diagnosisProviderFile = new File(diagnosisProviderFileName);
+    long dpLastModified = diagnosisProviderFile.lastModified();
+    if ((dpLastModified == 0L) || (dpLastModified < inputLastModified))
+    {
+      svmDiagnosisProvider = new SVMDiagnosisProvider();
+      svmDiagnosisProvider.train(trainingList);
+      ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(diagnosisProviderFile));
+      o.writeObject(svmDiagnosisProvider);
+      o.close();
+      System.err.println(String.format("diagnosis provider trained and saved to %s", diagnosisProviderFileName));
+    }
+    else
+    {
+      ObjectInputStream i = new ObjectInputStream(new FileInputStream(diagnosisProviderFile));
+      svmDiagnosisProvider = (SVMDiagnosisProvider) i.readObject();
+      i.close();
+      System.err.println(String.format("diagnosis provider read from %s", diagnosisProviderFileName));
+    }
     // continue here -- open output file before actually producing output...
     // FIXME: should distinguish between missing descriptor probabilities for training and testing
     // FIXME: number of disorder scores hard-coded to 3

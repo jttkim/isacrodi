@@ -1,7 +1,5 @@
 package org.isacrodi.diagnosis;
 
-import java.io.Serializable;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
@@ -15,7 +13,7 @@ import libsvm.svm_node;
  * Mapper for a categorical component.
  */
 
-public class CategoricalSvmNodeComponentMapper extends AbstractSvmNodeComponentMapper implements Serializable
+public class CategoricalSvmNodeComponentMapper extends AbstractSvmNodeComponentMapper
 {
   private Map<String, Integer> stateIndexMap;
 

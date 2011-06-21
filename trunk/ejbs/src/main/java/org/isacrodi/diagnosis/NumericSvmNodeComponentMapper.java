@@ -1,7 +1,5 @@
 package org.isacrodi.diagnosis;
 
-import java.io.Serializable;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -22,7 +20,7 @@ import libsvm.svm_node;
  * when training data is added, and recomputed when values are mapped.
  * This technique is not robust to concurrency.</p>
  */
-public class NumericSvmNodeComponentMapper extends AbstractSvmNodeComponentMapper implements Serializable
+public class NumericSvmNodeComponentMapper extends AbstractSvmNodeComponentMapper
 {
   // FIXME: cannot represent uninitialised state
   private int index;
