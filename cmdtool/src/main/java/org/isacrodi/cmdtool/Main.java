@@ -300,19 +300,17 @@ public class Main
     {
       svmDiagnosisProvider = new SVMDiagnosisProvider();
       svmDiagnosisProvider.train(trainingList);
-      ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(diagnosisProviderFile));
-      o.writeObject(svmDiagnosisProvider);
-      o.close();
+      ObjectOutputStream diagnosisProviderOut = new ObjectOutputStream(new FileOutputStream(diagnosisProviderFile));
+      diagnosisProviderOut.writeObject(svmDiagnosisProvider);
+      diagnosisProviderOut.close();
       System.err.println(String.format("diagnosis provider trained and saved to %s", diagnosisProviderFileName));
     }
-    else
-    {
-      ObjectInputStream i = new ObjectInputStream(new FileInputStream(diagnosisProviderFile));
-      svmDiagnosisProvider = (SVMDiagnosisProvider) i.readObject();
-      i.close();
-      System.err.println(String.format("diagnosis provider read from %s", diagnosisProviderFileName));
-    }
-    // continue here -- open output file before actually producing output...
+    // jtk: it's intentional that the diagnosis provider is read from the object output file even when it's just been trained,
+    //      as it appears that writing and re-reading a SVMDiagnosisProvider can change it (hopefully just a numeric imprecision artifact).
+    ObjectInputStream diagnosisProviderIn = new ObjectInputStream(new FileInputStream(diagnosisProviderFile));
+    svmDiagnosisProvider = (SVMDiagnosisProvider) diagnosisProviderIn.readObject();
+    diagnosisProviderIn.close();
+    System.err.println(String.format("diagnosis provider read from %s", diagnosisProviderFileName));
     // FIXME: should distinguish between missing descriptor probabilities for training and testing
     // FIXME: number of disorder scores hard-coded to 3
     SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, 3, rng, cauchyRangeMagnifier, categoricalErrorProbability, testResultFileName);
