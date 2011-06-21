@@ -370,15 +370,15 @@ public class Import
   }
 
 
-  public static void importFile(String filename, Access access, UserHandler userHandler) throws IOException
+  public static void importFile(File file, Access access, UserHandler userHandler) throws IOException
   {
-    BufferedReader in = new BufferedReader(new FileReader(filename));
+    BufferedReader in = new BufferedReader(new FileReader(file));
     String magic = in.readLine();
     if (magic.equals("isacrodi-users-0.1"))
     {
       CsvTable csvTable = new CsvTable(new CsvReader(in));
       String[] header= csvTable.getColumnNameList();
-      System.err.println(String.format("%s: user file", filename));
+      System.err.println(String.format("%s: user file", file.getName()));
       importUserFile(csvTable, userHandler);
     }
     else if (magic.equals("isacrodi-crop-0.1"))
@@ -411,8 +411,14 @@ public class Import
     }
     else
     {
-      throw new IOException(String.format("cannot identify table type of %s: unknown magic \"%s\"", filename, magic));
+      throw new IOException(String.format("cannot identify table type of %s: unknown magic \"%s\"", file.getName(), magic));
     }
+  }
+
+
+  public static void importFile(String filename, Access access, UserHandler userHandler) throws IOException
+  {
+    importFile(new File(filename), access, userHandler);
   }
 }
 
