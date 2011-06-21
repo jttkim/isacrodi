@@ -13,6 +13,10 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.javamisc.jee.entitycrud.CrudConfig;
 
@@ -432,8 +436,28 @@ public class CropDisorderRecord implements IsacrodiEntity
   }
 
 
+  private class DescriptorNameComparator implements Comparator<Descriptor>
+  {
+    public int compare(Descriptor d1, Descriptor d2)
+    {
+      String typeName1 = d1.getDescriptorType().getTypeName();
+      String typeName2 = d2.getDescriptorType().getTypeName();
+      return (typeName1.compareTo(typeName2));
+    }
+  }
+
+
+  /**
+   * Produce a serialised representation of this CDR, compatible with the import format.
+   *
+   * <p>CDR representations are canonicalised by sorting descriptors
+   * alphabetically by descriptor type names. This facilitates
+   * comparing descriptors for equality by using a simple diff
+   * approach.</p>
+   */
   public String fileRepresentation()
   {
+    DescriptorNameComparator descriptorNameComparator = new DescriptorNameComparator();
     String x;
     String s = "cdr\n{\n";
     s += String.format("  user: %s\n", this.isacrodiUser.getUsername());
@@ -444,19 +468,25 @@ public class CropDisorderRecord implements IsacrodiEntity
     }
     s += String.format("  crop: %s\n", x);
     s += "  numericDescriptors\n  {\n";
-    for (NumericDescriptor numericDescriptor : this.findNumericDescriptorSet())
+    List<NumericDescriptor> numericDescriptorList = new ArrayList<NumericDescriptor>(this.findNumericDescriptorSet());
+    Collections.sort(numericDescriptorList, descriptorNameComparator);
+    for (NumericDescriptor numericDescriptor : numericDescriptorList)
     {
       s += String.format("    %s\n", numericDescriptor.fileRepresentation());
     }
     s += "  }\n";
     s += "  categoricalDescriptors\n  {\n";
-    for (CategoricalDescriptor categoricalDescriptor : this.findCategoricalDescriptorSet())
+    List<CategoricalDescriptor> categoricalDescriptorList = new ArrayList<CategoricalDescriptor>(this.findCategoricalDescriptorSet());
+    Collections.sort(categoricalDescriptorList, descriptorNameComparator);
+    for (CategoricalDescriptor categoricalDescriptor : categoricalDescriptorList)
     {
       s += String.format("    %s\n", categoricalDescriptor.fileRepresentation());
     }
     s += "  }\n";
     s += "  imageDescriptors\n  {\n";
-    for (ImageDescriptor imageDescriptor : this.findImageDescriptorSet())
+    List<ImageDescriptor> imageDescriptorList = new ArrayList<ImageDescriptor>(this.findImageDescriptorSet());
+    Collections.sort(imageDescriptorList, descriptorNameComparator);
+    for (ImageDescriptor imageDescriptor : imageDescriptorList)
     {
       s += String.format("    %s\n", imageDescriptor.fileRepresentation());
     }

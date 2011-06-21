@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
@@ -199,6 +200,7 @@ class RangedCategoricalDescriptor extends RangedDescriptor
 	{
 	  range.add(ctv.getValueType());
 	}
+	Collections.sort(range);
       }
     }
     if (multivalue)
@@ -295,6 +297,11 @@ class RangedImageDescriptor extends RangedDescriptor
  * <p><strong>Note:</strong> When the resolve facility is used, the
  * database populated with generated CDRs must be the one that was
  * used for resolving as well.</p>
+ * <p><strong>Note:</strong> It is essential that ranged descriptors
+ * are maintained in a list, not in an (unordered!) set. Otherwise the
+ * order in which they are processed when generating random CDRs is
+ * undefined, and thus the result of generating a random CDR is not
+ * fully determined by the random number generator used.</p>
  */
 public class RangedCropDisorderRecord
 {
