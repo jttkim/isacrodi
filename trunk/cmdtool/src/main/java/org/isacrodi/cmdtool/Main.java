@@ -47,21 +47,23 @@ class SvmDiagnosisProviderTester
   private List<RangedCropDisorderRecord> rangedCropDisorderRecordList;
   private MemoryDB memoryDB;
   private Random rng;
-  private double cauchyRangeMagnifier;
+  private String numericProbabilityDistribution;
+  private double numericRangeMagnifier;
   private double categoricalErrorProbability;
   private PrintStream out;
   private List<String> descriptorTypeNameList;
   private int maxDiagnosedDisorders;
 
 
-  public SvmDiagnosisProviderTester(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, MemoryDB memoryDB, int maxDiagnosedDisorders, Random rng, double cauchyRangeMagnifier, double categoricalErrorProbability, String testResultFileName) throws IOException
+  public SvmDiagnosisProviderTester(List<RangedCropDisorderRecord> rangedCropDisorderRecordList, MemoryDB memoryDB, int maxDiagnosedDisorders, Random rng, String numericProbabilityDistribution, double numericRangeMagnifier, double categoricalErrorProbability, String testResultFileName) throws IOException
   {
     this.maxDiagnosedDisorders = maxDiagnosedDisorders;
     this.rangedCropDisorderRecordList = rangedCropDisorderRecordList;
     this.descriptorTypeNameList = RangedCropDisorderRecord.findDescriptorTypeNameList(this.rangedCropDisorderRecordList);
     this.memoryDB = memoryDB;
     this.rng = rng;
-    this.cauchyRangeMagnifier = cauchyRangeMagnifier;
+    this.numericProbabilityDistribution = numericProbabilityDistribution;
+    this.numericRangeMagnifier = numericRangeMagnifier;
     this.categoricalErrorProbability = categoricalErrorProbability;
     this.out = new PrintStream(testResultFileName);
     this.out.print("testType\texpertDiagnosis");
@@ -130,13 +132,13 @@ class SvmDiagnosisProviderTester
   }
 
 
-  public void testCauchySamples(SVMDiagnosisProvider svmDiagnosisProvider, int numTestSamples, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability, String testTypeLabel)
+  public void testSamples(SVMDiagnosisProvider svmDiagnosisProvider, int numTestSamples, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability, String testTypeLabel)
   {
     for (RangedCropDisorderRecord rangedCropDisorderRecord : this.rangedCropDisorderRecordList)
     {
       for (int i = 0; i < numTestSamples; i++)
       {
-	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(this.rng, "cauchy", this.cauchyRangeMagnifier, this.categoricalErrorProbability, this.memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability);
+	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(this.rng, this.numericProbabilityDistribution, this.numericRangeMagnifier, this.categoricalErrorProbability, this.memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability);
 	this.testSample(svmDiagnosisProvider, cropDisorderRecord, testTypeLabel);
       }
     }
@@ -232,8 +234,6 @@ public class Main
   {
     MemoryDB memoryDB = new MemoryDB();
     File configFile = new File(configFileName);
-    long inputLastModified = configFile.lastModified();
-
     BufferedReader configIn = new BufferedReader(new InputStreamReader(new FileInputStream(configFileName)));
     String rangedCdrFileName = parseNamedString("rangedCdrFile", configIn);
     int numTrainingSamples = parseNamedInt("numTrainingSamples", configIn);
@@ -256,17 +256,9 @@ public class Main
     {
       System.err.println(String.format("importing: %s", line));
       File f = new File(line);
-      if (f.lastModified() > inputLastModified)
-      {
-	inputLastModified = f.lastModified();
-      }
       Import.importFile(f, memoryDB, memoryDB);
     }
     File rangedCdrFile = new File(rangedCdrFileName);
-    if (rangedCdrFile.lastModified() > inputLastModified)
-    {
-      inputLastModified = rangedCdrFile.lastModified();
-    }
     BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(rangedCdrFile)));
     List<RangedCropDisorderRecord> rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
     in.close();
@@ -288,46 +280,155 @@ public class Main
     {
       for (int i = 0; i < numTrainingSamples; i++)
       {
-	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, "uniform", cauchyRangeMagnifier, categoricalErrorProbability, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability));
+	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, "uniform", 1.0, categoricalErrorProbability, memoryDB, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability));
       }
     }
-    List<String> descriptorTypeNameList = RangedCropDisorderRecord.findDescriptorTypeNameList(rangedCropDisorderRecordList);
     writeCdrFile(trainingCdrFileName, trainingList);
-    SVMDiagnosisProvider svmDiagnosisProvider;
+    SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
+    svmDiagnosisProvider.train(trainingList);
     File diagnosisProviderFile = new File(diagnosisProviderFileName);
-    long dpLastModified = diagnosisProviderFile.lastModified();
-    if ((dpLastModified == 0L) || (dpLastModified < inputLastModified))
-    {
-      svmDiagnosisProvider = new SVMDiagnosisProvider();
-      svmDiagnosisProvider.train(trainingList);
-      ObjectOutputStream diagnosisProviderOut = new ObjectOutputStream(new FileOutputStream(diagnosisProviderFile));
-      diagnosisProviderOut.writeObject(svmDiagnosisProvider);
-      diagnosisProviderOut.close();
-      System.err.println(String.format("diagnosis provider trained and saved to %s", diagnosisProviderFileName));
-    }
-    // jtk: it's intentional that the diagnosis provider is read from the object output file even when it's just been trained,
-    //      as it appears that writing and re-reading a SVMDiagnosisProvider can change it (hopefully just a numeric imprecision artifact).
-    ObjectInputStream diagnosisProviderIn = new ObjectInputStream(new FileInputStream(diagnosisProviderFile));
-    svmDiagnosisProvider = (SVMDiagnosisProvider) diagnosisProviderIn.readObject();
-    diagnosisProviderIn.close();
-    System.err.println(String.format("diagnosis provider read from %s", diagnosisProviderFileName));
+    ObjectOutputStream diagnosisProviderOut = new ObjectOutputStream(new FileOutputStream(diagnosisProviderFile));
+    diagnosisProviderOut.writeObject(svmDiagnosisProvider);
+    diagnosisProviderOut.close();
+    System.err.println(String.format("diagnosis provider trained and saved to %s", diagnosisProviderFileName));
     // FIXME: should distinguish between missing descriptor probabilities for training and testing
     // FIXME: number of disorder scores hard-coded to 3
-    SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, 3, rng, cauchyRangeMagnifier, categoricalErrorProbability, testResultFileName);
+    SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, 3, rng, "cauchy", cauchyRangeMagnifier, categoricalErrorProbability, testResultFileName);
     for (CropDisorderRecord cropDisorderRecord : trainingList)
     {
       svmDiagnosisProviderTester.testSample(svmDiagnosisProvider, cropDisorderRecord, "training");
     }
     System.err.println("diagnosis provider tested on training data");
-    svmDiagnosisProviderTester.testCauchySamples(svmDiagnosisProvider, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, "standard");
+    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, "standard");
     System.err.println("diagnosis provider tested on standard test data");
-    svmDiagnosisProviderTester.testCauchySamples(svmDiagnosisProvider, numNumericOnlyTestSamples, missingDescriptorProbability, 1.0, 1.0, "numericOnly");
+    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numNumericOnlyTestSamples, missingDescriptorProbability, 1.0, 1.0, "numericOnly");
     System.err.println("diagnosis provider tested on numeric only test data");
-    svmDiagnosisProviderTester.testCauchySamples(svmDiagnosisProvider, numCategoricalOnlyTestSamples, 1.0, missingDescriptorProbability, 1.0, "categoricalOnly");
+    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numCategoricalOnlyTestSamples, 1.0, missingDescriptorProbability, 1.0, "categoricalOnly");
     System.err.println("diagnosis provider tested on categorical only test data");
-    svmDiagnosisProviderTester.testCauchySamples(svmDiagnosisProvider, numImageOnlyTestSamples, 1.0, 1.0, missingDescriptorProbability, "imageOnly");
+    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numImageOnlyTestSamples, 1.0, 1.0, missingDescriptorProbability, "imageOnly");
     System.err.println("diagnosis provider tested on image only test data");
     svmDiagnosisProviderTester.close();
+  }
+
+
+  private static void trainWithRangedCDRs(String configFileName) throws IOException, ClassNotFoundException
+  {
+    File configFile = new File(configFileName);
+    BufferedReader configIn = new BufferedReader(new InputStreamReader(new FileInputStream(configFileName)));
+    String rangedCdrFileName = parseNamedString("rangedCdrFile", configIn);
+    int numTrainingSamples = parseNamedInt("numTrainingSamples", configIn);
+    double missingNumericDescriptorProbability = parseNamedDouble("missingNumericDescriptorProbability", configIn);
+    String numericProbabilityDistribution = parseNamedString("numericProbabilityDistribution", configIn);
+    double numericRangeMagnifier = parseNamedDouble("numericRangeMagnifier", configIn);
+    double missingCategoricalDescriptorProbability = parseNamedDouble("missingCategoricalDescriptorProbability", configIn);
+    double categoricalErrorProbability = parseNamedDouble("categoricalErrorProbability", configIn);
+    double missingImageDescriptorProbability = parseNamedDouble("missingImageDescriptorProbability", configIn);
+    int rndseed = parseNamedInt("rndseed", configIn);
+    String trainingCdrFileName = parseNamedString("trainingCdrFile", configIn);
+    String diagnosisProviderFileName = parseNamedString("diagnosisProviderFile", configIn);
+    if (!"".equals(configIn.readLine()))
+    {
+      throw new RuntimeException("no separator line after fixed config block");
+    }
+    MemoryDB memoryDB = new MemoryDB();
+    for (String line = configIn.readLine(); line != null; line = configIn.readLine())
+    {
+      System.err.println(String.format("importing: %s", line));
+      File f = new File(line);
+      Import.importFile(f, memoryDB, memoryDB);
+    }
+    File rangedCdrFile = new File(rangedCdrFileName);
+    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(rangedCdrFile)));
+    List<RangedCropDisorderRecord> rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
+    in.close();
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      rangedCropDisorderRecord.resolve(memoryDB);
+      if (memoryDB.findUser(rangedCropDisorderRecord.getIsacrodiUserName()) == null)
+      {
+	// FIXME: this seems to rely on insertUser to silently discard multiple insertions of same user
+	IsacrodiUser isacrodiUser = new IsacrodiUser("svmtrainer", "svmtrainer", rangedCropDisorderRecord.getIsacrodiUserName(), "", "");
+	memoryDB.insertUser(isacrodiUser);
+	System.err.println("created user: " + isacrodiUser.toString());
+      }
+    }
+    memoryDB.printSummary(System.err);
+    Random rng = new Random(rndseed);
+    List<CropDisorderRecord> trainingList = new ArrayList<CropDisorderRecord>();
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      for (int i = 0; i < numTrainingSamples; i++)
+      {
+	trainingList.add(rangedCropDisorderRecord.randomCropDisorderRecord(rng, numericProbabilityDistribution, numericRangeMagnifier, categoricalErrorProbability, memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability));
+      }
+    }
+    writeCdrFile(trainingCdrFileName, trainingList);
+    SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
+    svmDiagnosisProvider.train(trainingList);
+    File diagnosisProviderFile = new File(diagnosisProviderFileName);
+    ObjectOutputStream diagnosisProviderOut = new ObjectOutputStream(new FileOutputStream(diagnosisProviderFile));
+    diagnosisProviderOut.writeObject(svmDiagnosisProvider);
+    diagnosisProviderOut.close();
+    System.err.println(String.format("diagnosis provider trained and saved to %s", diagnosisProviderFileName));
+  }
+
+
+  private static void testWithRangedCDRs(String configFileName) throws IOException, ClassNotFoundException
+  {
+    File configFile = new File(configFileName);
+    BufferedReader configIn = new BufferedReader(new InputStreamReader(new FileInputStream(configFileName)));
+    String testName = parseNamedString("testName", configIn);
+    String rangedCdrFileName = parseNamedString("rangedCdrFile", configIn);
+    String diagnosisProviderFileName = parseNamedString("diagnosisProviderFile", configIn);
+    int numTestSamples = parseNamedInt("numTestSamples", configIn);
+    double missingNumericDescriptorProbability = parseNamedDouble("missingNumericDescriptorProbability", configIn);
+    String numericProbabilityDistribution = parseNamedString("numericProbabilityDistribution", configIn);
+    double numericRangeMagnifier = parseNamedDouble("numericRangeMagnifier", configIn);
+    double missingCategoricalDescriptorProbability = parseNamedDouble("missingCategoricalDescriptorProbability", configIn);
+    double categoricalErrorProbability = parseNamedDouble("categoricalErrorProbability", configIn);
+    double missingImageDescriptorProbability = parseNamedDouble("missingImageDescriptorProbability", configIn);
+    int rndseed = parseNamedInt("rndseed", configIn);
+    String testResultFileName = parseNamedString("testResultFile", configIn);
+    if (!"".equals(configIn.readLine()))
+    {
+      throw new RuntimeException("no separator line after fixed config block");
+    }
+    MemoryDB memoryDB = new MemoryDB();
+    for (String line = configIn.readLine(); line != null; line = configIn.readLine())
+    {
+      System.err.println(String.format("importing: %s", line));
+      File f = new File(line);
+      Import.importFile(f, memoryDB, memoryDB);
+    }
+    File rangedCdrFile = new File(rangedCdrFileName);
+    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(rangedCdrFile)));
+    List<RangedCropDisorderRecord> rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
+    in.close();
+    for (RangedCropDisorderRecord rangedCropDisorderRecord : rangedCropDisorderRecordList)
+    {
+      rangedCropDisorderRecord.resolve(memoryDB);
+      if (memoryDB.findUser(rangedCropDisorderRecord.getIsacrodiUserName()) == null)
+      {
+	// FIXME: this seems to rely on insertUser to silently discard multiple insertions of same user
+	IsacrodiUser isacrodiUser = new IsacrodiUser("testsvm", "testsvm", rangedCropDisorderRecord.getIsacrodiUserName(), "", "");
+	memoryDB.insertUser(isacrodiUser);
+	System.err.println("created user: " + isacrodiUser.toString());
+      }
+    }
+    memoryDB.printSummary(System.err);
+    Random rng = new Random(rndseed);
+    // train and write diagnosis provider
+    File diagnosisProviderFile = new File(diagnosisProviderFileName);
+    ObjectInputStream diagnosisProviderIn = new ObjectInputStream(new FileInputStream(diagnosisProviderFile));
+    SVMDiagnosisProvider svmDiagnosisProvider = (SVMDiagnosisProvider) diagnosisProviderIn.readObject();
+    diagnosisProviderIn.close();
+    System.err.println(String.format("diagnosis provider read from %s", diagnosisProviderFileName));
+    // FIXME: should distinguish between missing descriptor probabilities for training and testing
+    // FIXME: number of disorder scores hard-coded to 3
+    SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, 3, rng, numericProbabilityDistribution, numericRangeMagnifier, categoricalErrorProbability, testResultFileName);
+    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numTestSamples, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability, testName);
+    svmDiagnosisProviderTester.close();
+    System.err.println(String.format("diagnosis provider test \"%s\" finished", testName));
   }
 
 
@@ -370,6 +471,14 @@ public class Main
     else if ("testsvm".equals(command))
     {
       testSvmDiagnosisProvider(args[1]);
+    }
+    else if ("rtrain".equals(command))
+    {
+      trainWithRangedCDRs(args[1]);
+    }
+    else if ("rtest".equals(command))
+    {
+      testWithRangedCDRs(args[1]);
     }
     else
     {
