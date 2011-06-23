@@ -109,17 +109,17 @@ class RangedNumericDescriptor extends RangedDescriptor
   }
 
 
-  private double makeRandomValue(Random rng, String distType, double cauchyRangeMagnifier)
+  private double makeRandomValue(Random rng, String distType, double numericRangeMagnifier)
   {
+    double centre = (this.minValue + this.maxValue) * 0.5;
+    double range = (this.maxValue - this.minValue) * numericRangeMagnifier;
     if (distType.equals("uniform"))
     {
-      return (this.minValue + rng.nextDouble() * (this.maxValue - this.minValue));
+      return (centre + (rng.nextDouble() - 0.5) * range);
     }
     else if (distType.equals("cauchy"))
     {
-      double centre = (this.minValue + this.maxValue) * 0.5;
-      double range = (this.maxValue - this.minValue) * cauchyRangeMagnifier;
-      return centre + (Math.tan(Math.PI * (rng.nextDouble() - 0.5))) * range;
+      return (centre + (Math.tan(Math.PI * (rng.nextDouble() - 0.5))) * range);
     }
     else
     {
@@ -129,13 +129,13 @@ class RangedNumericDescriptor extends RangedDescriptor
   }
 
 
-  public NumericDescriptor randomDescriptor(Random rng, String disType, double cauchyRangeMagnifier)
+  public NumericDescriptor randomDescriptor(Random rng, String disType, double numericRangeMagnifier)
   {
     if (this.descriptorType == null)
     {
       throw new RuntimeException(String.format("cannot generate random descriptor: no descriptor type for \"%s\"", this.descriptorTypeName));
     }
-    return (new NumericDescriptor((NumericType) this.descriptorType, this.makeRandomValue(rng, disType, cauchyRangeMagnifier)));
+    return (new NumericDescriptor((NumericType) this.descriptorType, this.makeRandomValue(rng, disType, numericRangeMagnifier)));
   }
 }
 
@@ -394,7 +394,7 @@ public class RangedCropDisorderRecord
   }
 
 
-  public CropDisorderRecord randomCropDisorderRecord(Random rng, String distType, double cauchyRangeMagnifier, double categoricalErrorProbability, MemoryDB memoryDB, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability)
+  public CropDisorderRecord randomCropDisorderRecord(Random rng, String distType, double numericRangeMagnifier, double categoricalErrorProbability, MemoryDB memoryDB, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability)
   {
     CropDisorderRecord cropDisorderRecord = new CropDisorderRecord();
     IsacrodiUser isacrodiUser = memoryDB.findUser(this.isacrodiUserName);
@@ -427,7 +427,7 @@ public class RangedCropDisorderRecord
       {
 	if (rng.nextDouble() >= missingNumericDescriptorProbability)
 	{
-	  descriptor = rangedDescriptor.randomDescriptor(rng, distType, cauchyRangeMagnifier);
+	  descriptor = rangedDescriptor.randomDescriptor(rng, distType, numericRangeMagnifier);
 	}
       }
       else if (rangedDescriptor instanceof RangedCategoricalDescriptor)
@@ -441,7 +441,8 @@ public class RangedCropDisorderRecord
       {
 	if (rng.nextDouble() >= missingImageDescriptorProbability)
 	{
-	  descriptor = rangedDescriptor.randomDescriptor(rng, distType, cauchyRangeMagnifier);
+	  // FIXME: third parameter 0.0 is the descriptorFactor parameter with changing semantics
+	  descriptor = rangedDescriptor.randomDescriptor(rng, distType, 0.0);
 	}
       }
       else
