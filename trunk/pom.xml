@@ -206,12 +206,6 @@
 
       <!-- other external libraries -->
       <dependency>
-	<groupId>edu.berkeley.compbio</groupId>
-	<artifactId>jlibsvm</artifactId>
-	<version>0.902</version>
-	<type>jar</type>
-      </dependency>
-      <dependency>
 	<groupId>classifier</groupId>
 	<artifactId>libsvm</artifactId>
 	<version>1.0</version>
@@ -231,12 +225,6 @@
       <dependency>
 	<groupId>classifier</groupId>
 	<artifactId>libsvm</artifactId>
-	<version>1.0</version>
-	<type>jar</type>
-      </dependency>
-      <dependency>
-	<groupId>statistics</groupId>
-	<artifactId>jsc</artifactId>
 	<version>1.0</version>
 	<type>jar</type>
       </dependency>
