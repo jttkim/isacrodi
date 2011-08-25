@@ -64,24 +64,6 @@
       <systemPath>${jbosshome}/client/jboss-logging-spi.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>classifier</groupId>
-      <artifactId>libsvm</artifactId>
-      <version>1.0</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>statistics</groupId>
-      <artifactId>jsc</artifactId>
-      <version>1.0</version>
-      <type>jar</type>
-    </dependency>
-    <!-- dependency>
-      <groupId>miscutils</groupId>
-      <artifactId>json</artifactId>
-      <version>2010-05-25</version>
-      <scope>provided</scope>
-    </dependency -->
-    <dependency>
       <groupId>javamisc</groupId>
       <artifactId>javamisc</artifactId>
       <type>jar</type>
