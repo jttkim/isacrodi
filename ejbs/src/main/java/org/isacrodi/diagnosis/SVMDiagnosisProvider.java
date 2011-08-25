@@ -194,8 +194,12 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   }
 
 
-  private svm_model selectModel(double[] label, svm_node[][] sample)
+  private svm_model selectModel(double[] label, svm_node[][] sample, Integer rndseed)
   {
+    if (rndseed != null)
+    {
+      svm.rand.setSeed(rndseed);
+    }
     svm_parameter svmparameter = new svm_parameter();
     // use svm with slack variables
     svmparameter.svm_type = svm_parameter.C_SVC;
@@ -261,6 +265,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   }
 
 
+  // FIXME: what's the purpose of this method? looks like a prefix of train (???)
   public void getSVMInputFile(Collection<CropDisorderRecord> labelledCropDisorderRecordSet, String filename)
   {
     this.disorderIndexMap = new HashMap<CropDisorder, Integer>();
@@ -299,7 +304,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   }
 
 
-  public void train(Collection<CropDisorderRecord> labelledCropDisorderRecordSet)
+  public void train(Collection<CropDisorderRecord> labelledCropDisorderRecordSet, Integer rndseed)
   {
     // System.err.println(String.format("SVMDiagnosisProvider.train: starting, %d labelled CDRs", labelledCropDisorderRecordSet.size()));
     // FIXME: consider defining this mapping as part of the feature vector mappers' responsibilities
@@ -340,10 +345,15 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     }
     // System.err.println(this.svmNodeFeatureVectorMapper.toString());
     dumpSamples("sampledump.txt", sample, label);
-    this.model = this.selectModel(label, sample);
-
+    this.model = this.selectModel(label, sample, rndseed);
   }
 
+
+  @Deprecated
+  public void train(Collection<CropDisorderRecord> labelledCropDisorderRecordSet)
+  {
+    this.train(labelledCropDisorderRecordSet, null);
+  }
 
   public CDRFeatureExtractor getCdrFeatureExtractor()
   {

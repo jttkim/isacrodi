@@ -48,21 +48,8 @@
   </reporting>
 
   <repositories>
-    <!-- jlibsvm repository -->
-    <repository>
-      <id>dev.davidsoergel.com releases</id>
-      <url>http://dev.davidsoergel.com/artifactory/repo</url>
-      <snapshots>
-	<enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>dev.davidsoergel.com snapshots</id>
-      <url>http://dev.davidsoergel.com/artifactory/repo</url>
-      <releases>
-	<enabled>false</enabled>
-      </releases>
-    </repository>
+    <!-- repository>
+    </repository -->
   </repositories>
 
   <build>
@@ -208,25 +195,13 @@
       <dependency>
 	<groupId>classifier</groupId>
 	<artifactId>libsvm</artifactId>
-	<version>1.0</version>
+	<version>3.1</version>
 	<type>jar</type>
       </dependency>
-      <!-- dependency>
-	<groupId>miscutils</groupId>
-	<artifactId>json</artifactId>
-	<version>2010-05-25</version>
-	<scope>provided</scope>
-      </dependency -->
       <dependency>
 	<groupId>org.apache.struts</groupId>
 	<artifactId>struts2-core</artifactId>
 	<version>2.1.8.1</version>
-      </dependency>
-      <dependency>
-	<groupId>classifier</groupId>
-	<artifactId>libsvm</artifactId>
-	<version>1.0</version>
-	<type>jar</type>
       </dependency>
     </dependencies>
   </dependencyManagement>

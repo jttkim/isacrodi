@@ -31,7 +31,7 @@
 	  <archive>
 	    <manifestEntries>
 	      <!-- FIXME: hard-coded jar names - is there a Maven way to get at these by dependency?? -->
-	      <Class-Path>isacrodi-util.jar javamisc-1.0.jar libsvm-1.0.jar jsc-1.0.jar</Class-Path>
+	      <Class-Path>isacrodi-util.jar javamisc-1.0.jar libsvm-3.1.jar</Class-Path>
 	    </manifestEntries>
 	  </archive>
 	  <ejbVersion>3.0</ejbVersion>
@@ -68,14 +68,6 @@
     <dependency>
       <groupId>classifier</groupId>
       <artifactId>libsvm</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>statistics</groupId>
-      <artifactId>jsc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>edu.berkeley.compbio</groupId>
-      <artifactId>jlibsvm</artifactId>
     </dependency>
     <dependency>
       <groupId>javamisc</groupId>

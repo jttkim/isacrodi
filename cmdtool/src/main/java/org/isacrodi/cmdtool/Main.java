@@ -324,6 +324,7 @@ public class Main
     double categoricalErrorProbability = parseNamedDouble("categoricalErrorProbability", configIn);
     double missingImageDescriptorProbability = parseNamedDouble("missingImageDescriptorProbability", configIn);
     int rndseed = parseNamedInt("rndseed", configIn);
+    int svmRndseed = parseNamedInt("svmRndseed", configIn);
     String trainingCdrFileName = parseNamedString("trainingCdrFile", configIn);
     String diagnosisProviderFileName = parseNamedString("diagnosisProviderFile", configIn);
     if (!"".equals(configIn.readLine()))
@@ -364,7 +365,7 @@ public class Main
     }
     writeCdrFile(trainingCdrFileName, trainingList);
     SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
-    svmDiagnosisProvider.train(trainingList);
+    svmDiagnosisProvider.train(trainingList, svmRndseed);
     File diagnosisProviderFile = new File(diagnosisProviderFileName);
     ObjectOutputStream diagnosisProviderOut = new ObjectOutputStream(new FileOutputStream(diagnosisProviderFile));
     diagnosisProviderOut.writeObject(svmDiagnosisProvider);
