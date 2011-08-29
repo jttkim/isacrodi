@@ -66,7 +66,7 @@ class SvmDiagnosisProviderTester
     this.numericRangeMagnifier = numericRangeMagnifier;
     this.categoricalErrorProbability = categoricalErrorProbability;
     this.out = new PrintStream(testResultFileName);
-    this.out.print("testType\texpertDiagnosis");
+    this.out.print("testType\texpertDiagnosis\tinformation");
     for (int i = 0; i < this.maxDiagnosedDisorders; i++)
     {
       this.out.printf("\tcomputedDiagnosis%d\tdiagnosisScore%d", i, i);
@@ -85,7 +85,7 @@ class SvmDiagnosisProviderTester
     DisorderScore highestScore = diagnosis.highestDisorderScore();
     List<DisorderScore> disorderScoreList = diagnosis.descendingDisorderScoreList();
     CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
-    this.out.printf("%s\t%s", testTypeLabel, cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName());
+    this.out.printf("%s\t%s\t%f", testTypeLabel, cropDisorderRecord.getExpertDiagnosedCropDisorder().getScientificName(), diagnosis.shannonInformation());
     for (int i = 0; i < 3; i++)
     {
       if (i < disorderScoreList.size())
@@ -418,7 +418,7 @@ public class Main
     }
     memoryDB.printSummary(System.err);
     Random rng = new Random(rndseed);
-    // train and write diagnosis provider
+    // read diagnosis provider
     File diagnosisProviderFile = new File(diagnosisProviderFileName);
     ObjectInputStream diagnosisProviderIn = new ObjectInputStream(new FileInputStream(diagnosisProviderFile));
     SVMDiagnosisProvider svmDiagnosisProvider = (SVMDiagnosisProvider) diagnosisProviderIn.readObject();
