@@ -227,4 +227,25 @@ public class Diagnosis implements IsacrodiEntity
     }
     return (sum);
   }
+
+
+  /** Compute the Shannon information of this diagnosis.
+   *
+   * <p>Note: Maximal information is computed from the number of
+   * disorder scores, which is presumed to reflect the number of
+   * disorders in the database.</p>
+   *
+   * @return the Shannon information
+   */
+  public double shannonInformation()
+  {
+    double s = this.disorderScoreSum();
+    double information = Math.log(this.disorderScoreSet.size()) / Math.log(2.0);
+    for (DisorderScore disorderScore : this.disorderScoreSet)
+    {
+      double p = disorderScore.getScore() / s;
+      information += p * Math.log(p) / Math.log(2.0);
+    }
+    return (information);
+  }
 }
