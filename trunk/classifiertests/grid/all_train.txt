@@ -1,0 +1,20 @@
+rangedCdrFile: rangedcdrs_all.txt
+numTrainingSamples: 30
+missingNumericDescriptorProbability: 0.0
+numericProbabilityDistribution: uniform
+numericRangeMagnifier: 1.0
+missingCategoricalDescriptorProbability: 0.0
+categoricalErrorProbability: 0.2
+missingImageDescriptorProbability: 0.0
+rndseed: 1
+svmRndseed: 1
+trainingCdrFile: all_trainingcdrs.txt
+diagnosisProviderFile: all_dp.dat
+
+../../sampledata/isacrodi_users.txt
+../../sampledata/isacrodi_crops.txt
+../../sampledata/isacrodi_disorders.txt
+../../sampledata/isacrodi_numerictypes.txt
+../../sampledata/isacrodi_categoricaltypes.txt
+../../sampledata/isacrodi_imagetypes.txt
+../../sampledata/isacrodi_procedures.txt
