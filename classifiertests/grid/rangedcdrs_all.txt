@@ -1,0 +1,552 @@
+isacrodi-rangedcdrs-0.1
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 70 -- 90
+    cropage: 9 -- 120
+    monthlyprecipitation: 70 -- 300
+    monthlyaveragetemperature: 13 -- 38
+    altitude: 1 -- 2400
+  }
+  categoricalDescriptors
+  {
+    symptom: munching, cut, perforation, defoliation, excrements
+    firstsymptomcropstage: vegetative
+    # consider extending this range, as plots may be infested at later stages, and the first time a grower notices symptoms may be after the symptoms actually emerge
+    cropstage: vegetative, flowering, fruiting, mature
+    pesttype: worms
+    steminternal: perforation
+    lesionshape: round
+    lesionappearance: dry
+    lesionlocation: lower, top, middle
+    affectedpart: leaves, stem, fruits
+    overallappearance: healthy
+    leafsymptom: perforation, cut
+    fruitsymptom: perforation 
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Spodoptera frugiperda
+  # expertDiagnosis: Spodoptera spp.
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 60 -- 90
+    cropage: 0 -- 30
+    altitude: 1 -- 2200
+    monthlyaveragetemperature: 25 -- 37
+    monthlyprecipitation: 150 -- 300
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower, middle
+    leafsymptom: perforation, cut
+    pesttype: worms
+    cropstage: seedling, vegetative
+    steminternal: perforation
+    peststage: larvae
+    overallappearance: healthy
+    affectedpart: leaves, stem
+    lesionshape: round
+    lesionappearance: dry
+    firstsymptomcropstage: seedling
+    symptom: cut, perforation, galls
+    seedlingsymptom: galls
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Agrotis ipsilon
+}
+cdr
+{
+  user: avc
+  crop: Zea mays
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 25 -- 37
+    cropage: 31 -- 110
+    monthlyprecipitation: 150 -- 300
+    monthlyaveragehumidity: 75 -- 92
+    altitude: 1 -- 1100
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering, fruiting
+    steminternal: perforation
+    peststage: larvae
+    lesionshape: round
+    lesionlocation: lower, top, middle
+    overallappearance: healthy
+    affectedpart: fruits
+    symptom: perforation
+    firstsymptomcropstage: flowering
+    leafsymptom: perforation
+    fruitsymptom: perforation 
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Helicoverpa zea
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 1 -- 1000
+    cropage: 31 -- 110
+    monthlyaveragetemperature: 25 -- 35
+    monthlyaveragehumidity: 60 -- 90
+    monthlyprecipitation: 75 -- 250
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    firstsymptomcropstage: vegetative
+    peststage: larvae
+    symptom: cut, perforation, defoliation
+    lesionshape: round
+    lesionlocation: top
+    steminternal: perforation
+    cropstage: vegetative, flowering, fruiting
+    affectedpart: flowers, leaves, fruits
+    pesttype: worms
+    lesionappearance: dry
+    leafsymptom: perforation, cut
+    fruitsymptom: perforation 
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Heliothis virescens
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 0 -- 12
+    monthlyaveragetemperature: 28 -- 35
+    monthlyaveragehumidity: 75 -- 92
+    monthlyprecipitation: 90 -- 250
+    altitude: 1 -- 1000
+  }
+  categoricalDescriptors
+  {
+    lesionshape: round
+    leafsymptom: perforation, cut
+    cropstage: seedling
+    firstsymptomcropstage: seedling
+    affectedpart: leaves, stem
+    pesttype: worms
+    symptom: cut, perforation, galls
+    steminternal: perforation
+    peststage: larvae
+    lesionappearance: dry
+    lesionlocation: lower, middle
+    overallappearance: healthy
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Agrotis ipsilon
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 75 -- 95
+    altitude: 1 -- 1100
+    monthlyprecipitation: 75 -- 260
+    cropage: 31 -- 80
+    monthlyaveragetemperature: 28 -- 39
+  }
+  categoricalDescriptors
+  {
+    cropstage: vegetative, flowering, fruiting
+    lesionlocation: lower, top, middle
+    overallappearance: healthy
+    affectedpart: fruits
+    lesionshape: round
+    soil: clay, sandy, loamy
+    firstsymptomcropstage: vegetative
+    leafsymptom: perforation
+    peststage: larvae
+    steminternal: perforation
+    pesttype: worms
+    symptom: perforation
+    fruitsymptom: perforation 
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Helicoverpa zea
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 25 -- 38
+    monthlyaveragehumidity: 60 -- 90
+    monthlyprecipitation: 75 -- 210
+    altitude: 1 -- 1000
+    cropage: 13 -- 130
+  }
+  categoricalDescriptors
+  {
+    leafsymptom: cut
+    cropstage: vegetative, flowering, fruiting, mature
+    peststage: larvae
+    symptom: cut, defoliation, scrapes
+    pesttype: worms
+    lesionlocation: lower, top, middle
+    affectedpart: leaves
+    overallappearance: ill
+    lesionappearance: dry
+    steminternal: scrapes
+    lesionshape: round
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Alabama argillacea
+}
+
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragetemperature: 25 -- 38
+    altitude: 1 -- 1000
+    monthlyaveragehumidity: 65 -- 85
+    monthlyprecipitation: 75 -- 150
+    cropage: 13 -- 130
+  }
+  categoricalDescriptors
+  {
+    overallappearance: healthy
+    cropstage: vegetative, flowering, fruiting, mature
+    leafsymptom: perforation, cut
+    lesionappearance: dry
+    firstsymptomcropstage: vegetative
+    affectedpart: leaves
+    steminternal: munching
+    symptom: munching, cut, defoliation
+    peststage: larvae
+    lesionshape: round
+    lesionlocation: lower, top, middle
+    pesttype: worms
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Trichoplusia ni, Pseudoplusia includens
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 31 -- 130
+    altitude: 1 -- 1200 
+    monthlyaveragetemperature: 28 -- 35
+    monthlyprecipitation: 40 -- 300
+    monthlyaveragehumidity: 60 -- 94
+  }
+  categoricalDescriptors
+  {
+    overallappearance: ill
+    firstsymptomcropstage: flowering
+    pesttype: borers
+    lesionappearance: dry
+    symptom: perforation, excrements
+    cropstage: flowering, fruiting, mature
+    lesionlocation: lower, top, middle
+    steminternal: perforation
+    affectedpart: fruits
+    peststage: nymph, adult
+    lesionshape: round
+    fruitsymptom: perforation 
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Anthonomus grandis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 31 -- 130
+    monthlyaveragehumidity: 60 -- 90
+    altitude: 1 -- 1000
+    monthlyaveragetemperature: 28 -- 37
+    monthlyprecipitation: 75 -- 110
+  }
+  categoricalDescriptors
+  {
+    cropstage: flowering, fruiting, mature
+    overallappearance: healthy
+    affectedpart: fruits
+    lesionappearance: dry
+    firstsymptomcropstage: flowering
+    peststage: larvae
+    steminternal: perforation
+    lesionlocation: lower, top, middle
+    symptom: cut, perforation, excrements
+    lesionshape: round
+    pesttype: worms
+    fruitsymptom: perforation 
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Sacadodes pyralis
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 0 -- 130
+    monthlyaveragetemperature: 22 -- 38
+    monthlyprecipitation:  25 -- 250
+    # too much rain prevents multiplication of insects because they are small and susceptible to drowning
+    monthlyaveragehumidity: 60 -- 94
+    altitude: 1 -- 1200
+  }
+  categoricalDescriptors
+  {
+    lesioncolour: black
+    symptom: honeydew
+    leafsymptom: curling
+    lesionlocation: lower, top, middle
+    lesionappearance: wet
+    peststage: nymph, adult
+    firstsymptomcropstage: vegetative
+    steminternal: necrotic
+    pesttype: aphids
+    cropstage: vegetative, flowering, fruiting, mature
+    overallappearance: healthy
+    affectedpart: leaves, fruits
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Bemisia tabaci
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 1 -- 1200
+    cropage: 0 -- 30
+    monthlyprecipitation: 75 -- 110
+    monthlyaveragetemperature: 28 -- 38
+    monthlyaveragehumidity: 75 -- 94
+  }
+  categoricalDescriptors
+  {
+    lesionappearance: wet
+    lesionlocation: lower, top, middle
+    symptom: soot, honeydew
+    firstsymptomcropstage: seedling
+    cropstage: seedling, vegetative
+    peststage: nymph, adult
+    lesioncolour: black
+    diseasefielddistribution: borders
+    steminternal: black
+    overallappearance: ill
+    pesttype: aphids
+    affectedpart: leaves
+    leafsymptom: soot, curling
+    seedlingsymptom: dwarfing
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Aphis gossyppi
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 1 -- 1200
+    monthlyprecipitation: 75 -- 250
+    monthlyaveragetemperature: 28 -- 35
+    monthlyaveragehumidity: 75 -- 94
+    cropage: 0 -- 130
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower, top, middle
+    lesionshape: round
+    leafsymptom: drying, spot
+    symptom: defoliation, drying
+    cropstage: vegetative, flowering, fruiting, mature
+    steminternal: perforation
+    soil: clay, sandy, loamy
+    lesionappearance: dry
+    pesttype: mites
+    firstsymptomcropstage: vegetative
+    peststage: nymph, adult
+    affectedpart: leaves
+    overallappearance: ill
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Tetranychus urticae
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 75 -- 250
+    monthlyaveragetemperature: 28 -- 35
+    altitude: 1 -- 1000
+    monthlyprecipitation: 75 -- 250
+    cropage: 31 -- 130
+  }
+  categoricalDescriptors
+  {
+
+    lesionappearance: dry
+    overallappearance: healthy
+    steminternal: perforation
+    pesttype: worms
+    symptom: perforation
+    cropstage: flowering, fruiting, mature
+    lesionlocation: lower, top, middle
+    lesionshape: round
+    peststage: larvae
+    affectedpart: fruits
+    firstsymptomcropstage: flowering
+    fruitsymptom: perforation 
+
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Pectinophora gossypiella
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    monthlyaveragehumidity: 60 -- 94
+    monthlyprecipitation: 75 -- 280
+    cropage: 31 -- 120
+    monthlyaveragetemperature: 28 -- 35
+    altitude: 1 -- 1100
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower, top, middle
+    cropstage: flowering, fruiting
+    overallappearance: healthy
+    pesttype: chinchs
+    symptom: spots
+    peststage: adult
+    firstsymptomcropstage: flowering
+    affectedpart: fruits 
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Dysdercus sp.
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    altitude: 1 -- 800
+    monthlyaveragetemperature: 28 -- 35
+    monthlyprecipitation: 75 -- 250
+    cropage: 13 -- 130
+    monthlyaveragehumidity: 75 -- 90
+  }
+  categoricalDescriptors
+  {
+    lesionlocation: lower, top, middle
+    steminternal: perforation
+    peststage: nymph
+    affectedpart: leaves
+    symptom: discoloration, excrements
+    cropstage: seedling, vegetative, flowering, fruiting, mature
+    overallappearance: healthy
+    pesttype: chinchs
+    firstsymptomcropstage: vegetative
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Corythucha gossypii
+}
+cdr
+{
+  user: avc
+  crop: Gossypium hirsutum
+  numericDescriptors
+  {
+    cropage: 13 -- 130
+    monthlyprecipitation: 11.3 -- 300 
+    altitude: 1 -- 1200
+    monthlyaveragetemperature: 26 -- 38
+    monthlyaveragehumidity: 65 -- 95
+  }
+  categoricalDescriptors
+  {
+    firstsymptomcropstage: vegetative
+    lesionappearance: dry
+    lesionshape: round
+    peststage: larvae
+    cropstage: seedling, vegetative, flowering, fruiting, mature
+    symptom: munching, cut, perforation, defoliation
+    pesttype: worms
+    overallappearance: healthy
+    affectedpart: leaves, stem, fruits
+    steminternal: perforation
+    leafsymptom: perforation, cut
+    lesionlocation: lower, top, middle
+    fruitsymptom: perforation
+  }
+  imageDescriptors
+  {
+  }
+  expertDiagnosis: Spodoptera frugiperda
+  # expertDiagnosis: Spodoptera spp.
+}

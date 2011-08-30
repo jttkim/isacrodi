@@ -1,0 +1,20 @@
+testName: replaceme
+rangedCdrFile: rangedcdrs_all.txt
+diagnosisProviderFile: all_dp.dat
+numTestSamples: 1000
+missingNumericDescriptorProbability: replaceme
+numericProbabilityDistribution: cauchy
+numericRangeMagnifier: replaceme
+missingCategoricalDescriptorProbability: replaceme
+categoricalErrorProbability: 0.2
+missingImageDescriptorProbability: 0.0
+rndseed: 2
+testResultFile: replaceme
+
+../../sampledata/isacrodi_users.txt
+../../sampledata/isacrodi_crops.txt
+../../sampledata/isacrodi_disorders.txt
+../../sampledata/isacrodi_numerictypes.txt
+../../sampledata/isacrodi_categoricaltypes.txt
+../../sampledata/isacrodi_imagetypes.txt
+../../sampledata/isacrodi_procedures.txt
