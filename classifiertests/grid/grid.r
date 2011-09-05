@@ -63,6 +63,35 @@ plotPerformance3D <- function(psTable, xlab, ylab, zlab, zval, ...)
 }
 
 
+plotPerformance2D <- function(psTable, xlab, ylab, zlab, zval, ...)
+{
+  p <- psTable[psTable[[zlab]] == zval, ];
+  o <- order(p[[ylab]], p[[xlab]]);
+  x <- sort(unique(p[[xlab]]));
+  y <- sort(unique(p[[ylab]]));
+  z <- matrix(p[["acc0"]][o], nrow = length(x), ncol = length(y), byrow = FALSE);
+  image(x, y, z, xlab = xlab, ylab = ylab, sub = sprintf("%s = %f", zlab, zval), ...);
+}
+
+
+plotPerformanceLines <- function(psTable, xlab, ylab, zlab, zval, ...)
+{
+  p <- psTable[psTable[[zlab]] == zval, ];
+  o <- order(p[[ylab]], p[[xlab]]);
+  x <- sort(unique(p[[xlab]]));
+  y <- sort(unique(p[[ylab]]));
+  z <- matrix(p[["acc0"]][o], nrow = length(x), ncol = length(y), byrow = FALSE);
+  colList <- heat.colors(length(y));
+  j <- 1;
+  plot(x, z[, j], type = "l", col = colList[j], xlab = xlab, ylab = "accuracy", sub = sprintf("%s = %1.1f", zlab, zval), ...);
+  for (j in 2:length(y))
+  {
+    lines(x, z[, j], col = colList[j]);
+  }
+  legend("topright", col = colList, legend = y, lwd = 1, title = ylab);
+}
+
+
 readGridTable <- function(prefix)
 {
   gridTable <- NULL;
