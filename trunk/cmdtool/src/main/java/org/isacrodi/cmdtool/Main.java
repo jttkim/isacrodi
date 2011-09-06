@@ -433,6 +433,84 @@ public class Main
   }
 
 
+  private static void rangedCdrsToLatex(String rangedCdrFileName, String latexFileName) throws IOException, ClassNotFoundException
+  {
+    File rangedCdrFile = new File(rangedCdrFileName);
+    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(rangedCdrFile)));
+    List<RangedCropDisorderRecord> rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
+    in.close();
+    PrintStream out = new PrintStream(new File(latexFileName));
+    for (RangedCropDisorderRecord r : rangedCropDisorderRecordList)
+    {
+      out.println(r.toLatexTable());
+    }
+    out.close();
+  }
+
+
+  private static void overlapMatrix(String rangedCdrFileName, String overlapMatrixFileName, String numericOverlapMatrixFileName, String categoricalOverlapMatrixFileName) throws IOException, ClassNotFoundException
+  {
+    File rangedCdrFile = new File(rangedCdrFileName);
+    BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(rangedCdrFile)));
+    List<RangedCropDisorderRecord> rangedCropDisorderRecordList = RangedCropDisorderRecord.parseRangedCropDisorderRecordList(in);
+    in.close();
+    PrintStream out = new PrintStream(new File(overlapMatrixFileName));
+    String glue = "";
+    for (RangedCropDisorderRecord r : rangedCropDisorderRecordList)
+    {
+      out.printf("%s%s.%s", glue, r.getCropScientificName(), r.getExpertDiagnosedCropDisorderName());
+      glue = "\t";
+    }
+    out.println();
+    for (RangedCropDisorderRecord r1 : rangedCropDisorderRecordList)
+    {
+      out.printf("%s.%s", r1.getCropScientificName(), r1.getExpertDiagnosedCropDisorderName());
+      for (RangedCropDisorderRecord r2 : rangedCropDisorderRecordList)
+      {
+	out.printf("\t%f", r1.overlap(r2));
+      }
+      out.println();
+    }
+    out.close();
+    out = new PrintStream(new File(numericOverlapMatrixFileName));
+    glue = "";
+    for (RangedCropDisorderRecord r : rangedCropDisorderRecordList)
+    {
+      out.printf("%s%s.%s", glue, r.getCropScientificName(), r.getExpertDiagnosedCropDisorderName());
+      glue = "\t";
+    }
+    out.println();
+    for (RangedCropDisorderRecord r1 : rangedCropDisorderRecordList)
+    {
+      out.printf("%s.%s", r1.getCropScientificName(), r1.getExpertDiagnosedCropDisorderName());
+      for (RangedCropDisorderRecord r2 : rangedCropDisorderRecordList)
+      {
+	out.printf("\t%f", r1.numericOverlap(r2));
+      }
+      out.println();
+    }
+    out.close();
+    out = new PrintStream(new File(categoricalOverlapMatrixFileName));
+    glue = "";
+    for (RangedCropDisorderRecord r : rangedCropDisorderRecordList)
+    {
+      out.printf("%s%s.%s", glue, r.getCropScientificName(), r.getExpertDiagnosedCropDisorderName());
+      glue = "\t";
+    }
+    out.println();
+    for (RangedCropDisorderRecord r1 : rangedCropDisorderRecordList)
+    {
+      out.printf("%s.%s", r1.getCropScientificName(), r1.getExpertDiagnosedCropDisorderName());
+      for (RangedCropDisorderRecord r2 : rangedCropDisorderRecordList)
+      {
+	out.printf("\t%f", r1.categoricalOverlap(r2));
+      }
+      out.println();
+    }
+    out.close();
+  }
+
+
   private static void usage()
   {
     System.out.println("usage: cmdtool <command> [parameters ...]");
@@ -480,6 +558,14 @@ public class Main
     else if ("rtest".equals(command))
     {
       testWithRangedCDRs(args[1]);
+    }
+    else if ("overlap".equals(command))
+    {
+      overlapMatrix(args[1], args[2], args[3], args[4]);
+    }
+    else if ("rcdrtex".equals(command))
+    {
+      rangedCdrsToLatex(args[1], args[2]);
     }
     else
     {
