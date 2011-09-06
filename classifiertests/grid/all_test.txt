@@ -1,5 +1,5 @@
 testName: replaceme
-rangedCdrFile: rangedcdrs_all.txt
+rangedCdrFile: ../rangedcdrs_all.txt
 diagnosisProviderFile: all_dp.dat
 numTestSamples: 1000
 missingNumericDescriptorProbability: replaceme

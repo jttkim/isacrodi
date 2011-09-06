@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Random;
 // FIXME: seems we don't need this after all...?
 // import jsc.distributions.*;
@@ -68,6 +70,25 @@ abstract class RangedDescriptor
   // FIXME: is distType really a parameter here?
   // FIXME: descriptorFactor has changing semantics. Consider using a configuration object, reconsider design.
   public abstract Descriptor randomDescriptor(Random rng, String distType, double descriptorFactor);
+
+
+  /**
+   * Determine the probability that a descriptor generated from this
+   * ranged descriptor also falls within the range of the other
+   * descriptor.
+   *
+   * @param other the other descriptor
+   * @return the probability of generating a descriptor value in the overlap
+   */
+  public abstract double overlap(RangedDescriptor other);
+
+
+  /**
+   * Provide a LaTeX table entry in the format "name: value".
+   *
+   * @return the LaTeX table entry
+   */
+  public abstract String toLatexTableRow();
 }
 
 
@@ -80,6 +101,10 @@ class RangedNumericDescriptor extends RangedDescriptor
   public RangedNumericDescriptor(String descriptorTypeName, double minValue, double maxValue)
   {
     super(descriptorTypeName);
+    if (minValue > maxValue)
+    {
+      throw new IllegalArgumentException("minValue cannot be greater than maxValue");
+    }
     this.minValue = minValue;
     this.maxValue = maxValue;
   }
@@ -137,6 +162,44 @@ class RangedNumericDescriptor extends RangedDescriptor
     }
     return (new NumericDescriptor((NumericType) this.descriptorType, this.makeRandomValue(rng, disType, numericRangeMagnifier)));
   }
+
+
+  public double overlap(RangedDescriptor other)
+  {
+    if (!(other instanceof RangedNumericDescriptor))
+    {
+      throw new IllegalArgumentException("bad ranged descriptor type");
+    }
+    RangedNumericDescriptor otherNumeric = (RangedNumericDescriptor) other;
+    if (!this.descriptorTypeName.equals(otherNumeric.descriptorTypeName))
+    {
+      throw new IllegalArgumentException(String.format("incompatible ranged descriptors: %s, %s", this.descriptorTypeName, otherNumeric.descriptorTypeName));
+    }
+    if ((this.maxValue < otherNumeric.minValue) || (this.minValue > otherNumeric.maxValue))
+    {
+      return (0.0);
+    }
+    double oMin = this.minValue < otherNumeric.minValue ? otherNumeric.minValue : this.minValue;
+    double oMax = this.maxValue < otherNumeric.maxValue ? this.maxValue : otherNumeric.maxValue;
+    double s = 0.0;
+    if (this.minValue < oMin)
+    {
+      s += oMin - this.minValue;
+    }
+    if (this.maxValue > oMax)
+    {
+      s += this.maxValue - oMax;
+    }
+    double o = oMax - oMin;
+    // System.err.println(String.format("this.min = %f, this.max = %f, other.min = %f, other.max = %f, overlap.min = %f, overlap.max = %f, o = %f, s = %f", this.minValue, this.maxValue, otherNumeric.minValue, otherNumeric.maxValue, oMin, oMax, o, s));
+    return (o / (o + s));
+  }
+
+
+  public String toLatexTableRow()
+  {
+    return (String.format("%s: & $%1.1f \\ldots %1.1f$ \\\\ \n", this.descriptorTypeName, this.minValue, this.maxValue));
+  }
 }
 
 
@@ -184,6 +247,7 @@ class RangedCategoricalDescriptor extends RangedDescriptor
   }
 
 
+  // FIXME: distType not used (??!)
   private String[] makeRandomValue(Random rng, String distType, double categoricalErrorProbability)
   {
     ArrayList<String> valueList = new ArrayList<String>();
@@ -236,6 +300,43 @@ class RangedCategoricalDescriptor extends RangedDescriptor
     }
     return (new CategoricalDescriptor(categoricalType, categoricalTypeValueSet));
   }
+
+
+  public double overlap(RangedDescriptor other)
+  {
+    if (!(other instanceof RangedCategoricalDescriptor))
+    {
+      throw new IllegalArgumentException("bad ranged descriptor type");
+    }
+    RangedCategoricalDescriptor otherCategorical = (RangedCategoricalDescriptor) other;
+    if (!this.descriptorTypeName.equals(otherCategorical.descriptorTypeName))
+    {
+      throw new IllegalArgumentException(String.format("incompatible ranged descriptors: %s, %s", this.descriptorTypeName, otherCategorical.descriptorTypeName));
+    }
+    int o = 0;
+    for (String v : this.valueRange)
+    {
+      if (otherCategorical.valueRange.contains(v))
+      {
+	o++;
+      }
+    }
+    return (((double) o) / ((double) this.valueRange.size()));
+  }
+
+
+  public String toLatexTableRow()
+  {
+    String s = String.format("%s: & ", this.descriptorTypeName);
+    String glue = "";
+    for (String v : this.valueRange)
+    {
+      s += String.format("%s%s", glue, v);
+      glue = ", ";
+    }
+    s += " \\\\ \n";
+    return (s);
+  }
 }
 
 
@@ -272,6 +373,18 @@ class RangedImageDescriptor extends RangedDescriptor
     imageDescriptor.setMimeType(this.mimeType);
     imageDescriptor.setImageFileName(this.imageFileName);
     return (imageDescriptor);
+  }
+
+
+  public double overlap(RangedDescriptor other)
+  {
+    throw new UnsupportedOperationException("not yet implemented");
+  }
+
+
+  public String toLatexTableRow()
+  {
+    throw new UnsupportedOperationException("not yet implemented");
   }
 }
 
@@ -316,6 +429,20 @@ public class RangedCropDisorderRecord
   {
     super();
     this.rangedDescriptorList = new ArrayList<RangedDescriptor>();
+  }
+
+
+  public String toLatexTable()
+  {
+    String s = "\\begin{tabular}{ll}\n";
+    s += String.format("Crop: & \\textit{%s} \\\\\n", this.cropScientificName);
+    s += String.format("Disorder: & \\textit{%s} \\\\\n", this.expertDiagnosedCropDisorderName);
+    for (RangedDescriptor r : this.rangedDescriptorList)
+    {
+      s += r.toLatexTableRow();
+    }
+    s += "\\end{tabular}\n";
+    return (s);
   }
 
 
@@ -619,5 +746,97 @@ public class RangedCropDisorderRecord
       }
     }
     return (descriptorTypeNameList);
+  }
+
+
+  public double numericOverlap(RangedCropDisorderRecord other)
+  {
+    if (!this.cropScientificName.equals(other.cropScientificName))
+    {
+      return (0.0);
+    }
+    Map<String, RangedDescriptor> otherRdMap = new HashMap<String, RangedDescriptor>();
+    for (RangedDescriptor otherRd : other.rangedDescriptorList)
+    {
+      otherRdMap.put(otherRd.getDescriptorTypeName(), otherRd);
+    }
+    double ov = 1.0;
+    for (RangedDescriptor rd : this.rangedDescriptorList)
+    {
+      if (rd instanceof RangedNumericDescriptor)
+      {
+	RangedDescriptor otherRd = otherRdMap.get(rd.getDescriptorTypeName());
+	if (otherRd != null)
+	{
+	  double o = rd.overlap(otherRd);
+	  ov *= o;
+	}
+      }
+    }
+    return (ov);
+  }
+
+
+  public double categoricalOverlap(RangedCropDisorderRecord other)
+  {
+    if (!this.cropScientificName.equals(other.cropScientificName))
+    {
+      return (0.0);
+    }
+    Map<String, RangedDescriptor> otherRdMap = new HashMap<String, RangedDescriptor>();
+    for (RangedDescriptor otherRd : other.rangedDescriptorList)
+    {
+      otherRdMap.put(otherRd.getDescriptorTypeName(), otherRd);
+    }
+    double ov = 1.0;
+    for (RangedDescriptor rd : this.rangedDescriptorList)
+    {
+      if (rd instanceof RangedCategoricalDescriptor)
+      {
+	RangedDescriptor otherRd = otherRdMap.get(rd.getDescriptorTypeName());
+	if (otherRd != null)
+	{
+	  double o = rd.overlap(otherRd);
+	  ov *= o;
+	}
+      }
+    }
+    return (ov);
+  }
+
+
+  /**
+   * Determine the overlap with another ranged crop disorder record,
+   * i.e. the probability that a CDR is generated that belongs within
+   * the range of this ranged CDR and that of the other one as well.
+   *
+   * <p>This method assumes a uniform probability distribution for
+   * ranged numeric descriptors.</p>
+   *
+   * @param other the other ranged CDR
+   * @return the overlap
+   */
+  public double overlap(RangedCropDisorderRecord other)
+  {
+    if (!this.cropScientificName.equals(other.cropScientificName))
+    {
+      return (0.0);
+    }
+    Map<String, RangedDescriptor> otherRdMap = new HashMap<String, RangedDescriptor>();
+    for (RangedDescriptor otherRd : other.rangedDescriptorList)
+    {
+      otherRdMap.put(otherRd.getDescriptorTypeName(), otherRd);
+    }
+    double ov = 1.0;
+    for (RangedDescriptor rd : this.rangedDescriptorList)
+    {
+      RangedDescriptor otherRd = otherRdMap.get(rd.getDescriptorTypeName());
+      if (otherRd != null)
+      {
+	double o = rd.overlap(otherRd);
+	ov *= o;
+      }
+    }
+    return (ov);
   }
 }

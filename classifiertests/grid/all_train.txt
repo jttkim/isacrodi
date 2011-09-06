@@ -1,4 +1,4 @@
-rangedCdrFile: rangedcdrs_all.txt
+rangedCdrFile: ../rangedcdrs_all.txt
 numTrainingSamples: 30
 missingNumericDescriptorProbability: 0.0
 numericProbabilityDistribution: uniform
