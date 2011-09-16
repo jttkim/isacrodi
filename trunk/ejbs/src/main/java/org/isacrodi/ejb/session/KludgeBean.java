@@ -3,6 +3,8 @@ package org.isacrodi.ejb.session;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
+import java.io.IOException;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import javax.persistence.Query;
 import org.isacrodi.util.SampleableList;
 
 import org.isacrodi.ejb.entity.*;
+
+import org.isacrodi.diagnosis.DiagnosisProvider;
 
 import static org.javamisc.Util.genericTypecast;
 
@@ -130,6 +134,38 @@ public class KludgeBean implements Kludge
       cropDisorderRecordList.add(cdr);
     }
   }
+
+
+  private SerializedDiagnosisProvider findDefaultSerializedDiagnosisProvider()
+  {
+    Query query = this.entityManager.createQuery("SELECT s FROM SerializedDiagnosisProvider s WHERE name = :name");
+    query.setParameter("name", "default");
+    List<SerializedDiagnosisProvider> l = genericTypecast(query.getResultList());
+    if (l.size() == 0)
+    {
+      return (new SerializedDiagnosisProvider("default"));
+    }
+    else
+    {
+      return (l.get(0));
+    }
+  }
+
+
+  public DiagnosisProvider findDiagnosisProvider() throws IOException, ClassNotFoundException
+  {
+    SerializedDiagnosisProvider serializedDiagnosisProvider = this.findDefaultSerializedDiagnosisProvider();
+    return (serializedDiagnosisProvider.deserializeDiagnosisProvider());
+  }
+
+
+  public void storeDiagnosisProvider(DiagnosisProvider diagnosisProvider) throws IOException
+  {
+    SerializedDiagnosisProvider serializedDiagnosisProvider = this.findDefaultSerializedDiagnosisProvider();
+    serializedDiagnosisProvider.serializeDiagnosisProvider(diagnosisProvider);
+    this.entityManager.persist(serializedDiagnosisProvider);
+  }
+
 
 /*
   public void makeDummies()

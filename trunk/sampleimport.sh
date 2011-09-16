@@ -21,6 +21,6 @@ do_run java -jar isacrodi-import.jar isacrodi_numerictypes.txt
 do_run java -jar isacrodi-import.jar isacrodi_categoricaltypes.txt
 do_run java -jar isacrodi-import.jar isacrodi_imagetypes.txt
 do_run java -jar isacrodi-import.jar isacrodi_procedures.txt
-do_run java -jar isacrodi-import.jar dummyTraining.txt
+# do_run java -jar isacrodi-import.jar isacrodi_cdrs.txt
 
 

@@ -1,6 +1,7 @@
 package org.isacrodi.ejb.session;
 
 import java.io.Serializable;
+import java.io.IOException;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,6 @@ import static org.javamisc.Util.genericTypecast;
 @Remote(CropDisorderRecordManager.class)
 public class CropDisorderRecordManagerBean implements CropDisorderRecordManager, Serializable
 {
-  private DiagnosisProvider diagnosisProvider;
   private RecommendationProvider recommendationProvider;
 
   @PersistenceContext
@@ -37,13 +37,15 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
   @EJB
   private Access access;
 
+  @EJB
+  private Kludge kludge;
+
   private static final long serialVersionUID = 1;
 
 
   public CropDisorderRecordManagerBean()
   {
     super();
-    this.diagnosisProvider = null;
     this.recommendationProvider = new SimpleRecommendationProvider(1.0);
 ;
   }
@@ -121,16 +123,7 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
   }
 
 
-  public DiagnosisProvider constructDiagnosisProvider()
-  {
-    SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
-    svmDiagnosisProvider.train(this.findExpertDiagnosedCropDisorderRecordList());
-    return (svmDiagnosisProvider);
-  }
-
-
-
-  public void requestDiagnosis(int cropDisorderRecordId, boolean constructNewDiagnosisProvider)
+  public void requestDiagnosis(int cropDisorderRecordId)
   {
     // FIXME: should check for existing diagnosis and recommendation and delete these first
     CropDisorderRecord cropDisorderRecord = this.entityManager.find(CropDisorderRecord.class, new Integer(cropDisorderRecordId));
@@ -138,30 +131,36 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
     {
       throw new RuntimeException(String.format("no crop disorder record with id %s found", cropDisorderRecordId));
     }
-    if ((this.diagnosisProvider == null) || constructNewDiagnosisProvider)
+    DiagnosisProvider diagnosisProvider = null;
+    try
     {
-      this.diagnosisProvider = this.constructDiagnosisProvider();
+      diagnosisProvider = this.kludge.findDiagnosisProvider();
     }
-    Diagnosis diagnosis = this.diagnosisProvider.diagnose(cropDisorderRecord);
-    this.entityManager.persist(diagnosis);
-    for (DisorderScore disorderScore : diagnosis.getDisorderScoreSet())
+    catch (IOException e)
     {
-      CropDisorder cropDisorder = this.entityManager.find(CropDisorder.class, disorderScore.getCropDisorder().getId());
-      disorderScore.setCropDisorder(cropDisorder);
-      this.entityManager.persist(disorderScore);
+      System.err.println("CropDisorderRecordManagerBean.requestDiagnosis: caught IOException trying to find dignosis provider");
     }
-    Recommendation recommendation = this.recommendationProvider.recommend(diagnosis);
-    this.entityManager.persist(recommendation);
-    for (ProcedureScore procedureScore : recommendation.getProcedureScoreSet())
+    catch (ClassNotFoundException e)
     {
-      this.entityManager.persist(procedureScore);
+      System.err.println("CropDisorderRecordManagerBean.requestDiagnosis: caught ClassNotFoundException trying to find dignosis provider");
     }
-  }
-
-
-  public void requestDiagnosis(int cropDisorderRecordId)
-  {
-    this.requestDiagnosis(cropDisorderRecordId, false);
+    if (diagnosisProvider != null)
+    {
+      Diagnosis diagnosis = diagnosisProvider.diagnose(cropDisorderRecord);
+      this.entityManager.persist(diagnosis);
+      for (DisorderScore disorderScore : diagnosis.getDisorderScoreSet())
+      {
+	CropDisorder cropDisorder = this.entityManager.find(CropDisorder.class, disorderScore.getCropDisorder().getId());
+	disorderScore.setCropDisorder(cropDisorder);
+	this.entityManager.persist(disorderScore);
+      }
+      Recommendation recommendation = this.recommendationProvider.recommend(diagnosis);
+      this.entityManager.persist(recommendation);
+      for (ProcedureScore procedureScore : recommendation.getProcedureScoreSet())
+      {
+	this.entityManager.persist(procedureScore);
+      }
+    }
   }
 
 
