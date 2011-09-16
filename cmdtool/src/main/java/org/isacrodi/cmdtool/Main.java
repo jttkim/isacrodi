@@ -181,6 +181,17 @@ public class Main
   }
 
 
+  private static void trainDiagnosisProviderFromDatabase() throws IOException, NamingException
+  {
+    InitialContext context = new InitialContext();
+    CropDisorderRecordManager cropDisorderRecordManager = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
+    Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
+    SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
+    svmDiagnosisProvider.train(cropDisorderRecordManager.findExpertDiagnosedCropDisorderRecordList());
+    kludge.storeDiagnosisProvider(svmDiagnosisProvider);
+  }
+
+
   private static void dumpEntities(String basename) throws NamingException, IOException
   {
     InitialContext context = new InitialContext();
@@ -227,6 +238,17 @@ public class Main
       out.println(cdr.fileRepresentation());
     }
     out.close();
+  }
+
+
+  private static DiagnosisProvider readDiagnosisProvider(String diagnosisProviderFileName) throws IOException, ClassNotFoundException
+  {
+    File diagnosisProviderFile = new File(diagnosisProviderFileName);
+    ObjectInputStream diagnosisProviderIn = new ObjectInputStream(new FileInputStream(diagnosisProviderFile));
+    DiagnosisProvider diagnosisProvider = (DiagnosisProvider) diagnosisProviderIn.readObject();
+    diagnosisProviderIn.close();
+    System.err.println(String.format("diagnosis provider read from %s", diagnosisProviderFileName));
+    return (diagnosisProvider);
   }
 
 
@@ -311,7 +333,7 @@ public class Main
   }
 
 
-  private static void trainWithRangedCDRs(String configFileName) throws IOException, ClassNotFoundException
+  private static void trainWithRangedCDRs(String configFileName, boolean doTraining) throws IOException, ClassNotFoundException
   {
     File configFile = new File(configFileName);
     BufferedReader configIn = new BufferedReader(new InputStreamReader(new FileInputStream(configFileName)));
@@ -364,13 +386,16 @@ public class Main
       }
     }
     writeCdrFile(trainingCdrFileName, trainingList);
-    SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
-    svmDiagnosisProvider.train(trainingList, svmRndseed);
-    File diagnosisProviderFile = new File(diagnosisProviderFileName);
-    ObjectOutputStream diagnosisProviderOut = new ObjectOutputStream(new FileOutputStream(diagnosisProviderFile));
-    diagnosisProviderOut.writeObject(svmDiagnosisProvider);
-    diagnosisProviderOut.close();
-    System.err.println(String.format("diagnosis provider trained and saved to %s", diagnosisProviderFileName));
+    if (doTraining)
+    {
+      SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
+      svmDiagnosisProvider.train(trainingList, svmRndseed);
+      File diagnosisProviderFile = new File(diagnosisProviderFileName);
+      ObjectOutputStream diagnosisProviderOut = new ObjectOutputStream(new FileOutputStream(diagnosisProviderFile));
+      diagnosisProviderOut.writeObject(svmDiagnosisProvider);
+      diagnosisProviderOut.close();
+      System.err.println(String.format("diagnosis provider trained and saved to %s", diagnosisProviderFileName));
+    }
   }
 
 
@@ -418,18 +443,23 @@ public class Main
     }
     memoryDB.printSummary(System.err);
     Random rng = new Random(rndseed);
-    // read diagnosis provider
-    File diagnosisProviderFile = new File(diagnosisProviderFileName);
-    ObjectInputStream diagnosisProviderIn = new ObjectInputStream(new FileInputStream(diagnosisProviderFile));
-    SVMDiagnosisProvider svmDiagnosisProvider = (SVMDiagnosisProvider) diagnosisProviderIn.readObject();
-    diagnosisProviderIn.close();
-    System.err.println(String.format("diagnosis provider read from %s", diagnosisProviderFileName));
+    // FIXME: unnecessary hardwiring to SVMDiagnosisProvider
+    SVMDiagnosisProvider svmDiagnosisProvider = (SVMDiagnosisProvider) readDiagnosisProvider(diagnosisProviderFileName);
     // FIXME: should distinguish between missing descriptor probabilities for training and testing
     // FIXME: number of disorder scores hard-coded to 3
     SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, 3, rng, numericProbabilityDistribution, numericRangeMagnifier, categoricalErrorProbability, testResultFileName);
     svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numTestSamples, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability, testName);
     svmDiagnosisProviderTester.close();
     System.err.println(String.format("diagnosis provider test \"%s\" finished", testName));
+  }
+
+
+  private static void importDiagnosisProvider(String diagnosisProviderFileName) throws NamingException, IOException, ClassNotFoundException
+  {
+    InitialContext context = new InitialContext();
+    Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
+    DiagnosisProvider diagnosisProvider = readDiagnosisProvider(diagnosisProviderFileName);
+    kludge.storeDiagnosisProvider(diagnosisProvider);
   }
 
 
@@ -518,7 +548,12 @@ public class Main
     System.out.println("  diagnosischeck");
     System.out.println("  featuremappercheck");
     System.out.println("  dump <basename>");
-    System.out.println("  cdrgen <infile> <categoricaltypefile> <numerictypefile> <rndseed> <numcdrs> <outfile>");
+    System.out.println("  testsvm <filename> (obsolete, use rtrain and rtest)");
+    System.out.println("  rtrain <filename> -- train and serialise diagnosis provider");
+    System.out.println("  rtest <filename> -- read serialised diagnosis provider and test it");
+    System.out.println("  cdrgen <filename> -- generate CDRs from training (uses same file format as rtrain)");
+    System.out.println("  rcdrtex <filename> -- render ranged CDRs in LaTeX");
+    System.out.println("  traindb -- train diagnosis provider from database");
   }
 
 
@@ -553,7 +588,11 @@ public class Main
     }
     else if ("rtrain".equals(command))
     {
-      trainWithRangedCDRs(args[1]);
+      trainWithRangedCDRs(args[1], true);
+    }
+    else if ("cdrgen".equals(command))
+    {
+      trainWithRangedCDRs(args[1], false);
     }
     else if ("rtest".equals(command))
     {
@@ -566,6 +605,14 @@ public class Main
     else if ("rcdrtex".equals(command))
     {
       rangedCdrsToLatex(args[1], args[2]);
+    }
+    else if ("traindb".equals(command))
+    {
+      trainDiagnosisProviderFromDatabase();
+    }
+    else if ("importdp".equals(command))
+    {
+      importDiagnosisProvider(args[1]);
     }
     else
     {
