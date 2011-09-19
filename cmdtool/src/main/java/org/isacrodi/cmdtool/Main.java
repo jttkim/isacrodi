@@ -79,9 +79,9 @@ class SvmDiagnosisProviderTester
   }
 
 
-  public void testSample(SVMDiagnosisProvider svmDiagnosisProvider, CropDisorderRecord cropDisorderRecord, String testTypeLabel)
+  public void testSample(SVMDiagnosisProvider svmDiagnosisProvider, CropDisorderRecord cropDisorderRecord, String testTypeLabel, Collection<CropDisorder> cropDisorderSet)
   {
-    Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord);
+    Diagnosis diagnosis = svmDiagnosisProvider.diagnose(cropDisorderRecord, cropDisorderSet);
     DisorderScore highestScore = diagnosis.highestDisorderScore();
     List<DisorderScore> disorderScoreList = diagnosis.descendingDisorderScoreList();
     CropDisorder diagnosedCropDisorder = highestScore.getCropDisorder();
@@ -132,14 +132,14 @@ class SvmDiagnosisProviderTester
   }
 
 
-  public void testSamples(SVMDiagnosisProvider svmDiagnosisProvider, int numTestSamples, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability, String testTypeLabel)
+  public void testSamples(SVMDiagnosisProvider svmDiagnosisProvider, int numTestSamples, double missingNumericDescriptorProbability, double missingCategoricalDescriptorProbability, double missingImageDescriptorProbability, String testTypeLabel, Collection<CropDisorder> cropDisorderSet)
   {
     for (RangedCropDisorderRecord rangedCropDisorderRecord : this.rangedCropDisorderRecordList)
     {
       for (int i = 0; i < numTestSamples; i++)
       {
 	CropDisorderRecord cropDisorderRecord = rangedCropDisorderRecord.randomCropDisorderRecord(this.rng, this.numericProbabilityDistribution, this.numericRangeMagnifier, this.categoricalErrorProbability, this.memoryDB, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability);
-	this.testSample(svmDiagnosisProvider, cropDisorderRecord, testTypeLabel);
+	this.testSample(svmDiagnosisProvider, cropDisorderRecord, testTypeLabel, cropDisorderSet);
       }
     }
   }
@@ -316,18 +316,19 @@ public class Main
     // FIXME: should distinguish between missing descriptor probabilities for training and testing
     // FIXME: number of disorder scores hard-coded to 3
     SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, 3, rng, "cauchy", cauchyRangeMagnifier, categoricalErrorProbability, testResultFileName);
+    Collection<CropDisorder> diagnosableDisorderSet = memoryDB.findCropDisorderList();
     for (CropDisorderRecord cropDisorderRecord : trainingList)
     {
-      svmDiagnosisProviderTester.testSample(svmDiagnosisProvider, cropDisorderRecord, "training");
+      svmDiagnosisProviderTester.testSample(svmDiagnosisProvider, cropDisorderRecord, "training", diagnosableDisorderSet);
     }
     System.err.println("diagnosis provider tested on training data");
-    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, "standard");
+    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numTestSamples, missingDescriptorProbability, missingDescriptorProbability, missingDescriptorProbability, "standard", diagnosableDisorderSet);
     System.err.println("diagnosis provider tested on standard test data");
-    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numNumericOnlyTestSamples, missingDescriptorProbability, 1.0, 1.0, "numericOnly");
+    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numNumericOnlyTestSamples, missingDescriptorProbability, 1.0, 1.0, "numericOnly", diagnosableDisorderSet);
     System.err.println("diagnosis provider tested on numeric only test data");
-    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numCategoricalOnlyTestSamples, 1.0, missingDescriptorProbability, 1.0, "categoricalOnly");
+    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numCategoricalOnlyTestSamples, 1.0, missingDescriptorProbability, 1.0, "categoricalOnly", diagnosableDisorderSet);
     System.err.println("diagnosis provider tested on categorical only test data");
-    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numImageOnlyTestSamples, 1.0, 1.0, missingDescriptorProbability, "imageOnly");
+    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numImageOnlyTestSamples, 1.0, 1.0, missingDescriptorProbability, "imageOnly", diagnosableDisorderSet);
     System.err.println("diagnosis provider tested on image only test data");
     svmDiagnosisProviderTester.close();
   }
@@ -448,7 +449,7 @@ public class Main
     // FIXME: should distinguish between missing descriptor probabilities for training and testing
     // FIXME: number of disorder scores hard-coded to 3
     SvmDiagnosisProviderTester svmDiagnosisProviderTester = new SvmDiagnosisProviderTester(rangedCropDisorderRecordList, memoryDB, 3, rng, numericProbabilityDistribution, numericRangeMagnifier, categoricalErrorProbability, testResultFileName);
-    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numTestSamples, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability, testName);
+    svmDiagnosisProviderTester.testSamples(svmDiagnosisProvider, numTestSamples, missingNumericDescriptorProbability, missingCategoricalDescriptorProbability, missingImageDescriptorProbability, testName, memoryDB.findCropDisorderList());
     svmDiagnosisProviderTester.close();
     System.err.println(String.format("diagnosis provider test \"%s\" finished", testName));
   }

@@ -201,7 +201,6 @@ public class DiagnosisTest
   public void testDiagnosisStuff() throws IOException
   {
     DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
-    dp.setKnownDisorderSet(this.cropDisorderSet);
     this.diagnosis = new Diagnosis();
     this.diagnosis.setId(1);
     this.diagnosis.setCropDisorderRecord(this.cropDisorderRecord);
@@ -220,7 +219,7 @@ public class DiagnosisTest
     }
 
     // instance variable diagnosis obsolescent...
-    Diagnosis diagnosis = dp.diagnose(this.cropDisorderRecord);
+    Diagnosis diagnosis = dp.diagnose(this.cropDisorderRecord, this.cropDisorderSet);
     // Test recommendation
 
     RecommendationProvider rp = new DummyRecommendationProvider();
@@ -241,10 +240,9 @@ public class DiagnosisTest
   {
     Assert.assertTrue("no disorders", this.cropDisorderSet.size() > 0);
     DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
-    dp.setKnownDisorderSet(this.cropDisorderSet);
     /* FIXME: test partially disabled pending refactoring of classification*/
 
-    Diagnosis d = dp.diagnose(this.emptyCDR);
+    Diagnosis d = dp.diagnose(this.emptyCDR, this.cropDisorderSet);
     Assert.assertEquals(this.cropDisorderSet.size(), d.getDisorderScoreSet().size());
     double s = d.getDisorderScoreSet().iterator().next().getScore();
     for (DisorderScore ds : d.getDisorderScoreSet())
@@ -268,8 +266,7 @@ public class DiagnosisTest
     /* FIXME: partially disabled pending refactoring of classification*/
 
     DummyDiagnosisProvider dp = new DummyDiagnosisProvider();
-    dp.setKnownDisorderSet(this.cropDisorderSet);
-    Diagnosis d = dp.diagnose(this.cropDisorderRecord);
+    Diagnosis d = dp.diagnose(this.cropDisorderRecord, this.cropDisorderSet);
     for (DisorderScore ds : d.getDisorderScoreSet())
     {
       if (ds.getCropDisorder().getCropSet().contains(this.cropDisorderRecord.getCrop()))
@@ -374,4 +371,89 @@ public class DiagnosisTest
     Assert.assertEquals(sn.length, 6);
   }
   */
+
+
+  private static void dumpDisorderScoreSet(Collection<DisorderScore> disorderScoreSet)
+  {
+    for (DisorderScore ds : disorderScoreSet)
+    {
+      System.err.println(String.format("%s: %f", ds.getCropDisorder().getScientificName(), ds.getScore()));
+    }
+  }
+
+
+  private static void dumpCropDisorderRecordSet(Collection<CropDisorderRecord> cropDisorderRecordSet)
+  {
+    for (CropDisorderRecord cdr : cropDisorderRecordSet)
+    {
+      System.err.println(cdr.fileRepresentation());
+      System.err.println();
+    }
+  }
+
+
+  @Test
+  public void testSvmDiagnosisProvider()
+  {
+    int id = 1;
+    IsacrodiUser jtk = new IsacrodiUser("Kim", "Jan", "jtk", "*", "jttkim@gmail.com");
+    NumericType altitude = new NumericType("altitude");
+    altitude.setId(id++);
+    Crop eggplant = new Crop("eggplant", "Solanum melongena");
+    eggplant.setId(id++);
+    CropDisorder whitefly = new CropDisorder("whitefly", "Bemisia tabaci");
+    whitefly.setId(id++);
+    CropDisorder armyworm = new CropDisorder("fall armyworm", "Spodoptera frugiperda");
+    armyworm.setId(id++);
+    HashSet<CropDisorder> cropDisorderSet = new HashSet<CropDisorder>();
+    cropDisorderSet.add(whitefly);
+    cropDisorderSet.add(armyworm);
+    HashSet<CropDisorderRecord> cdrSet = new HashSet<CropDisorderRecord>();
+    for (int i = 0; i < 5; i++)
+    {
+      CropDisorderRecord cdr1 = new CropDisorderRecord();
+      cdr1.setId(id++);
+      cdr1.setIsacrodiUser(jtk);
+      cdr1.setCrop(eggplant);
+      NumericDescriptor altitude1 = new NumericDescriptor(altitude, 1.0 + 0.1 * i);
+      altitude1.setId(id++);
+      cdr1.linkDescriptor(altitude1);
+      cdr1.setExpertDiagnosedCropDisorder(whitefly);
+      cdr1.setDescription(whitefly.getScientificName());
+      cdrSet.add(cdr1);
+      CropDisorderRecord cdr2 = new CropDisorderRecord();
+      cdr2.setId(id++);
+      cdr2.setIsacrodiUser(jtk);
+      cdr2.setCrop(eggplant);
+      NumericDescriptor altitude2 = new NumericDescriptor(altitude, 10.0 + 0.1 * i);
+      altitude2.setId(id++);
+      cdr2.linkDescriptor(altitude2);
+      cdr2.setExpertDiagnosedCropDisorder(armyworm);
+      cdr2.setDescription(armyworm.getScientificName());
+      cdrSet.add(cdr2);
+    }
+    // dumpCropDisorderRecordSet(cdrSet);
+    SVMDiagnosisProvider sdp = new SVMDiagnosisProvider();
+    sdp.train(cdrSet, new Integer(1));
+    for (CropDisorderRecord cdr : cdrSet)
+    {
+      Diagnosis diagnosis = sdp.diagnose(cdr, cropDisorderSet);
+      // dumpDisorderScoreSet(diagnosis.getDisorderScoreSet());	
+      String sn = diagnosis.highestDisorderScore().getCropDisorder().getScientificName();
+      Assert.assertEquals(cdr.getDescription(), sn);
+    }
+    whitefly.setName("fall armyworm");
+    whitefly.setScientificName("Spodoptera frugiperda");
+    armyworm.setName("whitefly");
+    armyworm.setScientificName("Bemisia tabaci");
+    for (CropDisorderRecord cdr : cdrSet)
+    {
+      Diagnosis diagnosis = sdp.diagnose(cdr, cropDisorderSet);
+      // dumpDisorderScoreSet(diagnosis.getDisorderScoreSet());	
+      String sn = diagnosis.highestDisorderScore().getCropDisorder().getScientificName();
+      Assert.assertEquals(cdr.getDescription(), sn);
+    }
+  }
 }
+
+

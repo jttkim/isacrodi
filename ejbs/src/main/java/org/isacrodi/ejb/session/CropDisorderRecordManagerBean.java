@@ -146,12 +146,12 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
     }
     if (diagnosisProvider != null)
     {
-      Diagnosis diagnosis = diagnosisProvider.diagnose(cropDisorderRecord);
+      Diagnosis diagnosis = diagnosisProvider.diagnose(cropDisorderRecord, this.access.findCropDisorderList());
       this.entityManager.persist(diagnosis);
       for (DisorderScore disorderScore : diagnosis.getDisorderScoreSet())
       {
-	CropDisorder cropDisorder = this.entityManager.find(CropDisorder.class, disorderScore.getCropDisorder().getId());
-	disorderScore.setCropDisorder(cropDisorder);
+	// CropDisorder cropDisorder = this.entityManager.find(CropDisorder.class, disorderScore.getCropDisorder().getId());
+	// disorderScore.setCropDisorder(cropDisorder);
 	this.entityManager.persist(disorderScore);
       }
       Recommendation recommendation = this.recommendationProvider.recommend(diagnosis);

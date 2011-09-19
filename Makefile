@@ -17,6 +17,10 @@ package :
 	mvn $(MAVEN_OPTS) clean
 	mvn $(MAVEN_OPTS) package
 
+test :
+	mvn $(MAVEN_OPTS) clean
+	mvn $(MAVEN_OPTS) test
+
 prod : $(PRODUCTIONTGZ)
 
 doc :

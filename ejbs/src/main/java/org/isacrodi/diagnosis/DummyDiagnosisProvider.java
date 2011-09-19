@@ -17,59 +17,57 @@ import java.util.Collection;
  */
 public class DummyDiagnosisProvider implements DiagnosisProvider
 {
-  private Set<CropDisorder> cropDisorderSet;
-
-  
   public DummyDiagnosisProvider()
   {
     super();
   }
 
 
-  @Deprecated
-  public void setKnownDisorderSet(Set<CropDisorder> cropDisorderSet)
+  private int countCrop(Crop crop, Collection<CropDisorder> cropDisorderSet)
   {
-    this.cropDisorderSet = cropDisorderSet;
+    int counter = 0;
+    for(CropDisorder cdi : cropDisorderSet)
+    {
+      if(cdi.getCropSet().contains(crop))
+      {
+        counter++;
+      }
+    }
+    return counter;
   }
 
 
-  public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
+  /**
+   * Dummy diagnosis.
+   *
+   * <p>This class is for simple testing purposes only. Diagnoses may
+   * depend on the {@code cropDisorderSet} in unexpected ways.</p>
+   */
+  public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord, Collection<CropDisorder> cropDisorderSet)
   {
     Diagnosis d = new Diagnosis();
     d.setCropDisorderRecord(cropDisorderRecord);
     d.setDisorderScoreSet(new HashSet<DisorderScore>());
-
-
-    for (CropDisorder disorder : this.cropDisorderSet)
+    for (CropDisorder disorder : cropDisorderSet)
     {
       DisorderScore ds = new DisorderScore();
       if(cropDisorderRecord.getCrop() == null)
-        ds.setScore(1.0 / this.cropDisorderSet.size());
+      {
+        ds.setScore(1.0 / cropDisorderSet.size());
+      }
       else if (disorder.getCropSet().contains(cropDisorderRecord.getCrop()))
-        ds.setScore(1.0 / CountCrop(cropDisorderRecord.getCrop()));
+      {
+        ds.setScore(1.0 / countCrop(cropDisorderRecord.getCrop(), cropDisorderSet));
+      }
       else
+      {
 	ds.setScore(0.0); 
+      }
       ds.setDiagnosis(d);
       ds.setCropDisorder(disorder);
       d.addDisorderScore(ds);
     }
     return (d);
   }
-
-
-  public int CountCrop(Crop crop)
-  {
-
-    int counter = 0;
-
-    for(CropDisorder cdi : this.cropDisorderSet)
-    {
-      if(cdi.getCropSet().contains(crop))
-        counter++;
-    }
-
-    return counter;
-  }
-
 }
 

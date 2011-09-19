@@ -27,7 +27,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   private CDRFeatureExtractor cdrFeatureExtractor;
   private FeatureVectorMapper<svm_node[]> svmNodeFeatureVectorMapper;
   private svm_model model;
-  private Map<CropDisorder, Integer> disorderIndexMap;
+  private Map<String, Integer> disorderIndexMap;  // maps disorder scientific names to SVM label indexes
 
   private static final long serialVersionUID = 1;
 
@@ -47,26 +47,28 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     this.disorderIndexMap = null;
   }
 
-  /*
-  public SVMDiagnosisProvider(String modelFileName, String parseFileName) throws IOException
-  {
-    // FIXME: dangerous design -- modelFileName and parseFileName have to be consistent!!
-    this();
-    this.model = svm.svm_load_model(modelFileName);
-    this.svmNodeFeatureVectorMapper.parseFile(parseFileName);
-  }
-  */
-
 
   /**
-   * Provide a map to look up disorder names by svm label (index).
+   * Provide a map to look up disorders by svm label (index).
+   *
+   * @param cropDisorderSet the set of crop disorder to be used in classification.
    */
-  public Map<Integer, CropDisorder> makeReverseDisorderIndexMap()
+  public Map<Integer, CropDisorder> makeReverseDisorderIndexMap(Collection<CropDisorder> cropDisorderSet)
   {
-    Map<Integer, CropDisorder> reverseDisorderIndexMap = new HashMap<Integer, CropDisorder>();
-    for (CropDisorder cropDisorder : this.disorderIndexMap.keySet())
+    Map<String, CropDisorder> cropDisorderMap = new HashMap<String, CropDisorder>();
+    for (CropDisorder cropDisorder : cropDisorderSet)
     {
-      reverseDisorderIndexMap.put(this.disorderIndexMap.get(cropDisorder), cropDisorder);
+      cropDisorderMap.put(cropDisorder.getScientificName(), cropDisorder);
+    }
+    Map<Integer, CropDisorder> reverseDisorderIndexMap = new HashMap<Integer, CropDisorder>();
+    for (String scientificName : this.disorderIndexMap.keySet())
+    {
+      if (!cropDisorderMap.keySet().contains(scientificName))
+      {
+	// FIXME: should use isacrodi-specific exception -- this is an application exception, not a system exception
+	throw new RuntimeException(String.format("could not resolve crop disorder \"%s\"", scientificName));
+      }
+      reverseDisorderIndexMap.put(this.disorderIndexMap.get(scientificName), cropDisorderMap.get(scientificName));
     }
     return (reverseDisorderIndexMap);
   }
@@ -265,50 +267,11 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   }
 
 
-  // FIXME: what's the purpose of this method? looks like a prefix of train (???)
-  public void getSVMInputFile(Collection<CropDisorderRecord> labelledCropDisorderRecordSet, String filename)
-  {
-    this.disorderIndexMap = new HashMap<CropDisorder, Integer>();
-    int maxDisorderIndex = 0;
-    Collection<FeatureVector> featureVectorCollection = new HashSet<FeatureVector>();
-    for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
-    {
-      CropDisorder edd = cropDisorderRecord.getExpertDiagnosedCropDisorder();
-      if (edd == null)
-      {
-	throw new RuntimeException("CDR with no expert diagnosis in labelled set");
-      }
-      if (!this.disorderIndexMap.containsKey(edd))
-      {
-	this.disorderIndexMap.put(edd, new Integer(maxDisorderIndex++));
-      }
-      FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
-      featureVectorCollection.add(featureVector);
-    }
-    this.svmNodeFeatureVectorMapper = new SvmNodeFeatureVectorMapper(featureVectorCollection);
-    svm_node[][] sample = new svm_node[labelledCropDisorderRecordSet.size()][];
-    double label[] = new double[labelledCropDisorderRecordSet.size()];
-    int i = 0;
-    for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
-    {
-      CropDisorder edd = cropDisorderRecord.getExpertDiagnosedCropDisorder();
-      int disorderIndex = this.disorderIndexMap.get(edd).intValue();
-      // FIXME: clumsy programming -- duplicate feature vector extraction
-      FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
-      featureVectorCollection.add(featureVector);
-      label[i] = (double) disorderIndex;
-      sample[i] = this.svmNodeFeatureVectorMapper.map(featureVector);
-      i++;
-    }
-    dumpSamples(filename, sample, label);
-  }
-
-
   public void train(Collection<CropDisorderRecord> labelledCropDisorderRecordSet, Integer rndseed)
   {
     // System.err.println(String.format("SVMDiagnosisProvider.train: starting, %d labelled CDRs", labelledCropDisorderRecordSet.size()));
     // FIXME: consider defining this mapping as part of the feature vector mappers' responsibilities
-    this.disorderIndexMap = new HashMap<CropDisorder, Integer>();
+    this.disorderIndexMap = new HashMap<String, Integer>();
     int maxDisorderIndex = 0;
     Collection<FeatureVector> featureVectorCollection = new HashSet<FeatureVector>();
     for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
@@ -318,9 +281,9 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       {
 	throw new RuntimeException("CDR with no expert diagnosis in labelled set");
       }
-      if (!this.disorderIndexMap.containsKey(edd))
+      if (!this.disorderIndexMap.containsKey(edd.getScientificName()))
       {
-	this.disorderIndexMap.put(edd, new Integer(maxDisorderIndex++));
+	this.disorderIndexMap.put(edd.getScientificName(), new Integer(maxDisorderIndex++));
       }
       FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
       featureVectorCollection.add(featureVector);
@@ -332,7 +295,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
     for (CropDisorderRecord cropDisorderRecord : labelledCropDisorderRecordSet)
     {
       CropDisorder edd = cropDisorderRecord.getExpertDiagnosedCropDisorder();
-      int disorderIndex = this.disorderIndexMap.get(edd).intValue();
+      int disorderIndex = this.disorderIndexMap.get(edd.getScientificName()).intValue();
       // FIXME: clumsy programming -- duplicate feature vector extraction
       FeatureVector featureVector = this.cdrFeatureExtractor.extract(cropDisorderRecord);
       featureVectorCollection.add(featureVector);
@@ -373,7 +336,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   }
 
 
-  public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord)
+  public Diagnosis diagnose(CropDisorderRecord cropDisorderRecord, Collection<CropDisorder> cropDisorderSet)
   {
     if (this.model == null)
     {
@@ -399,12 +362,11 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       System.setOut(systemOut);
     }
     // System.err.println(String.format("SVMDiagnosisProvider.diagnose: predicted label is %f", predictedLabel));
-    Map<Integer, CropDisorder> reverseDisorderIndexMap = this.makeReverseDisorderIndexMap();
+    Map<Integer, CropDisorder> reverseDisorderIndexMap = this.makeReverseDisorderIndexMap(cropDisorderSet);
     for (int i = 0; i < probability.length; i++)
     {
       int disorderIndex = svmLabels[i];
       CropDisorder cropDisorder = reverseDisorderIndexMap.get(new Integer(disorderIndex));
-      // FIXME: problem: how to reattach disorders???
       DisorderScore disorderScore = new DisorderScore(probability[i], cropDisorder);
       // System.err.println(String.format("SVMDiagnosisProvider.diagnose: P(%s) = %f", cropDisorder.getScientificName(), probability[i]));
       diagnosis.linkDisorderScore(disorderScore);
