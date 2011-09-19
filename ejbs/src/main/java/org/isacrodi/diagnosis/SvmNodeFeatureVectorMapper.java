@@ -98,9 +98,14 @@ public class SvmNodeFeatureVectorMapper implements FeatureVectorMapper<svm_node[
   /**
    * Construct a mapper based on a collection of feature vectors.
    *
-   * Each feature contained in a feature vector of the collection, and
+   * <p>Each feature contained in a feature vector of the collection, and
    * each state of a categorical feature occurring in the collection,
-   * is guaranteed to be mappable by the mapper constructed.
+   * is guaranteed to be mappable by the mapper constructed.</p>
+   *
+   * <p>Technical note: The {@code featureVectorCollection} is taken
+   * to be the training set. The mean and standard deviation, which
+   * are used for scaling, are computed on the basis of the set of
+   * values found for each respective component.</p>
    *
    * @param featureVectorCollection the feature vector collection
    */
