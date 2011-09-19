@@ -392,6 +392,13 @@ public class DiagnosisTest
   }
 
 
+  @Test(expected = RuntimeException.class)
+  public void testDiagnosisWithoutTraining()
+  {
+    SVMDiagnosisProvider sdp = new SVMDiagnosisProvider();
+    sdp.diagnose(this.cropDisorderRecord, this.cropDisorderSet);
+  }
+
   @Test
   public void testSvmDiagnosisProvider()
   {

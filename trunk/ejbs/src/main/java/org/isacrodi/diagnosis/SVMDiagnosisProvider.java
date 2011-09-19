@@ -279,6 +279,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
       CropDisorder edd = cropDisorderRecord.getExpertDiagnosedCropDisorder();
       if (edd == null)
       {
+	// FIXME: use proper exceptions
 	throw new RuntimeException("CDR with no expert diagnosis in labelled set");
       }
       if (!this.disorderIndexMap.containsKey(edd.getScientificName()))
