@@ -29,7 +29,7 @@ public class SVMDiagnosisProvider implements DiagnosisProvider, Serializable
   private svm_model model;
   private Map<String, Integer> disorderIndexMap;  // maps disorder scientific names to SVM label indexes
 
-  private static final long serialVersionUID = 1;
+  private static final long serialVersionUID = 2;
 
   // from Hsu et.al. "A Practical Guide to Support Vector Classification"
   private static double GAMMA_MIN = Math.pow(2.0, -15);
