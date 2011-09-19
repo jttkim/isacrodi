@@ -298,7 +298,7 @@ public class CropDisorder implements IsacrodiEntity
   }
 
 
-  /*
+/*
   public int hashCode()
   {
     System.err.println(String.format("CropDisorder.hashCode: %s", this.toString()));
@@ -306,7 +306,7 @@ public class CropDisorder implements IsacrodiEntity
     {
       return (0);
     }
-    return (this.id.intValue());
+    return (this.scientificName.hashCode());
   }
 
 
@@ -339,8 +339,7 @@ public class CropDisorder implements IsacrodiEntity
     }
     return (false);
   }
-  */
-
+*/
 
   public String toString()
   {
