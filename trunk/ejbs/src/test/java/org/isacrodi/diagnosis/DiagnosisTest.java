@@ -399,6 +399,26 @@ public class DiagnosisTest
     sdp.diagnose(this.cropDisorderRecord, this.cropDisorderSet);
   }
 
+  /**
+   * Test the {@code SVMDiagnosisProvider}.
+   *
+   * <p>The test sets up an {@code altitude} numeric attribute, two
+   * disorders, and a CDR set containing 5 CDRs expert diagnosed for
+   * each disorder. Altitude attributes are in [1, 1.4] for CDRs with
+   * the first disorder and in [10, 10.4] for the second, so the
+   * disorders are easily linearly separable. Disorder scientific
+   * names are also put in the CDR's descriptions for testing. Test
+   * criteria are that</p>
+   *
+   * <ul>
+   * <li>all training samples are classified correctly,</li>
+   * <li>after switching scientific names of disorders, classification is still correct.</li>
+   * </ul>
+   *
+   * <p>This test helps to ensure that diagnosis providers associate
+   * disorders by scientific name and thus can be serialised for later
+   * use in the context of different sets of known disorders.</p>
+   */
   @Test
   public void testSvmDiagnosisProvider()
   {
@@ -408,13 +428,13 @@ public class DiagnosisTest
     altitude.setId(id++);
     Crop eggplant = new Crop("eggplant", "Solanum melongena");
     eggplant.setId(id++);
-    CropDisorder whitefly = new CropDisorder("whitefly", "Bemisia tabaci");
-    whitefly.setId(id++);
-    CropDisorder armyworm = new CropDisorder("fall armyworm", "Spodoptera frugiperda");
-    armyworm.setId(id++);
+    CropDisorder disorder1 = new CropDisorder("whitefly", "Bemisia tabaci");
+    disorder1.setId(id++);
+    CropDisorder disorder2 = new CropDisorder("fall armyworm", "Spodoptera frugiperda");
+    disorder2.setId(id++);
     HashSet<CropDisorder> cropDisorderSet = new HashSet<CropDisorder>();
-    cropDisorderSet.add(whitefly);
-    cropDisorderSet.add(armyworm);
+    cropDisorderSet.add(disorder1);
+    cropDisorderSet.add(disorder2);
     HashSet<CropDisorderRecord> cdrSet = new HashSet<CropDisorderRecord>();
     for (int i = 0; i < 5; i++)
     {
@@ -425,8 +445,8 @@ public class DiagnosisTest
       NumericDescriptor altitude1 = new NumericDescriptor(altitude, 1.0 + 0.1 * i);
       altitude1.setId(id++);
       cdr1.linkDescriptor(altitude1);
-      cdr1.setExpertDiagnosedCropDisorder(whitefly);
-      cdr1.setDescription(whitefly.getScientificName());
+      cdr1.setExpertDiagnosedCropDisorder(disorder1);
+      cdr1.setDescription(disorder1.getScientificName());
       cdrSet.add(cdr1);
       CropDisorderRecord cdr2 = new CropDisorderRecord();
       cdr2.setId(id++);
@@ -435,8 +455,8 @@ public class DiagnosisTest
       NumericDescriptor altitude2 = new NumericDescriptor(altitude, 10.0 + 0.1 * i);
       altitude2.setId(id++);
       cdr2.linkDescriptor(altitude2);
-      cdr2.setExpertDiagnosedCropDisorder(armyworm);
-      cdr2.setDescription(armyworm.getScientificName());
+      cdr2.setExpertDiagnosedCropDisorder(disorder2);
+      cdr2.setDescription(disorder2.getScientificName());
       cdrSet.add(cdr2);
     }
     // dumpCropDisorderRecordSet(cdrSet);
@@ -449,10 +469,10 @@ public class DiagnosisTest
       String sn = diagnosis.highestDisorderScore().getCropDisorder().getScientificName();
       Assert.assertEquals(cdr.getDescription(), sn);
     }
-    whitefly.setName("fall armyworm");
-    whitefly.setScientificName("Spodoptera frugiperda");
-    armyworm.setName("whitefly");
-    armyworm.setScientificName("Bemisia tabaci");
+    disorder1.setName("fall armyworm");
+    disorder1.setScientificName("Spodoptera frugiperda");
+    disorder2.setName("whitefly");
+    disorder2.setScientificName("Bemisia tabaci");
     for (CropDisorderRecord cdr : cdrSet)
     {
       Diagnosis diagnosis = sdp.diagnose(cdr, cropDisorderSet);

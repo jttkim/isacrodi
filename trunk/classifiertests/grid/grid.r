@@ -74,13 +74,13 @@ plotPerformance2D <- function(psTable, xlab, ylab, zlab, zval, ...)
 }
 
 
-plotPerformanceLines <- function(psTable, xlab, ylab, zlab, zval, ...)
+plotPerformanceLines <- function(psTable, xlab, ylab, zlab, zval, acclab, ...)
 {
   p <- psTable[psTable[[zlab]] == zval, ];
   o <- order(p[[ylab]], p[[xlab]]);
   x <- sort(unique(p[[xlab]]));
   y <- sort(unique(p[[ylab]]));
-  z <- matrix(p[["acc0"]][o], nrow = length(x), ncol = length(y), byrow = FALSE);
+  z <- matrix(p[[acclab]][o], nrow = length(x), ncol = length(y), byrow = FALSE);
   colList <- heat.colors(length(y));
   j <- 1;
   plot(x, z[, j], type = "l", col = colList[j], xlab = xlab, ylab = "accuracy", sub = sprintf("%s = %1.1f", zlab, zval), ...);

@@ -3,6 +3,7 @@ package org.isacrodi.ejb.session;
 import java.io.Serializable;
 import java.io.IOException;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,6 +11,7 @@ import java.util.Set;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -35,9 +37,6 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
   private EntityManager entityManager;
 
   @EJB
-  private Access access;
-
-  @EJB
   private Kludge kludge;
 
   private static final long serialVersionUID = 1;
@@ -47,7 +46,6 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
   {
     super();
     this.recommendationProvider = new SimpleRecommendationProvider(1.0);
-;
   }
 
 
@@ -146,10 +144,16 @@ public class CropDisorderRecordManagerBean implements CropDisorderRecordManager,
     }
     if (diagnosisProvider != null)
     {
-      Diagnosis diagnosis = diagnosisProvider.diagnose(cropDisorderRecord, this.access.findCropDisorderList());
+      Query query = this.entityManager.createQuery("SELECT d FROM CropDisorder d");
+      List<CropDisorder> cropDisorderList = genericTypecast(query.getResultList());
+      Diagnosis diagnosis = diagnosisProvider.diagnose(cropDisorderRecord, cropDisorderList);
       this.entityManager.persist(diagnosis);
       for (DisorderScore disorderScore : diagnosis.getDisorderScoreSet())
       {
+	for (Procedure procedure : disorderScore.getCropDisorder().getProcedureSet())
+	{
+	  procedure.getId();
+	}
 	this.entityManager.persist(disorderScore);
       }
       Recommendation recommendation = this.recommendationProvider.recommend(diagnosis);
