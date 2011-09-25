@@ -51,7 +51,6 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   private String seedlingorigin;
   private String overallappearance;
   private String leafdiscoloration;
-  private String[] leafappearance;
   private String[] leafsymptom;
   private String[] seedlingsymptom;
   private String[] rootsymptom;
@@ -105,6 +104,29 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.irrigationfrequencyType = this.access.findNumericType("irrigationfrequency");
     this.pHType = this.access.findNumericType("pH");
     this.pestdensityType = this.access.findNumericType("pestdensity");
+  }
+
+
+  private static String[] nonEmptyStrings(String[] sa)
+  {
+    int n = 0;
+    for (String s : sa)
+    {
+      if (s.length() > 0)
+      {
+	n++;
+      }
+    }
+    String[] san = new String[n];
+    n = 0;
+    for (String s : sa)
+    {
+      if (s.length() > 0)
+      {
+	san[n++] = s;
+      }
+    }
+    return (san);
   }
 
 
@@ -198,7 +220,6 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.soil = getCategoricalValueNullSafe(categoricalDescriptorMap, "soil");
     this.symptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "symptom");
     this.affectedpart = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "affectedpart");
-    this.leafappearance = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "leafappearance");
     this.leafsymptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "leafsymptom");
     this.seedlingsymptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "seedlingsymptom");
     this.rootsymptom = getCategoricalMultiValueNullSafe(categoricalDescriptorMap, "rootsymptom");
@@ -433,12 +454,6 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   public List<CategoricalTypeValue> getLeafdiscolorationValueList()
   {
     List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("leafdiscoloration");
-    return(categoricalTypeValueList);
-  }
-
-  public List<CategoricalTypeValue> getLeafappearanceValueList()
-  {
-    List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("leafappearance");
     return(categoricalTypeValueList);
   }
 
@@ -686,7 +701,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
 
   public void setSymptom(String[] symptom)
   {
-    this.symptom = symptom;
+    this.symptom = nonEmptyStrings(symptom);
   }
 
 
@@ -710,7 +725,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
 
   public void setAffectedpart(String[] affectedpart)
   {
-    this.affectedpart = affectedpart;
+    this.affectedpart = nonEmptyStrings(affectedpart);
   }
 
 
@@ -786,18 +801,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.leafdiscoloration = leafdiscoloration;
   }
 
-  public String[] getLeafappearance()
-  {
-    return (this.leafappearance);
-  }
-
-
-  public void setLeafappearance(String[] leafappearance)
-  {
-    this.leafappearance = leafappearance;
-  }
-
- public String[] getLeafsymptom()
+  public String[] getLeafsymptom()
   {
     return (this.leafsymptom);
   }
@@ -805,8 +809,9 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
 
   public void setLeafsymptom(String[] leafsymptom)
   {
-    this.leafsymptom = leafsymptom;
+    this.leafsymptom = nonEmptyStrings(leafsymptom);
   }
+
 
   public String[] getSeedlingsymptom()
   {
@@ -816,7 +821,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
 
   public void setSeedlingsymptom(String[] seedlingsymptom)
   {
-    this.seedlingsymptom = seedlingsymptom;
+    this.seedlingsymptom = nonEmptyStrings(seedlingsymptom);
   }
 
 
@@ -828,7 +833,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
 
   public void setRootsymptom(String[] rootsymptom)
   {
-    this.rootsymptom = rootsymptom;
+    this.rootsymptom = nonEmptyStrings(rootsymptom);
   }
 
   public String getLesioncolour()
@@ -884,7 +889,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
 
   public void setLesionlocation(String[] lesionlocation)
   {
-    this.lesionlocation = lesionlocation;
+    this.lesionlocation = nonEmptyStrings(lesionlocation);
   }
 
 
@@ -896,7 +901,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
 
   public void setSteminternal(String[] steminternal)
   {
-    this.steminternal = steminternal;
+    this.steminternal = nonEmptyStrings(steminternal);
   } 
 
 
@@ -1012,7 +1017,6 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "seedlingorigin", this.seedlingorigin);
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "overallappearance", this.overallappearance);
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafdiscoloration", this.leafdiscoloration);
-    this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafappearance", this.leafappearance);
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "leafsymptom", this.leafsymptom);
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "seedlingsymptom", this.seedlingsymptom);
     this.addCategoricalDescriptorToMap(categoricalDescriptorMap, "rootsymptom", this.rootsymptom);

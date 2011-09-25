@@ -110,16 +110,6 @@
           emptyOption="true"
 	/>
 
-	<s:select label="Appearance of leaves"
-	  emptyOption="true"
- 	  name="leafappearance"
-          multiple="true"
-	  list="%{leafappearanceValueList}"
-          listKey="valueType"
-          listValue="valueType"
-          emptyOption="true"
-	/>
-	
 	<s:select label="Main symptoms affecting the leaves"
 	  emptyOption="true"
  	  name="leafsymptom"

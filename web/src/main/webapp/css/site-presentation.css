@@ -55,11 +55,18 @@ a.outlink:visited
 
 .todonote
 {
+  display: none;
+}
+
+/*
+.todonote
+{
   font-size: small;
   font-family: sans-serif;
   font-style: italic;
   font-color: grey;
 }
+*/
 
 /*table
 {
