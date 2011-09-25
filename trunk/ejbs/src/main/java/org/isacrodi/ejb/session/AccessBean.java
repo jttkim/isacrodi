@@ -161,15 +161,19 @@ public class AccessBean implements Access
     CropDisorderRecord cropDisorderRecord = new CropDisorderRecord();
     IsacrodiUser isacrodiUser = this.userHandler.findUser(username);
     this.entityManager.merge(isacrodiUser);
+    if (cropScientificName == null)
+    {
+      cropScientificName = "";
+    }
     System.err.println(String.format("searching for crop with scientific name \"%s\"", cropScientificName));
     Query query = this.entityManager.createQuery("SELECT c FROM Crop c WHERE scientificName = :s");
     query.setParameter("s", cropScientificName);
     List<Crop> cropList = genericTypecast(query.getResultList());
-    if (cropList.size() == 0)
+    Crop crop = null;
+    if (cropList.size() == 1)
     {
-      throw new RuntimeException(String.format("crop \"%s\" not found", cropScientificName));
+      crop = cropList.get(0);
     }
-    Crop crop = cropList.get(0);
     cropDisorderRecord.setIsacrodiUser(isacrodiUser);
     cropDisorderRecord.setCrop(crop);
     this.entityManager.persist(cropDisorderRecord);

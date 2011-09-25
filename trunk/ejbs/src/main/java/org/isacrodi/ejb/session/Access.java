@@ -35,7 +35,7 @@ public interface Access
    * their respective appropriate names.</p>
    *
    * @param username the Isacrodi username
-   * @param cropScientificname the crop's scientific name
+   * @param cropScientificname the crop's scientific name, may be {@code null} or {@code ""} to leave crop unspecified
    * @param descriptorSet set of descriptors (may be {@code null})
    * @param expertDiagnosisName the scientific name of the disorder diagnosed by an expert (may be {@code null})
    */

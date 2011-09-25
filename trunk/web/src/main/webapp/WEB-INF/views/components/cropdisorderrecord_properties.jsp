@@ -2,8 +2,13 @@
 
 <p class="todonote">Should link to a dedicated crop jsp based view.</p>
 
-<p>Affected crop: <s:push value="%{crop}"><%@include file="links/croplink.jsp" %></s:push></p>
-
+<p>Affected crop:
+<s:if test="%{crop}">
+<s:push value="%{crop}"><%@include file="links/croplink.jsp" %></s:push></p>
+</s:if>
+<s:else>
+(unspecified)
+</s:else>
 <p class="todonote">CDRs should perhaps have a name.</p>
 
 <p>Description</p>

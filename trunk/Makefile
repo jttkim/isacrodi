@@ -17,6 +17,9 @@ package :
 	mvn $(MAVEN_OPTS) clean
 	mvn $(MAVEN_OPTS) package
 
+presentation : package assemble_presentation.sh
+	./assemble_presentation.sh
+
 test :
 	mvn $(MAVEN_OPTS) clean
 	mvn $(MAVEN_OPTS) test
@@ -48,5 +51,5 @@ clean :
 	$(MAKE) -C pack clean
 	rm -f $(PRODUCTIONTGZ) isacrodi_trunk.tgz
 
-.PHONY : package deploy undeploy tgz doc clean prod
+.PHONY : package deploy undeploy tgz doc clean prod presentation
 

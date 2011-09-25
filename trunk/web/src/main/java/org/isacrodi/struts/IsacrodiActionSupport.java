@@ -3,6 +3,7 @@ package org.isacrodi.struts;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 
 import javax.naming.NamingException;
 import javax.naming.InitialContext;
@@ -11,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.util.ServletContextAware;
 
 import org.javamisc.jee.entitycrud.EntityAccess;
 
@@ -27,13 +29,14 @@ import org.isacrodi.ejb.entity.*;
  * <p>This class also is to provide mechanics for user identification
  * (not yet implemented).</p>
  */
-public abstract class IsacrodiActionSupport extends ActionSupport implements SessionAware, ServletRequestAware
+public abstract class IsacrodiActionSupport extends ActionSupport implements SessionAware, ServletRequestAware, ServletContextAware
 {
   public static final String ISACRODIUSER_SESSIONKEY = "isacrodiUser";
 
   // session bean members go here
   protected Map<String, Object> sessionMap;
   protected HttpServletRequest servletRequest;
+  protected ServletContext servletContext;
   protected IsacrodiUser isacrodiUser;
   protected UserHandler userHandler;
   protected Access access;
@@ -75,9 +78,36 @@ public abstract class IsacrodiActionSupport extends ActionSupport implements Ses
   }
 
 
+  public void setServletContext(ServletContext servletContext)
+  {
+    this.servletContext = servletContext;
+  }
+
+
+  public ServletContext getServletContext()
+  {
+    return (this.servletContext);
+  }
+
+
   public IsacrodiUser getIsacrodiUser()
   {
     return (this.isacrodiUser);
+  }
+
+
+  public String getInstallationType()
+  {
+    String installationType = "unconfigured";
+    if (this.servletContext != null)
+    {
+      installationType = this.servletContext.getInitParameter("installationType");
+      if (installationType == null)
+      {
+	installationType = "xunconfigured";
+      }
+    }
+    return (installationType);
   }
 
 
