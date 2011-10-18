@@ -106,14 +106,6 @@ public class Recommendation implements IsacrodiEntity
   }
 
 
-  @Deprecated
-  public void addProcedureScore(ProcedureScore procedureScore)
-  {
-    this.procedureScoreSet.add(procedureScore);
-    procedureScore.setRecommendation(this);
-  }
-
-
   public void linkProcedureScore(ProcedureScore procedureScore)
   {
     this.procedureScoreSet.add(procedureScore);

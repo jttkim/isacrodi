@@ -38,14 +38,6 @@ public class ImageType extends DescriptorType
   }
 
 
-  @Deprecated
-  public void addImageDescriptor(ImageDescriptor imageDescriptor)
-  {
-    this.descriptorSet.add(imageDescriptor);
-    imageDescriptor.setDescriptorType(this);
-  }
-
-
   public void unlink()
   {
     super.unlink();
@@ -65,5 +57,5 @@ public class ImageType extends DescriptorType
     s += String.format("  description: %s\n", x);
     s += "}\n";
     return (s);
-  }  
+  }
 }

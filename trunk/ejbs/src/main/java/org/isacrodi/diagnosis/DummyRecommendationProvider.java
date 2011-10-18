@@ -32,7 +32,7 @@ public class DummyRecommendationProvider implements RecommendationProvider
 	ps.setRecommendation(recommendation);
 	ps.setProcedure(p);
 	ps.setScore(0.2);
-	recommendation.addProcedureScore(ps);
+	recommendation.linkProcedureScore(ps);
       }
     }
     return (recommendation);

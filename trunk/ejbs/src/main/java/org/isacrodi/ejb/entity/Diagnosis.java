@@ -117,14 +117,6 @@ public class Diagnosis implements IsacrodiEntity
   }
 
 
-  @Deprecated
-  public void addDisorderScore(DisorderScore disorderScore)
-  {
-    this.disorderScoreSet.add(disorderScore);
-    disorderScore.setDiagnosis(this);
-  }
-
-
   public void linkDisorderScore(DisorderScore disorderScore)
   {
     this.disorderScoreSet.add(disorderScore);

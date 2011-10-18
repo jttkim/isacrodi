@@ -121,14 +121,6 @@ public class CategoricalTypeValue implements IsacrodiEntity
   }
 
 
-  @Deprecated
-  public void addCategoricalDescriptor(CategoricalDescriptor categoricalDescriptor)
-  {
-    this.categoricalDescriptorSet.add(categoricalDescriptor);
-    categoricalDescriptor.getCategoricalTypeValueSet().add(this);
-  }
-
-
   public void linkCategoricalDescriptor(CategoricalDescriptor categoricalDescriptor)
   {
     this.categoricalDescriptorSet.add(categoricalDescriptor);

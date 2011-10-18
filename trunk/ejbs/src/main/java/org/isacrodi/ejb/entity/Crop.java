@@ -154,14 +154,6 @@ public class Crop implements IsacrodiEntity
   }
 
 
-  @Deprecated
-  public void addCropDisorder(CropDisorder cropDisorder)
-  {
-    this.cropDisorderSet.add(cropDisorder);
-    cropDisorder.getCropSet().add(this);
-  }
-
-
   public void linkCropDisorder(CropDisorder cropDisorder)
   {
     this.cropDisorderSet.add(cropDisorder);
