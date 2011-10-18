@@ -89,31 +89,31 @@ public class DiagnosisTest
     CropDisorder cdTom1 = new CropDisorder("anthracnose", "Colletotrichum coccodes");
     cdTom1.setId(1);
     cdTom1.setCropSet(new java.util.HashSet<Crop>());
-    cdTom1.addCrop(this.tomato);
+    cdTom1.linkCrop(this.tomato);
     cdTom1.setProcedureSet(new java.util.HashSet<Procedure>());
-    cdTom1.addProcedure(proc1);
-    cdTom1.addProcedure(proc2);
+    cdTom1.linkProcedure(proc1);
+    cdTom1.linkProcedure(proc2);
 
     CropDisorder cdTom2 = new CropDisorder("anthracmouth", "Colletotrichum mouth");
     cdTom2.setId(2);
     cdTom2.setCropSet(new java.util.HashSet<Crop>());
-    cdTom2.addCrop(this.tomato);
+    cdTom2.linkCrop(this.tomato);
     cdTom2.setProcedureSet(new java.util.HashSet<Procedure>());
-    cdTom2.addProcedure(proc1);
+    cdTom2.linkProcedure(proc1);
 
     CropDisorder cdTom3 = new CropDisorder("anthraclips", "Colletotrichum lips");
     cdTom3.setId(3);
     cdTom3.setCropSet(new java.util.HashSet<Crop>());
-    cdTom3.addCrop(this.tomato);
+    cdTom3.linkCrop(this.tomato);
     cdTom3.setProcedureSet(new java.util.HashSet<Procedure>());
-    cdTom3.addProcedure(proc1);
-    cdTom3.addProcedure(proc2);
-    cdTom3.addProcedure(proc5);
+    cdTom3.linkProcedure(proc1);
+    cdTom3.linkProcedure(proc2);
+    cdTom3.linkProcedure(proc5);
 
     this.tomato.setCropDisorderSet(new java.util.HashSet<CropDisorder>());
-    this.tomato.addCropDisorder(cdTom1);
-    this.tomato.addCropDisorder(cdTom2);
-    this.tomato.addCropDisorder(cdTom3);
+    this.tomato.linkCropDisorder(cdTom1);
+    this.tomato.linkCropDisorder(cdTom2);
+    this.tomato.linkCropDisorder(cdTom3);
 
     // Add second crop
     this.aubergine = new Crop("Aubergine", "Solanum melongena");
@@ -123,21 +123,21 @@ public class DiagnosisTest
     CropDisorder cdAub1 = new CropDisorder("Bacterial wilt", "Ralstonia (Pseudomonas) solanacearum");
     cdAub1.setId(4);
     cdAub1.setCropSet(new java.util.HashSet<Crop>());
-    cdAub1.addCrop(this.aubergine);
+    cdAub1.linkCrop(this.aubergine);
     cdAub1.setProcedureSet(new java.util.HashSet<Procedure>());
-    cdAub1.addProcedure(proc4);
+    cdAub1.linkProcedure(proc4);
 
     CropDisorder cdAub2 = new CropDisorder("Verticillium Wilt", "Verticillium sp");
     cdAub2.setId(5);
     cdAub2.setCropSet(new java.util.HashSet<Crop>());
-    cdAub2.addCrop(this.aubergine);
+    cdAub2.linkCrop(this.aubergine);
     cdAub2.setProcedureSet(new java.util.HashSet<Procedure>());
-    cdAub2.addProcedure(proc1);
-    cdAub2.addProcedure(proc5);
+    cdAub2.linkProcedure(proc1);
+    cdAub2.linkProcedure(proc5);
 
     this.aubergine.setCropDisorderSet(new java.util.HashSet<CropDisorder>());
-    this.aubergine.addCropDisorder(cdAub1);
-    this.aubergine.addCropDisorder(cdAub2);
+    this.aubergine.linkCropDisorder(cdAub1);
+    this.aubergine.linkCropDisorder(cdAub2);
 
     // Create crop set
     this.cropSet = new HashSet<Crop>();
@@ -159,9 +159,9 @@ public class DiagnosisTest
     this.emptyCDR.setId(new Integer(2));
     this.cropDisorderRecord.setCrop(this.aubergine);
     this.cropDisorderRecord.setDescriptorSet(new java.util.HashSet<Descriptor>());
-    this.cropDisorderRecord.addDescriptor(this.numericDescriptor);
-    this.cropDisorderRecord.addDescriptor(this.categoricalDescriptor);
-    this.cropDisorderRecord.addDescriptor(this.imageDescriptor);
+    this.cropDisorderRecord.linkDescriptor(this.numericDescriptor);
+    this.cropDisorderRecord.linkDescriptor(this.categoricalDescriptor);
+    this.cropDisorderRecord.linkDescriptor(this.imageDescriptor);
   }
 
 
@@ -214,7 +214,7 @@ public class DiagnosisTest
         DisorderScore ds = new DisorderScore();
         ds.setDiagnosis(this.diagnosis);
 	ds.setCropDisorder(cd);
-        this.diagnosis.addDisorderScore(ds);
+        this.diagnosis.linkDisorderScore(ds);
       }
     }
 
@@ -308,7 +308,7 @@ public class DiagnosisTest
         DisorderScore ds = new DisorderScore();
         ds.setDiagnosis(this.diagnosis);
 	ds.setCropDisorder(cd);
-        this.diagnosis.addDisorderScore(ds);
+        this.diagnosis.linkDisorderScore(ds);
       }
     }
 
@@ -465,7 +465,7 @@ public class DiagnosisTest
     for (CropDisorderRecord cdr : cdrSet)
     {
       Diagnosis diagnosis = sdp.diagnose(cdr, cropDisorderSet);
-      // dumpDisorderScoreSet(diagnosis.getDisorderScoreSet());	
+      // dumpDisorderScoreSet(diagnosis.getDisorderScoreSet());
       String sn = diagnosis.highestDisorderScore().getCropDisorder().getScientificName();
       Assert.assertEquals(cdr.getDescription(), sn);
     }
@@ -476,7 +476,7 @@ public class DiagnosisTest
     for (CropDisorderRecord cdr : cdrSet)
     {
       Diagnosis diagnosis = sdp.diagnose(cdr, cropDisorderSet);
-      // dumpDisorderScoreSet(diagnosis.getDisorderScoreSet());	
+      // dumpDisorderScoreSet(diagnosis.getDisorderScoreSet());
       String sn = diagnosis.highestDisorderScore().getCropDisorder().getScientificName();
       Assert.assertEquals(cdr.getDescription(), sn);
     }

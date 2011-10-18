@@ -117,7 +117,7 @@ public class SimpleRecommendationProvider implements RecommendationProvider
     recommendation.linkCropDisorderRecord(diagnosis.getCropDisorderRecord());
     for (ProcedureScore procedureScore : procedureScoreSet)
     {
-      recommendation.addProcedureScore(procedureScore);
+      recommendation.linkProcedureScore(procedureScore);
     }
     return (recommendation);
   }

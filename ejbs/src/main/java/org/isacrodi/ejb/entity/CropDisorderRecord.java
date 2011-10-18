@@ -118,14 +118,6 @@ public class CropDisorderRecord implements IsacrodiEntity
   }
 
 
-  @Deprecated
-  public void addDescriptor(Descriptor descriptor)
-  {
-    this.descriptorSet.add(descriptor);
-    descriptor.setCropDisorderRecord(this);
-  }
-
-
   public void linkDescriptor(Descriptor descriptor)
   {
     this.descriptorSet.add(descriptor);

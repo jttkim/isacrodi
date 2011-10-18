@@ -80,7 +80,7 @@ public class AccessBean implements Access
       query.setParameter("s", cropScientificName);
       // will throw a NoResultException if crop not found, so we can plough ahead
       Crop crop = (Crop) query.getSingleResult();
-      cropDisorder.addCrop(crop);
+      cropDisorder.linkCrop(crop);
     }
   }
 

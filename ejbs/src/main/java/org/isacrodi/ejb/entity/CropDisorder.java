@@ -134,14 +134,6 @@ public class CropDisorder implements IsacrodiEntity
   }
 
 
-  @Deprecated
-  public void addCrop(Crop crop)
-  {
-    this.cropSet.add(crop);
-    crop.getCropDisorderSet().add(this);
-  }
-
-
   public void linkCrop(Crop crop)
   {
     this.cropSet.add(crop);
@@ -173,14 +165,6 @@ public class CropDisorder implements IsacrodiEntity
   }
 
 
-  @Deprecated
-  public void addDisorderScore(DisorderScore disorderScore)
-  {
-    this.disorderScoreSet.add(disorderScore);
-    disorderScore.setCropDisorder(this);
-  }
-
-
   public void linkDisorderScore(DisorderScore disorderScore)
   {
     this.disorderScoreSet.add(disorderScore);
@@ -209,14 +193,6 @@ public class CropDisorder implements IsacrodiEntity
   public void setProcedureSet(Set<Procedure> procedureSet)
   {
     this.procedureSet = procedureSet;
-  }
-
-
-  @Deprecated
-  public void addProcedure(Procedure procedure)
-  {
-    this.procedureSet.add(procedure);
-    procedure.getCropDisorderSet().add(this);
   }
 
 

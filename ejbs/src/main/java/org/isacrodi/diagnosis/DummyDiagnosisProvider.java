@@ -61,11 +61,11 @@ public class DummyDiagnosisProvider implements DiagnosisProvider
       }
       else
       {
-	ds.setScore(0.0); 
+	ds.setScore(0.0);
       }
       ds.setDiagnosis(d);
       ds.setCropDisorder(disorder);
-      d.addDisorderScore(ds);
+      d.linkDisorderScore(ds);
     }
     return (d);
   }
