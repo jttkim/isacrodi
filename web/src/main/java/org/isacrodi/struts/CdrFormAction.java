@@ -359,6 +359,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
+  // FIXME: try not using findCategoricalTypeValueList...
   public List<CategoricalTypeValue> getIrrigationsystemValueList()
   {
     List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("irrigationsystem");
@@ -462,7 +463,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
     List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("leafsymptom");
     return(categoricalTypeValueList);
   }
- 
+
   public List<CategoricalTypeValue> getSeedlingsymptomValueList()
   {
     List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("seedlingsymptom");
@@ -856,8 +857,8 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   public void setLesionshape(String lesionshape)
   {
     this.lesionshape = lesionshape;
-  } 
-  
+  }
+
    public String getLesionappearance()
   {
     return (this.lesionappearance);
@@ -902,7 +903,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   public void setSteminternal(String[] steminternal)
   {
     this.steminternal = nonEmptyStrings(steminternal);
-  } 
+  }
 
 
   public String getDrainage()
