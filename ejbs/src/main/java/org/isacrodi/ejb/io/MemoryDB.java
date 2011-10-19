@@ -440,6 +440,7 @@ public class MemoryDB implements Access, UserHandler
   }
 
 
+  @Deprecated
   public List<CategoricalTypeValue> findCategoricalTypeValueList(String typename)
   {
     CategoricalType categoricalType = this.findCategoricalType(typename);
