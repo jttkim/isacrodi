@@ -359,7 +359,7 @@ public class CdrFormAction extends CropDisorderRecordActionSupport implements Mo
   }
 
 
-  // FIXME: try not using findCategoricalTypeValueList...
+  // FIXME: try not using findCategoricalTypeValueList, as that's deprecated now...
   public List<CategoricalTypeValue> getIrrigationsystemValueList()
   {
     List<CategoricalTypeValue> categoricalTypeValueList = this.access.findCategoricalTypeValueList("irrigationsystem");
