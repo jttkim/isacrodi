@@ -1,4 +1,4 @@
-<project>  
+<project>
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -11,6 +11,27 @@
   <packaging>jar</packaging>
   <name>isacrodi-import</name>
 
+  <dependencyManagement>
+    <dependencies>
+      <!-- from AS7 ejb-remote example -->
+      <!-- Define the version of JBoss' Java EE 6 APIs we want to use -->
+      <!-- JBoss distributes a complete set of Java EE 6 APIs including
+	   a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+	   a collection) of artifacts. We use this here so that we always get the correct
+	   versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
+	   read this as the JBoss stack of the Java EE 6 APIs). You can actually
+	   use this stack with any version of JBoss AS that implements Java EE 6, not
+	   just JBoss AS 7! -->
+      <dependency>
+	<groupId>org.jboss.spec</groupId>
+	<artifactId>jboss-javaee-6.0</artifactId>
+	<version>3.0.0.Beta1</version>
+	<type>pom</type>
+	<scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>isacrodi-proj</groupId>
@@ -18,51 +39,145 @@
       <version>${isacrodiVersion}</version>
       <type>ejb</type>
     </dependency>
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.ejb</groupId>
+      <artifactId>ejb</artifactId>
+    </dependency>
+
+    <!-- dependencies from AS7 ejb-remote example -->
+    <!-- Import the transaction spec API, we use runtime scope because we aren't using any direct
+	 reference to the spec API in our client code -->
+    <dependency>
+      <groupId>org.jboss.spec.javax.transaction</groupId>
+      <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Import the EJB 3.1 API, we use runtime scope because we aren't using any direct
+	 reference to EJB spec API in our client code -->
+    <dependency>
+      <groupId>org.jboss.spec.javax.ejb</groupId>
+      <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- JBoss EJB client API jar. We use runtime scope because the EJB client API
+	 isn't directly used in this example. We just need it in our runtime classpath -->
+    <dependency>
+      <groupId>org.jboss</groupId>
+      <artifactId>jboss-ejb-client</artifactId>
+      <version>1.0.1.Final</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- client communications with the server use XNIO -->
+    <dependency>
+      <groupId>org.jboss.xnio</groupId>
+      <artifactId>xnio-api</artifactId>
+      <version>3.0.0.GA</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.xnio</groupId>
+      <artifactId>xnio-nio</artifactId>
+      <version>3.0.0.GA</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- The client needs JBoss remoting to access the server -->
+    <dependency>
+      <groupId>org.jboss.remoting3</groupId>
+      <artifactId>jboss-remoting</artifactId>
+      <version>3.2.0.CR9</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Remote EJB accesses can be secured -->
+    <dependency>
+      <groupId>org.jboss.sasl</groupId>
+      <artifactId>jboss-sasl</artifactId>
+      <version>1.0.0.Final</version>
+    </dependency>
+
+    <!-- data serialization for invoking remote EJBs -->
+    <dependency>
+      <groupId>org.jboss.marshalling</groupId>
+      <artifactId>jboss-marshalling-river</artifactId>
+      <version>1.3.7.GA</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- end of dependencies from ejb-remote -->
+
+    <!-- persistence is actually provided by hibernate, so we depend on that during runtime -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>4.0.1.Final</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- from JBoss AS7 bin/client/README -->
+    <!-- dependency>
+	 <groupId>org.jboss.as</groupId>
+	 <artifactId>jboss-as-ejb-client-bom</artifactId>
+	 <type>pom</type>
+	 </dependency>
+	 <dependency>
+	 <groupId>org.jboss.as</groupId>
+	 <artifactId>jboss-as-jms-client-bom</artifactId>
+	 <type>pom</type>
+	 </dependency -->
     <!-- jtk: system dependencies don't seem to make it to the classpath...?? -->
     <!-- jboss dependencies, can't manage them in the top-level pom.xml -->
     <!-- FIXME: not very portable / maven-like to use system paths like this -->
-    <dependency>
-      <groupId>jboss-stuff</groupId>
-      <artifactId>jnpserver</artifactId>
-      <version>5.1</version>
-      <scope>system</scope>
-      <systemPath>${jbosshome}/common/lib/jnpserver.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>jboss-stuff</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>5.1</version>
-      <scope>system</scope>
-      <systemPath>${jbosshome}/common/lib/hibernate-core.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>jboss-stuff</groupId>
-      <artifactId>jbosssx-client</artifactId>
-      <version>5.1</version>
-      <scope>system</scope>
-      <systemPath>${jbosshome}/client/jbosssx-client.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>jboss-stuff</groupId>
-      <artifactId>jboss-security-spi</artifactId>
-      <version>5.1</version>
-      <scope>system</scope>
-      <systemPath>${jbosshome}/client/jboss-security-spi.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>jboss-stuff</groupId>
-      <artifactId>jbossall-client</artifactId>
-      <version>5.1</version>
-      <scope>system</scope>
-      <systemPath>${jbosshome}/client/jbossall-client.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>jboss-stuff</groupId>
-      <artifactId>jboss-logging-spi.jar</artifactId>
-      <version>5.1</version>
-      <scope>system</scope>
-      <systemPath>${jbosshome}/client/jboss-logging-spi.jar</systemPath>
-    </dependency>
+    <!-- dependency>
+	 <groupId>jboss-stuff</groupId>
+	 <artifactId>jnpserver</artifactId>
+	 <version>5.1</version>
+	 <scope>system</scope>
+	 <systemPath>${jbosshome}/common/lib/jnpserver.jar</systemPath>
+	 </dependency>
+	 <dependency>
+	 <groupId>jboss-stuff</groupId>
+	 <artifactId>hibernate-core</artifactId>
+	 <version>5.1</version>
+	 <scope>system</scope>
+	 <systemPath>${jbosshome}/common/lib/hibernate-core.jar</systemPath>
+	 </dependency>
+	 <dependency>
+	 <groupId>jboss-stuff</groupId>
+	 <artifactId>jbosssx-client</artifactId>
+	 <version>5.1</version>
+	 <scope>system</scope>
+	 <systemPath>${jbosshome}/client/jbosssx-client.jar</systemPath>
+	 </dependency>
+	 <dependency>
+	 <groupId>jboss-stuff</groupId>
+	 <artifactId>jboss-security-spi</artifactId>
+	 <version>5.1</version>
+	 <scope>system</scope>
+	 <systemPath>${jbosshome}/client/jboss-security-spi.jar</systemPath>
+	 </dependency>
+	 <dependency>
+	 <groupId>jboss-stuff</groupId>
+	 <artifactId>jbossall-client</artifactId>
+	 <version>5.1</version>
+	 <scope>system</scope>
+	 <systemPath>${jbosshome}/client/jbossall-client.jar</systemPath>
+	 </dependency>
+	 <dependency>
+	 <groupId>jboss-stuff</groupId>
+	 <artifactId>jboss-logging-spi.jar</artifactId>
+	 <version>5.1</version>
+	 <scope>system</scope>
+	 <systemPath>${jbosshome}/client/jboss-logging-spi.jar</systemPath>
+	 </dependency -->
     <dependency>
       <groupId>javamisc</groupId>
       <artifactId>javamisc</artifactId>
@@ -85,18 +200,18 @@
 	    </goals>
 	    <configuration>
 	      <!-- artifactSet>
-	        <includes>
-		  <include>jboss-stuff:*</include>
-		  <include>javamisc:*</include>
-		</includes>
-	      </artifactSet -->
+		   <includes>
+		   <include>jboss-stuff:*</include>
+		   <include>javamisc:*</include>
+		   </includes>
+		   </artifactSet -->
 	      <transformers>
 	        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 		  <mainClass>org.isacrodi.dataimport.Main</mainClass>
-		  <manifestEntries>
-		    <!-- FIXME: quite unsatisfactory having to feed jars into the classpath like this - can't these be pulled from the system dependencies...??  -->
+		  <!-- manifestEntries>
+		    <FIXME: quite unsatisfactory having to feed jars into the classpath like this - can't these be pulled from the system dependencies...??>
 		    <Class-Path>${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/common/lib/hibernate-core.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
-		  </manifestEntries>
+		  </manifestEntries -->
 	        </transformer>
 	      </transformers>
 	    </configuration>
@@ -104,20 +219,20 @@
         </executions>
       </plugin>
       <!-- plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-jar-plugin</artifactId>
-	<configuration>
-	  <archive>
-	    <manifestEntries>
-	      <Class-Path>${project.parent.basedir}/util/target/isacrodi-util.jar ${project.parent.basedir}/ejbs/target/isacrodi-ejb.jar ${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/common/lib/hibernate-core.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
-	      <Main-Class>org.isacrodi.dataimport.Main</Main-Class>
-	    </manifestEntries>
-	    <!- manifest>
-              <addClasspath>true</addClasspath>
-	    </manifest ->
-	  </archive>
-	</configuration>
-      </plugin -->
+	   <groupId>org.apache.maven.plugins</groupId>
+	   <artifactId>maven-jar-plugin</artifactId>
+	   <configuration>
+	   <archive>
+	   <manifestEntries>
+	   <Class-Path>${project.parent.basedir}/util/target/isacrodi-util.jar ${project.parent.basedir}/ejbs/target/isacrodi-ejb.jar ${jbosshome}/common/lib/jnpserver.jar ${jbosshome}/common/lib/hibernate-core.jar ${jbosshome}/client/jbosssx-client.jar ${jbosshome}/client/jboss-security-spi.jar ${jbosshome}/client/jbossall-client.jar</Class-Path>
+	   <Main-Class>org.isacrodi.dataimport.Main</Main-Class>
+	   </manifestEntries>
+	   <!- manifest>
+	   <addClasspath>true</addClasspath>
+	   </manifest ->
+	   </archive>
+	   </configuration>
+	   </plugin -->
     </plugins>
   </build>
 

@@ -38,9 +38,9 @@
 	  <generateClient>true</generateClient>
 	</configuration>
       </plugin>
-    </plugins>    
-  </build> 
-  <dependencies> 
+    </plugins>
+  </build>
+  <dependencies>
     <dependency>
       <groupId>isacrodi-proj</groupId>
       <artifactId>util</artifactId>
@@ -49,6 +49,7 @@
       <groupId>javax.ejb</groupId>
       <artifactId>ejb</artifactId>
     </dependency>
+    <!-- FIXME: is this really needed? EJBs shouldn't depend on JSP or other web tier stuff -->
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
@@ -73,6 +74,6 @@
       <groupId>javamisc</groupId>
       <artifactId>javamisc</artifactId>
     </dependency>
-  </dependencies> 
+  </dependencies>
 </project>
 

@@ -21,12 +21,16 @@ import java.util.Collections;
 import javax.naming.NamingException;
 import javax.naming.InitialContext;
 
-import org.isacrodi.ejb.session.CropDisorderRecordManager;
-import org.isacrodi.ejb.session.Access;
-import org.isacrodi.ejb.session.Kludge;
-import org.javamisc.jee.entitycrud.EntityAccess;
+import org.isacrodi.util.EjbSupport;
 
+import org.isacrodi.ejb.session.CropDisorderRecordManager;
+import org.isacrodi.ejb.session.CropDisorderRecordManagerBean;
 import org.isacrodi.ejb.session.Access;
+import org.isacrodi.ejb.session.AccessBean;
+import org.isacrodi.ejb.session.Kludge;
+import org.isacrodi.ejb.session.KludgeBean;
+import org.javamisc.jee.entitycrud.EntityAccess;
+import org.isacrodi.ejb.session.EntityAccessBean;
 
 import org.isacrodi.ejb.io.Import;
 import org.isacrodi.ejb.io.MemoryDB;
@@ -157,7 +161,7 @@ public class Main
   private static void diagnosischeck() throws NamingException
   {
     InitialContext context = new InitialContext();
-    CropDisorderRecordManager cropDisorderRecordManager = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
+    CropDisorderRecordManager cropDisorderRecordManager = (CropDisorderRecordManager) context.lookup(EjbSupport.sessionJndiName(CropDisorderRecordManagerBean.class, CropDisorderRecordManager.class));
     for (CropDisorderRecord cropDisorderRecord : cropDisorderRecordManager.findExpertDiagnosedCropDisorderRecordList())
     {
       cropDisorderRecordManager.requestDiagnosis(cropDisorderRecord.getId());
@@ -184,8 +188,8 @@ public class Main
   private static void trainDiagnosisProviderFromDatabase() throws IOException, NamingException
   {
     InitialContext context = new InitialContext();
-    CropDisorderRecordManager cropDisorderRecordManager = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
-    Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
+    CropDisorderRecordManager cropDisorderRecordManager = (CropDisorderRecordManager) context.lookup(EjbSupport.sessionJndiName(CropDisorderRecordManagerBean.class, CropDisorderRecordManager.class));
+    Kludge kludge = (Kludge) context.lookup(EjbSupport.sessionJndiName(KludgeBean.class, Kludge.class));
     SVMDiagnosisProvider svmDiagnosisProvider = new SVMDiagnosisProvider();
     svmDiagnosisProvider.train(cropDisorderRecordManager.findExpertDiagnosedCropDisorderRecordList());
     kludge.storeDiagnosisProvider(svmDiagnosisProvider);
@@ -195,7 +199,7 @@ public class Main
   private static void dumpEntities(String basename) throws NamingException, IOException
   {
     InitialContext context = new InitialContext();
-    Access access = (Access) context.lookup("isacrodi/AccessBean/remote");
+    Access access = (Access) context.lookup(EjbSupport.sessionJndiName(AccessBean.class, Access.class));
     access.dumpEntities(basename);
   }
 
@@ -458,7 +462,7 @@ public class Main
   private static void importDiagnosisProvider(String diagnosisProviderFileName) throws NamingException, IOException, ClassNotFoundException
   {
     InitialContext context = new InitialContext();
-    Kludge kludge = (Kludge) context.lookup("isacrodi/KludgeBean/remote");
+    Kludge kludge = (Kludge) context.lookup(EjbSupport.sessionJndiName(KludgeBean.class, Kludge.class));
     DiagnosisProvider diagnosisProvider = readDiagnosisProvider(diagnosisProviderFileName);
     kludge.storeDiagnosisProvider(diagnosisProvider);
   }

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.javamisc.jee.entitycrud.CrudAction;
 import org.javamisc.jee.entitycrud.EntityAccess;
 
+import org.isacrodi.util.EjbSupport;
+
 import org.isacrodi.ejb.session.*;
 import org.isacrodi.ejb.entity.*;
 
@@ -38,7 +40,7 @@ public class IsacrodiCrudAction extends CrudAction
   private static EntityAccess lookupAccess() throws NamingException
   {
     InitialContext context = new InitialContext();
-    EntityAccess entityAccess = (EntityAccess) context.lookup("isacrodi/EntityAccessBean/remote");
+    EntityAccess entityAccess = (EntityAccess) context.lookup(EjbSupport.sessionJndiName(EntityAccessBean.class, EntityAccess.class));
     return (entityAccess);
   }
 
