@@ -1,6 +1,6 @@
 #!/bin/sh
 
-function do_run ()
+do_run ()
 {
   echo $*
   if $* ; then

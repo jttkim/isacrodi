@@ -16,6 +16,8 @@ import org.apache.struts2.util.ServletContextAware;
 
 import org.javamisc.jee.entitycrud.EntityAccess;
 
+import org.isacrodi.util.EjbSupport;
+
 import org.isacrodi.ejb.session.*;
 import org.isacrodi.ejb.entity.*;
 
@@ -46,9 +48,9 @@ public abstract class IsacrodiActionSupport extends ActionSupport implements Ses
   public IsacrodiActionSupport() throws NamingException
   {
     InitialContext context = new InitialContext();
-    this.userHandler = (UserHandler) context.lookup("isacrodi/UserHandlerBean/remote");
-    this.access = (Access) context.lookup("isacrodi/AccessBean/remote");
-    this.entityAccess = (EntityAccess) context.lookup("isacrodi/EntityAccessBean/remote");
+    this.userHandler = (UserHandler) context.lookup(EjbSupport.sessionJndiName(UserHandlerBean.class, UserHandler.class));
+    this.access = (Access) context.lookup(EjbSupport.sessionJndiName(AccessBean.class, Access.class));
+    this.entityAccess = (EntityAccess) context.lookup(EjbSupport.sessionJndiName(EntityAccessBean.class, EntityAccess.class));
   }
 
 

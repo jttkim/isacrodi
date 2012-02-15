@@ -11,9 +11,12 @@ import javax.naming.NamingException;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
+import org.isacrodi.util.EjbSupport;
+
 import org.isacrodi.ejb.entity.*;
 
 import org.isacrodi.ejb.session.CropDisorderRecordManager;
+import org.isacrodi.ejb.session.CropDisorderRecordManagerBean;
 
 import static org.javamisc.Util.genericTypecast;
 
@@ -29,7 +32,7 @@ public abstract class CropDisorderRecordActionSupport extends IsacrodiActionSupp
   {
     super();
     InitialContext context = new InitialContext();
-    this.cropDisorderRecordManager = (CropDisorderRecordManager) context.lookup("isacrodi/CropDisorderRecordManagerBean/remote");
+    this.cropDisorderRecordManager = (CropDisorderRecordManager) context.lookup(EjbSupport.sessionJndiName(CropDisorderRecordManagerBean.class, CropDisorderRecordManager.class));
   }
 
 
