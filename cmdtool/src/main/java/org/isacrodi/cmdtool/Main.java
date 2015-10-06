@@ -156,6 +156,7 @@ class SvmDiagnosisProviderTester
 }
 
 
+@SuppressWarnings("deprecation")
 public class Main
 {
   private static void diagnosischeck() throws NamingException

@@ -21,6 +21,7 @@ import org.javamisc.Util;
 import static org.javamisc.Util.genericTypecast;
 
 
+@SuppressWarnings("deprecation")
 public class CdrFormAction extends CropDisorderRecordActionSupport implements ModelDriven<CropDisorderRecord>, Preparable
 {
   private String cropScientificName;
